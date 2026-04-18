@@ -1,9 +1,9 @@
 function labels() {
 
-    lab.spawn('Label', {
+    lab.spawn('overlay/Label', {
         Z:   101,
         rx: .5,
-        ry: .05,
+        ry: .15,
         color: '#fa8620',
 
         evo: function(dt) {
@@ -15,3 +15,4 @@ function labels() {
     })
 
 }
+labels.Z = 11

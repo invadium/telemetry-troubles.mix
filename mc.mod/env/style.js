@@ -48,7 +48,7 @@ const style = {
 
         main: {
             family: 'pixel-operator-mono8',
-            size:   24,
+            size:   18,
         },
 
         title: {
