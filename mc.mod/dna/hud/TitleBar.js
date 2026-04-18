@@ -13,7 +13,7 @@ class TitleBar extends $.dna.hud.Container {
             },
 
             transparent: true,
-            showBorder:  false,
+            showBorder:  true,
         }, st) )
     }
 
@@ -24,27 +24,31 @@ class TitleBar extends $.dna.hud.Container {
             msg: 'Day: 0',
 
             adjustPos: function() {
-                const __ = this.__
+                const __ = this.__,
+                       W = __.w
 
-                this.x = .05 * __.w
+                this.x = .05 * W
                 this.y = __.style.padding
             },
         })
 
         this.spawn('TLabel', {
             name: 'burn',
+            font: env.style.font.header,
             color: '#fa8620',
+
             msg: 'Burn Rate: $100/day',
 
             adjustPos: function() {
                 const __  = this.__,
-                      day = __.day
+                      day = __.day,
+                      W   = __.w
 
                 // stick to the day label
                 // this.x = day.x + day.w + .05 * __.w
                 
                 // place in the middle
-                this.x = .5 * __.w - .5 * this.w
+                this.x = .5 * W - .5 * this.w
                 this.y = day.y
             },
         })
@@ -55,15 +59,14 @@ class TitleBar extends $.dna.hud.Container {
             msg: 'Balance: $1000',
 
             adjustPos: function() {
-                const __ = this.__,
-                      day = __.day
+                const __  = this.__,
+                      day = __.day,
+                      W   = __.w
 
-                this.x = .95 * __.w - this.w
+                this.x = .95 * W - this.w
                 this.y = day.y
             },
         })
-
-        this.adjust()
     }
 
     adjust() {
@@ -76,7 +79,7 @@ class TitleBar extends $.dna.hud.Container {
             if (ty > topY) topY = ty
         })
 
-        this.w = ctx.width
+        this.w = this.__.lw
         this.h = topY + style.padding
     }
 

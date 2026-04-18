@@ -4,10 +4,11 @@ function hud() {
         name: 'hud',
     })
 
-    hud.spawn('TitleBar', {
+    const missionPanel = hud.spawn('MissionPanel')
+
+    missionPanel.spawn('TitleBar', {
     })
 
     hud.adjust()
-    // hud.adjust() // ??? - need for proper label placement
 }
 hud.Z = 5
