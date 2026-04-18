@@ -6,7 +6,6 @@ class MissionPanel extends $.dna.hud.Container {
             name: 'missionPanel',
 
             transparent: true,
-            showBorder:  false,
         }, st) )
     }
 
@@ -21,15 +20,17 @@ class MissionPanel extends $.dna.hud.Container {
         this.h = h
         this.aspect = w / h
 
-        const s = w / targetWidth
+        const vpScale  = w / targetWidth,
+              vpWidth  = w / vpScale,
+              vpHeight = vpWidth / this.aspect
         this.viewport = {
-            x:     x,
-            y:     y,
-            w:     w / s,
-            h:     this.lw / this.aspect,
-            scale: s,
+            x:      x,
+            y:      y,
+            w:      vpWidth,
+            h:      vpHeight,
+            scale:  vpScale,
+            aspect: vpWidth / vpHeight,
         }
-        this.viewport.aspect = this.viewport.w / this.viewport.h
 
         super.adjust()
     }
@@ -65,10 +66,10 @@ class MissionPanel extends $.dna.hud.Container {
     drawForeground() {
         if (!this.showBorder) return
 
-        const { x, y, w, h } = this
+        const { w, h } = this.viewport
         lineWidth(4)
         stroke('#ff0000')
-        rect(x, y, w, h)
+        rect(0, 0, w, h)
     }
 
     draw() {

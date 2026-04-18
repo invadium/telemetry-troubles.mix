@@ -7,12 +7,16 @@ class TLabel {
 
             x:     0,
             y:     0,
+            w:     0,
+            h:     0,
             msg:  'Test Message ' + id,
 
             color:    '#ffffff',
             outline:  '#000000',
             lineWidth: 4,
             font:      env.style.font.main,
+
+            _centered: false,
         }, st)
     }
 

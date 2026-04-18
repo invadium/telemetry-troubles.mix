@@ -41,23 +41,19 @@ const style = {
             cellWidth:  8,
             cellHeight: 10,
         },
-        header: {
+        title: {
             family: 'pixel-operator-mono8',
             size:   14,
         },
         status: {
             family: 'pixel-operator-mono8',
-            size: 24,
+            size: 14,
         },
 
 
         main: {
             family: 'pixel-operator-mono8',
             size:   14,
-        },
-        title: {
-            family: 'moon',
-            size:   64,
         },
 
         menu: {

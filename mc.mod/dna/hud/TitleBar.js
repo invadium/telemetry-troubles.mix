@@ -13,17 +13,18 @@ class TitleBar extends $.dna.hud.Container {
             },
 
             transparent: true,
-            showBorder:  false,
-        }, st) )
+        }, dna.hud.trait.borderForeground, st) )
     }
 
     init() {
         this.spawn('TLabel', {
             name: 'day',
+            font: env.style.font.title,
             color: '#fa8620',
 
             msg: '',
             day: -1,
+            status:   'Today is the Day!', // TODO move to resources?
 
             adjustPos: function() {
                 const __ = this.__,
@@ -44,11 +45,12 @@ class TitleBar extends $.dna.hud.Container {
 
         this.spawn('TLabel', {
             name: 'burn',
-            font: env.style.font.header,
+            font: env.style.font.title,
             color: '#fa8620',
 
-            msg: 'Burn Rate: $100/day',
+            msg:      '',
             burnRate: -1,
+            status:   'Burn!', // TODO move to resources?
 
             adjustPos: function() {
                 const __  = this.__,
@@ -74,10 +76,12 @@ class TitleBar extends $.dna.hud.Container {
 
         this.spawn('TLabel', {
             name: 'balance',
+            font:  env.style.font.title,
             color: '#fa8620',
 
-            msg: 'Balance: $1000',
+            msg:      '',
             balance: -1,
+            status:   'Money!', // TODO move to resources?
 
             adjustPos: function() {
                 const __  = this.__,
@@ -117,16 +121,11 @@ class TitleBar extends $.dna.hud.Container {
         this.h = topY + style.padding
     }
 
-    drawForeground() {
-        if (!this.showBorder) return
-
-        const { x, y, w, h } = this
-        lineWidth(2)
-        stroke('#ff0000')
-        rect(x, y, w, h)
-    }
-
     draw() {
         super.draw()
+    }
+
+    pick(x, y, ls, opt) {
+        super.pick(x, y, ls, opt)
     }
 }

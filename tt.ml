@@ -2,8 +2,6 @@
 
 > core game design
 > UI layout
-> title bar with current stats
-> status bar with element hints
 > message board
 > probe dev kit
 > probe status screen
@@ -21,4 +19,11 @@
 > $ burn for passing days
 > mission over condition
 > mission stats screen
+
+## Collider
+> review picking, create troubleshooting section - _centered & w/h for _rectangular MUST be defined!
+
+
+V title bar with current stats
+V status bar with element hints
 
