@@ -1,5 +1,6 @@
 function labels() {
-
+    // TODO mission over/press any key hidden labels?
+    /*
     lab.spawn('overlay/Label', {
         Z:   101,
         rx: .5,
@@ -13,6 +14,6 @@ function labels() {
             this.msg = `shifts: ${v0} -- ${v1} -- ${v2}`
         }
     })
-
+    */
 }
 labels.Z = 11

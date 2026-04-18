@@ -21,41 +21,44 @@ class MissionPanel extends $.dna.hud.Container {
         this.h = h
         this.aspect = w / h
 
-        this.scale = w / targetWidth
-        this.lx = x
-        this.ly = y
-        this.lw = w / this.scale
-        this.lh = this.lw / this.aspect
-        this.laspect = this.lw / this.lh
+        const s = w / targetWidth
+        this.viewport = {
+            x:     x,
+            y:     y,
+            w:     w / s,
+            h:     this.lw / this.aspect,
+            scale: s,
+        }
+        this.viewport.aspect = this.viewport.w / this.viewport.h
 
         super.adjust()
     }
 
     lx(ux) {
-        return (ux - this.x) / this.scale
+        return (ux - this.x) / this.viewport.scale
     }
 
     ly(uy) {
-        return (uy - this.y) / this.scale
+        return (uy - this.y) / this.viewport.scale
     }
 
     lpos(upos) {
-        upos[0] = (upos[0] - this.x) / this.scale
-        upos[1] = (upos[1] - this.y) / this.scale
+        upos[0] = (upos[0] - this.x) / this.viewport.scale
+        upos[1] = (upos[1] - this.y) / this.viewport.scale
         return upos
     }
 
     ux(lx) {
-        return lx * this.scale + this.x
+        return lx * this.viewport.scale + this.x
     }
 
     uy(ly) {
-        return ly * this.scale + this.y
+        return ly * this.viewport.scale + this.y
     }
 
     upos(lpos) {
-        lpos[0] = lpos[0] * this.scale + this.x
-        lpos[1] = lpos[1] * this.scale + this.y
+        lpos[0] = lpos[0] * this.viewport.scale + this.x
+        lpos[1] = lpos[1] * this.viewport.scale + this.y
         return upos
     }
 
@@ -69,13 +72,19 @@ class MissionPanel extends $.dna.hud.Container {
     }
 
     draw() {
+        const { x, y, scale: s } = this.viewport
         this.__.adjust()
 
         save()
-        scale(this.scale, this.scale)
+        translate(x, y)
+        scale(s, s)
 
         super.draw()
 
         restore()
+    }
+
+    onMouseDown(x, y, b, e) {
+        super.onMouseDown(x, y, b, e)
     }
 }

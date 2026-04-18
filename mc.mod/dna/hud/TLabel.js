@@ -30,6 +30,7 @@ class TLabel {
     adjustPos() {}
 
     draw() {
+        if (this.sync) this.sync()
         const { x, y, msg, color, outline } = this
 
         baseTop()

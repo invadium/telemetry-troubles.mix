@@ -13,7 +13,7 @@ class TitleBar extends $.dna.hud.Container {
             },
 
             transparent: true,
-            showBorder:  true,
+            showBorder:  false,
         }, st) )
     }
 
@@ -21,7 +21,9 @@ class TitleBar extends $.dna.hud.Container {
         this.spawn('TLabel', {
             name: 'day',
             color: '#fa8620',
-            msg: 'Day: 0',
+
+            msg: '',
+            day: -1,
 
             adjustPos: function() {
                 const __ = this.__,
@@ -29,6 +31,14 @@ class TitleBar extends $.dna.hud.Container {
 
                 this.x = .05 * W
                 this.y = __.style.padding
+            },
+
+            sync: function() {
+                const nextDay = env.missionStatus.day
+                if (this.day !== nextDay) {
+                    this.day = nextDay
+                    this.msg = `${env.text.title.day}: ${nextDay}`
+                }
             },
         })
 
@@ -38,6 +48,7 @@ class TitleBar extends $.dna.hud.Container {
             color: '#fa8620',
 
             msg: 'Burn Rate: $100/day',
+            burnRate: -1,
 
             adjustPos: function() {
                 const __  = this.__,
@@ -51,12 +62,22 @@ class TitleBar extends $.dna.hud.Container {
                 this.x = .5 * W - .5 * this.w
                 this.y = day.y
             },
+
+            sync: function() {
+                const burnRate = env.missionStatus.burnRate
+                if (this.burnRate !== burnRate) {
+                    this.burnRate = burnRate
+                    this.msg = `${env.text.title.burnRate}: $${burnRate}/${env.text.title.burnRateUnit}`
+                }
+            },
         })
 
         this.spawn('TLabel', {
             name: 'balance',
             color: '#fa8620',
+
             msg: 'Balance: $1000',
+            balance: -1,
 
             adjustPos: function() {
                 const __  = this.__,
@@ -66,6 +87,19 @@ class TitleBar extends $.dna.hud.Container {
                 this.x = .95 * W - this.w
                 this.y = day.y
             },
+
+            sync: function() {
+                const balance = env.missionStatus.balance
+                if (this.balance !== balance) {
+                    this.balance = balance
+                    this.msg = `${env.text.title.balance}: $${balance}`
+                }
+            },
+            /*
+            onMouseDown(e) {
+                this.msg = '$ OK'
+            },
+            */
         })
     }
 
@@ -79,7 +113,7 @@ class TitleBar extends $.dna.hud.Container {
             if (ty > topY) topY = ty
         })
 
-        this.w = this.__.lw
+        this.w = this.__.viewport.w
         this.h = topY + style.padding
     }
 

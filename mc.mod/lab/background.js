@@ -1,4 +1,4 @@
-const Z = 0
+const Z = 10
 
 function draw() {
     const w = ctx.width,

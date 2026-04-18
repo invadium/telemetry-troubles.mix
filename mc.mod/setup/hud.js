@@ -1,6 +1,6 @@
 function hud() {
     const hud = lab.spawn($.dna.hud.Hud, {
-        Z:     11,
+        Z:     21,
         name: 'hud',
     })
 
