@@ -12,7 +12,7 @@ class Label {
             color:    '#ffffff',
             outline:  '#000000',
             lineWidth: 4,
-            font:     '48px pixel-operator',
+            font:     '32px pixel-operator',
         }, st)
     }
 

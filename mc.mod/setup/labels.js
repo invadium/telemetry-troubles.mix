@@ -2,7 +2,7 @@ function labels() {
 
     lab.spawn('Label', {
         Z:   101,
-        rx: .25,
+        rx: .5,
         ry: .05,
         color: '#fa8620',
 
