@@ -34,7 +34,7 @@ class TitleBar extends $.dna.hud.Container {
             },
 
             sync: function() {
-                this.msg = $.mission.getTimeString()
+                this.msg = `${env.text.title.day}: ${$.mission.getTimeString()}`
             },
         })
 

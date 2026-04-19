@@ -13,22 +13,27 @@ class Inbox extends Panel {
             imap: {
                 messages: [
                     {
-                        day:     10.1,
+                        read:     false,
+                        time:     1.1,
                         subject: 'One',
-                        body: 'some data here',
+                        body:    'some data here',
                     },
                     {
-                        day:     11.2,
+                        read:     false,
+                        time:     11.4,
                         subject: 'Two',
                         body: 'some data here as well',
                     },
                     {
-                        day:     21.2,
+                        read:     true,
+                        time:     271.9,
                         subject: 'Many',
                         body: 'no data',
                     },
                 ],
             },
+
+            stackPointer: 0,
         }) )
     }
 
@@ -65,17 +70,48 @@ class Inbox extends Panel {
 
     draw() {
         const txt = this.tx
-        const { x, y, w, h } = this
+        const { x, y, w, h, stackPointer } = this
+        // messages
+        const messages = this.imap.messages,
+              NMSG     = messages.length,
+              UNREAD   = messages.reduce((acc, cur) => cur.read? acc : acc + 1, 0)
 
         let by = y
 
         // === title ===
         this.hseparator(x, y, w, '=')
         // TODO figure how many unread and total
-        const title = `   ${env.text.email.inbox}(*2/10)   `
-        this.centerText(x + .5 * w, by, title)
+        const title = `   ${env.text.email.inbox}(*${UNREAD}/${NMSG})   `
+        this.centerText(title, x + .5 * w, by)
 
+        // precalc column dimensions
+        const x1 = 2,
+              w1 = 7,
+              x2 = x1 + 9,
+              w2 = w - w1 - 3
         // === column titles ===
+        by += 2
+        this.clipText('Day', x1, by, w1)
+        this.clipText('Subject', x2, by, w2)
+        txt.put(x1 + w1, by, '|')
+
+        // content separator
+        by++
+        this.hseparator(x1, by, w1 + w2 + 1)
+
+        // messages
+        by++
+        for (let i = NMSG - 1 - stackPointer; i >= 0 && by < h-1; i--, by++) {
+            const msg   = messages[i],
+                  stime = lib.time.toString(msg.time)
+
+            this.clipText(stime, x1, by, w1)
+            this.clipText(msg.subject, x2, by, w2)
+            txt.put(x1 + w1, by, '|')
+        }
+        if (by < h-1) {
+            this.hseparator(x1, by, w1 + w2 + 1)
+        }
 
         this.rect(x, y + 1, w, h - 1)
     }

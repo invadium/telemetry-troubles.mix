@@ -34,7 +34,7 @@ class Panel {
         }
     }
 
-    centerText(x, y, label) {
+    centerText(label, x, y) {
         const txt = this.tx,
               len = label.length,
               dx  = floor(.5 * len),
@@ -43,6 +43,18 @@ class Panel {
 
         for (let i = 0; i < len; i++) {
             txt.put(bx + i, y, label.charAt(i))
+        }
+    }
+
+    clipText(label, x, y, clipWidth) {
+        const txt = this.tx,
+              len = label.length,
+              LEN = min(len, clipWidth),
+              bx  = x | 0,
+              by  = y | 0
+
+        for (let i = 0; i < LEN; i++) {
+            txt.put(bx + i, by, label.charAt(i))
         }
     }
 

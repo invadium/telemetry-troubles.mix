@@ -1,7 +1,7 @@
 function start() {
     this.status = env.missionStatus = {
         timer:      0,
-        day:        0,
+        day:        1,
         timeFactor: 1 / env.tune.evoSpeed,
         burnRate:   env.tune.opt.burnRate,
         balance:    env.tune.opt.startBalance,
@@ -31,14 +31,14 @@ function evo(dt) {
 
     ms.timer += dt * ms.timeFactor
 
-    if (ms.timer - ms.day > 1) {
+    if (ms.timer + 1 - ms.day > 1) {
         ms.day ++
         signal('nextDay', ms.day)
     }
 }
 
 function getDay() {
-    return this.status.timer | 0
+    return (this.status.timer | 0) + 1
 }
 
 function getHour() {
@@ -51,7 +51,7 @@ function getHourString() {
 }
 
 function getTimeString() {
-    return `${env.text.title.day}: ${this.status.day}.${this.getHourString()}`
+    return lib.time.toString(this.status.timer)
 }
 
 function setup() {
