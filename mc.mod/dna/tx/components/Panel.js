@@ -1,0 +1,109 @@
+class Panel {
+
+    constructor(st, df) {
+        augment(this, df, st)
+    }
+
+    adjust() {
+        this.x = 0
+        this.y = 0
+        this.w = this.__.tw
+        this.h = this.__.th
+    }
+
+    hide() {
+        this.hidden = true
+        this.__.adjust()
+    }
+
+    show() {
+        this.hidden = false
+        this.__.adjust()
+    }
+
+    background() {
+        const txt = this.__
+        const bx  = this.x
+        const by  = this.y
+        for (let y = 0; y < this.h; y++) {
+            for (let x = 0; x < this.w; x++) {
+                txt.put(bx+x, by+y, ' ')
+                txt.put(bx+x, by+y, 0, dry.FACE)
+                txt.put(bx+x, by+y, 0, dry.BACK)
+            }
+        }
+    }
+
+    centerText(x, y, label) {
+        const txt = this.tx,
+              len = label.length,
+              dx  = floor(.5 * len),
+              bx  = floor(x - dx)
+        y = floor(y)
+
+        for (let i = 0; i < len; i++) {
+            txt.put(bx + i, y, label.charAt(i))
+        }
+    }
+
+    hseparator(x, y, w, c) {
+        const txt = this.tx,
+              ch  = c || '-'
+
+        txt.reset()
+          .back(lib.cidx('baseHi'))
+          .face(lib.cidx('alert'))
+
+        for (let i = 0; i < w; i++) {
+            txt.put(x + i, y, ch)
+        }
+    }
+
+    vseparator(x, y, h, c) {
+        const txt = this.tx,
+              ch  = c || '|'
+
+        txt.reset()
+          .back(lib.cidx('baseHi'))
+          .face(lib.cidx('alert'))
+
+        for (let i = 0; i < h; i++) {
+            txt.put(x, y + i, ch)
+        }
+    }
+
+    rect(x, y, w, h, hc, vc, ec) {
+        const txt = this.tx,
+              ech = ec || '+'
+
+        this.hseparator(x + 1, y,         w - 2, hc)
+        this.hseparator(x + 1, y + h - 1, w - 2, hc)
+        this.vseparator(x,         y + 1, h - 2, vc)
+        this.vseparator(x + w - 1, y + 1, h - 2, vc)
+
+        txt.put(x,         y,         ech)
+        txt.put(x + w - 1, y,         ech)
+        txt.put(x + w - 1, y + h - 1, ech)
+        txt.put(x,         y + h - 1, ech)
+    }
+
+    onMouseUp(tx, ty, b, e) {
+        log(`mouse #${e.button + 1} up: ${tx}:${ty}`)
+    }
+
+    onMouseMove(tx, ty, e) {
+        // log(`mouse move: ${tx}:${ty}`)
+    }
+
+    onMouseEnter() {
+        // log('menu: the mouse is in!')
+    }
+
+    onMouseExit() {
+        // log('menu: the mouse is out!')
+    }
+
+    draw() {
+        this.background()
+    }
+}

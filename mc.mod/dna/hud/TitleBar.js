@@ -23,7 +23,6 @@ class TitleBar extends $.dna.hud.Container {
             color: '#fa8620',
 
             msg: '',
-            day: -1,
             status:   'Today is the Day!', // TODO move to resources?
 
             adjustPos: function() {
@@ -35,11 +34,7 @@ class TitleBar extends $.dna.hud.Container {
             },
 
             sync: function() {
-                const nextDay = env.missionStatus.day
-                if (this.day !== nextDay) {
-                    this.day = nextDay
-                    this.msg = `${env.text.title.day}: ${nextDay}`
-                }
+                this.msg = $.mission.getTimeString()
             },
         })
 

@@ -4,5 +4,9 @@ module.exports = {
         burnRate: 'Burn Rate',
         burnRateUnit: 'day',
         balance: 'Balance',
-    }
+    },
+
+    email: {
+        inbox: 'INBOX',
+    },
 }

@@ -1,4 +1,4 @@
-const Panel = require('/mod/mc/dna/mode/components/Panel')
+const Panel = require('/mod/mc/dna/tx/components/Panel')
 
 const df = {
     x: 0,

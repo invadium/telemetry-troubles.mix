@@ -32,6 +32,7 @@ function hud() {
     })
     tf1.adjust()
 
+    /*
     const menu = tf1.spawn('Menu', {
         name:  'mainMenu',
         title: 'Main',
@@ -50,13 +51,15 @@ function hud() {
             log('hidden!')
         },
     })
-
+    */
     /*
     tf1.spawn('CentralMessage', {
         label:  'Central Command',
         status: `I'm in the center!`,
     })
     */
+    tf1.spawn('Inbox', {
+    })
 
     hud.adjust()
 }

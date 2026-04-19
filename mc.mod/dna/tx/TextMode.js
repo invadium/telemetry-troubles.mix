@@ -30,16 +30,16 @@ class TextMode extends sys.LabFrame {
     constructor(st) {
         super()
         this.buf = {
-            char: [],
-            face: [],
-            back: [],
+            char:  [],
+            face:  [],
+            back:  [],
             cface: [],
             cback: [],
-            mode: [],
-            fx: [],   // effect parameters objects
+            mode:  [],
+            fx:    [],   // effect parameters objects
         }
 
-        this.fx = dna.mode.fx
+        this.fx = dna.tx.fx
         // make sure all fx methods are present
         const fxBase = this.fx[0]
         for (let i = 1; i < this.fx.length; i++) {
@@ -180,7 +180,8 @@ class TextMode extends sys.LabFrame {
         }
 
         for (let i = 0; i < this._ls.length; i++) {
-            this._ls[i].adjust()
+            const g = this._ls[i]
+            if (isFun(g.adjust)) g.adjust()
         }
         this.clear()
     }
@@ -543,7 +544,7 @@ class TextMode extends sys.LabFrame {
                         g._hover = true
                         if (isFun(g.onMouseEnter)) g.onMouseEnter(ltx, lty, e)
                     }
-                    g.onMouseMove(ltx, lty, e)
+                    if (isFun(g.onMouseMove)) g.onMouseMove(ltx, lty, e)
                 } else {
                     if (g._hover) {
                         g._hover = false
@@ -568,7 +569,7 @@ class TextMode extends sys.LabFrame {
         // log(`dragging ${dx}:${dy} at ${x}:${y}`)
     }
 
-    onAttached(e) {
+    onAttach(e) {
         // log('attached ' + e.name)
         e.tx = this
     }
