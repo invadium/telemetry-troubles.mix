@@ -65,6 +65,13 @@ class TextMode extends sys.LabFrame {
             // placeholder colors to be replaced by style config
             textColor: '#ffffff',
             backgroundColor: '#202020',
+
+            margins: {
+                north: 0,
+                east:  0,
+                south: 0,
+                west:  0,
+            },
         })
 
         //this.borderColor = pal.ls[0],
@@ -124,9 +131,9 @@ class TextMode extends sys.LabFrame {
         const __ = this.__
         if (!__ || !__.titleBar) return
 
-        const style = this.style
-        this.x = style.padding
-        this.y = __.titleBar.y + __.titleBar.h + style.padding
+        const margins = this.margins
+        this.x = margins.east
+        this.y = __.titleBar.y + __.titleBar.h + margins.north
     }
 
     adjustByTarget() {

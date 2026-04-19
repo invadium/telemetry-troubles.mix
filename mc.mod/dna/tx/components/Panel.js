@@ -42,7 +42,9 @@ class Panel {
         y = floor(y)
 
         for (let i = 0; i < len; i++) {
-            txt.put(bx + i, y, label.charAt(i))
+            // txt.put(bx + i, y, label.charAt(i))
+            txt.at(bx + i, y)
+               .out(label.charAt(i))
         }
     }
 
@@ -54,7 +56,13 @@ class Panel {
               by  = y | 0
 
         for (let i = 0; i < LEN; i++) {
-            txt.put(bx + i, by, label.charAt(i))
+            // txt.put(bx + i, by, label.charAt(i))
+            txt.at(bx + i, by)
+               .out(label.charAt(i))
+        }
+        for (let i = LEN; i < clipWidth; i++) {
+            txt.at(bx + i, by)
+               .out(' ')
         }
     }
 
@@ -62,12 +70,8 @@ class Panel {
         const txt = this.tx,
               ch  = c || '-'
 
-        txt.reset()
-          .back(lib.cidx('baseHi'))
-          .face(lib.cidx('alert'))
-
         for (let i = 0; i < w; i++) {
-            txt.put(x + i, y, ch)
+            txt.at(x + i, y).out(ch)
         }
     }
 
@@ -75,12 +79,8 @@ class Panel {
         const txt = this.tx,
               ch  = c || '|'
 
-        txt.reset()
-          .back(lib.cidx('baseHi'))
-          .face(lib.cidx('alert'))
-
         for (let i = 0; i < h; i++) {
-            txt.put(x, y + i, ch)
+            txt.at(x, y + i).out(ch)
         }
     }
 
@@ -93,10 +93,10 @@ class Panel {
         this.vseparator(x,         y + 1, h - 2, vc)
         this.vseparator(x + w - 1, y + 1, h - 2, vc)
 
-        txt.put(x,         y,         ech)
-        txt.put(x + w - 1, y,         ech)
-        txt.put(x + w - 1, y + h - 1, ech)
-        txt.put(x,         y + h - 1, ech)
+        txt.at(x,         y,       ).out(ech)
+        txt.at(x + w - 1, y,       ).out(ech)
+        txt.at(x + w - 1, y + h - 1).out(ech)
+        txt.at(x,         y + h - 1).out(ech)
     }
 
     onMouseUp(tx, ty, b, e) {

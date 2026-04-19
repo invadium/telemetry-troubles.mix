@@ -26,22 +26,24 @@ function hud() {
     const tf1 = $.textFrame1 = missionPanel.spawn('TextMode', {
         Z:            31,
         name:         'textFrame1',
-        scale:        2,
+        scale:        1.5,
         targetWidth:  32,
         targetHeight: 25,
 
         backgroundColor: '00000080',
 
-        style: {
-            padding: 20,
+        margins: {
+            north: 5,
+            east:  20,
         },
 
         adjustTargets: function() {
             const __     = this.__,
+                  style  = this.style,
                   cellH  = this.cellHeight * this.scale,
                   hUnits = __.vSpan() / cellH
             this.targetWidth  = 32
-            this.targetHeight = floor(.5 * hUnits) - 2
+            this.targetHeight = floor(.5 * hUnits) - 1
         },
     })
     tf1.adjust()
