@@ -6,6 +6,11 @@ function hud() {
 
     const missionPanel = $.missionPanel = hud.spawn('MissionPanel', {
         showBorder: false,
+
+        vSpan: function() {
+            const _ = this
+            return _.viewport.h - _.titleBar.h - _.statusBar.h
+        },
     })
 
 
@@ -21,13 +26,22 @@ function hud() {
     const tf1 = $.textFrame1 = missionPanel.spawn('TextMode', {
         Z:            31,
         name:         'textFrame1',
-        targetWidth:  40,
+        scale:        2,
+        targetWidth:  32,
         targetHeight: 25,
 
         backgroundColor: '00000080',
 
         style: {
             padding: 20,
+        },
+
+        adjustTargets: function() {
+            const __     = this.__,
+                  cellH  = this.cellHeight * this.scale,
+                  hUnits = __.vSpan() / cellH
+            this.targetWidth  = 32
+            this.targetHeight = floor(.5 * hUnits) - 2
         },
     })
     tf1.adjust()

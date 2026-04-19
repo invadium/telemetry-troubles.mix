@@ -9,6 +9,10 @@ class MissionPanel extends $.dna.hud.Container {
         }, st) )
     }
 
+    init() {
+        this.adjust()
+    }
+
     adjust() {
         const __ = this.__
         const { x, y, w, h } = __

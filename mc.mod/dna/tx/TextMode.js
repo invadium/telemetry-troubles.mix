@@ -137,7 +137,7 @@ class TextMode extends sys.LabFrame {
 
         // determine the scale
         // TODO should it be dynamically precalculated?
-        const scale = 2
+        const scale = this.scale
 
         /*
         // calculate suitable scale
@@ -173,6 +173,7 @@ class TextMode extends sys.LabFrame {
     }
 
     adjust() {
+        if (isFun(this.adjustTargets)) this.adjustTargets()
         if (this.targetWidth && this.targetHeight) {
             this.adjustByTarget()
         } else {
@@ -567,6 +568,17 @@ class TextMode extends sys.LabFrame {
 
     onMouseDrag(dx, dy, x, y, e) {
         // log(`dragging ${dx}:${dy} at ${x}:${y}`)
+    }
+
+    onMouseWheel(delta, tx, ty, e) {
+        const ls = []
+        this.lpick(tx, ty, ls, e => !e.disabled && isFun(e.onMouseWheel))
+
+        ls.forEach(c => {
+            const ltx = c.lx? c.lx(tx) : tx
+            const lty = c.ly? c.ly(ty) : ty
+            c.onMouseWheel(delta, ltx, lty, e)
+        })
     }
 
     onAttach(e) {
