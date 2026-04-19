@@ -1,14 +1,22 @@
+let id = 0
 class Panel {
 
-    constructor(st, df) {
-        augment(this, df, st)
+    constructor(st) {
+        augment(this, {
+            name: 'panel' + (++id),
+            x:     0,
+            y:     0,
+            w:     0,
+            h:     0,
+        }, st)
     }
 
     adjust() {
+        const txt = this.txt
         this.x = 0
         this.y = 0
-        this.w = this.__.tw
-        this.h = this.__.th
+        this.w = txt.tw
+        this.h = txt.th
     }
 
     hide() {
@@ -100,7 +108,7 @@ class Panel {
     }
 
     onMouseUp(tx, ty, b, e) {
-        log(`mouse #${e.button + 1} up: ${tx}:${ty}`)
+        // log(`mouse #${e.button + 1} up: ${tx}:${ty}`)
     }
 
     onMouseMove(tx, ty, e) {

@@ -13,12 +13,12 @@ class ScrollablePanel extends Panel {
             h:      0,
             
             margins: {
-                north: 0,
+                north: 1,
                 east:  0,
                 south: 0,
                 west:  1,
             },
-        }), st)
+        }, st) )
     }
 
     adjust() {

@@ -5,10 +5,6 @@ class Inbox extends ScrollablePanel {
     constructor(st) {
         super( augment({
             name:  'inbox',
-            x:      0,
-            y:      0,
-            w:      0,
-            h:      0,
 
             imap: {
                 messages: [
@@ -33,8 +29,9 @@ class Inbox extends ScrollablePanel {
                 ],
             },
 
+            header:       2,
             stackPointer: 0,
-        }) )
+        }, st) )
 
         for(let i = 0; i < 25; i++) {
             const N = i + 1
@@ -48,15 +45,15 @@ class Inbox extends ScrollablePanel {
     }
 
     selectionCapacity() {
-        return this.h - 4
+        return this.h - this.header - 1
     }
 
     select(tx, ty) {
         const { x, y, w, h } = this
-        if (tx < x || tx >= x + w || ty < 3 || ty >= y + h) {
+        if (tx < x || tx >= x + w || ty < this.header || ty >= y + h) {
             this.selection = -1
         } else {
-            this.selection = ty - 3
+            this.selection = ty - this.header
         }
     }
 
@@ -101,11 +98,12 @@ class Inbox extends ScrollablePanel {
         const messages = this.imap.messages,
               NMSG     = messages.length,
               UNREAD   = messages.reduce((acc, cur) => cur.read? acc : acc + 1, 0)
+        this.title.label = ` ${env.text.email.inbox}(*${UNREAD}/${NMSG}) `
 
         let by = y
-
         this.background()
 
+        /*
         // === title ===
         const TW = w + 1
         txt.back(lib.cidx('alert'))
@@ -114,6 +112,7 @@ class Inbox extends ScrollablePanel {
         // TODO figure how many unread and total
         const title = `   ${env.text.email.inbox}(*${UNREAD}/${NMSG})   `
         this.centerText(title, x + .5 * TW, by)
+        */
 
         // precalc column dimensions
         const x1 = x,
@@ -125,7 +124,6 @@ class Inbox extends ScrollablePanel {
            .face(lib.cidx('alert'))
 
         // === column titles ===
-        by ++
         this.clipText('Subject', x1, by, w1)
         this.clipText('Day',     x2, by, w2)
         txt.at(x1 + w1, by).out('|')

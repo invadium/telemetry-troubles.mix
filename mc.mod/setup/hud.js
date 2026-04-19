@@ -74,7 +74,9 @@ function hud() {
         status: `I'm in the center!`,
     })
     */
+    const sectionTitle = tf1.spawn('SectionTitle')
     tf1.spawn('Inbox', {
+        title: sectionTitle,
     })
 
     hud.adjust()
