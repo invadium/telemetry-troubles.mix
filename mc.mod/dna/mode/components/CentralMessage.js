@@ -5,11 +5,26 @@ class CentralMessage {
     constructor(st) {
         augment(this, {
             name: 'centralMessage' + (++id),
-            label: 'textOne'
+            label: '',
+
+            x: 0,
+            y: 0,
+            w: 0,
+            h: 0,
         }, st)
     }
 
-    adjust() {}
+    adjust() {
+        const tx = this.__
+        const W = tx.tw
+        const H = tx.th
+        const len = this.label.length
+
+        this.x = ceil(W/2 - len/2)
+        this.y = floor(H/2)
+        this.w = len
+        this.h = 1
+    }
 
     draw() {
         const tx = this.__

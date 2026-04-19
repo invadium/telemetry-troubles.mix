@@ -4,13 +4,15 @@
 
 // TODO include basic colors and extend main palette
 //      can be extended with other palettes
+
 const direct = {
-    base: hsl(.45, .1, .1),
-    baseHi: hsl(.45, .2, .2),
+    base:    hsl(.45, .1, .1),
+    baseHi:  hsl(.45, .2, .2),
     baseLow: hsl(.45, .15, .15),
-    text: hsl(.45, .5, .6),
+    text:    hsl(.45, .5, .6),
     'alert': hsl(.1,  .5, .7),
 
+    /*
     shaddow: '#606062',
     land: hsl(.45, .5, .6),
     sand: '#e0bb26',
@@ -18,6 +20,7 @@ const direct = {
     forest: '#598a48',
     ice: '#53c9e0',
     //danger-red: '#eb3434',
+    */
 
     dark: '101010',
 }

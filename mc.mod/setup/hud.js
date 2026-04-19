@@ -31,8 +31,32 @@ function hud() {
         },
     })
     tf1.adjust()
-    tf1.spawn('CentralMessage', {
+
+    const menu = tf1.spawn('Menu', {
+        name:  'mainMenu',
+        title: 'Main',
+        subtitle: 'subtitle',
     })
+    menu.selectFrom({
+        items: [
+            'one',
+            'two',
+            'many',
+        ],
+        onSelect: function() {
+            log('selected!')
+        },
+        onHide: function() {
+            log('hidden!')
+        },
+    })
+
+    /*
+    tf1.spawn('CentralMessage', {
+        label:  'Central Command',
+        status: `I'm in the center!`,
+    })
+    */
 
     hud.adjust()
 }

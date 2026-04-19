@@ -469,18 +469,103 @@ class TextMode extends sys.LabFrame {
         return floor(sy / this.cellHeight)
     }
 
-    pick(x, y, opt) {
-        // translate into text coordinate space
-        const lx = this.lx(x)
-        const ly = this.ly(y)
+    lpick(lx, ly, list, opt) {
+        const ls = isArr(list)? list : null
+        const fn = isFun(opt)? opt : (isFun(list)? list : null)
 
+        let last
         for (let i = 0; i < this._ls.length; i++) {
             const component = this._ls[i]
-            if (!component.hidden && component.pick) {
-                const res = component.pick(lx, ly, opt)
-                if (res) return res
+            if (!component.hidden) {
+                if (component.pick) {
+                    const node = component.pick(lx, ly, ls, opt)
+                    if (node) {
+                        if (!fn || fn(node)) {
+                            if (ls) ls.push(node)
+                            last = node
+                        }
+                    }
+                } else if (component._rectangular) {
+                    const { x, y, w, h } = component
+                    if (lx >= x && lx < x + w && ly >= y && ly < y + h) {
+                        if (!fn || fn(component)) {
+                            if (ls) ls.push(component)
+                            last = component
+                        }
+                    }
+                }
             }
         }
+
+        return last
+    }
+
+    pick(ux, uy, ls, opt) {
+        // translate into text coordinate space
+        const lx = this.lx(ux)
+        const ly = this.ly(uy)
+        
+        return this.lpick(lx, ly, ls, opt)
+    }
+
+    onMouseDown(tx, ty, b, e) {
+        const ls = []
+        this.lpick(tx, ty, ls, e => !e.disabled && isFun(e.onMouseDown))
+
+        ls.forEach(c => {
+            const ltx = c.lx? c.lx(tx) : tx
+            const lty = c.ly? c.ly(ty) : ty
+            c.onMouseDown(ltx, lty, b, e)
+        })
+    }
+
+    onMouseUp(tx, ty, b, e) {
+        const ls = []
+        this.lpick(tx, ty, ls, e => !e.disabled && isFun(e.onMouseUp))
+        
+        ls.forEach(c => {
+            const ltx = c.lx? c.lx(tx) : tx
+            const lty = c.ly? c.ly(ty) : ty
+            c.onMouseUp(ltx, lty, b, e)
+        })
+    }
+
+    onMouseMove(tx, ty, e) {
+        for (let i = 0; i < this._ls.length; i++) {
+            const g = this._ls[i]
+            if (!g.hidden && !g.disabled && g._rectangular) {
+                const { x, y, w, h } = g
+                if (tx >= x && tx < x + w && ty >= y && ty < y + h) {
+                    const ltx = g.lx? g.lx(tx) : tx
+                    const lty = g.ly? g.ly(ty) : ty
+
+                    if (!g._hover) {
+                        g._hover = true
+                        if (isFun(g.onMouseEnter)) g.onMouseEnter(ltx, lty, e)
+                    }
+                    g.onMouseMove(ltx, lty, e)
+                } else {
+                    if (g._hover) {
+                        g._hover = false
+                        if (isFun(g.onMouseExit)) g.onMouseExit(e)
+                    }
+                }
+            }
+        }
+    }
+
+    onMouseExit(e) {
+        for (let i = 0; i < this._ls.length; i++) {
+            const g = this._ls[i]
+            if (g._hover) {
+                g._hover = false
+                if (isFun(g.onMouseExit)) g.onMouseExit(e)
+            }
+        }
+    }
+
+    onMouseDrag(dx, dy, x, y, e) {
+        // log(`dragging ${dx}:${dy} at ${x}:${y}`)
     }
 
     onAttached(e) {
