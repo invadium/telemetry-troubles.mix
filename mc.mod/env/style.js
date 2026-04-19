@@ -36,8 +36,8 @@ const style = {
 
     font: {
         terminal: {
-            font: 'pixel-operator-mono8',
-            size:  8,
+            family:    'pixel-operator-mono8',
+            size:       8,
             cellWidth:  8,
             cellHeight: 10,
         },

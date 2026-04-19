@@ -4,6 +4,7 @@ function draw() {
     const w = ctx.width,
           h = ctx.height
 
+    save()
     //ctx.clearRect(0, 0, ctx.width, ctx.height)
     //background('#165955')
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
@@ -18,4 +19,6 @@ function draw() {
     //stroke('#ffff00')
     //lineWidth(4)
     //rect(0, 0, w, h)
+    
+    restore()
 }

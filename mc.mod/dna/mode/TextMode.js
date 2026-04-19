@@ -38,7 +38,6 @@ class TextMode extends sys.LabFrame {
             mode: [],
             fx: [],   // effect parameters objects
         }
-        this.scale = env.settings.zoom
 
         this.fx = dna.mode.fx
         // make sure all fx methods are present
@@ -69,12 +68,11 @@ class TextMode extends sys.LabFrame {
         })
 
         //this.borderColor = pal.ls[0],
-        this.backgroundColor = pal.dir.base,
-        this.textColor = pal.dir.text
+        // this.backgroundColor = pal.direct.base,
+        this.textColor = pal.direct.text
         this.setConstants()
 
         augment(this, st) 
-        this.adjust()
     }
 
     setConstants() {
@@ -88,10 +86,12 @@ class TextMode extends sys.LabFrame {
     }
 
     init() {
+        /*
         const textMode = this
         trap.attach(function resize() {
             textMode.adjust()
         })
+        */
     }
 
     resizeTextArea(tw, th) {
@@ -119,8 +119,14 @@ class TextMode extends sys.LabFrame {
     }
 
     adjustPos() {
-        this.x = (rx(1) - this.w)/2
-        this.y = (ry(1) - this.h)/2
+        // this.x = (rx(1) - this.w)/2
+        // this.y = (ry(1) - this.h)/2
+        const __ = this.__
+        if (!__ || !__.titleBar) return
+
+        const style = this.style
+        this.x = style.padding
+        this.y = __.titleBar.y + __.titleBar.h + style.padding
     }
 
     adjustByTarget() {
@@ -129,6 +135,11 @@ class TextMode extends sys.LabFrame {
         const nativeHeight = this.cellHeight * this.targetHeight
         const aspect = nativeWidth/nativeHeight
 
+        // determine the scale
+        // TODO should it be dynamically precalculated?
+        const scale = 2
+
+        /*
         // calculate suitable scale
         const spanWidth = rx(1) - 2*ry(this.border)
         const spanHeight = ry(1) - 2*ry(this.border)
@@ -136,6 +147,7 @@ class TextMode extends sys.LabFrame {
         const vscale = spanHeight / nativeHeight
         let scale = hscale
         if (hscale > vscale) scale = vscale
+        */
 
         this.resizeTextArea(this.targetWidth, this.targetHeight)
         this.scale = scale
@@ -173,6 +185,7 @@ class TextMode extends sys.LabFrame {
         this.clear()
     }
 
+    /*
     zoomIn() {
         const s = floor(this.scale * (1 + env.tune.zoomStep) * 100)/100
         this.scale = clamp(s, env.tune.minZoom, env.tune.maxZoom)
@@ -192,6 +205,7 @@ class TextMode extends sys.LabFrame {
     getZoom() {
         return this.scale
     }
+    */
 
     put(x, y, c, t) {
         if (x >= 0 && x < this.tw && y >= 0 && y < this.th) {
@@ -382,7 +396,7 @@ class TextMode extends sys.LabFrame {
     drawContent() {
         save()
 
-        background(pal.ls[0])
+        // background(pal.ls[0]) ?????????????
         fill(this.backgroundColor)
         rect(this.x, this.y, this.w, this.h)
 
@@ -398,7 +412,7 @@ class TextMode extends sys.LabFrame {
         const hw = cw/2
         const hh = ch/2
 
-        for (let ty = this.th - 1; ty >= 0; ty--)
+        for (let ty = this.th - 1; ty >= 0; ty--) {
             for (let tx = this.tw - 1; tx >= 0; tx--) {
                 const sh = ty * this.tw + tx
                 const symbol = this.buf.char[sh]
@@ -435,6 +449,7 @@ class TextMode extends sys.LabFrame {
                     //text('.', tx*cw + hw, ty*ch + hh)
                 }
             }
+        }
 
         restore()
     }
@@ -469,7 +484,7 @@ class TextMode extends sys.LabFrame {
     }
 
     onAttached(e) {
-        log('attached ' + e.name)
+        // log('attached ' + e.name)
         e.tx = this
     }
 }

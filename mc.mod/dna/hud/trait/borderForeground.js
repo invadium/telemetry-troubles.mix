@@ -1,5 +1,10 @@
 const borderForeground = {
 
+    init() {
+        delete this.name
+        delete this.init
+    },
+
     showBorder:  false,
 
     drawForeground() {
