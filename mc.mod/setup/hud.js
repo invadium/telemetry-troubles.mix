@@ -75,8 +75,32 @@ function hud() {
     })
     */
     const sectionTitle = tf1.spawn('SectionTitle')
-    tf1.spawn('Inbox', {
+    const inbox = tf1.spawn('Inbox', {
         title: sectionTitle,
+    })
+    tf1.spawn('ScrollBar', {
+
+        sync: function() {
+            this.cur = inbox.relativePos()
+            this.fill = inbox.relativeFill()
+        },
+
+        scrollUp: function() {
+            inbox.scrollUp()
+        },
+
+        scrollDown: function() {
+            inbox.scrollDown()
+        },
+
+        adjust: function() {
+            const txt = this.tx
+
+            this.x = txt.tw - 1
+            this.y = 1
+            this.w = 1
+            this.h = txt.th - 1
+        },
     })
 
     hud.adjust()

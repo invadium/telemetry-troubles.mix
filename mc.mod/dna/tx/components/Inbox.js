@@ -44,6 +44,25 @@ class Inbox extends ScrollablePanel {
         }
     }
 
+    contentLength() {
+        return this.imap.messages.length
+    }
+
+    contentCapacity() {
+        return this.h - this.header
+    }
+
+    relativePos() {
+        return this.stackPointer / this.contentLength()
+    }
+
+    relativeFill() {
+        const len = this.contentLength(),
+              cap = this.contentCapacity()
+        if (len < cap) return 1
+        return cap/len
+    }
+
     selectionCapacity() {
         return this.h - this.header - 1
     }
