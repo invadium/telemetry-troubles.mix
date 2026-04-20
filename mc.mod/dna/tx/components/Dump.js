@@ -21,6 +21,13 @@ class Dump extends ScrollablePanel {
         return this.core.capacity
     }
 
+    open(at) {
+        const core = this.core,
+              mem  = core.mem
+
+        log('#' + at + ': ' + mem[at])
+    }
+
     draw() {
         const txt = this.tx
         const { x, y, w, h, stackPointer, core } = this

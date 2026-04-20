@@ -46,6 +46,16 @@ class Inbox extends ScrollablePanel {
         return this.imap.messages.length
     }
 
+    enter(tx, ty) {
+        this.select(tx, ty)
+        if (this.selection < 0) return
+
+        const pos = this.contentLength() - 1 - this.stackPointer - this.selection
+        if (pos < 0) return
+
+        this.open(pos)
+    }
+
     open(pos) {
         const message = this.imap.messages[pos]
         // console.dir(message)

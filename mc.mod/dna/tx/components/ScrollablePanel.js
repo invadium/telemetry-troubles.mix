@@ -101,8 +101,9 @@ class ScrollablePanel extends Panel {
         this.select(tx, ty)
         if (this.selection < 0) return
 
-        const pos = this.contentLength() - 1 - this.stackPointer - this.selection
-        if (pos < 0) return
+        // const pos = this.contentLength() - 1 - this.stackPointer - this.selection
+        const pos = this.stackPointer + this.selection
+        if (pos >= this.contentLength()) return
 
         this.open(pos)
     }
