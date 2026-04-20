@@ -11,6 +11,11 @@ class ScrollablePanel extends Panel {
             y:      0,
             w:      0,
             h:      0,
+
+            header:        2,
+            stackPointer:  0,
+            selection:    -1,
+            column:       -1,
             
             margins: {
                 north: 1,
@@ -51,6 +56,97 @@ class ScrollablePanel extends Panel {
 
     gy(ly) {
         return ly + this.y
+    }
+
+    contentLength() {
+        throw new Error('not implemented')
+    }
+
+    relativePos() {
+        return this.stackPointer / this.contentLength()
+    }
+
+    relativeFill() {
+        const len = this.contentLength(),
+              cap = this.contentCapacity()
+        if (len < cap) return 1
+        return cap/len
+    }
+
+    contentCapacity() {
+        return this.h - this.header
+    }
+
+    selectionCapacity() {
+        return this.h - this.header - 1
+    }
+
+    select(tx, ty) {
+        const { x, y, w, h } = this
+        if (tx < x || tx >= x + w || ty < this.header || ty >= y + h) {
+            this.selection = -1
+            this.column = -1
+        } else {
+            this.selection = ty - this.header
+            this.column = tx
+        }
+    }
+
+    clearSelection() {
+        this.selection = -1
+        this.column = -1
+    }
+
+    enter(tx, ty) {
+        this.select(tx, ty)
+        if (this.selection < 0) return
+
+        const pos = this.contentLength() - 1 - this.stackPointer - this.selection
+        if (pos < 0) return
+
+        this.open(pos)
+    }
+
+    open() {
+        throw new Error('not implemented')
+    }
+
+    scrollUp() {
+        if (this.stackPointer > 0) this.stackPointer --
+    }
+
+    scrollDown() {
+        const __ = this,
+              stackPointer = this.stackPointer
+        if (stackPointer < __.contentLength() - __.selectionCapacity() - 1) __.stackPointer ++
+    }
+
+    onMouseDown(tx, ty, b, e) {
+        // log(`mouse #${e.button + 1} down: ${tx}:${ty}`)
+        this.enter(tx, ty)
+    }
+
+    onMouseUp(tx, ty, b, e) {
+        // log(`mouse #${e.button + 1} up: ${tx}:${ty}`)
+    }
+
+    onMouseMove(tx, ty, e) {
+        // log(`mouse move: ${tx}:${ty}`)
+        this.select(tx, ty)
+    }
+
+    onMouseEnter() {
+        // log('menu: the mouse is in!')
+    }
+
+    onMouseExit() {
+        // log('menu: the mouse is out!')
+        this.clearSelection()
+    }
+
+    onMouseWheel(delta, tx, ty, e) {
+        if (delta > 0) this.scrollUp()
+        else if (delta < 0) this.scrollDown()
     }
 
 }

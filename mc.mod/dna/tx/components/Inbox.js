@@ -29,8 +29,6 @@ class Inbox extends ScrollablePanel {
                 ],
             },
 
-            header:       2,
-            stackPointer: 0,
         }, st) )
 
         for(let i = 0; i < 25; i++) {
@@ -48,66 +46,13 @@ class Inbox extends ScrollablePanel {
         return this.imap.messages.length
     }
 
-    contentCapacity() {
-        return this.h - this.header
-    }
-
-    relativePos() {
-        return this.stackPointer / this.contentLength()
-    }
-
-    relativeFill() {
-        const len = this.contentLength(),
-              cap = this.contentCapacity()
-        if (len < cap) return 1
-        return cap/len
-    }
-
-    selectionCapacity() {
-        return this.h - this.header - 1
-    }
-
-    select(tx, ty) {
-        const { x, y, w, h } = this
-        if (tx < x || tx >= x + w || ty < this.header || ty >= y + h) {
-            this.selection = -1
-        } else {
-            this.selection = ty - this.header
-        }
-    }
-
-    clearSelection() {
-        this.selection = -1
-    }
-
-    open(message) {
+    open(pos) {
+        const message = this.imap.messages[pos]
         // console.dir(message)
         log(message.subject)
         log(message.content)
         message.read = true
-    }
-
-    enter(tx, ty) {
-        this.select(tx, ty)
-        if (this.selection < 0) return
-
-        const messages     = this.imap.messages,
-              stackPointer = this.stackPointer
-        const pos = messages.length - 1 - stackPointer - this.selection
-        if (pos < 0) return
-
-        this.open(messages[pos])
-    }
-
-    scrollUp() {
-        if (this.stackPointer > 0) this.stackPointer --
-    }
-
-    scrollDown() {
-        const messages     = this.imap.messages,
-              stackPointer = this.stackPointer
-        // TODO adjust to the screen capacity
-        if (stackPointer < messages.length - this.selectionCapacity() - 1) this.stackPointer ++
+        // TODO hide inbox, show email content
     }
 
     draw() {
@@ -121,17 +66,6 @@ class Inbox extends ScrollablePanel {
 
         let by = y
         this.background()
-
-        /*
-        // === title ===
-        const TW = w + 1
-        txt.back(lib.cidx('alert'))
-           .face(lib.cidx('base'))
-        this.hseparator(x, y, TW, '=')
-        // TODO figure how many unread and total
-        const title = `   ${env.text.email.inbox}(*${UNREAD}/${NMSG})   `
-        this.centerText(title, x + .5 * TW, by)
-        */
 
         // precalc column dimensions
         const x1 = x,
@@ -179,31 +113,4 @@ class Inbox extends ScrollablePanel {
         // this.rect(x, y + 1, w, h - 1)
     }
 
-    onMouseDown(tx, ty, b, e) {
-        // log(`mouse #${e.button + 1} down: ${tx}:${ty}`)
-        this.enter(tx, ty)
-    }
-
-    onMouseUp(tx, ty, b, e) {
-        // log(`mouse #${e.button + 1} up: ${tx}:${ty}`)
-    }
-
-    onMouseMove(tx, ty, e) {
-        // log(`mouse move: ${tx}:${ty}`)
-        this.select(tx, ty)
-    }
-
-    onMouseEnter() {
-        // log('menu: the mouse is in!')
-    }
-
-    onMouseExit() {
-        // log('menu: the mouse is out!')
-        this.clearSelection()
-    }
-
-    onMouseWheel(delta, tx, ty, e) {
-        if (delta > 0) this.scrollUp()
-        else if (delta < 0) this.scrollDown()
-    }
 }

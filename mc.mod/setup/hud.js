@@ -23,9 +23,10 @@ function hud() {
         showBorder: false,
     })
 
-    const tf1 = $.textFrame1 = missionPanel.spawn('TextMode', {
+    // === email ===
+    const email = $.email = missionPanel.spawn('TextMode', {
         Z:            31,
-        name:         'textFrame1',
+        name:         'email',
         scale:        1.5,
         targetWidth:  32,
         targetHeight: 25,
@@ -45,11 +46,12 @@ function hud() {
             this.targetWidth  = 32
             this.targetHeight = floor(.5 * hUnits) - 1
         },
+
     })
-    tf1.adjust()
+    email.adjust()
 
     /*
-    const menu = tf1.spawn('Menu', {
+    const menu = email.spawn('Menu', {
         name:  'mainMenu',
         title: 'Main',
         subtitle: 'subtitle',
@@ -69,16 +71,16 @@ function hud() {
     })
     */
     /*
-    tf1.spawn('CentralMessage', {
+    email.spawn('CentralMessage', {
         label:  'Central Command',
         status: `I'm in the center!`,
     })
     */
-    const sectionTitle = tf1.spawn('SectionTitle')
-    const inbox = tf1.spawn('Inbox', {
+    const sectionTitle = email.spawn('SectionTitle')
+    const inbox = email.spawn('Inbox', {
         title: sectionTitle,
     })
-    tf1.spawn('ScrollBar', {
+    email.spawn('ScrollBar', {
 
         sync: function() {
             this.cur = inbox.relativePos()
@@ -91,6 +93,73 @@ function hud() {
 
         scrollDown: function() {
             inbox.scrollDown()
+        },
+
+        adjust: function() {
+            const txt = this.tx
+
+            this.x = txt.tw - 1
+            this.y = 1
+            this.w = 1
+            this.h = txt.th - 1
+        },
+    })
+
+
+    // === remote monitor ===
+    const monitor = $.monitor = missionPanel.spawn('TextMode', {
+        Z:            32,
+        name:         'monitor',
+        scale:        1.5,
+        targetWidth:  32,
+        targetHeight: 25,
+
+        backgroundColor: '00000080',
+
+        margins: {
+            north: 20,
+            east:  20,
+        },
+
+        email,
+
+        adjustTargets: function() {
+            const __     = this.__,
+                  style  = this.style,
+                  cellH  = this.cellHeight * this.scale,
+                  hUnits = __.vSpan() / cellH
+            this.targetWidth  = 32
+            this.targetHeight = floor(.5 * hUnits) - 1
+        },
+
+        adjustPos() {
+            const __      = this.__,
+                  email   = this.email,
+                  margins = this.margins
+
+            this.x = margins.east
+            this.y = email.y + email.h + margins.north
+        }
+    })
+    monitor.adjust()
+
+    const monitorTitle = monitor.spawn('SectionTitle', {
+        label: '  MONITOR  ',
+    })
+    const dump = monitor.spawn('Dump')
+
+    monitor.spawn('ScrollBar', {
+        sync: function() {
+            this.cur = dump.relativePos()
+            this.fill = dump.relativeFill()
+        },
+
+        scrollUp: function() {
+            dump.scrollUp()
+        },
+
+        scrollDown: function() {
+            dump.scrollDown()
         },
 
         adjust: function() {
