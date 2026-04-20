@@ -12,7 +12,7 @@ class Panel {
     }
 
     adjust() {
-        const txt = this.txt
+        const txt = this.tx
         this.x = 0
         this.y = 0
         this.w = txt.tw

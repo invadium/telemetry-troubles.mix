@@ -136,6 +136,24 @@ function hud() {
         },
     })
     emailView.scrollBar = emailViewScrollBar
+
+    const closeButton = email.spawn('TextButton', {
+        label: 'CLOSE',
+
+        adjust() {
+            const txt = this.tx
+            this.x = 0
+            this.y = emailView.y + emailView.h
+            this.w = txt.tw
+            this.h = 1
+        },
+
+        onPress: function() {
+            emailView.close()
+        },
+    })
+    emailView.closeButton = closeButton
+
     emailView.hide()
 
     // === remote monitor ===

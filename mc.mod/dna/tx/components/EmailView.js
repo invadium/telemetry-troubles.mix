@@ -24,11 +24,13 @@ class EmailView extends ScrollablePanel {
         this.__.adjust()
         this.title.show()
         this.scrollBar.show()
+        this.closeButton.show()
     }
 
     hide() {
         this.title.hide()
         this.scrollBar.hide()
+        this.closeButton.hide()
         this.hidden = true
         this.__.adjust()
     }
@@ -52,6 +54,11 @@ class EmailView extends ScrollablePanel {
     open(at) {
         // TODO do Plan9-like plumbing over the email text to follow links and execute commands
         log(`plumbing #${at}: ${this.lines[at]}`)
+    }
+
+    close() {
+        this.hide()
+        this.inbox.show()
     }
 
     draw() {
