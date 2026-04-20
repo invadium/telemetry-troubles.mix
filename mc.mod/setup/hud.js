@@ -175,6 +175,8 @@ function hud() {
 
     // === code selector ===
     const codeSelector = monitor.spawn('CodeSelector', {
+        dump: dump,
+
         adjust: function() {
             const txt = this.tx
             const m = this.margins

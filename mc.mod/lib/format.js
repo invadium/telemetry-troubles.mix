@@ -16,8 +16,8 @@ function toHexString(n, padding) {
     return n.toString(16).padStart(padding || 1, '0').toUpperCase()
 }
 
-function toCodeString(v, padding) {
-    if (v === undefined) return padLeft('', padding, EMPTY_CH)
-    if (isNum(v)) return padLeft(toHexString(v, 2), padding, EMPTY_CH)
-    return v
+function toCodeString(code, padding) {
+    if (isNum(code)) return padLeft(toHexString(code, 2), padding, EMPTY_CH)
+    if (isStr(code)) return code
+    return padLeft('', padding, EMPTY_CH)
 }

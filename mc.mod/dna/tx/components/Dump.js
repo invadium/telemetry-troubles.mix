@@ -20,11 +20,10 @@ class Dump extends ScrollablePanel {
             },
 
             editPointer: -1,
-            execPointer: -1,
         }, st) )
 
         for (let i = 0; i < 64; i++) {
-            this.core.mem[i] = rnd() < .5? 'ADD' : 5
+            this.core.mem[i] = rnd() < .5? 'ADD' : RND(0, 32)
         }
     }
 
@@ -49,6 +48,21 @@ class Dump extends ScrollablePanel {
         return this.core.capacity
     }
 
+    edit(at) {
+        this.editPointer = at
+        trap('edit')
+    }
+
+    editPoint() {
+        if (this.mode !== EDIT_MODE) return -1
+        return this.editPointer
+    }
+
+    setCode(code) {
+        if (this.mode !== EDIT_MODE || this.editPointer < 0) return -1
+        this.core.mem[this.editPointer] = code
+    }
+
     open(at) {
         const core = this.core,
               mem  = core.mem
@@ -56,19 +70,19 @@ class Dump extends ScrollablePanel {
         switch(this.mode) {
             case VIEW_MODE:
                 this.mode = EDIT_MODE
-                this.editPointer = at
+                this.edit(at)
                 break
             case EDIT_MODE:
-                this.editPointer = at
+                this.edit(at)
                 break
         }
-        log('#' + lib.format.toHexString(at, 3) + ': ' + lib.format.toCodeString(mem[at], 4))
+        // log('#' + lib.format.toHexString(at, 3) + ': ' + lib.format.toCodeString(mem[at], 4))
     }
 
     exit() {
         if (this.mode === EDIT_MODE) {
             this.mode = VIEW_MODE
-            this.editPointer = -1
+            this.edit(-1)
         }
     }
 
