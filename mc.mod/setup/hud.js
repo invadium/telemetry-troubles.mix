@@ -176,10 +176,11 @@ function hud() {
     // === code selector ===
     const codeSelector = monitor.spawn('CodeSelector', {
         adjust: function() {
+            const txt = this.tx
             const m = this.margins
-            this.x = dumpScrollBar.x + dumpScrollBar.w
+            this.w = 5
+            this.x = txt.tw - this.w - 1
             this.y = m.north
-            this.w = 4
             this.h = this.__.th - m.north - m.south
         }
     })

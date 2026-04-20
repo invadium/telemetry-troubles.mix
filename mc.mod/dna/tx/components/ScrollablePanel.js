@@ -68,12 +68,13 @@ class ScrollablePanel extends Panel {
 
     relativeFill() {
         const len = this.contentLength(),
-              cap = this.contentCapacity()
+              cap = this.screenCapacity()
         if (len < cap) return 1
         return cap/len
     }
 
-    contentCapacity() {
+    // how many entries can fit on screen - TODO rename?
+    screenCapacity() {
         return this.h - this.header
     }
 

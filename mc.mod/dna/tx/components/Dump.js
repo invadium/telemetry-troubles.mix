@@ -14,7 +14,9 @@ class Dump extends ScrollablePanel {
             // TODO move out to a separate Core entity
             core: {
                 capacity: 128,
-                mem: []
+                mem: [],
+                cp:   -1,
+                timer: 0,
             },
 
             editPointer: -1,
@@ -70,9 +72,49 @@ class Dump extends ScrollablePanel {
         }
     }
 
+    exec() {
+        const core = this.core
+        this.mode = EXEC_MODE
+        core.cp = 0
+        core.timer = env.time
+    }
+
+    halt() {
+        const core = this.core
+        this.mode = VIEW_MODE
+        core.cp = -1
+        core.time = 0
+    }
+
+    syncExecInView() {
+        const { stackPointer, core } = this
+        const cp = core.cp
+        const screenCapacity = this.screenCapacity()
+
+        if (cp < stackPointer || cp >= stackPointer + screenCapacity) {
+            this.stackPointer = cp
+        }
+    }
+
+    evo(dt) {
+        // TODO move out to emu system
+        
+        // emulate execution here
+        if (this.mode !== EXEC_MODE) return
+        const core = this.core
+        const EXEC_SPEED = .25
+        if (core.timer + EXEC_SPEED < env.time) {
+            // next step
+            core.timer = env.time
+            core.cp ++
+            if (core.cp >= core.mem.length) this.halt()
+            else this.syncExecInView()
+        }
+    }
+
     draw() {
         const txt = this.tx
-        const { x, y, w, h, mode, stackPointer, editPointer, execPointer, core } = this
+        const { x, y, w, h, mode, stackPointer, editPointer, core } = this
 
         let by = y
         this.background()
@@ -101,7 +143,7 @@ class Dump extends ScrollablePanel {
         const mem = core.mem
         for (let i = stackPointer; i < core.capacity && by < y + h; i++, by++, selectionPos++) {
             const opcode = mem[i],
-                  executed = (mode === EXEC_MODE && i === execPointer),
+                  executed = (mode === EXEC_MODE && i === core.cp),
                   edited   = (mode === EDIT_MODE && i === editPointer),
                   selected = (selectionPos === this.selection)
 

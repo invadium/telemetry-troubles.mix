@@ -45,17 +45,20 @@ class CodeSelector extends ScrollablePanel {
 
         // precalc column dimensions
         const x1 = x,
-              w1 = 4
+              w1 = 1,
+              x2 = x1 + w1,
+              w2 = 4
 
         txt.back(lib.cidx('base'))
            .face(lib.cidx('alert'))
 
         // === column titles ===
-        this.clipText('CODE', x1, by, w1)
+        this.clipText('CODE', x2, by, w2)
+        this.vseparator(x1, by, h)
 
         // content separator
         by++
-        this.hseparator(x1, by, w1)
+        this.hseparator(x2, by, w2)
 
         // dump
         by++
@@ -73,7 +76,7 @@ class CodeSelector extends ScrollablePanel {
                    .face(lib.cidx('alert'))
             }
 
-            this.clipText(lib.format.toCodeString(opcode, w1), x1, by, w1)
+            this.clipText(lib.format.toCodeString(opcode, w2), x2, by, w2)
         }
     }
 
