@@ -33,13 +33,31 @@ class Inbox extends ScrollablePanel {
 
         for(let i = 0; i < 25; i++) {
             const N = i + 1
-            this.imap.messages.push({
+            const msg = {
                 read: false,
                 time: i + 4 + i/15,
                 subject: 'Message #' + N,
                 content: 'Content #' + N,
-            })
+            }
+            for (let j = 0; j < 50; j++) {
+                msg.content = msg.content + '\n' + 'More #' + i + '/' + (j + 1)
+            }
+            this.imap.messages.push(msg)
         }
+    }
+
+    show() {
+        this.hidden = false
+        this.__.adjust()
+        this.title.show()
+        this.scrollBar.show()
+    }
+
+    hide() {
+        this.title.hide()
+        this.scrollBar.hide()
+        this.hidden = true
+        this.__.adjust()
     }
 
     contentLength() {
@@ -63,6 +81,7 @@ class Inbox extends ScrollablePanel {
         log(message.content)
         message.read = true
         // TODO hide inbox, show email content
+        this.view.showEmail(message)
     }
 
     draw() {

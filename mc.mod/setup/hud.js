@@ -80,7 +80,7 @@ function hud() {
     const inbox = email.spawn('Inbox', {
         title: sectionTitle,
     })
-    email.spawn('ScrollBar', {
+    const inboxScrollBar = email.spawn('ScrollBar', {
 
         sync: function() {
             this.cur = inbox.relativePos()
@@ -104,7 +104,39 @@ function hud() {
             this.h = txt.th - 1
         },
     })
+    inbox.scrollBar = inboxScrollBar
 
+    const emailViewTitle = email.spawn('SectionTitle', {
+        FILLER: ' ',
+        align: 'left',
+    })
+    const emailView = email.spawn('EmailView', {
+        title: emailViewTitle,
+        inbox: inbox,
+    })
+    const emailViewScrollBar = email.spawn('ScrollBar', {
+        sync: function() {
+            this.cur  = emailView.relativePos()
+            this.fill = emailView.relativeFill()
+        },
+
+        scrollUp: function() {
+            emailView.scrollUp()
+        },
+
+        scrollDown: function() {
+            emailView.scrollDown()
+        },
+
+        adjust: function() {
+            this.x = emailView.x + emailView.w
+            this.y = emailView.y
+            this.w = 1
+            this.h = emailView.h
+        },
+    })
+    emailView.scrollBar = emailViewScrollBar
+    emailView.hide()
 
     // === remote monitor ===
     const monitor = $.monitor = missionPanel.spawn('TextMode', {
