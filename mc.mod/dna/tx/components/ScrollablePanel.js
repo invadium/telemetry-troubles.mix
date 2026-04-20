@@ -83,7 +83,7 @@ class ScrollablePanel extends Panel {
 
     select(tx, ty) {
         const { x, y, w, h } = this
-        if (tx < x || tx >= x + w || ty < this.header || ty >= y + h) {
+        if (tx < 0 || tx >= w || ty < this.header || ty >= h) {
             this.clearSelection()
         } else {
             this.selection = ty - this.header

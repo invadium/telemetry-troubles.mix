@@ -99,7 +99,7 @@ class Dump extends ScrollablePanel {
         by++
         let selectionPos = 0
         const mem = core.mem
-        for (let i = stackPointer; i < core.capacity && by < h; i++, by++, selectionPos++) {
+        for (let i = stackPointer; i < core.capacity && by < y + h; i++, by++, selectionPos++) {
             const opcode = mem[i],
                   executed = (mode === EXEC_MODE && i === execPointer),
                   edited   = (mode === EDIT_MODE && i === editPointer),
@@ -114,7 +114,6 @@ class Dump extends ScrollablePanel {
             } else if (selected) {
                 txt.back(lib.cidx('pick'))
                    .face(lib.cidx('base'))
-                // subject = `[${subject}]`
             } else {
                 // regular text
                 txt.back(lib.cidx('base'))

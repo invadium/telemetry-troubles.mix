@@ -146,9 +146,10 @@ function hud() {
     const monitorTitle = monitor.spawn('SectionTitle', {
         label: '  CORE MONITOR  ',
     })
-    const dump = monitor.spawn('Dump')
 
-    monitor.spawn('ScrollBar', {
+    // === core dump ===
+    const dump = monitor.spawn('Dump')
+    const dumpScrollBar = monitor.spawn('ScrollBar', {
         sync: function() {
             this.cur = dump.relativePos()
             this.fill = dump.relativeFill()
@@ -166,6 +167,41 @@ function hud() {
             const txt = this.tx
 
             this.x = dump.w
+            this.y = 1
+            this.w = 1
+            this.h = txt.th - 1
+        },
+    })
+
+    // === code selector ===
+    const codeSelector = monitor.spawn('CodeSelector', {
+        adjust: function() {
+            const m = this.margins
+            this.x = dumpScrollBar.x + dumpScrollBar.w
+            this.y = m.north
+            this.w = 4
+            this.h = this.__.th - m.north - m.south
+        }
+    })
+
+    monitor.spawn('ScrollBar', {
+        sync: function() {
+            this.cur  = codeSelector.relativePos()
+            this.fill = codeSelector.relativeFill()
+        },
+
+        scrollUp: function() {
+            codeSelector.scrollUp()
+        },
+
+        scrollDown: function() {
+            codeSelector.scrollDown()
+        },
+
+        adjust: function() {
+            const txt = this.tx
+
+            this.x = codeSelector.x + codeSelector.w
             this.y = 1
             this.w = 1
             this.h = txt.th - 1
