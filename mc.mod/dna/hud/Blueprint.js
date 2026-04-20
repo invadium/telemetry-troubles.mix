@@ -42,19 +42,7 @@ class Blueprint extends sys.LabFrame {
             th = maxHeight
             tw = th * this.aspect
         }
-        const st = this.st = {
-            W,
-            H,
-            BX,
-            BY,
-            maxWidth,
-            maxHeight,
-            tw,
-            th,
-        }
 
-        //this.x = BX
-        //this.y = BY
         this.x = BX + .5 * (maxWidth - tw)
         this.y = BY + .5 * (maxHeight - th)
         this.w = tw
@@ -63,19 +51,19 @@ class Blueprint extends sys.LabFrame {
 
     draw() {
         const { x, y, w, h } = this
-        lineWidth(2)
-        stroke(.4, .5, .6)
-        rect(x, y, w, h)
-        circle(x + .5*w, y + .5*h, .25*w)
-    }
+        save()
+        translate(x, y)
+        scale(w/100)
+        // now we are in 100x117
 
-    dump() {
-        const _ = this
-        Object.keys(_.st).forEach(k => {
-            const v = _.st[k]
-            log(`${k}: ${v}`)
-        })
-        return 'OK'
+        
+        lineWidth(.5)
+        stroke(.4, .5, .6)
+        
+        rect(0, 0, 100, 117)
+        circle(70, 35, 22)
+
+        restore()
     }
 }
 
