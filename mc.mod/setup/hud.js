@@ -283,6 +283,9 @@ function hud() {
         },
     })
 
+    missionPanel.spawn('Blueprint', {
+    })
+
     hud.adjust()
 }
 hud.Z = 5
