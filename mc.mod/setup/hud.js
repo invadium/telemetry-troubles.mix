@@ -13,7 +13,6 @@ function hud() {
         },
     })
 
-
     const titleBar = $.titleBar = missionPanel.spawn('TitleBar', {
         showBorder: false,
         status:     'This is a titlebar!'
@@ -44,7 +43,7 @@ function hud() {
                   cellH  = this.cellHeight * this.scale,
                   hUnits = __.vSpan() / cellH
             this.targetWidth  = 32
-            this.targetHeight = floor(.5 * hUnits) - 1
+            this.targetHeight = floor(.35 * hUnits) - 1
         },
 
     })
@@ -179,7 +178,7 @@ function hud() {
                   cellH  = this.cellHeight * this.scale,
                   hUnits = __.vSpan() / cellH
             this.targetWidth  = 32
-            this.targetHeight = floor(.5 * hUnits) - 1
+            this.targetHeight = floor(.6 * hUnits) - 1
         },
 
         adjustPos() {
@@ -258,6 +257,29 @@ function hud() {
             this.y = 1
             this.w = 1
             this.h = txt.th - 1
+        },
+    })
+
+    missionPanel.spawn('TButton', {
+        x: 600,
+        y: 200,
+        w: 250,
+        h: 50,
+        text: 'Memory Uplink',
+
+        margins: {
+            north: 4,
+        },
+
+        adjust: function() {
+            this.w = 192
+            this.h = 32
+            this.x = monitor.x + monitor.w - this.w
+            this.y = monitor.y + monitor.h + this.margins.north
+        },
+
+        onClick: function() {
+            log('do stuff')
         },
     })
 

@@ -6,6 +6,9 @@ class Inbox extends ScrollablePanel {
         super( augment({
             name:  'inbox',
 
+            UNREAD_PREFIX: '* ',
+
+            // TODO move out
             imap: {
                 messages: [
                     {
@@ -76,11 +79,7 @@ class Inbox extends ScrollablePanel {
 
     open(pos) {
         const message = this.imap.messages[pos]
-        // console.dir(message)
-        log(message.subject)
-        log(message.content)
         message.read = true
-        // TODO hide inbox, show email content
         this.view.showEmail(message)
     }
 
@@ -121,7 +120,7 @@ class Inbox extends ScrollablePanel {
             const msg   = messages[i],
                   stime = lib.time.toFixedString(msg.time, w2),
                   selected = (selectionPos === this.selection)
-            let subject = msg.read? msg.subject : `*${msg.subject}`
+            let subject = msg.read? msg.subject : `${this.UNREAD_PREFIX}${msg.subject}`
 
             if (selected) {
                 txt.back(lib.cidx('alert'))
