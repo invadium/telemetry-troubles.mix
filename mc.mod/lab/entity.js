@@ -1,5 +1,8 @@
 const Z = 11
 
+const hidden = true
+
+// render debug rectangles
 function draw() {
     const x = rx(.5),
           y = ry(.5)

@@ -1,8 +1,9 @@
 ### System I
 
 > core game design
-> UI layout
-> message board
+V UI layout
+V email browser
+> email viewer
 > probe dev kit
 > probe status screen
 > mission entity

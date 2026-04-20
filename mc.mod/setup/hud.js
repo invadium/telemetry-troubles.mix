@@ -144,7 +144,7 @@ function hud() {
     monitor.adjust()
 
     const monitorTitle = monitor.spawn('SectionTitle', {
-        label: '  MONITOR  ',
+        label: '  CORE MONITOR  ',
     })
     const dump = monitor.spawn('Dump')
 
@@ -165,7 +165,7 @@ function hud() {
         adjust: function() {
             const txt = this.tx
 
-            this.x = txt.tw - 1
+            this.x = dump.w
             this.y = 1
             this.w = 1
             this.h = txt.th - 1

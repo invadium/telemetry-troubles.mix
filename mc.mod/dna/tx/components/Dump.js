@@ -1,19 +1,45 @@
 const ScrollablePanel = require('/mod/mc/dna/tx/components/ScrollablePanel')
 
+const VIEW_MODE = 1
+const EDIT_MODE = 2
+const EXEC_MODE = 3
+
 class Dump extends ScrollablePanel {
 
     constructor(st) {
         super( augment({
             name:  'dump',
+            mode: VIEW_MODE,
 
+            // TODO move out to a separate Core entity
             core: {
                 capacity: 128,
                 mem: []
             },
+
+            editPointer: -1,
+            execPointer: -1,
         }, st) )
 
         for (let i = 0; i < 64; i++) {
             this.core.mem[i] = rnd() < .5? 'ADD' : 5
+        }
+    }
+
+    adjust() {
+        // TODO adjust to leave the space for control buttons
+        if (this.port) {
+            this.x = this.port.x
+            this.y = this.port.y
+            this.w = this.port.w
+            this.h = this.port.h
+        } else {
+            const m = this.margins
+            this.x = m.east
+            this.y = m.north
+            // this.w = this.__.tw - m.east - m.west
+            this.w = 8
+            this.h = this.__.th - m.north - m.south
         }
     }
 
@@ -25,28 +51,44 @@ class Dump extends ScrollablePanel {
         const core = this.core,
               mem  = core.mem
 
-        log('#' + at + ': ' + mem[at])
+        switch(this.mode) {
+            case VIEW_MODE:
+                this.mode = EDIT_MODE
+                this.editPointer = at
+                break
+            case EDIT_MODE:
+                this.editPointer = at
+                break
+        }
+        log('#' + lib.format.toHexString(at, 3) + ': ' + lib.format.toCodeString(mem[at], 4))
+    }
+
+    exit() {
+        if (this.mode === EDIT_MODE) {
+            this.mode = VIEW_MODE
+            this.editPointer = -1
+        }
     }
 
     draw() {
         const txt = this.tx
-        const { x, y, w, h, stackPointer, core } = this
+        const { x, y, w, h, mode, stackPointer, editPointer, execPointer, core } = this
 
         let by = y
         this.background()
 
         // precalc column dimensions
         const x1 = x,
-              w1 = 6,
+              w1 = 3,
               x2 = x1 + w1 + 1,
-              w2 = 6
+              w2 = 4
 
         txt.back(lib.cidx('base'))
            .face(lib.cidx('alert'))
 
         // === column titles ===
-        this.clipText('Offset', x1, by, w1)
-        this.clipText('Opcode', x2, by, w2)
+        this.clipText('ADR', x1, by, w1)
+        this.clipText('CODE', x2, by, w2)
         txt.at(x1 + w1, by).out('|')
 
         // content separator
@@ -57,26 +99,36 @@ class Dump extends ScrollablePanel {
         by++
         let selectionPos = 0
         const mem = core.mem
-        for (let i = stackPointer; i < core.capacity; i++, by++, selectionPos++) {
-            const opcode = mem[i] ?? '....',
+        for (let i = stackPointer; i < core.capacity && by < h; i++, by++, selectionPos++) {
+            const opcode = mem[i],
+                  executed = (mode === EXEC_MODE && i === execPointer),
+                  edited   = (mode === EDIT_MODE && i === editPointer),
                   selected = (selectionPos === this.selection)
-            
-            if (selected) {
-                txt.back(lib.cidx('alert'))
+
+            if (executed) {
+                txt.back(lib.cidx('apply'))
+                   .face(lib.cidx('base'))
+            } else if (edited) {
+                txt.back(lib.cidx('focus'))
+                   .face(lib.cidx('base'))
+            } else if (selected) {
+                txt.back(lib.cidx('pick'))
                    .face(lib.cidx('base'))
                 // subject = `[${subject}]`
             } else {
+                // regular text
                 txt.back(lib.cidx('base'))
                    .face(lib.cidx('alert'))
             }
-
-            this.clipText('' + i,      x1, by, w1)
-            this.clipText('' + opcode, x2, by, w2)
+            this.clipText(lib.format.toHexString(i, w1), x1, by, w1)
+            this.clipText(lib.format.toCodeString(opcode, w2), x2, by, w2)
             txt.at(x1 + w1, by).out('|')
         }
+        /*
         if (by < y+h-1) {
             this.hseparator(x1, by, w1 + w2 + 1)
         }
+        */
     }
 
 }

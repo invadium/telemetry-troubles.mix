@@ -12,6 +12,10 @@ const direct = {
     text:    hsl(.45, .5, .6),
     'alert': hsl(.1,  .5, .7),
 
+    'pick':   hsl(.15, .5, .7),
+    'focus':  hsl(.24, .5, .7),
+    'apply':  hsl(.05, .5, .5),
+
     dark: '101010',
 }
 
