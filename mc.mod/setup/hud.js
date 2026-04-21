@@ -14,23 +14,25 @@ function hud() {
     })
 
     const titleBar = $.titleBar = missionPanel.spawn('TitleBar', {
+        Z:          101,
         showBorder: false,
         status:     'This is a titlebar!'
     })
     const statusBar = $.statusBar = missionPanel.spawn('StatusBar', {
+        Z:          102,
         hideEmpty:  false,
         showBorder: false,
     })
 
     // === email ===
     const email = $.email = missionPanel.spawn('TextMode', {
-        Z:            31,
+        Z:            22,
         name:         'email',
         scale:        1.5,
         targetWidth:  32,
         targetHeight: 25,
 
-        backgroundColor: '00000080',
+        backgroundColor: pal.direct.base,
 
         margins: {
             north: 5,
@@ -157,13 +159,13 @@ function hud() {
 
     // === remote monitor ===
     const monitor = $.monitor = missionPanel.spawn('TextMode', {
-        Z:            32,
+        Z:            24,
         name:         'monitor',
         scale:        1.5,
         targetWidth:  32,
         targetHeight: 25,
 
-        backgroundColor: '00000080',
+        backgroundColor: pal.direct.base,
 
         margins: {
             north: 20,
@@ -236,7 +238,7 @@ function hud() {
         }
     })
 
-    monitor.spawn('ScrollBar', {
+    const codeSelectorScrollBar = monitor.spawn('ScrollBar', {
         sync: function() {
             this.cur  = codeSelector.relativePos()
             this.fill = codeSelector.relativeFill()
@@ -261,6 +263,7 @@ function hud() {
     })
 
     missionPanel.spawn('TButton', {
+        Z: 21,
         x: 600,
         y: 200,
         w: 250,
@@ -284,6 +287,7 @@ function hud() {
     })
 
     missionPanel.spawn('Blueprint', {
+        Z: 11,
     })
 
     hud.adjust()

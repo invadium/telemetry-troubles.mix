@@ -140,7 +140,7 @@ class Dump extends ScrollablePanel {
               w2 = 4
 
         txt.back(lib.cidx('base'))
-           .face(lib.cidx('alert'))
+           .face(lib.cidx('default'))
 
         // === column titles ===
         this.clipText('ADR', x1, by, w1)
@@ -173,7 +173,7 @@ class Dump extends ScrollablePanel {
             } else {
                 // regular text
                 txt.back(lib.cidx('base'))
-                   .face(lib.cidx('alert'))
+                   .face(lib.cidx('default'))
             }
             this.clipText(lib.format.toHexString(i, w1), x1, by, w1)
             this.clipText(lib.format.toCodeString(opcode, w2), x2, by, w2)

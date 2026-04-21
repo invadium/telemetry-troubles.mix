@@ -35,6 +35,7 @@ class CodeSelector extends ScrollablePanel {
     }
 
     contentLength() {
+        if (this.codePointer < 0) return 0
         return this.options.length
     }
 
@@ -81,7 +82,6 @@ class CodeSelector extends ScrollablePanel {
 
         let by = y
         this.background()
-        if (codePointer < 0) return // TODO fill some dump values?
 
         // precalc column dimensions
         const x1 = x,
@@ -90,11 +90,21 @@ class CodeSelector extends ScrollablePanel {
               w2 = 4
 
         txt.back(lib.cidx('base'))
-           .face(lib.cidx('alert'))
+           .face(lib.cidx('default'))
 
         // === column titles ===
         this.clipText('CODE', x2, by, w2)
         this.vseparator(x1, by, h)
+
+        if (codePointer < 0) {
+            txt.back(lib.cidx('base'))
+               .face(lib.cidx('default'))
+            while(by < y + h) {
+                by ++
+                this.clipText('....', x2, by, w2)
+            }
+            return
+        }
 
         // content separator
         by++
@@ -117,7 +127,7 @@ class CodeSelector extends ScrollablePanel {
             } else {
                 // regular text
                 txt.back(lib.cidx('base'))
-                   .face(lib.cidx('alert'))
+                   .face(lib.cidx('default'))
             }
 
             this.clipText(lib.format.toCodeString(opcode, w2), x2, by, w2)

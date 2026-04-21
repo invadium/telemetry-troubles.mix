@@ -63,8 +63,8 @@ class TextMode extends sys.LabFrame {
             cellHeight: env.style.font.terminal.cellHeight,
 
             // placeholder colors to be replaced by style config
-            textColor: '#ffffff',
-            backgroundColor: '#202020',
+            textColor:       '#ffffff',
+            backgroundColor: '#000000',
 
             margins: {
                 north: 0,

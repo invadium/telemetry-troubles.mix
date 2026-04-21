@@ -47,7 +47,7 @@ const glitchy = {
     screen: {
         width:  480,
         height: 320,
-        backgroundColor: [.07, .15, .12, 1],
+        backgroundColor: [.18, .22, .11, 1], // greenish dead screen tint
         curvature: {
             x: 4.0,
             y: 4.0,

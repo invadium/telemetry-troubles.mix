@@ -1,36 +1,26 @@
 const style = {
 
     color: {
-        main:  '#6b1fb1',
-        title: '#6b1fb1',
+        main: '#5efdf7',
+        hi:   '#8cfffb',
+        low:  '#4593a5',
 
-        sky: '#1f123a',
-        grid: '#9e0abf',
-
-        powerStation: '#110f14',
-
-        menu: {
-            title: '#6b1fb1',
-        },
-        credits: {
-            title: '#6b1fb1',
-            front: '#62aadd',
-            back:  '#3a1e7e',
-        },
+        title: '#fa8620', // the title bar text color
+        outline: '#000000',
+        //stroke(.4, .5, .6) // alt
 
         status: {
-            front:  hsl(.14, .4, .5),
+            front:  hsl(.9, .4, .5),
             back:  '#000000C0',
         },
 
-        neon: {
-            red:     '#ff0000',
-            green:   '#00ff00',
-            blue:    '#00c0ff',
-            cyan:    '#00ffff',
-            yellow:  '#ffff00',
-            purple:  '#8060ff',
-            white:   '#ffffff',
+        background: {
+            gradients: [,
+                { stop:  0,  color: '#40bfbf' },
+                { stop: .15, color: '#186060' },
+                { stop: .7,  color: '#124240' },
+                { stop:  1,  color: '#0d1e1e' },
+            ]
         },
     },
 
@@ -43,11 +33,11 @@ const style = {
         },
         title: {
             family: 'pixel-operator-mono8',
-            size:   14,
+            size:   16,
         },
         status: {
             family: 'pixel-operator-mono8',
-            size: 14,
+            size: 16,
         },
 
 

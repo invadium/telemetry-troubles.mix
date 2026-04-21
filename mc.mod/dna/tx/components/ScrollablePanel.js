@@ -63,7 +63,9 @@ class ScrollablePanel extends Panel {
     }
 
     relativePos() {
-        return this.stackPointer / this.contentLength()
+        const len = this.contentLength()
+        if (len <= 0 || len > 8192) return 0
+        return this.stackPointer / len
     }
 
     relativeFill() {

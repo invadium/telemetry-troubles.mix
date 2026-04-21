@@ -56,12 +56,25 @@ class Blueprint extends sys.LabFrame {
         scale(w/100)
         // now we are in 100x117
 
-        
         lineWidth(.5)
-        stroke(.4, .5, .6)
-        
+        stroke(env.style.color.main)
+
         rect(0, 0, 100, 117)
         circle(70, 35, 22)
+
+        lineWidth(2)
+        let by = 50
+
+        stroke(env.style.color.hi)
+        line(0, by, 20, by)
+
+        by += 4
+        stroke(env.style.color.main)
+        line(0, by, 20, by)
+
+        by += 4
+        stroke(env.style.color.low)
+        line(0, by, 20, by)
 
         restore()
     }

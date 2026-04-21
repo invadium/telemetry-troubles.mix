@@ -33,7 +33,7 @@ class ScrollBar extends Panel {
         const txt = this.tx
         const { x, y, w, h, cur, fill } = this
 
-        const y1 = floor(cur * h)
+        const y1 = floor(clamp(cur, 0, 1) * h)
         const h1 = ceil(fill * h)
         const y2 = min(y1 + h1, h)
 

@@ -102,7 +102,7 @@ class Inbox extends ScrollablePanel {
               x2 = x1 + w1 + 1
 
         txt.back(lib.cidx('base'))
-           .face(lib.cidx('alert'))
+           .face(lib.cidx('default'))
 
         // === column titles ===
         this.clipText('Subject', x1, by, w1)
@@ -123,12 +123,12 @@ class Inbox extends ScrollablePanel {
             let subject = msg.read? msg.subject : `${this.UNREAD_PREFIX}${msg.subject}`
 
             if (selected) {
-                txt.back(lib.cidx('alert'))
+                txt.back(lib.cidx('pick'))
                    .face(lib.cidx('base'))
                 // subject = `[${subject}]`
             } else {
                 txt.back(lib.cidx('base'))
-                   .face(lib.cidx('alert'))
+                   .face(lib.cidx('default'))
             }
 
             this.clipText(subject, x1, by, w1)

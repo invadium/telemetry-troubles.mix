@@ -25,7 +25,7 @@ class SectionTitle extends Panel {
         this.background()
 
         // === title ===
-        txt.back(lib.cidx('alert'))
+        txt.back(lib.cidx('title'))
            .face(lib.cidx('base'))
 
         this.hseparator(x, y, w, this.FILLER)
