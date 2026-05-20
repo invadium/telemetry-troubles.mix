@@ -9,13 +9,15 @@ const direct = {
     //base:    hsl(.45, .1, .1),
     base: '#32313b',
     //baseLow: '#4593a5',
-    baseLow: '#00ff00',
     // baseHi:  '#4593a5',
     //baseHi:  '#365257',
     //baseHi:  '#2a3b42',
-    baseHi:  '#43527d',
+    baseLow: '#00ff00',
+    //baseHi:  '#43527d',
+    baseHi:  '#394040',
 
     'default': '#5efdf7',
+
     'alert':   '#5efdf7',
     'pick':    '#5efdf7',
     'focus':   '#f5daa7',

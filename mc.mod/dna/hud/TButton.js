@@ -90,7 +90,8 @@ TButton.prototype.getState = function() {
 TButton.prototype.drawBackground = function() {
     const cset = this.color[this.getState()]
     const { x, y, w, h } = this
-    ctx.fillStyle = cset.base
+    //ctx.fillStyle = cset.base
+    fill(cset.base)
     ctx.fillRect(x, y, w, h)
 
     const x2 = x + w - 1,

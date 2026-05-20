@@ -51,6 +51,7 @@ The probe has a wide range or instruments and subsystems crucial for it's missio
 Available flags:
 
 ```
+--stream     - enable running stream announcement bar
 --plain      - disable the CRT effect
 --showBuffer - show the original mission control buffer preview
 ```

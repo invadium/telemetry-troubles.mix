@@ -49,6 +49,46 @@ class Blueprint extends sys.LabFrame {
         this.h = th
     }
 
+    drawFrontal() {
+        lineWidth(.5)
+        circle(0, 0, 22)
+        circle(0, 0, 5)
+
+        save()
+            translate(0, 20)
+            rect(-5, 0, 10, 15)
+            line(-1, 15, -1, 50)
+            line( 1, 15,  1, 50)
+        restore()
+
+        save()
+            rotate(-.12*TAU)
+            lineWidth(.5)
+            line(0, 5, 0, 22)
+            rotate(.33*TAU)
+            line(0, 5, 0, 22)
+            rotate(.33*TAU)
+            line(0, 5, 0, 22)
+        restore()
+
+        save()
+            rotate(-.18*TAU)
+            lineWidth(1)
+            line(0, 22, 0, 50)
+        restore()
+        save()
+            rotate(-.55*TAU)
+            line(0, 22, 0, 52)
+        restore()
+        save()
+            rotate(-.73*TAU)
+            lineWidth(.25)
+            line(0, 22, 0, 35)
+            lineWidth(.5)
+            circle(0, 37, 1.5)
+        restore()
+    }
+
     draw() {
         const { x, y, w, h } = this
         save()
@@ -60,7 +100,12 @@ class Blueprint extends sys.LabFrame {
         stroke(env.style.color.main)
 
         rect(0, 0, 100, 117)
-        circle(70, 35, 22)
+
+        save()
+        translate(70, 35)
+            this.drawFrontal()
+        restore()
+
 
         lineWidth(2)
         let by = 50

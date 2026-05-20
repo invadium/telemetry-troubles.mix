@@ -1,6 +1,9 @@
 const hud = {
     "font": "12px pixel-operator-mono8",
-    "base": "#293030",
+
+    //"base": "#293030",
+    // base: "#293030",
+    base: '#32313b',
     "base.hi": "#394040",
     "base.low": "#252929",
 
