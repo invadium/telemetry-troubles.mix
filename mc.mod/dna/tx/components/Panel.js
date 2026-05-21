@@ -1,9 +1,8 @@
-let id = 0
 class Panel {
 
     constructor(st) {
         augment(this, {
-            name: 'panel' + (++id),
+            name: 'panel' + id('panel'),
             x:     0,
             y:     0,
             w:     0,

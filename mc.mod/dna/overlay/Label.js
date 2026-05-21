@@ -1,13 +1,12 @@
-let id = 0
 class Label {
 
     constructor(st) {
         extend(this, {
-            name: 'label' + (++id),
+            name: 'label' + id('label'),
 
             rx: .5,
             ry: .5,
-            msg:  'Test Message ' + id,
+            msg:  'Test Message ' + id.last(),
 
             color:    '#ffffff',
             outline:  '#000000',

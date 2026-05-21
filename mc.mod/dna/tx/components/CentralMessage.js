@@ -1,10 +1,8 @@
-let id = 0
-
 class CentralMessage {
 
     constructor(st) {
         augment(this, {
-            name: 'centralMessage' + (++id),
+            name: 'centralMessage' + id('centralMessage'),
             label: '',
 
             x: 0,

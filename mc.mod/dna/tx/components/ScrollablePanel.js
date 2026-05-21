@@ -1,11 +1,10 @@
 const Panel = require('/mod/mc/dna/tx/components/Panel')
 
-let id = 0
 class ScrollablePanel extends Panel {
 
     constructor(st) {
         super( augment({
-            name:  'scrollablePanel' + (++id),
+            name:  'scrollablePanel' + id('scrollablePanel'),
 
             x:      0,
             y:      0,

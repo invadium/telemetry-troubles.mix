@@ -1,12 +1,11 @@
 const Panel = require('/mod/mc/dna/tx/components/Panel')
 
-let id = 0
 class TextButton extends Panel {
 
     constructor(st) {
         super( augment({
-            name: 'button' + (++id),
-            label: 'Button ' + id,
+            name: 'button' + id('textButton'),
+            label: 'Button ' + id.last(),
             align: 'center',
             FILLER: ' ',
 

@@ -3,9 +3,19 @@
 > core game design
 V UI layout
 V email browser
-> email viewer
-> probe dev kit
+> warp mouse coordinates before hud event processing
+> auto-print email viewer
+> windows focus and selection
+> stylized buttons
+> separate window headers
+> keyboard-only support
+> dpad-only support?
+> mission stats screen
 > probe status screen
+
+
+### Proto I
+> probe dev kit
 > mission entity
 > probe entity
 > experiment entity
@@ -19,7 +29,6 @@ V email browser
 > $ earn for experiment
 > $ burn for passing days
 > mission over condition
-> mission stats screen
 
 ## Collider
 > review picking, create troubleshooting section - _centered & w/h for _rectangular MUST be defined!

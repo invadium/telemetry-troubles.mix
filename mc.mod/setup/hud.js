@@ -1,3 +1,4 @@
+// construct the main mission HUD
 function hud() {
     const hud = lab.spawn($.dna.hud.Hud, {
         Z:     21,
@@ -16,7 +17,7 @@ function hud() {
     const titleBar = $.titleBar = missionPanel.spawn('TitleBar', {
         Z:          101,
         showBorder: false,
-        status:     'This is a titlebar!'
+        // status:     'Titlebar'
     })
     const statusBar = $.statusBar = missionPanel.spawn('StatusBar', {
         Z:          102,
@@ -24,7 +25,7 @@ function hud() {
         showBorder: false,
     })
 
-    // === email ===
+    // === primary display ===
     const email = $.email = missionPanel.spawn('TextMode', {
         Z:            22,
         name:         'email',
@@ -157,7 +158,8 @@ function hud() {
 
     emailView.hide()
 
-    // === remote monitor ===
+
+    // === secondary display ===
     const monitor = $.monitor = missionPanel.spawn('TextMode', {
         Z:            24,
         name:         'monitor',
@@ -289,6 +291,15 @@ function hud() {
     missionPanel.spawn('Blueprint', {
         Z: 11,
     })
+
+
+    missionPanel.spawn('Display', {
+        name: 'primaryDisplay',
+    })
+    missionPanel.spawn('Display', {
+        name: 'secondaryDisplay',
+    })
+
 
     hud.adjust()
 }

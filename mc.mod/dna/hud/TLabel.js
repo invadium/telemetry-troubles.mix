@@ -1,15 +1,14 @@
-let id = 0
 class TLabel {
 
     constructor(st) {
         extend(this, {
-            name: 'tlabel' + (++id),
+            name: 'tlabel' + id('tlabel'),
 
             x:     0,
             y:     0,
             w:     0,
             h:     0,
-            msg:  'Test Message ' + id,
+            msg:  'Test Message ' + id.last(),
 
             color:    '#ffffff',
             outline:  '#000000',

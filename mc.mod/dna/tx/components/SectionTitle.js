@@ -1,11 +1,10 @@
 const Panel = require('/mod/mc/dna/tx/components/Panel')
 
-let id = 0
 class SectionTitle extends Panel {
 
     constructor(st) {
         super( augment({
-            name: 'title' + (++id),
+            name: 'title' + id('sectionTitle'),
             FILLER: '=',
             label: '',
             align: 'center',
