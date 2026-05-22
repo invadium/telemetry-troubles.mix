@@ -4,7 +4,12 @@ class Header extends sys.LabFrame {
         super( augment({
             name:   'header',
 
-            h:      24,
+            x:         0,
+            y:         0,
+            h:         0,
+            w:         24,
+            _centered: false,
+
             font:   '20px pixel-operator-bold',
             title:  'Test Window',
             color: {
@@ -25,10 +30,11 @@ class Header extends sys.LabFrame {
     }
 
     adjust() {
+        this.x = this.__.w - this.w
     }
 
     draw() {
-        const { __, h, hedge, textShift } = this
+        const { __, w, hedge, textShift } = this
 
         save()
         translate( __.w, 0 )
@@ -39,22 +45,24 @@ class Header extends sys.LabFrame {
         alignLeft()
         font(this.font)
         const tw = textWidth(this.title),
-              W  = textShift + tw
+              W  = textShift + tw,
+              WW = W + hedge
 
         fill( this.color.base )
         ctx.lineJoin = 'round'
         polygon(
              hedge, 0,
              0,     hedge,
-             0,     h,
-             W,     h,
-             W + hedge, h - hedge,
-             W + hedge, 0,
+             0,     w,
+             W,     w,
+             WW,    w - hedge,
+             WW,    0,
         )
-        // rect( 0, 0, __.w, h )
+        this.h = WW
+        // rect( 0, 0, __.w, w )
 
         fill('#404040')
-        text(this.title, textShift, .5 * h)
+        text(this.title, textShift, .5 * w)
 
         restore()
 
@@ -67,6 +75,10 @@ class Header extends sys.LabFrame {
         rect( 0, 0, __.w, h )
         */
     }
+
+    onClick(x, y, e) {
+        this.__.switch()
+    }
 }
 
 class Holder {
@@ -74,30 +86,45 @@ class Holder {
     constructor(st) {
         augment(this, {
             name: 'holder',
+
             x:     0,
             y:     0,
-            w:     0,
-            h:     32,
+            w:     20,
+            h:     0,
+
+            _centered: false,
         }, st)
     }
 
     adjust() {
         const __ = this.__
-        this.w = .5 * __.h
+        this.h = .5 * __.h
         this.x = 0
-        this.y = .5*__.h - .5*this.w
-        // this.y = 0
+        this.y = .5*__.h - .5*this.h
     }
 
     draw() {
         const { x, y, w, h } = this
 
         fill('#6f5f7a')
-        rect( x, y, h, w )
+        rect( x, y, w, h )
 
         lineWidth(1)
         stroke('#000000')
-        rect( x, y, h, w )
+
+        const edge = 24,
+              step = 5,
+              N    = floor(w / (step - 1))
+
+        for (let lx = step; lx < w; lx += step) {
+            line(x + lx, y + edge, x + lx, y + h - edge)
+        }
+
+
+        rect( x, y, w, h )
+    }
+
+    onClick(x, y, e) {
     }
 
 }
@@ -112,6 +139,8 @@ class ContentPane extends sys.LabFrame {
             w:     0,
             h:     0,
 
+            _centered: false,
+
             background: '#32313b',
         }, st) )
     }
@@ -122,9 +151,9 @@ class ContentPane extends sys.LabFrame {
               header = __.header,
               holder = __.holder
 
-        _.x = holder.h + __.bevel
+        _.x = holder.w + __.bevel
         _.y = __.bevel
-        _.w = __.w - 2*__.bevel - holder.h - header.h
+        _.w = __.w - 2*__.bevel - holder.w - header.w
         _.h = __.h - _.y - __.bevel
     }
 
@@ -152,9 +181,12 @@ class ContentPane extends sys.LabFrame {
         super.draw()
         // this.drawForeground()
     }
+
+    onClick(x, y, e) {
+    }
 }
 
-class Display extends sys.LabFrame {
+class Display extends $.dna.hud.Container {
 
     constructor(st) {
         super( augment({
@@ -165,7 +197,8 @@ class Display extends sys.LabFrame {
             w: 0,
             h: 0,
 
-            bevel: 7,
+            stretch: 1, // 0..1 display extension value
+            bevel:   7,
         }, st) )
         const holder = this.attach( new Holder() )
         const header = this.attach( new Header() )
@@ -189,13 +222,32 @@ class Display extends sys.LabFrame {
         }
     }
 
+    switch() {
+        if (this.stretch < 1 && this.stretch > 0) return // in transit
+
+        const target = this
+        if (this.stretch === 0) {
+            job.kinetix.tween( (v, t) => {
+                target.stretch = v
+            }, $.dna.kinetix.easingNG.bounce.out)
+                .time(2)
+        } else if (this.stretch === 1) {
+            job.kinetix.tween( (v, t) => {
+                target.stretch = 1 - v
+            }, $.dna.kinetix.easingNG.bounce.out)
+                .time(2)
+        }
+    }
+
+    drawBackground() {}
+
     drawForeground() {
         const { x, y, w, h, bevel, holder, header } = this
 
         const b  = bevel,
               b2 = .5 * b,
-              W  = w - holder.h - header.h,
-              bx = holder.h
+              W  = w - holder.w - header.w,
+              bx = holder.w
 
         lineWidth(b)
         stroke('#6f5f7a')
@@ -208,18 +260,28 @@ class Display extends sys.LabFrame {
 
     }
 
+    drawContent() {
+        const ls = this._ls
+        for (let i = 0; i < ls.length; i++) {
+            const e = ls[i]
+            if (e.draw && !e.hidden) e.draw()
+        }
+    }
+
     draw() {
         const { x, y, w, h } = this
 
         save()
         translate( x, y )
 
-        // content
-        super.draw()
-
+        // content - MUST draw manually, since hud.Container is binded to a wrong context now!
+        this.drawContent()
         this.drawForeground()
 
         restore()
     }
 
+    onClick(x, y, e) {
+        super.onClick(x, y, e)
+    }
 }

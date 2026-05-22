@@ -308,9 +308,9 @@ function hud() {
         },
 
         constraints: [
+            _ => _.w = .45 * _.__.viewport.w,
+            _ => _.x = -(1 - _.stretch) * (_.w - _.header.w),
             _ => _.y = _.anchor.north.y + _.anchor.north.h + _.margin.north,
-            _ => _.x = 0,
-            _ => _.w = .5 * (_.__.viewport.w - _.x - _.margin.west),
             _ => _.h = .5 * (_.__.viewport.h - _.y - _.margin.south),
         ],
     })
