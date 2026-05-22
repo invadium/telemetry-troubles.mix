@@ -5,6 +5,9 @@
 // TODO include basic colors and extend main palette
 //      can be extended with other palettes
 
+
+// TODO MUST be defined in /env and then reused here
+//      only the mechanism should be here - not the colors!
 const direct = {
     //base:    hsl(.45, .1, .1),
     base: '#32313b',

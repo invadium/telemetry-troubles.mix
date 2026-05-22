@@ -5,8 +5,8 @@ const style = {
         hi:   '#8cfffb',
         low:  '#4593a5',
 
-        title: '#fa8620', // the title bar text color
-        outline: '#000000',
+        title:   '#fa8620', // the titlebar text color
+        outline: '#000000', // the titlebar text outline
         //stroke(.4, .5, .6) // alt
 
         status: {

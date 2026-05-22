@@ -293,13 +293,32 @@ function hud() {
     })
 
 
-    missionPanel.spawn('Display', {
+    const primaryDisplay = missionPanel.spawn('Display', {
         name: 'primaryDisplay',
+
+        anchor: {
+            north: titleBar,
+            east:  email,
+        },
+        margin: {
+            north: 12,
+            east:  12,
+            west:  12,
+            south: 20,
+        },
+
+        constraints: [
+            _ => _.y = _.anchor.north.y + _.anchor.north.h + _.margin.north,
+            _ => _.x = 0,
+            _ => _.w = .5 * (_.__.viewport.w - _.x - _.margin.west),
+            _ => _.h = .5 * (_.__.viewport.h - _.y - _.margin.south),
+        ],
     })
-    missionPanel.spawn('Display', {
+    /*
+    const secondaryDisplay = missionPanel.spawn('Display', {
         name: 'secondaryDisplay',
     })
-
+    */
 
     hud.adjust()
 }
