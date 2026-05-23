@@ -3,10 +3,16 @@
 let instances = 0
 
 // a visual component that has to be pushed to invoke an action
-const TButton = function(dat) {
+//
+// This is a copy of the original Collider.JAM hud.gadget.Button,
+// but placed in the proper context, since HUD is unable to retarget
+// the context at the moment
+//
+// TODO modify HUD to be able to use the dynamic context
+const MButton = function(dat) {
     this.name = 'button_' + ++instances
     if (!this.text && !this.text === '') {
-        this.text = 'TButton ' + instances
+        this.text = 'MButton ' + instances
     }
     this.disabled = false
     this.toggled = false
@@ -26,7 +32,7 @@ const TButton = function(dat) {
     this.adjust()
 }
 
-TButton.prototype.injectStyle = function(base) {
+MButton.prototype.injectStyle = function(base) {
     const s = $.lib.hud.style
     this.color = {
         active: {
@@ -55,7 +61,7 @@ TButton.prototype.injectStyle = function(base) {
 // a service method to adjust component in the updated layout
 // Usually invoked automatically when component is added
 // or layout is changed.
-TButton.prototype.adjust = function() {
+MButton.prototype.adjust = function() {
     ctx.font = this.font
     const m = ctx.measureText(this.text)
     const requestW = m.width + this.hspace*2
@@ -64,30 +70,30 @@ TButton.prototype.adjust = function() {
     if (this.h < requestH) this.h = requestH
 }
 
-TButton.prototype.onMouseDown = function() {
+MButton.prototype.onMouseDown = function() {
     this.toggled = true
 }
 
-TButton.prototype.onMouseUp = function() {
+MButton.prototype.onMouseUp = function() {
     this.toggled = false
 }
 
 // needs to be defined to capture the mouse 
-TButton.prototype.onMouseDrag = function() {}
+MButton.prototype.onMouseDrag = function() {}
 
 // need this to be defined for _hover flag to be working
-TButton.prototype.onMouseMove = function() {}
+MButton.prototype.onMouseMove = function() {}
 
 // get current state name - active | disabled | toggled | hover
 // @returns {string} - button state based on flags
-TButton.prototype.getState = function() {
+MButton.prototype.getState = function() {
     if (this.disabled) return 'disabled'
     if (this.toggled) return 'toggled'
     if (this._hover) return 'hover'
     return 'active'
 }
 
-TButton.prototype.drawBackground = function() {
+MButton.prototype.drawBackground = function() {
     const cset = this.color[this.getState()]
     const { x, y, w, h } = this
     //ctx.fillStyle = cset.base
@@ -101,7 +107,7 @@ TButton.prototype.drawBackground = function() {
     triangle(x2, y, x2, y3, x3, y2)
 }
 
-TButton.prototype.drawContent = function() {
+MButton.prototype.drawContent = function() {
     const cset = this.color[this.getState()]
     ctx.fillStyle = cset.content
     ctx.font = cset.font
@@ -110,9 +116,9 @@ TButton.prototype.drawContent = function() {
     ctx.fillText(this.text, this.x + this.w/2, this.y + this.h/2);
 }
 
-TButton.prototype.draw = function() {
+MButton.prototype.draw = function() {
     this.drawBackground()
     this.drawContent()
 }
 
-return TButton
+return MButton

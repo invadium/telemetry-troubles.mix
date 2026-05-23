@@ -1,4 +1,7 @@
 // main HUD container that defines core UI dimensions
+//
+// Use .viewport to get the scaled internal dimensions
+// (e.g. missionPanel.viewport.w or missionPanel.viewport.h)
 class MissionPanel extends $.dna.hud.Container {
 
     constructor(st) {

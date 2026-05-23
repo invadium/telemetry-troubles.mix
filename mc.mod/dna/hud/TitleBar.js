@@ -17,7 +17,7 @@ class TitleBar extends $.dna.hud.Container {
     }
 
     init() {
-        this.spawn('TLabel', {
+        this.spawn('MLabel', {
             name: 'day',
             font: env.style.font.title,
             color: env.style.color.title,
@@ -39,7 +39,7 @@ class TitleBar extends $.dna.hud.Container {
             },
         })
 
-        this.spawn('TLabel', {
+        this.spawn('MLabel', {
             name: 'burn',
             font: env.style.font.title,
             color: env.style.color.title,
@@ -71,7 +71,7 @@ class TitleBar extends $.dna.hud.Container {
             },
         })
 
-        this.spawn('TLabel', {
+        this.spawn('MLabel', {
             name: 'balance',
             font:  env.style.font.title,
             color: env.style.color.title,

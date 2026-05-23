@@ -1,3 +1,4 @@
+// Probe status visualization screen
 class Blueprint extends sys.LabFrame {
 
     constructor(st) {

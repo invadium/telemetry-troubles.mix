@@ -1,8 +1,8 @@
-class TLabel {
+class MLabel {
 
     constructor(st) {
         extend(this, {
-            name: 'tlabel' + id('tlabel'),
+            name: 'label' + id('label'),
 
             x:     0,
             y:     0,

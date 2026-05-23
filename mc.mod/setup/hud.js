@@ -5,6 +5,7 @@ function hud() {
         name: 'hud',
     })
 
+    // create a parent component to scale the GUI components
     const missionPanel = $.missionPanel = hud.spawn('MissionPanel', {
         showBorder: false,
 
@@ -264,7 +265,7 @@ function hud() {
         },
     })
 
-    missionPanel.spawn('TButton', {
+    missionPanel.spawn('MButton', {
         Z: 21,
         x: 600,
         y: 200,
