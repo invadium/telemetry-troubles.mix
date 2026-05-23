@@ -7,4 +7,6 @@ function syncViewportSize() {
     ctx.canvas.height = H
     ctx.canvas.style.width  = W 
     ctx.canvas.style.height = H
+    lab.width  = lab.w = W
+    lab.height = lab.h = H
 }

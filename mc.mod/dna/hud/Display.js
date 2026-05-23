@@ -129,7 +129,7 @@ class Holder {
 
 }
 
-class ContentPane extends sys.LabFrame {
+class ContentPane extends $.dna.hud.Container {
 
     constructor(st) {
         super( augment({
@@ -155,6 +155,8 @@ class ContentPane extends sys.LabFrame {
         _.y = __.bevel
         _.w = __.w - 2*__.bevel - holder.w - header.w
         _.h = __.h - _.y - __.bevel
+
+        super.adjust()
     }
 
     drawBackground() {
@@ -162,7 +164,7 @@ class ContentPane extends sys.LabFrame {
         if (!background) return
 
         fill(background)
-        rect( x, y, w, h )
+        rect( 0, 0, w, h )
     }
 
     drawForeground() {
@@ -170,16 +172,25 @@ class ContentPane extends sys.LabFrame {
 
         lineWidth(2)
         stroke('#a0fe20')
-        rect( x, y, w, h )
+        rect( 0, 0, w, h )
     }
 
     draw() {
-        const { x, y, w, h } = this
+        const { x, y, w, h, clip } = this
+
+        save()
+        translate( x, y )
+        if (clip) {
+            ctx.beginPath()
+            ctx.rect(0,0,this.w,this.h)
+            ctx.clip()
+        }
 
         this.drawBackground()
-        // content
-        super.draw()
+        this.drawContent()
         // this.drawForeground()
+
+        restore()
     }
 
     onClick(x, y, e) {

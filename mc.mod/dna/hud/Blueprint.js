@@ -22,14 +22,14 @@ class Blueprint extends sys.LabFrame {
     }
 
     adjust() {
-        const W = this.__.viewport.w,
-              H = this.__.viewport.h,
-              margins = this.margins,
-              email = this.__.email,
-              titleBar = this.__.titleBar,
+        const W         = this.__.viewport.w,
+              H         = this.__.viewport.h,
+              margins   = this.margins,
+              PD        = this.__.primaryDisplay,
+              titleBar  = this.__.titleBar,
               statusBar = this.__.statusBar
 
-        const BX = email.x + email.w + margins.east
+        const BX = env.tune.displayNW * W + margins.east
         const BY = titleBar.y + titleBar.h + margins.north
         const maxWidth = W - (BX + margins.west)
         const maxHeight = H - (BY + (H - statusBar.y) + margins.south)

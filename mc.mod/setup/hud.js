@@ -1,11 +1,13 @@
 // construct the main mission HUD
 function hud() {
+
+    // UI root node
     const hud = lab.spawn($.dna.hud.Hud, {
         Z:     21,
         name: 'hud',
     })
 
-    // create a parent component to scale the GUI components
+    // create a parent component to scale the UI components
     const missionPanel = $.missionPanel = hud.spawn('MissionPanel', {
         showBorder: false,
 
@@ -26,8 +28,34 @@ function hud() {
         showBorder: false,
     })
 
+    const blueprint = missionPanel.spawn('Blueprint', {
+        Z: 11,
+    })
+
+
     // === primary display ===
-    const email = $.email = missionPanel.spawn('TextMode', {
+    const primaryDisplay = $.PD = missionPanel.spawn('Display', {
+        name: 'primaryDisplay',
+        title: 'Communication',
+
+        anchor: {
+            north: titleBar,
+        },
+        margin: {
+            north: 12,
+            west:  12,
+            south: 20,
+        },
+
+        constraints: [
+            _ => _.w = env.tune.displayNW * _.__.viewport.w,
+            _ => _.x = -(1 - _.stretch) * (_.w - _.header.w),
+            _ => _.y = _.anchor.north.y + _.anchor.north.h + _.margin.north,
+            _ => _.h = .5 * (_.__.viewport.h - _.y - _.margin.south),
+        ],
+    })
+
+    const email = $.email = primaryDisplay.content.spawn('TextMode', {
         Z:            22,
         name:         'email',
         scale:        1.5,
@@ -43,11 +71,11 @@ function hud() {
 
         adjustTargets: function() {
             const __     = this.__,
-                  style  = this.style,
                   cellH  = this.cellHeight * this.scale,
-                  hUnits = __.vSpan() / cellH
+                  hUnits = __.h / cellH
+
             this.targetWidth  = 32
-            this.targetHeight = floor(.35 * hUnits) - 1
+            this.targetHeight = floor(hUnits)
         },
 
     })
@@ -160,8 +188,30 @@ function hud() {
     emailView.hide()
 
 
-    // === secondary display ===
-    const monitor = $.monitor = missionPanel.spawn('TextMode', {
+
+    const secondaryDisplay = $.SD = missionPanel.spawn('Display', {
+        name: 'secondaryDisplay',
+        title: 'Core Monitor',
+
+        anchor: {
+            north: primaryDisplay,
+            south: statusBar,
+        },
+        margin: {
+            north: 12,
+            south: 42,
+        },
+
+        constraints: [
+            _ => _.w = env.tune.displayNW * _.__.viewport.w,
+            _ => _.x = -(1 - _.stretch) * (_.w - _.header.w),
+            _ => _.y = _.anchor.north.y + _.anchor.north.h + _.margin.north,
+            // TODO calculate from other open windows?
+            _ => _.h = _.__.viewport.h - _.y - _.anchor.south.h - _.margin.south,
+        ],
+    })
+
+    const monitor = $.monitor = secondaryDisplay.content.spawn('TextMode', {
         Z:            24,
         name:         'monitor',
         scale:        1.5,
@@ -170,29 +220,33 @@ function hud() {
 
         backgroundColor: pal.direct.base,
 
+        /*
         margins: {
             north: 20,
             east:  20,
         },
+        */
 
         email,
 
         adjustTargets: function() {
             const __     = this.__,
-                  style  = this.style,
                   cellH  = this.cellHeight * this.scale,
-                  hUnits = __.vSpan() / cellH
+                  hUnits = __.h / cellH
+
             this.targetWidth  = 32
-            this.targetHeight = floor(.6 * hUnits) - 1
+            this.targetHeight = floor(hUnits)
         },
 
         adjustPos() {
+            /*
             const __      = this.__,
                   email   = this.email,
                   margins = this.margins
 
             this.x = margins.east
             this.y = email.y + email.h + margins.north
+            */
         }
     })
     monitor.adjust()
@@ -265,6 +319,8 @@ function hud() {
         },
     })
 
+    /*
+    // TODO move inside the display panel?
     missionPanel.spawn('MButton', {
         Z: 21,
         x: 600,
@@ -287,37 +343,6 @@ function hud() {
         onClick: function() {
             log('do stuff')
         },
-    })
-
-    missionPanel.spawn('Blueprint', {
-        Z: 11,
-    })
-
-
-    const primaryDisplay = missionPanel.spawn('Display', {
-        name: 'primaryDisplay',
-
-        anchor: {
-            north: titleBar,
-            east:  email,
-        },
-        margin: {
-            north: 12,
-            east:  12,
-            west:  12,
-            south: 20,
-        },
-
-        constraints: [
-            _ => _.w = .45 * _.__.viewport.w,
-            _ => _.x = -(1 - _.stretch) * (_.w - _.header.w),
-            _ => _.y = _.anchor.north.y + _.anchor.north.h + _.margin.north,
-            _ => _.h = .5 * (_.__.viewport.h - _.y - _.margin.south),
-        ],
-    })
-    /*
-    const secondaryDisplay = missionPanel.spawn('Display', {
-        name: 'secondaryDisplay',
     })
     */
 

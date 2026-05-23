@@ -58,6 +58,11 @@ class TextMode extends sys.LabFrame {
             name: 'textMode',
             border: 0.05,
 
+            x:      0,
+            y:      0,
+            w:      0,
+            h:      0,
+
             font: env.style.font.terminal.head,
             cellWidth: env.style.font.terminal.cellWidth,
             cellHeight: env.style.font.terminal.cellHeight,
