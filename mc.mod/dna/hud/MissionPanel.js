@@ -8,6 +8,9 @@ class MissionPanel extends $.dna.hud.Container {
         super( augment({
             name: 'missionPanel',
 
+            lx:    null, // disable mono-translate
+            ly:    null,
+
             transparent: true,
         }, st) )
     }
@@ -42,17 +45,21 @@ class MissionPanel extends $.dna.hud.Container {
         super.adjust()
     }
 
+    /*
     lx(ux) {
-        return (ux - this.x) / this.viewport.scale
+        return (lib.util.curveX(ux, this.w) - this.x) / this.viewport.scale
     }
 
     ly(uy) {
-        return (uy - this.y) / this.viewport.scale
+        return (lib.util.curveY(uy, this.h) - this.y) / this.viewport.scale
     }
+    */
 
     lpos(upos) {
+        // lib.util.curve(upos, this.w, this.h)
         upos[0] = (upos[0] - this.x) / this.viewport.scale
         upos[1] = (upos[1] - this.y) / this.viewport.scale
+        lib.util.curve(upos, this.viewport.w, this.viewport.h)
         return upos
     }
 

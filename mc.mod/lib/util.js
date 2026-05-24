@@ -10,3 +10,55 @@ function syncViewportSize() {
     lab.width  = lab.w = W
     lab.height = lab.h = H
 }
+
+/*
+// curvature fragment shader function
+vec2 curveUV(vec2 uv) {
+    uv = uv * 2.0 - 1.0;
+    //vec2 offset = abs(uv.yx) / vec2(curvature.x, curvature.y);
+    vec2 offset = abs(uv.yx) / curvature;
+    uv = uv + uv * offset * offset;
+    uv = uv * 0.5 + 0.5;
+    return uv;
+}
+*/
+
+function curve(pos, w, h) {
+    const curvature = $.lab.fx.glitcher.screen.curvature
+
+    const nx = 2 * (pos[0] / w) - 1,
+          ny = 2 * (pos[1] / h) - 1,
+          // !!! flip x/y for the offset vector!
+          ox = abs(ny) / curvature.x,
+          oy = abs(nx) / curvature.y,
+          wx = nx + nx * ox * ox,
+          wy = ny + ny * oy * oy,
+          ux = .5 * (wx + 1),
+          uy = .5 * (wy + 1)
+
+    pos[0] = ux * w
+    pos[1] = uy * h
+    return pos
+}
+
+function curveX(x, w) {
+    const curvature = $.lab.fx.glitcher.screen.curvature
+
+    const nx = 2 * (x / w) - 1,
+          ox = abs(nx) / curvature.x,
+          wx = nx + nx * ox * ox,
+          ux = .5 * (wx + 1)
+
+    return ux * w
+}
+
+function curveY(y, h) {
+    const curvature = $.lab.fx.glitcher.screen.curvature
+
+    const ny = 2 * (y / h) - 1,
+          oy = abs(ny) / curvature.y,
+          wy = ny + ny * oy * oy,
+          uy = .5 * (wy + 1)
+
+    return uy * h
+}

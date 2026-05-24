@@ -70,6 +70,7 @@ const glitchy = {
 }
 
 function init() {
+    // activate "glitchy" profile
     extend(this, glitchy)
 }
 

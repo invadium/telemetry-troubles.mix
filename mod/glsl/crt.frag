@@ -105,7 +105,8 @@ float rand(vec2 co)
 
 vec2 curveUV(vec2 uv) {
     uv = uv * 2.0 - 1.0;
-    vec2 offset = abs(uv.yx) / vec2(curvature.x, curvature.y);
+    //vec2 offset = abs(uv.yx) / vec2(curvature.x, curvature.y);
+    vec2 offset = abs(uv.yx) / curvature;
     uv = uv + uv * offset * offset;
     uv = uv * 0.5 + 0.5;
     return uv;
