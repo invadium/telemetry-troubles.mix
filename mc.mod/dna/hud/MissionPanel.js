@@ -8,11 +8,12 @@ class MissionPanel extends $.dna.hud.Container {
         super( augment({
             name: 'missionPanel',
 
-            lx:    null, // disable mono-translate
-            ly:    null,
-
             transparent: true,
         }, st) )
+        this.lx = null
+        this.ly = null
+        this.ux = null
+        this.uy = null
     }
 
     init() {
@@ -56,13 +57,18 @@ class MissionPanel extends $.dna.hud.Container {
     */
 
     lpos(upos) {
-        // lib.util.curve(upos, this.w, this.h)
+        const slayer = $.lab.gl.screenLayer
+
         upos[0] = (upos[0] - this.x) / this.viewport.scale
         upos[1] = (upos[1] - this.y) / this.viewport.scale
-        lib.util.curve(upos, this.viewport.w, this.viewport.h)
+        if (slayer.mode === slayer.CRT) {
+            lib.util.curve(upos, this.viewport.w, this.viewport.h)
+        }
+
         return upos
     }
 
+    /*
     ux(lx) {
         return lx * this.viewport.scale + this.x
     }
@@ -70,10 +76,19 @@ class MissionPanel extends $.dna.hud.Container {
     uy(ly) {
         return ly * this.viewport.scale + this.y
     }
+    */
 
     upos(lpos) {
+        const slayer = $.lab.gl.screenLayer
+
         lpos[0] = lpos[0] * this.viewport.scale + this.x
         lpos[1] = lpos[1] * this.viewport.scale + this.y
+
+        if (slayer.mode === slayer.CRT) {
+            throw new Error('uncurve coordinates is not implemented')
+            lib.util.curve(upos, this.viewport.w, this.viewport.h)
+        }
+
         return upos
     }
 

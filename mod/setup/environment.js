@@ -9,5 +9,8 @@ function environment() {
             env[p] = env.config[p]
         }
     }
+
+    // pin status info in envs
+    $.env.statusInfo = mod.mc.env.statusInfo = {}
 }
 environment.Z = 1

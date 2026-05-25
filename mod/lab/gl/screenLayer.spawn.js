@@ -66,3 +66,5 @@ const screenLayer = {
         if (env.config.plain) this.mode = PLAIN
     },
 }
+screenLayer.PLAIN = PLAIN
+screenLayer.CRT   = CRT
