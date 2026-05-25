@@ -2,8 +2,8 @@
 V warp mouse coordinates before hud event processing
 V separate window headers
 V "tag" and "from" column in email
-> windows focus and selection
-> keyboard support
+V windows focus and selection
+V keyboard support
 > retro-style print-out email viewer
 > stylized buttons
 > states transitions

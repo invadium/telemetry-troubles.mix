@@ -514,6 +514,24 @@ class TextMode extends sys.LabFrame {
         return last
     }
 
+    lclassify(lx, ly, predicate, classify) {
+        for (let i = 0; i < this._ls.length; i++) {
+            const component = this._ls[i]
+            if (!component.hidden) {
+                if (component.lapply) {
+                    component.lapply(lx, ly, predicate, fn)
+                } else if (component._rectangular) {
+                    const { x, y, w, h } = component
+                    let pass = false
+                    if (lx >= x && lx < x + w && ly >= y && ly < y + h) {
+                        if (!predicate || predicate(component)) pass = true
+                    }
+                    classify( component, pass )
+                }
+            }
+        }
+    }
+
     pick(ux, uy, ls, opt) {
         // translate into text coordinate space
         const lx = this.lx(ux)
@@ -523,14 +541,45 @@ class TextMode extends sys.LabFrame {
     }
 
     onMouseDown(tx, ty, b, e) {
+        const _ = this
+
+        _.lclassify(tx, ty,
+            c => !c.disabled,
+            (c, pass) => {
+                if (pass) {
+                    if (c.onMouseDown) {
+                        const ltx = c.lx? c.lx(tx) : tx
+                        const lty = c.ly? c.ly(ty) : ty
+                        c.onMouseDown(ltx, lty, b, e)
+                    }
+                    if (c.onFocus) {
+                        _.__.captureFocus(c)
+                    }
+                } else {
+                    if (c.onFocus) _.__.releaseFocus(c)
+                }
+            }
+        )
+
+        /*
         const ls = []
-        this.lpick(tx, ty, ls, e => !e.disabled && isFun(e.onMouseDown))
+        _.lpick(tx, ty, ls, c => {
+            const selected = (!c.disabled && (isFun(c.onMouseDown) || isFun(c.onFocus)))
+            if (!selected) _.releaseFocus(c)
+            return selected
+        })
 
         ls.forEach(c => {
-            const ltx = c.lx? c.lx(tx) : tx
-            const lty = c.ly? c.ly(ty) : ty
-            c.onMouseDown(ltx, lty, b, e)
+            if (c.onMouseDown) {
+                const ltx = c.lx? c.lx(tx) : tx
+                const lty = c.ly? c.ly(ty) : ty
+                c.onMouseDown(ltx, lty, b, e)
+            }
+            if (c.onFocus) {
+                _.__.captureFocus(c)
+            }
         })
+        */
     }
 
     onMouseUp(tx, ty, b, e) {

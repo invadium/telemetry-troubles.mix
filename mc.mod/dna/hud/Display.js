@@ -13,7 +13,8 @@ class Header extends sys.LabFrame {
             font:   '20px pixel-operator-bold',
             title:  'Test Window',
             color: {
-                base:   '#f2be1f',
+                active: '#f2be1f',
+                base:   '#8090A0',
             },
             textShift: 10,
             hedge:     8,
@@ -48,7 +49,7 @@ class Header extends sys.LabFrame {
               W  = textShift + tw,
               WW = W + hedge
 
-        fill( this.color.base )
+        fill( __.isActive()? this.color.active : this.color.base )
         ctx.lineJoin = 'round'
         polygon(
              hedge, 0,
@@ -77,7 +78,11 @@ class Header extends sys.LabFrame {
     }
 
     onClick(x, y, e) {
-        this.__.switch()
+        if (this.lock) {
+            this.lock = false
+        } else {
+            this.__.switch()
+        }
     }
 }
 
@@ -218,6 +223,8 @@ class Display extends $.dna.hud.Container {
     }
 
     adjust() {
+        this.detracted = (this.stretch === 0)
+
         const constraints = this.constraints
         if (constraints) {
             const N = constraints.length
@@ -292,7 +299,24 @@ class Display extends $.dna.hud.Container {
         restore()
     }
 
-    onClick(x, y, e) {
-        super.onClick(x, y, e)
+    isActive() {
+        return (this.focus && !this.detracted)
     }
+
+    onFocus() {
+        if (!this.detracted) this.header.lock = true
+    }
+
+    onUnfocus() {
+        // log(`${this.name}: lost focus`)
+    }
+
+    // onClick(x, y, e) {
+    //    super.onClick(x, y, e)
+    //}
+
+    onKeyDown(e) {
+        // TODO handle focus and keyboard events fo tx components the same way we handle Hud
+    }
+
 }

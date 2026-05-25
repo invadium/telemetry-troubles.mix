@@ -186,4 +186,16 @@ class Dump extends ScrollablePanel {
         */
     }
 
+    onFocus() {
+        log('dump in focus!')
+    }
+
+    onUnfocus() {
+        log('dump lost focus!')
+    }
+
+    onKeyDown(e) {
+        log(e.code)
+    }
+
 }
