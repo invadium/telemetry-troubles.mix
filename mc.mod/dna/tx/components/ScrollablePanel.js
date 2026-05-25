@@ -147,7 +147,6 @@ class ScrollablePanel extends Panel {
     }
 
     onMouseExit() {
-        // log('menu: the mouse is out!')
         this.clearSelection()
     }
 

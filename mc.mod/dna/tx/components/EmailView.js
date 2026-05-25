@@ -44,8 +44,10 @@ class EmailView extends ScrollablePanel {
     }
 
     showEmail(message) {
+        // TODO externalize tag extraction!
+        const tag = message.read? ' ' : '*'
         this.message = message
-        this.title.label = message.subject
+        this.title.label = `[${tag}]${message.from}: ${message.subject}`
         this.lines = message.content.split('\n') // TODO adjust the content and mark the plumbing points
         this.inbox.hide()
         this.show()

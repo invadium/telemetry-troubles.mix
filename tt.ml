@@ -1,20 +1,21 @@
-### System I
-
-> core game design
-V UI layout
-V email browser
-> warp mouse coordinates before hud event processing
-> auto-print email viewer
+### System II
+V warp mouse coordinates before hud event processing
+V separate window headers
+V "tag" and "from" column in email
 > windows focus and selection
+> keyboard support
+> retro-style print-out email viewer
 > stylized buttons
-> separate window headers
-> keyboard-only support
-> dpad-only support?
+> states transitions
+> title screen
 > mission stats screen
 > probe status screen
-
+> sfx mapping
+> music player with cross-fades
+> dpad-only support?
 
 ### Proto I
+> core game design
 > probe dev kit
 > mission entity
 > probe entity
@@ -34,6 +35,9 @@ V email browser
 > review picking, create troubleshooting section - _centered & w/h for _rectangular MUST be defined!
 
 
+### System I
+V UI layout
+V email browser
 V title bar with current stats
 V status bar with element hints
 
