@@ -85,11 +85,6 @@ class Tag extends sys.LabFrame {
     }
 
     onClick(x, y, e) {
-        if (this.lock) {
-            this.lock = false
-        } else {
-            this.__.switch()
-        }
     }
 
     onMouseMove() {}
@@ -98,7 +93,14 @@ class Tag extends sys.LabFrame {
         this._pressed = true
     }
 
-    onMouseUp() {
+    onMouseUp(x, y, b, e) {
+        if (!e._captured) return // ignore the "mouse hover" up event and wait for the captured one
+
+        if (this.lock) {
+            this.lock = false
+        } else {
+            this.__.switch()
+        }
         this._pressed = false
     }
 

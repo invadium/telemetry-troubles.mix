@@ -14,7 +14,7 @@ class Inbox extends ScrollablePanel {
                     {
                         read:     false,
                         time:     1.1,
-                        from:    'HQ',
+                        from:    'Space HQ',
                         subject: 'One',
                         content: 'some data here',
                     },
@@ -42,7 +42,7 @@ class Inbox extends ScrollablePanel {
             const msg = {
                 read: false,
                 time: i + 4 + i/15,
-                from:    'Agent Smith',
+                from:    'Space HQ',
                 subject: 'Message #' + N,
                 content: 'Content #' + N,
             }
