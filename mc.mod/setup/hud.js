@@ -347,6 +347,27 @@ function hud() {
     })
     */
 
+    missionPanel.spawn('HaikuButton', {
+        name: 'close',
+
+        adjust: function() {
+            this.x = .47 * this.__.viewport.w
+            this.y = .8 * this.__.viewport.h
+        },
+    })
+    missionPanel.spawn('DustyButton', {
+        name: 'signal',
+        label: 'Upload',
+
+        h: 24,
+        w: 72,
+
+        adjust: function() {
+            this.x = .47 * this.__.viewport.w
+            this.y = .85 * this.__.viewport.h
+        },
+    })
+
     hud.adjust()
 }
 hud.Z = 5

@@ -1,10 +1,10 @@
-class HaikuButton {
+class DustyButton {
 
     constructor(st) {
         augment(this, {
             x: 0,
             y: 0,
-            w: 16,
+            w: 60,
             h: 16,
 
             color: {
@@ -19,7 +19,10 @@ class HaikuButton {
                 hi:     '#ffdd7d',
                 low:    '#ebb51c',
                 fence:  '#fcee4e',
+
+                text:   '#000000',
             },
+            font: '20px pixel-operator-bold',
 
             _centered: false,
         }, st)
@@ -65,21 +68,32 @@ class HaikuButton {
         fill(color.hi0)
         triangle(0, 0, 0, 7, 7, 0)
 
+        const LW = 2
         ctx.lineCap = 'square'
-        bevel(0, 0, w, h, 1, color.bevel0, color.bevel1)
+        bevel(0, 0, w, h, LW, color.bevel0, color.bevel1)
 
         if (this.toggled) {
-            bevel(1, 1, w-2, h-2, 1, color.bevel1, color.bevel1)
+            bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel1)
             cap(2, 2, w-3, h-3, 1, color.bevel0)
         } else {
-            bevel(1, 1, w-2, h-2, 1, color.bevel1, color.bevel0)
+            bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel0)
         }
+
+        baseMiddle()
+        alignCenter()
+        fill( color.text )
+        font( this.font )
+        text(this.label, .5 * w, .5 * h)
 
         restore()
     }
 
     onClick(e) {
     }
+
+    onMouseMove() {}
+
+    onMouseDrag() {}
 
     onMouseDown(e) {
         this.toggled = true
@@ -89,9 +103,5 @@ class HaikuButton {
         this.onClick()
         this.toggled = false
     }
-
-    onMouseMove() {}
-
-    onMouseDrag() {}
 }
 
