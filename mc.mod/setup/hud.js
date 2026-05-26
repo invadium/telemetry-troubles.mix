@@ -49,7 +49,7 @@ function hud() {
 
         constraints: [
             _ => _.w = env.tune.displayNW * _.__.viewport.w,
-            _ => _.x = -(1 - _.stretch) * (_.w - _.header.w),
+            _ => _.x = -(1 - _.stretch) * (_.w - _.tag.w),
             _ => _.y = _.anchor.north.y + _.anchor.north.h + _.margin.north,
             _ => _.h = .5 * (_.__.viewport.h - _.y - _.margin.south),
         ],
@@ -204,7 +204,7 @@ function hud() {
 
         constraints: [
             _ => _.w = env.tune.displayNW * _.__.viewport.w,
-            _ => _.x = -(1 - _.stretch) * (_.w - _.header.w),
+            _ => _.x = -(1 - _.stretch) * (_.w - _.tag.w),
             _ => _.y = _.anchor.north.y + _.anchor.north.h + _.margin.north,
             // TODO calculate from other open windows?
             _ => _.h = _.__.viewport.h - _.y - _.anchor.south.h - _.margin.south,

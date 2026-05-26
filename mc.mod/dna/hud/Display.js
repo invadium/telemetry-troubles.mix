@@ -1,8 +1,8 @@
-class Header extends sys.LabFrame {
+class Tag extends sys.LabFrame {
 
     constructor() {
         super( augment({
-            name:   'header',
+            name:   'tag',
 
             x:         0,
             y:         0,
@@ -17,7 +17,11 @@ class Header extends sys.LabFrame {
                 base:   '#8090A0',
             },
             textShift: 10,
-            hedge:     8,
+            hedge1:    8,
+            hedge2:    10,
+            dive:      4,
+
+            clip:      false,
         }) )
 
         /*
@@ -35,10 +39,13 @@ class Header extends sys.LabFrame {
     }
 
     draw() {
-        const { __, w, hedge, textShift } = this
+        const { __, w, hedge1, hedge2, dive, textShift } = this
+        const active = __.isActive()
+
+        const dx = (__.focus || __.detracted)? (this._pressed? -2 : (this._hover? 4 : 0)) : 0
 
         save()
-        translate( __.w, 0 )
+        translate( __.w + dx, 0 )
         rotate( HALF_PI )
 
         // estimate the title width
@@ -47,17 +54,17 @@ class Header extends sys.LabFrame {
         font(this.font)
         const tw = textWidth(this.title),
               W  = textShift + tw,
-              WW = W + hedge
+              WW = W + hedge2
 
-        fill( __.isActive()? this.color.active : this.color.base )
+        fill( active? this.color.active : this.color.base, '#000000' )
         ctx.lineJoin = 'round'
         polygon(
-             hedge, 0,
-             0,     hedge,
-             0,     w,
-             W,     w,
-             WW,    w - hedge,
-             WW,    0,
+             hedge1,  0,
+             0,      hedge1,
+             0,      w + dive,
+             W,      w + dive,
+             WW,     w - hedge2,
+             WW,     0,
         )
         this.h = WW
         // rect( 0, 0, __.w, w )
@@ -84,6 +91,18 @@ class Header extends sys.LabFrame {
             this.__.switch()
         }
     }
+
+    onMouseMove() {}
+
+    onMouseDown() {
+        this._pressed = true
+    }
+
+    onMouseUp() {
+        this._pressed = false
+    }
+
+    onMouseDrag() {}
 }
 
 class Holder {
@@ -153,12 +172,12 @@ class ContentPane extends $.dna.hud.Container {
     adjust() {
         const _      = this,
               __     = _.__,
-              header = __.header,
+              tag = __.tag,
               holder = __.holder
 
         _.x = holder.w + __.bevel
         _.y = __.bevel
-        _.w = __.w - 2*__.bevel - holder.w - header.w
+        _.w = __.w - 2*__.bevel - holder.w - tag.w
         _.h = __.h - _.y - __.bevel
 
         super.adjust()
@@ -181,15 +200,10 @@ class ContentPane extends $.dna.hud.Container {
     }
 
     draw() {
-        const { x, y, w, h, clip } = this
+        const { x, y, w, h } = this
 
         save()
         translate( x, y )
-        if (clip) {
-            ctx.beginPath()
-            ctx.rect(0,0,this.w,this.h)
-            ctx.clip()
-        }
 
         this.drawBackground()
         this.drawContent()
@@ -217,8 +231,8 @@ class Display extends $.dna.hud.Container {
             bevel:   7,
         }, st) )
         const holder = this.attach( new Holder() )
-        const header = this.attach( new Header() )
-        if (st.title) header.title = st.title
+        const tag = this.attach( new Tag() )
+        if (st.title) tag.title = st.title
         this.attach( new ContentPane() )
     }
 
@@ -260,11 +274,11 @@ class Display extends $.dna.hud.Container {
     drawBackground() {}
 
     drawForeground() {
-        const { x, y, w, h, bevel, holder, header } = this
+        const { x, y, w, h, bevel, holder, tag } = this
 
         const b  = bevel,
               b2 = .5 * b,
-              W  = w - holder.w - header.w,
+              W  = w - holder.w - tag.w,
               bx = holder.w
 
         lineWidth(b)
@@ -304,7 +318,7 @@ class Display extends $.dna.hud.Container {
     }
 
     onFocus() {
-        if (!this.detracted) this.header.lock = true
+        if (!this.detracted) this.tag.lock = true
     }
 
     onUnfocus() {

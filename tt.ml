@@ -4,8 +4,9 @@ V separate window headers
 V "tag" and "from" column in email
 V windows focus and selection
 V keyboard support
-> retro-style print-out email viewer
+V window tag hover and mouse-down feedback
 > stylized buttons
+> retro-style print-out email viewer
 > states transitions
 > title screen
 > mission stats screen
