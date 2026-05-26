@@ -42,16 +42,17 @@ function hud() {
             north: titleBar,
         },
         margin: {
-            north: 12,
+            north: 0,
             west:  12,
             south: 20,
         },
+        normalH: .4,
 
         constraints: [
             _ => _.w = env.tune.displayNW * _.__.viewport.w,
             _ => _.x = -(1 - _.stretch) * (_.w - _.tag.w),
             _ => _.y = _.anchor.north.y + _.anchor.north.h + _.margin.north,
-            _ => _.h = .5 * (_.__.viewport.h - _.y - _.margin.south),
+            _ => _.h = _.normalH * (_.__.viewport.h - _.y - _.margin.south),
         ],
     })
 
@@ -198,8 +199,8 @@ function hud() {
             south: statusBar,
         },
         margin: {
-            north: 12,
-            south: 42,
+            north: 6,
+            south: 16,
         },
 
         constraints: [
