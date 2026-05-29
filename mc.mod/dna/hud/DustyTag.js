@@ -100,7 +100,7 @@ class DustyButton {
     }
 
     onMouseUp(e) {
-        // this.onClick()
+        this.onClick()
         this.toggled = false
     }
 }

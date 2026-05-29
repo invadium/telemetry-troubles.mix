@@ -20,12 +20,14 @@ class ContentPane extends $.dna.hud.Container {
         const _      = this,
               __     = _.__,
               tag = __.tag,
-              holder = __.holder
+              holder = __.holder,
+              bevel  = __.bevel,
+              pd     = bevel.padding
 
-        _.x = holder.w + __.bevel.b
-        _.y = __.bevel.b
-        _.w = __.w - 2*__.bevel.b - holder.w - tag.w
-        _.h = __.h - _.y - __.bevel.b
+        _.x = bevel.x + pd.E
+        _.y = bevel.y + pd.N
+        _.w = bevel.w - pd.E - pd.W
+        _.h = __.h - _.y - pd.S
 
         super.adjust()
     }

@@ -320,6 +320,24 @@ function hud() {
         },
     })
 
+    secondaryDisplay.bevel.spawn('DustyButton', {
+        name:  'signal',
+        label: 'Upload',
+
+        h: 24,
+        w: 72,
+
+        adjust: function() {
+            const __ = this.__
+            this.x = __.w - this.w + 12
+            this.y = __.h - this.h - 6
+        },
+
+        onClick: function() {
+            log('Uplink...')
+        },
+    })
+
     /*
     // TODO move inside the display panel?
     missionPanel.spawn('MButton', {
@@ -353,18 +371,6 @@ function hud() {
         adjust: function() {
             this.x = .47 * this.__.viewport.w
             this.y = .8 * this.__.viewport.h
-        },
-    })
-    missionPanel.spawn('DustyButton', {
-        name: 'signal',
-        label: 'Upload',
-
-        h: 24,
-        w: 72,
-
-        adjust: function() {
-            this.x = .47 * this.__.viewport.w
-            this.y = .85 * this.__.viewport.h
         },
     })
 
