@@ -329,48 +329,12 @@ function hud() {
 
         adjust: function() {
             const __ = this.__
-            this.x = __.w - this.w + 12
-            this.y = __.h - this.h - 6
+            this.x = __.w - this.w - __.padding.E
+            this.y = __.h - __.padding.S
         },
 
         onClick: function() {
             log('Uplink...')
-        },
-    })
-
-    /*
-    // TODO move inside the display panel?
-    missionPanel.spawn('MButton', {
-        Z: 21,
-        x: 600,
-        y: 200,
-        w: 250,
-        h: 50,
-        text: 'Memory Uplink',
-
-        margins: {
-            north: 4,
-        },
-
-        adjust: function() {
-            this.w = 192
-            this.h = 32
-            this.x = monitor.x + monitor.w - this.w
-            this.y = monitor.y + monitor.h + this.margins.north
-        },
-
-        onClick: function() {
-            log('do stuff')
-        },
-    })
-    */
-
-    missionPanel.spawn('HaikuButton', {
-        name: 'close',
-
-        adjust: function() {
-            this.x = .47 * this.__.viewport.w
-            this.y = .8 * this.__.viewport.h
         },
     })
 

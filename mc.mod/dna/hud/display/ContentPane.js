@@ -67,9 +67,7 @@ class ContentPane extends $.dna.hud.Container {
         restore()
     }
 
-    onClick(x, y, e) {
-        log('content click!')
-    }
+    // onClick(x, y, e) {}
 
     onMouseDown(x, y, b, e) {
         super.onMouseDown(x, y, b, e)

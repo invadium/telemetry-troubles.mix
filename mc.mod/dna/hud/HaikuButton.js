@@ -86,7 +86,6 @@ class HaikuButton {
     }
 
     onMouseUp(e) {
-        this.onClick()
         this.toggled = false
     }
 

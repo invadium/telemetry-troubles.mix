@@ -11,15 +11,106 @@ class Bevel extends $.dna.hud.Container {
             padding: {
                 N:   7,
                 E:   7,
-                S:   34,
+                S:   32,
                 W:   7,
             },
 
-            transparent: true,
+            lead: null,
+            tail: null,
 
-            keepZ:     true,
-            _centered: false,
+            keepZ:       true,
+            _centered:   false,
+            transparent: true,
         }, st) )
+    }
+
+    init() {
+        this.spawnTag('one', {
+            count:  0,
+            action: function() {
+                log('custom ONE')
+                this.count ++
+                this.__.spawnTag('tag' + this.count)
+            }
+        })
+        this.spawnTag('two')
+        this.spawnTag('many')
+    }
+
+    spawnTag(id, st) {
+        const tag = this.spawn(dna.DustyTag, augment({
+            name:  id,
+            label: id,
+
+            h: 24,
+            w: 72,
+
+            next: null,
+            prev: null,
+
+            adjust: function() {
+                const _  = this,
+                      __ = this.__
+
+                this.y = __.h - __.padding.S
+                if (_.prev) {
+                    this.x = _.prev.x + _.prev.w + 4
+                } else {
+                    this.x = __.padding.E
+                }
+
+                const ls = this._ls
+                for (let i = 0; i < ls.length; i++) {
+                    const e = ls[i]
+                    if (e.adjust) e.adjust()
+                }
+            },
+
+            action: function() {
+                log('opening ' + this.name)
+            },
+
+            close: function() {
+                log('closing ' + this.name)
+                this.__.killTag(this)
+            },
+
+        }, st) )
+
+        if (this.lead) {
+            this.tail.next = tag
+            tag.prev = this.tail
+            this.tail = tag
+
+            tag.spawn(dna.HaikuButton, {
+                name: 'closeButton',
+
+                adjust: function() {
+                    const __ = this.__
+                    this.x = __.w - this.w - 4
+                    this.y = 3
+                },
+
+                onClick() {
+                    this.__.close()
+                }
+            })
+        } else {
+            this.lead = tag
+            this.tail = tag
+        }
+    }
+
+    killTag(tag) {
+        const prev = tag.prev
+        const next = tag.next
+        if (prev) prev.next = next
+        if (next) next.prev = prev
+
+        if (this.lead === tag) this.lead = next
+        if (this.tail === tag) this.tail = prev
+
+        this.detach(tag)
     }
 
     adjust() {
@@ -30,6 +121,14 @@ class Bevel extends $.dna.hud.Container {
         this.w = __.w - __.holder.w - __.tag.w
 
         super.adjust()
+    }
+
+    drawContent() {
+        const ls = this._ls
+        for (let i = 0; i < ls.length; i++) {
+            const e = ls[i]
+            if (e.draw && !e.hidden) e.draw()
+        }
     }
 
     draw() {
@@ -46,15 +145,20 @@ class Bevel extends $.dna.hud.Container {
         stroke('#6f5f7a')
         rect( bx + b2, b2, w - b, h - b)
         */
-        fill('#6f5f7a')
-        rect( x, y, w, h )
+        save()
+        translate(x, y)
 
-        super.draw()
+        fill('#6f5f7a')
+        rect( 0, 0, w, h )
+
+        this.drawContent()
 
         lineWidth(1)
         stroke('#000000')
-        rect( x, y, w, h )
-        rect( x + pd.E, y + pd.N, w - pd.E - pd.W, h - pd.N - pd.S)
+        rect( 0, 0, w, h )
+        rect( pd.E, pd.N, w - pd.E - pd.W, h - pd.N - pd.S)
+
+        restore()
     }
 
 }

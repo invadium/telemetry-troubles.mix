@@ -1,7 +1,7 @@
-class DustyButton {
+class DustyTag extends $.dna.hud.Container {
 
     constructor(st) {
-        augment(this, {
+        super( augment({
             x: 0,
             y: 0,
             w: 60,
@@ -24,8 +24,18 @@ class DustyButton {
             },
             font: '20px pixel-operator-bold',
 
-            _centered: false,
-        }, st)
+            keepZ:       true,
+            transparent: true,
+            _centered:   false,
+        }, st) )
+    }
+
+    drawContent() {
+        const ls = this._ls
+        for (let i = 0; i < ls.length; i++) {
+            const e = ls[i]
+            if (e.draw && !e.hidden) e.draw()
+        }
     }
 
     draw() {
@@ -80,28 +90,38 @@ class DustyButton {
         }
 
         baseMiddle()
-        alignCenter()
+        alignLeft()
         fill( color.text )
         font( this.font )
-        text(this.label, .5 * w, .5 * h)
+        text(this.label, 4, .5 * h)
+
+        this.drawContent()
+
 
         restore()
     }
 
-    onClick(e) {
+    onMouseMove(x, y, e) {
+        super.onMouseMove(x, y, e)
     }
-
-    onMouseMove() {}
 
     onMouseDrag() {}
 
-    onMouseDown(e) {
-        this.toggled = true
+    onMouseDown(x, y, b, e) {
+        const pending = super.onMouseDown(x, y, b, e)
+
+        if (!pending) {
+            this.toggled = true
+        }
     }
 
-    onMouseUp(e) {
-        this.onClick()
-        this.toggled = false
+    onMouseUp(x, y, b, e) {
+        super.onMouseUp(x, y, b, e)
+
+        if (this.toggled) {
+            this.toggled = false
+            if (isFun(this.action)) this.action()
+        }
     }
 }
 
