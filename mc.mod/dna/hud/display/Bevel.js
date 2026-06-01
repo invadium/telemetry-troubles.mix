@@ -40,11 +40,11 @@ class Bevel extends $.dna.hud.Container {
     }
 
     spawnTag(id, st) {
-        const tag = this.spawn(dna.DustyTag, augment({
+        const tag = this.spawn(dna.Tab, augment({
             name:  id,
             title: id,
 
-            h:     26,
+            h:     30,
             w:     72,
             dive:  2,
 
@@ -65,7 +65,8 @@ class Bevel extends $.dna.hud.Container {
                 let sh = 0
                 if (_._displayed) sh -= dive
                 if (_._hover) sh -= dive
-                this.y = __.h - __.padding.S - 2*dive - sh
+                if (_._toggled) sh -= dive
+                this.y = __.h - __.padding.S - 3*dive - sh
 
                 if (_.prev) {
                     this.x = _.prev.x + _.prev.w + 1

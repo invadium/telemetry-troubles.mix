@@ -23,7 +23,7 @@ class Tag extends sys.LabFrame {
             textShift: 10,
             hedge1:    8,
             hedge2:    10,
-            dive:      4,
+            dive:      3,
 
             clip:      false,
         }) )

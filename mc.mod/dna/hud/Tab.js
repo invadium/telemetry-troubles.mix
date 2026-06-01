@@ -1,4 +1,4 @@
-class DustyTag extends $.dna.hud.Container {
+class Tab extends $.dna.hud.Container {
 
     constructor(st) {
         super( augment({
@@ -146,7 +146,7 @@ class DustyTag extends $.dna.hud.Container {
         alignLeft()
         fill( color.text )
         font( this.font )
-        text(this.title, textShift, .5 * h)
+        text(this.title, textShift, .5 * h + 2)
 
         this.drawContent()
 
@@ -163,15 +163,15 @@ class DustyTag extends $.dna.hud.Container {
         const pending = super.onMouseDown(x, y, b, e)
 
         if (!pending) {
-            this.toggled = true
+            this._toggled = true
         }
     }
 
     onMouseUp(x, y, b, e) {
         super.onMouseUp(x, y, b, e)
 
-        if (this.toggled) {
-            this.toggled = false
+        if (this._toggled) {
+            this._toggled = false
             this.display()
         }
     }

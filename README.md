@@ -54,6 +54,7 @@ Available flags:
 --stream     - enable running stream announcement bar
 --plain      - disable the CRT effect
 --showBuffer - show the original mission control buffer preview
+--magnify    - show magnifying window for pixel-perfect tuning
 ```
 
 Use it with ```jam``` command like so:
