@@ -7,6 +7,15 @@ class DustyTag extends $.dna.hud.Container {
             w: 60,
             h: 16,
 
+            title: '',
+
+            color: {
+                active:  '#f2be1f',
+                base:    '#8090A0',
+                text:    '#404040',
+                outline: '#000000',
+            },
+            /*
             color: {
                 bevel0: '#989800FF',
                 bevel1: '#F8F830FF',
@@ -22,12 +31,32 @@ class DustyTag extends $.dna.hud.Container {
 
                 text:   '#000000',
             },
+            */
             font: '20px pixel-operator-bold',
+
+            textShift: 12,
+            hedge1:    8,
 
             keepZ:       true,
             transparent: true,
             _centered:   false,
+            _displayed:  false,
         }, st) )
+    }
+
+    // show the components/data associated with the tag
+    display() {
+        if (this._displayed) return
+
+        if (isFun(this.action)) this.action()
+        this._displayed = true
+    }
+
+    // hide the components/data associated with the tag
+    conceal() {
+        if (!this._displayed) return
+
+        this._displayed = false
     }
 
     drawContent() {
@@ -39,11 +68,11 @@ class DustyTag extends $.dna.hud.Container {
     }
 
     draw() {
-        const { x, y, w, h, color } = this
+        const { x, y, w, h, textShift, hedge1, dive, color, _displayed } = this
 
         save()
-        translate(x + .5, y + .5)
-
+        translate(x, y)
+        /*
         function bevel(x, y, w, h, lw, c1, c2) {
             lineWidth(lw)
             stroke(c1)
@@ -88,15 +117,38 @@ class DustyTag extends $.dna.hud.Container {
         } else {
             bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel0)
         }
+        */
+
+        // estimate the title width
+        baseMiddle()
+        alignLeft()
+        font(this.font)
+        const tw = textWidth(this.title),
+              W  = textShift + tw,
+              WW = W + hedge1 + 16
+        this.w = WW
+
+        fill( _displayed? this.color.active : this.color.base, color.outline )
+        ctx.lineJoin = 'round'
+        polygon(
+             0,      0,
+             0,      h-hedge1,
+             hedge1, h,
+             WW,     h,
+             WW,     0,
+        )
+        // rect( 0, 0, __.w, w )
+
+        // fill('#404040')
+        // text(this.title, textShift, .5 * w)
 
         baseMiddle()
         alignLeft()
         fill( color.text )
         font( this.font )
-        text(this.label, 4, .5 * h)
+        text(this.title, textShift, .5 * h)
 
         this.drawContent()
-
 
         restore()
     }
@@ -120,7 +172,7 @@ class DustyTag extends $.dna.hud.Container {
 
         if (this.toggled) {
             this.toggled = false
-            if (isFun(this.action)) this.action()
+            this.display()
         }
     }
 }

@@ -30,7 +30,9 @@ class Bevel extends $.dna.hud.Container {
             action: function() {
                 log('custom ONE')
                 this.count ++
+                // DEBUG
                 this.__.spawnTag('tag' + this.count)
+                this.__.disableAll()
             }
         })
         this.spawnTag('two')
@@ -40,21 +42,33 @@ class Bevel extends $.dna.hud.Container {
     spawnTag(id, st) {
         const tag = this.spawn(dna.DustyTag, augment({
             name:  id,
-            label: id,
+            title: id,
 
-            h: 24,
-            w: 72,
+            h:     26,
+            w:     72,
+            dive:  2,
 
             next: null,
             prev: null,
 
-            adjust: function() {
-                const _  = this,
-                      __ = this.__
+            chainApply: function(fn) {
+                fn(this)
+                if (this.next) this.next.chainApply(fn)
+            },
 
-                this.y = __.h - __.padding.S
+            adjust: function() {
+                const _    = this,
+                      __   = this.__,
+                      dive = _.dive
+
+                // make it stick out when active and on mouse hover
+                let sh = 0
+                if (_._displayed) sh -= dive
+                if (_._hover) sh -= dive
+                this.y = __.h - __.padding.S - 2*dive - sh
+
                 if (_.prev) {
-                    this.x = _.prev.x + _.prev.w + 4
+                    this.x = _.prev.x + _.prev.w + 1
                 } else {
                     this.x = __.padding.E
                 }
@@ -68,6 +82,7 @@ class Bevel extends $.dna.hud.Container {
 
             action: function() {
                 log('opening ' + this.name)
+                this.__.disableAll()
             },
 
             close: function() {
@@ -88,7 +103,7 @@ class Bevel extends $.dna.hud.Container {
                 adjust: function() {
                     const __ = this.__
                     this.x = __.w - this.w - 4
-                    this.y = 3
+                    this.y = __.h - this.h - 4
                 },
 
                 onClick() {
@@ -99,6 +114,10 @@ class Bevel extends $.dna.hud.Container {
             this.lead = tag
             this.tail = tag
         }
+    }
+
+    disableAll() {
+        if (this.lead) this.lead.chainApply(tag => tag.conceal())
     }
 
     killTag(tag) {

@@ -6,17 +6,23 @@ V windows focus and selection
 V keyboard support
 V window tag hover and mouse-down feedback
 > stylized buttons
-> retro-style print-out email viewer
+> stylized tags
+> tag-driven email
+> tag-driven memory banks
 > states transitions
 > title screen
+> main menu
+> credits
 > mission stats screen
-> probe status screen
 > sfx mapping
 > music player with cross-fades
 > dpad-only support?
+> retro-style print-out email viewer #spice
+> upload special effects #spice
 
 ### Proto I
 > core game design
+> test-drive email system with messages on TT design, roadmap etc...
 > probe dev kit
 > mission entity
 > probe entity
@@ -31,6 +37,10 @@ V window tag hover and mouse-down feedback
 > $ earn for experiment
 > $ burn for passing days
 > mission over condition
+
+### System III
+> system terminal that can work as a debug console (e.g. for "fx", but within the game)
+
 
 ## Collider
 > review picking, create troubleshooting section - _centered & w/h for _rectangular MUST be defined!

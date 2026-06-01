@@ -1,3 +1,4 @@
+// display header tag
 class Tag extends sys.LabFrame {
 
     constructor() {
@@ -9,12 +10,15 @@ class Tag extends sys.LabFrame {
             h:         0,
             w:         24,
             _centered: false,
+            displayed: false,
 
             font:   '20px pixel-operator-bold',
             title:  'Test Window',
             color: {
-                active: '#f2be1f',
-                base:   '#8090A0',
+                active:  '#f2be1f',
+                base:    '#8090A0',
+                text:    '#404040',
+                outline: '#000000',
             },
             textShift: 10,
             hedge1:    8,
@@ -56,7 +60,7 @@ class Tag extends sys.LabFrame {
               W  = textShift + tw,
               WW = W + hedge2
 
-        fill( active? this.color.active : this.color.base, '#000000' )
+        fill( active? this.color.active : this.color.base, this.color.outline )
         ctx.lineJoin = 'round'
         polygon(
              hedge1,  0,
@@ -69,7 +73,7 @@ class Tag extends sys.LabFrame {
         this.h = WW
         // rect( 0, 0, __.w, w )
 
-        fill('#404040')
+        fill( this.color.text )
         text(this.title, textShift, .5 * w)
 
         restore()
