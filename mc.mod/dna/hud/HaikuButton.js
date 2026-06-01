@@ -20,9 +20,21 @@ class HaikuButton {
                     l:  .8,
                     dl: .6
                 },
+
+                base0: {
+                    h: .58,
+                    s: .2,
+                    l: .65,
+                    dl: .1,
+                },
+                bevel0: {
+                    h:  .58,
+                    s:  .1,
+                    l:  .8,
+                    dl: .6
+                },
             },
             color: {
-
                 // bevel0: '#989800FF',
                 // bevel1: '#F8F830FF',
 
@@ -36,13 +48,14 @@ class HaikuButton {
                 // fence:  '#fcee4e',
             },
 
+            _active:   false,
             _toggled:  false,
             _centered: false,
         }, st)
     }
 
     draw() {
-        const { x, y, w, h, color, cval } = this
+        const { x, y, w, h, color, cval, _active } = this
 
         save()
         translate(x, y)
@@ -73,7 +86,7 @@ class HaikuButton {
         }
 
         // fill the background base
-        const bc = cval.base
+        const bc = _active? cval.base : cval.base0
         fill( hsl( bc.h, bc.s, bc.l ) )
         rect( 0, 0, w, h )
 
@@ -98,7 +111,7 @@ class HaikuButton {
         fill( hsl( bc.h, bc.s, bc.l + 2*bc.dl ) )
         triangle(0, 0, 0, sh, sh, 0)
 
-        const vc = cval.bevel,
+        const vc = _active? cval.bevel : cval.bevel0,
               c0 = hsl( vc.h, vc.s, vc.l - vc.dl ),
               c1 = hsl( vc.h, vc.s, vc.l         )
 

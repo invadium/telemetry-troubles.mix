@@ -34,7 +34,7 @@ class Tab extends $.dna.hud.Container {
             */
             font: '20px pixel-operator-bold',
 
-            textShift: 12,
+            textShift: 10,
             hedge1:    8,
 
             keepZ:       true,
@@ -50,6 +50,7 @@ class Tab extends $.dna.hud.Container {
 
         if (isFun(this.action)) this.action()
         this._displayed = true
+        this.onDisplay()
     }
 
     // hide the components/data associated with the tag
@@ -57,6 +58,7 @@ class Tab extends $.dna.hud.Container {
         if (!this._displayed) return
 
         this._displayed = false
+        this.onConceal()
     }
 
     drawContent() {
@@ -174,6 +176,14 @@ class Tab extends $.dna.hud.Container {
             this._toggled = false
             this.display()
         }
+    }
+
+    onDisplay() {}
+
+    onConceal() {}
+
+    isDisplayed() {
+        return this._displayed
     }
 }
 

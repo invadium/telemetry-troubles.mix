@@ -111,6 +111,13 @@ class Bevel extends $.dna.hud.Container {
                     this.__.close()
                 }
             })
+
+            tag.onDisplay = function() {
+                this.closeButton._active = true
+            }
+            tag.onConceal = function() {
+                this.closeButton._active = false
+            }
         } else {
             this.lead = tag
             this.tail = tag
