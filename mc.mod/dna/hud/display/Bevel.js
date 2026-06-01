@@ -17,6 +17,7 @@ class Bevel extends $.dna.hud.Container {
 
             lead: null,
             tail: null,
+            tabs: 0,
 
             keepZ:       true,
             _centered:   false,
@@ -25,24 +26,18 @@ class Bevel extends $.dna.hud.Container {
     }
 
     init() {
-        this.spawnTag('one', {
-            count:  0,
-            action: function() {
-                log('custom ONE')
-                this.count ++
-                // DEBUG
-                this.__.spawnTag('tag' + this.count)
-                this.__.disableAll()
-            }
+        this.spawnTab('Main', {
+            action: function() {},
+            close: function()  {},
         })
-        this.spawnTag('two')
-        this.spawnTag('many')
+        // this.spawnTab('two')
+        // this.spawnTab('many')
     }
 
-    spawnTag(id, st) {
+    spawnTab(title, st) {
         const tag = this.spawn(dna.Tab, augment({
-            name:  id,
-            title: id,
+            name:  'tab' + (this.tabs++),
+            title: title,
 
             h:     30,
             w:     72,
@@ -79,11 +74,27 @@ class Bevel extends $.dna.hud.Container {
                     const e = ls[i]
                     if (e.adjust) e.adjust()
                 }
+
+                this.w = this.padding.E + this.tw + this.padding.W
+                if (this.closeButton) this.w += this.closeButton.w
             },
 
-            action: function() {
-                log('opening ' + this.name)
+            action: function() {},
+
+            onDisplay: function() {
+                log('show main')
                 this.__.disableAll()
+                if (this.displayState) {
+                    this.displayState.activate()
+                }
+                if (this.closeButton) this.closeButton._active = true
+            },
+            onConceal: function() {
+                log('conceal main')
+                if (this.displayState) {
+                    this.displayState.deactivate()
+                }
+                if (this.closeButton) this.closeButton._active = false
             },
 
             close: function() {
@@ -108,16 +119,19 @@ class Bevel extends $.dna.hud.Container {
                 },
 
                 onClick() {
+                    // close the parent tab
                     this.__.close()
                 }
             })
 
+            /*
             tag.onDisplay = function() {
                 this.closeButton._active = true
             }
             tag.onConceal = function() {
                 this.closeButton._active = false
             }
+            */
         } else {
             this.lead = tag
             this.tail = tag

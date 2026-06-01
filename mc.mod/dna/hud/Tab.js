@@ -2,10 +2,11 @@ class Tab extends $.dna.hud.Container {
 
     constructor(st) {
         super( augment({
-            x: 0,
-            y: 0,
-            w: 60,
-            h: 16,
+            x:  0,
+            y:  0,
+            w:  0,
+            h:  0,
+            tw: 0,
 
             title: '',
 
@@ -34,7 +35,10 @@ class Tab extends $.dna.hud.Container {
             */
             font: '20px pixel-operator-bold',
 
-            textShift: 10,
+            padding: {
+                E: 10,
+                W: 8,
+            },
             hedge1:    8,
 
             keepZ:       true,
@@ -49,8 +53,8 @@ class Tab extends $.dna.hud.Container {
         if (this._displayed) return
 
         if (isFun(this.action)) this.action()
-        this._displayed = true
         this.onDisplay()
+        this._displayed = true
     }
 
     // hide the components/data associated with the tag
@@ -70,7 +74,7 @@ class Tab extends $.dna.hud.Container {
     }
 
     draw() {
-        const { x, y, w, h, textShift, hedge1, dive, color, _displayed } = this
+        const { x, y, w, h, padding, hedge1, dive, color, _displayed } = this
 
         save()
         translate(x, y)
@@ -125,10 +129,11 @@ class Tab extends $.dna.hud.Container {
         baseMiddle()
         alignLeft()
         font(this.font)
-        const tw = textWidth(this.title),
-              W  = textShift + tw,
-              WW = W + hedge1 + 16
-        this.w = WW
+        const tw = this.tw = textWidth(this.title),
+              WW = this.w
+              // W  = padding.E + tw,
+              //WW = W + hedge1 + 16
+              // this.w = WW
 
         fill( _displayed? this.color.active : this.color.base, color.outline )
         ctx.lineJoin = 'round'
@@ -142,13 +147,13 @@ class Tab extends $.dna.hud.Container {
         // rect( 0, 0, __.w, w )
 
         // fill('#404040')
-        // text(this.title, textShift, .5 * w)
+        // text(this.title, padding.E, .5 * w)
 
         baseMiddle()
         alignLeft()
         fill( color.text )
         font( this.font )
-        text(this.title, textShift, .5 * h + 2)
+        text(this.title, padding.E, .5 * h + 2)
 
         this.drawContent()
 

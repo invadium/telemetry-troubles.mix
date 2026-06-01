@@ -55,6 +55,20 @@ function hud() {
             _ => _.h = _.normalH * (_.__.viewport.h - _.y - _.margin.south),
         ],
     })
+    const tab0P = primaryDisplay.bevel.tab0
+    extend( tab0P, {
+        title: 'InBox',
+        displayState: {
+            __: tab0P,
+            activate: function() {
+                log('TODO: show all inbox components here!')
+                this.__.__.spawnTab('next' + this.__.__.tabs)
+            },
+            deactivate: function() {
+                log('TODO: hide all inbox components here!')
+            },
+        }
+    })
 
     const email = $.email = primaryDisplay.content.spawn('TextMode', {
         Z:            22,
@@ -210,6 +224,20 @@ function hud() {
             // TODO calculate from other open windows?
             _ => _.h = _.__.viewport.h - _.y - _.anchor.south.h - _.margin.south,
         ],
+    })
+    const tab0S = secondaryDisplay.bevel.tab0
+    extend( tab0S, {
+        title: 'Bank0',
+        displayState: {
+            __: tab0S,
+            activate: function() {
+                log('TODO: show all inbox components here!')
+                this.__.__.spawnTab('next' + this.__.__.tabs)
+            },
+            deactivate: function() {
+                log('TODO: hide all inbox components here!')
+            },
+        }
     })
 
     const monitor = $.monitor = secondaryDisplay.content.spawn('TextMode', {
