@@ -8,68 +8,55 @@ class DustyButton {
             h: 16,
 
             _centered: false,
-        }, st)
+        }, dna.hud.trait.buttonToolkit, st)
 
+        this.cval  = env.palette.button
         this.color = env.palette.dustyButton
         this.font = env.style.font.dustyButton
     }
 
     draw() {
-        const { x, y, w, h, color } = this
+        const _ = this
+        const { x, y, w, h, cval, color } = this
 
         save()
         translate(x + .5, y + .5)
 
-        function bevel(x, y, w, h, lw, c1, c2) {
-            lineWidth(lw)
-            stroke(c1)
-            line(x, y,       x + w, y    )
-            line(x, y + lw,  x,     y + h)
-
-            stroke(c2)
-            line(x + lw, y + h,   x + w, y + h     )
-            line(x + w,  y + lw,  x + w, y + h - lw)
-        }
-
-        function cap(x, y, w, h, lw, c) {
-            lineWidth(lw)
-            stroke(c)
-            line(x, y,       x + w, y    )
-            line(x, y + lw,  x,     y + h)
-        }
-
         // fill the background
-        fill(color.base)
-        rect( 0, 0, w, h )
+        const bc = cval.base
+        _.renderBase(bc)
 
-        // fill the corner shades
-        const base = w < h? w : h
-        fill(color.low1)
-        triangle(w, h, w-base, h, w, 0)
+        const vc = cval.bevel,
+              c0 = hsl( vc.h, vc.s, vc.l - vc.dl ),
+              c1 = hsl( vc.h, vc.s, vc.l         )
 
-        const sh = .5 * base
-        fill(color.low0)
-        triangle(w, h, w-sh, h, w, h-sh)
-
-        fill(color.hi0)
-        triangle(0, 0, 0, 7, 7, 0)
-
+        // TODO remap the rest of the colors from color -> cval
+        // TODO introduce multiple styles - gray-disabled, red-active
+        //      (maybe blinking red for the upload process?)
         const LW = 2
         ctx.lineCap = 'square'
-        bevel(0, 0, w, h, LW, color.bevel0, color.bevel1)
+        _.bevel(0, 0, w, h, LW, color.bevel0, color.bevel1)
 
+        let tsh = 0
+        if (_._hover) {
+            // more highlight and shadow
+            _.cap(3, 3, w-6, h-6, 2, c1)
+            _.shadow(2, 2, w-4, h-4, 1, c0)
+            tsh = -1 // shift text a little
+        }
         if (this.toggled) {
-            bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel1)
-            cap(2, 2, w-3, h-3, 1, color.bevel0)
+            _.bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel1)
+            _.cap(2, 2, w-3, h-3, 1, color.bevel0)
+            tsh = 1
         } else {
-            bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel0)
+            _.bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel0)
         }
 
         baseMiddle()
         alignCenter()
         fill( color.text )
         font( this.font.head )
-        text(this.label, .5 * w, .5 * h)
+        text(this.label, .5 * w + tsh, .5 * h + tsh)
 
         restore()
     }

@@ -12,10 +12,17 @@ function probe() {
 
     if ($.env.config.magnify) {
         lab.spawn('magnify', {
-            x: 20,
-            y: 20,
+            x: 40,
+            y: 40,
             w: 320,
             h: 320,
+
+            init: function() {
+                this.onResize()
+            },
+            onResize: function() {
+                this.x = lab.w - this.w - 40
+            },
         })
     }
 }
