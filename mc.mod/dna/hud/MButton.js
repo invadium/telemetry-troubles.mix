@@ -9,6 +9,8 @@ let instances = 0
 // the context at the moment
 //
 // TODO modify HUD to be able to use the dynamic context
+//
+// @deprecated
 const MButton = function(dat) {
     this.name = 'button_' + ++instances
     if (!this.text && !this.text === '') {

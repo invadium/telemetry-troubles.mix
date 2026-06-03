@@ -18,10 +18,10 @@ class TitleBar extends $.dna.hud.Container {
 
     init() {
         this.spawn('MLabel', {
-            name: 'day',
-            font: env.style.font.title,
-            color: env.style.color.title,
-            outline: env.style.color.outline,
+            name:   'day',
+            font:    env.style.font.title,
+            color:   env.palette.title,
+            outline: env.palette.outline,
 
             msg: '',
             status:   'Today is the Day!', // TODO move to resources?
@@ -40,10 +40,10 @@ class TitleBar extends $.dna.hud.Container {
         })
 
         this.spawn('MLabel', {
-            name: 'burn',
-            font: env.style.font.title,
-            color: env.style.color.title,
-            outline: env.style.color.outline,
+            name:   'burn',
+            font:    env.style.font.title,
+            color:   env.palette.title,
+            outline: env.palette.outline,
 
             msg:      '',
             burnRate: -1,
@@ -73,9 +73,9 @@ class TitleBar extends $.dna.hud.Container {
 
         this.spawn('MLabel', {
             name: 'balance',
-            font:  env.style.font.title,
-            color: env.style.color.title,
-            outline: env.style.color.outline,
+            font:    env.style.font.title,
+            color:   env.palette.title,
+            outline: env.palette.outline,
 
             msg:      '',
             balance: -1,

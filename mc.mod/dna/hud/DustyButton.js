@@ -7,25 +7,11 @@ class DustyButton {
             w: 60,
             h: 16,
 
-            color: {
-                bevel0: '#989800FF',
-                bevel1: '#F8F830FF',
-                base:   '#f0e040',
-
-                hi0:    '#f8e850',
-                low0:   '#f8a810',
-                low1:   '#f8c800',
-
-                hi:     '#ffdd7d',
-                low:    '#ebb51c',
-                fence:  '#fcee4e',
-
-                text:   '#000000',
-            },
-            font: '20px pixel-operator-bold',
-
             _centered: false,
         }, st)
+
+        this.color = env.palette.dustyButton
+        this.font = env.style.font.dustyButton
     }
 
     draw() {
@@ -82,7 +68,7 @@ class DustyButton {
         baseMiddle()
         alignCenter()
         fill( color.text )
-        font( this.font )
+        font( this.font.head )
         text(this.label, .5 * w, .5 * h)
 
         restore()

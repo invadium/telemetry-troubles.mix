@@ -1,4 +1,4 @@
-class HaikuButton {
+class CloseButton {
 
     constructor(st) {
         augment(this, {
@@ -7,55 +7,16 @@ class HaikuButton {
             w: 16,
             h: 16,
 
-            cval: {
-                base: {
-                    h: .125,
-                    s: .9,
-                    l: .65,
-                    dl: .1,
-                },
-                bevel: {
-                    h:  .169,
-                    s:   1,
-                    l:  .8,
-                    dl: .6
-                },
-
-                base0: {
-                    h: .58,
-                    s: .2,
-                    l: .65,
-                    dl: .1,
-                },
-                bevel0: {
-                    h:  .58,
-                    s:  .1,
-                    l:  .8,
-                    dl: .6
-                },
-            },
-            color: {
-                // bevel0: '#989800FF',
-                // bevel1: '#F8F830FF',
-
-                // low0:   '#f8a810',
-                // low1:   '#f8c800',
-                // base:   '#f0e040',
-                // hi0:    '#f8e850',
-
-                // hi:     '#ffdd7d',
-                // low:    '#ebb51c',
-                // fence:  '#fcee4e',
-            },
-
             _active:   false,
             _toggled:  false,
             _centered: false,
         }, st)
+
+        this.cval = env.palette.button
     }
 
     draw() {
-        const { x, y, w, h, color, cval, _active } = this
+        const { x, y, w, h, cval, _active } = this
 
         save()
         translate(x, y)

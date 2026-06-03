@@ -1,57 +1,129 @@
-// index colors used in text mode
-const indexed = {
-    fallback: '#ffff00',
-    //base:    hsl(.45, .1, .1),
-    base: '#32313b',
-    //baseLow: '#4593a5',
-    // baseHi:  '#4593a5',
-    //baseHi:  '#365257',
-    //baseHi:  '#2a3b42',
-    baseLow: '#00ff00',
-    //baseHi:  '#43527d',
-    baseHi:  '#394040',
-
-    'default': '#5efdf7',
-
-    'alert':   '#5efdf7',
-    'pick':    '#5efdf7',
-    'focus':   '#f5daa7',
-    'title':   '#f5daa7',
-    //
-    //  focus:  '#ffd080', // ^^ too similar???
-    // 'focus':   '#f3a787',
-    apply: '#ff9e7d',
-
-
-    // 'alert':   hsl(.1,  .5, .7),
-    // 'focus':   hsl(.24, .5, .7),
-    // 'apply':   hsl(.05, .5, .5),
-    dark: '101010',
-}
-
-function indexColors() {
-    const _ = this
-    Object.keys(indexed).forEach(colorName => {
-        const xRGB = indexed[colorName]
-        _[colorName] = xRGB
-        pal[colorName] = xRGB
-        pal.direct[colorName] = xRGB
-
-        pal._ls.push(xRGB)
-        const textColorIndex = pal._ls.length - 1
-
-        cidx[colorName] = textColorIndex
-        cidx._dir[colorName] = textColorIndex
-        cidx._ls[textColorIndex] = colorName
-    })
-    // lib.cidx = pal.cidx
-}
-
-function setup() {
-    this.indexColors()
-}
-
+// default palette
 const palette = {
-    setup,
-    indexColors,
+    // core blueprint colors
+    hi:   '#8cfffb',
+    main: '#5efdf7',
+    low:  '#4593a5',
+
+    title:   '#fa8620', // the titlebar text color
+    outline: '#000000', // the titlebar text outline
+    //stroke(.4, .5, .6) // alt
+
+    status: {
+        front:  hsl(.9, .4, .5),
+        back:  '#000000C0',
+    },
+    tab: {
+        active:  '#f2be1f',
+        base:    '#8090A0',
+        text:    '#404040',
+        outline: '#000000',
+    },
+    button: {
+        base: {
+            h: .125,
+            s: .9,
+            l: .65,
+            dl: .1,
+        },
+        bevel: {
+            h:  .169,
+            s:   1,
+            l:  .8,
+            dl: .6
+        },
+
+        base0: {
+            h: .58,
+            s: .2,
+            l: .65,
+            dl: .1,
+        },
+        bevel0: {
+            h:  .58,
+            s:  .1,
+            l:  .8,
+            dl: .6
+        },
+    },
+
+    dustyButton: {
+        bevel0: '#989800FF',
+        bevel1: '#F8F830FF',
+        base:   '#f0e040',
+
+        hi0:    '#f8e850',
+        low0:   '#f8a810',
+        low1:   '#f8c800',
+
+        hi:     '#ffdd7d',
+        low:    '#ebb51c',
+        fence:  '#fcee4e',
+
+        text:   '#000000',
+    },
+
+    // define retro-screen background gradients
+    background: {
+        gradients: [,
+            { stop:  0,  color: '#40bfbf' },
+            { stop: .15, color: '#186060' },
+            { stop: .7,  color: '#124240' },
+            { stop:  1,  color: '#0d1e1e' },
+        ]
+    },
+
+    // text-mode indexed colors
+    indexed: {
+        fallback:   '#ffff00',
+        background: '#32313b',
+
+        //base:    hsl(.45, .1, .1),
+        base: '#32313b',
+        //baseLow: '#4593a5',
+        // baseHi:  '#4593a5',
+        //baseHi:  '#365257',
+        //baseHi:  '#2a3b42',
+        baseLow: '#00ff00',
+        //baseHi:  '#43527d',
+        baseHi:  '#394040',
+
+        'default': '#5efdf7',
+
+        'alert':   '#5efdf7',
+        'pick':    '#5efdf7',
+        'focus':   '#f5daa7',
+        'title':   '#f5daa7',
+        //
+        //  focus:  '#ffd080', // ^^ too similar???
+        // 'focus':   '#f3a787',
+        apply: '#ff9e7d',
+
+
+        // 'alert':   hsl(.1,  .5, .7),
+        // 'focus':   hsl(.24, .5, .7),
+        // 'apply':   hsl(.05, .5, .5),
+        dark: '101010',
+    },
+
+    // index colors used in text mode
+    indexColors: function() {
+        const _ = this
+        Object.keys(_.indexed).forEach(colorName => {
+            const xRGB = _.indexed[colorName]
+            pal[colorName] = xRGB
+            pal._direct[colorName] = xRGB
+
+            pal._ls.push(xRGB)
+            const textColorIndex = pal._ls.length - 1
+
+            cidx[colorName] = textColorIndex
+            cidx._dir[colorName] = textColorIndex
+            cidx._ls[textColorIndex] = colorName
+        })
+    },
+
+    setup: function() {
+        this.indexColors()
+    },
 }

@@ -1,5 +1,6 @@
 const ScrollablePanel = require('/mod/mc/dna/tx/components/ScrollablePanel')
 
+
 class EmailView extends ScrollablePanel {
 
     constructor(st) {

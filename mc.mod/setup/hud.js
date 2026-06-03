@@ -77,7 +77,8 @@ function hud() {
         targetWidth:  32,
         targetHeight: 25,
 
-        backgroundColor: pal.direct.base,
+        // TODO is it used at all????
+        // backgroundColor: pal.direct.base,
 
         margins: {
             north: 5,
@@ -247,7 +248,7 @@ function hud() {
         targetWidth:  32,
         targetHeight: 25,
 
-        backgroundColor: pal.direct.base,
+        // backgroundColor: pal.direct.base,
 
         /*
         margins: {

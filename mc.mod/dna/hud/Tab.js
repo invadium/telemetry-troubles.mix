@@ -10,31 +10,6 @@ class Tab extends $.dna.hud.Container {
 
             title: '',
 
-            color: {
-                active:  '#f2be1f',
-                base:    '#8090A0',
-                text:    '#404040',
-                outline: '#000000',
-            },
-            /*
-            color: {
-                bevel0: '#989800FF',
-                bevel1: '#F8F830FF',
-                base:   '#f0e040',
-
-                hi0:    '#f8e850',
-                low0:   '#f8a810',
-                low1:   '#f8c800',
-
-                hi:     '#ffdd7d',
-                low:    '#ebb51c',
-                fence:  '#fcee4e',
-
-                text:   '#000000',
-            },
-            */
-            font: '20px pixel-operator-bold',
-
             padding: {
                 E: 10,
                 W: 8,
@@ -46,6 +21,9 @@ class Tab extends $.dna.hud.Container {
             _centered:   false,
             _displayed:  false,
         }, st) )
+
+        this.color = env.palette.tab
+        this.font  = env.style.font.tab
     }
 
     // show the components/data associated with the tag
@@ -128,7 +106,7 @@ class Tab extends $.dna.hud.Container {
         // estimate the title width
         baseMiddle()
         alignLeft()
-        font(this.font)
+        font(this.font.head)
         const tw = this.tw = textWidth(this.title),
               WW = this.w
               // W  = padding.E + tw,
@@ -152,7 +130,7 @@ class Tab extends $.dna.hud.Container {
         baseMiddle()
         alignLeft()
         fill( color.text )
-        font( this.font )
+        font( this.font.head )
         text(this.title, padding.E, .5 * h + 2)
 
         this.drawContent()

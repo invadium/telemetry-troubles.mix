@@ -1,5 +1,5 @@
 const hud = {
-    "font": "12px pixel-operator-mono8",
+    "font": "14px pixel-operator-mono8",
 
     //"base": "#293030",
     // base: "#293030",

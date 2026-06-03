@@ -1,30 +1,10 @@
 const style = {
 
-    color: {
-        main: '#5efdf7',
-        hi:   '#8cfffb',
-        low:  '#4593a5',
-
-        title:   '#fa8620', // the titlebar text color
-        outline: '#000000', // the titlebar text outline
-        //stroke(.4, .5, .6) // alt
-
-        status: {
-            front:  hsl(.9, .4, .5),
-            back:  '#000000C0',
-        },
-
-        background: {
-            gradients: [,
-                { stop:  0,  color: '#40bfbf' },
-                { stop: .15, color: '#186060' },
-                { stop: .7,  color: '#124240' },
-                { stop:  1,  color: '#0d1e1e' },
-            ]
-        },
-    },
-
     font: {
+        main: {
+            family: 'pixel-operator-mono8',
+            size:   14,
+        },
         terminal: {
             family:    'pixel-operator-mono8',
             size:       8,
@@ -40,10 +20,13 @@ const style = {
             size: 16,
         },
 
-
-        main: {
-            family: 'pixel-operator-mono8',
-            size:   14,
+        tab: {
+            family: 'pixel-operator-bold',
+            size:    20
+        },
+        dustyButton: {
+            family: 'pixel-operator-bold',
+            size:    20,
         },
 
         menu: {

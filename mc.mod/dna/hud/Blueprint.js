@@ -98,7 +98,7 @@ class Blueprint extends sys.LabFrame {
         // now we are in 100x117
 
         lineWidth(.5)
-        stroke(env.style.color.main)
+        stroke(env.palette.main)
 
         rect(0, 0, 100, 117)
 
@@ -111,15 +111,15 @@ class Blueprint extends sys.LabFrame {
         lineWidth(2)
         let by = 50
 
-        stroke(env.style.color.hi)
+        stroke(env.palette.hi)
         line(0, by, 20, by)
 
         by += 4
-        stroke(env.style.color.main)
+        stroke(env.palette.main)
         line(0, by, 20, by)
 
         by += 4
-        stroke(env.style.color.low)
+        stroke(env.palette.low)
         line(0, by, 20, by)
 
         restore()

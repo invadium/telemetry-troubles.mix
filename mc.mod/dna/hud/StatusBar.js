@@ -13,8 +13,8 @@ class StatusBar {
 
             style: {
                 padding:     10,
-                background: '#000000F2',
-                color:       env.style.color.title,
+                background:  env.palette.status.back,
+                color:       env.palette.title,
                 font:        env.style.font.status,
             },
 

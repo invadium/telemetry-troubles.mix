@@ -67,10 +67,8 @@ class TextMode extends sys.LabFrame {
             cellWidth: env.style.font.terminal.cellWidth,
             cellHeight: env.style.font.terminal.cellHeight,
 
-            // TODO look directly into pal/cidx!!!
-            // placeholder colors to be replaced by style config
-            textColor:       '#ffffff',
-            backgroundColor: '#000000',
+            fallbackTextColor:       '#ffff00',
+            fallbackBackgroundColor: '#0000ff',
 
             margins: {
                 north: 0,
@@ -80,9 +78,6 @@ class TextMode extends sys.LabFrame {
             },
         })
 
-        //this.borderColor = pal._ls[0],
-        // this.backgroundColor = pal.direct.base,
-        this.textColor = pal.direct.text
         this.setConstants()
 
         augment(this, st) 
@@ -411,8 +406,7 @@ class TextMode extends sys.LabFrame {
     drawContent() {
         save()
 
-        // background(pal.ls[0]) ?????????????
-        fill(this.backgroundColor)
+        fill(pal._direct.background ?? this.fallbackBackgroundColor)
 
         rect(this.x, this.y, this.w, this.h)
 
@@ -455,7 +449,7 @@ class TextMode extends sys.LabFrame {
                     fill(cface)
                 } else {
                     const face = this.buf.face[sh]
-                    fill(pal._ls[face] || this.textColor)
+                    fill(pal._ls[face] || this.fallbackTextColor)
                 }
 
                 // character

@@ -27,15 +27,6 @@ class Tag extends sys.LabFrame {
 
             clip:      false,
         }) )
-
-        /*
-        this.spawn( dna.hud.HaikuButton, {
-            x: 7,
-            y: 7,
-            w: 18,
-            h: 18,
-        })
-        */
     }
 
     adjust() {

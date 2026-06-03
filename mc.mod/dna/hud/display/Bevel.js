@@ -109,7 +109,7 @@ class Bevel extends $.dna.hud.Container {
             tag.prev = this.tail
             this.tail = tag
 
-            tag.spawn(dna.HaikuButton, {
+            tag.spawn(dna.CloseButton, {
                 name: 'closeButton',
 
                 adjust: function() {
