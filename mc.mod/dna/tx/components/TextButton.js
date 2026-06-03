@@ -27,11 +27,11 @@ class TextButton extends Panel {
         this.background()
 
         if (_hover) {
-            txt.back(lib.cidx('alert'))
-               .face(lib.cidx('baseHi'))
+            txt.back(cidx.alert)
+               .face(cidx.baseHi)
         } else {
-            txt.back(lib.cidx('baseHi'))
-               .face(lib.cidx('alert'))
+            txt.back(cidx.baseHi)
+               .face(cidx.alert)
         }
 
         this.hseparator(x, y, w, this.FILLER)

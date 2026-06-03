@@ -31,8 +31,8 @@ class CentralMessage {
         const len = this.label.length
 
         tx
-            .back(lib.cidx('baseHi'))
-            .face(lib.cidx('alert'))
+            .back(cidx.baseHi)
+            .face(cidx.alert)
             .at(ceil(w/2 - len/2), floor(h/2))
             .mode(1).set({
                 period: .5,

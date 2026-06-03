@@ -73,8 +73,8 @@ class EmailView extends ScrollablePanel {
         let by = y
         const x1 = x
         const w1 = w
-        txt.back(lib.cidx('base'))
-           .face(lib.cidx('alert'))
+        txt.back(cidx.base)
+           .face(cidx.alert)
 
         /*
         // subject
@@ -90,8 +90,8 @@ class EmailView extends ScrollablePanel {
             const line = lines[i]
 
             // regular text
-            txt.back(lib.cidx('base'))
-               .face(lib.cidx('alert'))
+            txt.back(cidx.base)
+               .face(cidx.alert)
 
             this.clipText(line, x1, by, w1)
         }

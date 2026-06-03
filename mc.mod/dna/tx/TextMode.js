@@ -67,6 +67,7 @@ class TextMode extends sys.LabFrame {
             cellWidth: env.style.font.terminal.cellWidth,
             cellHeight: env.style.font.terminal.cellHeight,
 
+            // TODO look directly into pal/cidx!!!
             // placeholder colors to be replaced by style config
             textColor:       '#ffffff',
             backgroundColor: '#000000',
@@ -79,7 +80,7 @@ class TextMode extends sys.LabFrame {
             },
         })
 
-        //this.borderColor = pal.ls[0],
+        //this.borderColor = pal._ls[0],
         // this.backgroundColor = pal.direct.base,
         this.textColor = pal.direct.text
         this.setConstants()
@@ -412,6 +413,7 @@ class TextMode extends sys.LabFrame {
 
         // background(pal.ls[0]) ?????????????
         fill(this.backgroundColor)
+
         rect(this.x, this.y, this.w, this.h)
 
         translate(this.x, this.y)
@@ -441,7 +443,7 @@ class TextMode extends sys.LabFrame {
                     const back = this.buf.back[sh]
                     if (back) {
                         // indexed color
-                        fill(pal.ls[back])
+                        fill(pal._ls[back])
                         rect(tx*cw, ty*ch, cw + .5, ch + .5)
                     }
                 }
@@ -453,7 +455,7 @@ class TextMode extends sys.LabFrame {
                     fill(cface)
                 } else {
                     const face = this.buf.face[sh]
-                    fill(pal.ls[face] || this.textColor)
+                    fill(pal._ls[face] || this.textColor)
                 }
 
                 // character

@@ -214,16 +214,16 @@ class Menu extends Panel {
         const title = this.settings.title || this.title
         let y = floor(tx.th * .25)
         let x = floor(tx.tw/2 - title.length/2)
-        tx.back(lib.cidx('base'))
-            .face(lib.cidx('alert'))
+        tx.back(cidx.base)
+            .face(cidx.alert)
             .at(x, y).print(title)
 
         // subtitle
         const subtitle = this.settings.subtitle || this.subtitle
         y = floor(tx.th * .9)
         x = floor(tx.tw - subtitle.length)
-        tx.back(lib.cidx('base'))
-            .face(lib.cidx('alert'))
+        tx.back(cidx.base)
+            .face(cidx.alert)
             .at(x, y).print(subtitle)
 
 
@@ -234,11 +234,11 @@ class Menu extends Panel {
             const x = this.x + round(this.w/2 - item.name.length/2)
             
             if (i === this.selected) {
-                tx.back(lib.cidx('alert'))
-                  .face(lib.cidx('base'))
+                tx.back(cidx.alert)
+                  .face(cidx.base)
             } else {
-                tx.back(lib.cidx('base'))
-                  .face(lib.cidx('alert'))
+                tx.back(cidx.base)
+                  .face(cidx.alert)
             }
             tx.at(x, y).print(item.name)
             y += this.items.itemStep || this.itemStep

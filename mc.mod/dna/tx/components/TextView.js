@@ -15,8 +15,8 @@ class TextView extends Panel {
 
     draw() {
         const tx = this.__
-        tx.back(lib.cidx('base'))
-            .face(lib.cidx('alert'))
+        tx.back(cidx.base)
+            .face(cidx.alert)
 
         const w = tx.tw
         const header = 5

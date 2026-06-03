@@ -89,16 +89,16 @@ class CodeSelector extends ScrollablePanel {
               x2 = x1 + w1,
               w2 = 4
 
-        txt.back(lib.cidx('base'))
-           .face(lib.cidx('default'))
+        txt.back(cidx.base)
+           .face(cidx.default)
 
         // === column titles ===
         this.clipText('CODE', x2, by, w2)
         this.vseparator(x1, by, h)
 
         if (codePointer < 0) {
-            txt.back(lib.cidx('base'))
-               .face(lib.cidx('default'))
+            txt.back(cidx.base)
+               .face(cidx.default)
             while(by < y + h) {
                 by ++
                 this.clipText('....', x2, by, w2)
@@ -119,15 +119,15 @@ class CodeSelector extends ScrollablePanel {
                   focused  = (i === codePointer)
 
             if (focused) {
-                txt.back(lib.cidx('focus'))
-                   .face(lib.cidx('base'))
+                txt.back(cidx.focus)
+                   .face(cidx.base)
             } else if (selected) {
-                txt.back(lib.cidx('pick'))
-                   .face(lib.cidx('base'))
+                txt.back(cidx.pick)
+                   .face(cidx.base)
             } else {
                 // regular text
-                txt.back(lib.cidx('base'))
-                   .face(lib.cidx('default'))
+                txt.back(cidx.base)
+                   .face(cidx.default)
             }
 
             this.clipText(lib.format.toCodeString(opcode, w2), x2, by, w2)

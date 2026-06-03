@@ -9,11 +9,13 @@ V window tag hover and mouse-down feedback
 > stylized tags
 > tag-driven email
 > tag-driven memory banks
+
 > states transitions
 > title screen
 > main menu
 > credits
 > mission stats screen
+
 > sfx mapping
 > music player with cross-fades
 > dpad-only support?

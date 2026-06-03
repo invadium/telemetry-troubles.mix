@@ -38,14 +38,14 @@ class ScrollBar extends Panel {
 
         this.background()
 
-        txt.back(lib.cidx('base'))
-           .face(lib.cidx('alert'))
+        txt.back(cidx.base)
+           .face(cidx.alert)
         for (let i = 0; i < h; i++) {
             txt.at(x, y + i).out(' ')
         }
 
-        txt.back(lib.cidx('alert'))
-           .face(lib.cidx('base'))
+        txt.back(cidx.alert)
+           .face(cidx.base)
         for (let i = y1; i < y2; i++) {
             txt.at(x, y + i).out(' ')
         }

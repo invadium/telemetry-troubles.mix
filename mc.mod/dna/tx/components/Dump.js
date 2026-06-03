@@ -139,8 +139,8 @@ class Dump extends ScrollablePanel {
               x2 = x1 + w1 + 1,
               w2 = 4
 
-        txt.back(lib.cidx('base'))
-           .face(lib.cidx('default'))
+        txt.back(cidx.base)
+           .face(cidx.default)
 
         // === column titles ===
         this.clipText('ADR', x1, by, w1)
@@ -162,18 +162,18 @@ class Dump extends ScrollablePanel {
                   selected = (selectionPos === this.selection)
 
             if (executed) {
-                txt.back(lib.cidx('apply'))
-                   .face(lib.cidx('base'))
+                txt.back(cidx.apply)
+                   .face(cidx.base)
             } else if (edited) {
-                txt.back(lib.cidx('focus'))
-                   .face(lib.cidx('base'))
+                txt.back(cidx.focus)
+                   .face(cidx.base)
             } else if (selected) {
-                txt.back(lib.cidx('pick'))
-                   .face(lib.cidx('base'))
+                txt.back(cidx.pick)
+                   .face(cidx.base)
             } else {
                 // regular text
-                txt.back(lib.cidx('base'))
-                   .face(lib.cidx('default'))
+                txt.back(cidx.base)
+                   .face(cidx.default)
             }
             this.clipText(lib.format.toHexString(i, w1), x1, by, w1)
             this.clipText(lib.format.toCodeString(opcode, w2), x2, by, w2)
