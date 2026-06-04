@@ -111,13 +111,9 @@ class Display extends $.dna.hud.Container {
         node._display = this
     }
 
-    onFocus() {
-        if (!this.detracted) this.tag.lock = true
-    }
+    onFocus() {}
 
-    onUnfocus() {
-        // log(`${this.name}: lost focus`)
-    }
+    onUnfocus() {}
 
     // onClick(x, y, e) {
     //    super.onClick(x, y, e)

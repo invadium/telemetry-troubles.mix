@@ -6,11 +6,11 @@ V windows focus and selection
 V keyboard support
 V window tag hover and mouse-down feedback
 V tab-driven email
+V [-] display tags are not sliding on first click even when there are active-orange
 
 > stylized buttons
 > stylized tags
 > tag-driven memory banks
-> [-] display tags are not sliding on first click even when there are active-orange
 
 > states transitions
 > title screen

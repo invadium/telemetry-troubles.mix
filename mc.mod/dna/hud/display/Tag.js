@@ -85,6 +85,7 @@ class Tag extends sys.LabFrame {
     onMouseMove() {}
 
     onMouseDown() {
+        if (!this.__.isActive() && !this.__.detracted) this.lock = true
         this._pressed = true
     }
 
