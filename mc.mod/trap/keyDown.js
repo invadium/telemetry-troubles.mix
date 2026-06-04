@@ -8,15 +8,6 @@ function handleSpecial(e) {
             id.reset()
             break
         case 'Slash':
-            const MP = lab.hud.missionPanel
-
-            if (MP.email.hidden) {
-                MP.email.show()
-                MP.monitor.show()
-            } else {
-                MP.email.hide()
-                MP.monitor.hide()
-            }
             break
     }
 }

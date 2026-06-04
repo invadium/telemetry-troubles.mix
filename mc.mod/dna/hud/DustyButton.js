@@ -47,7 +47,7 @@ class DustyButton {
         if (this.toggled) {
             _.bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel1)
             _.cap(2, 2, w-3, h-3, 1, color.bevel0)
-            tsh = 1
+            tsh = 0
         } else {
             _.bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel0)
         }

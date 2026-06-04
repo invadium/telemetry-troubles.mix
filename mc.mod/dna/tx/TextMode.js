@@ -639,7 +639,7 @@ class TextMode extends sys.LabFrame {
     }
 
     onAttach(e) {
-        // log('attached ' + e.name)
         e.tx = this
+        this.__.onAttach(e)
     }
 }

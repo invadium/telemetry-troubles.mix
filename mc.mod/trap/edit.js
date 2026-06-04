@@ -1,3 +1,3 @@
 function edit() {
-    $.monitor.codeSelector.syncView()
+    $.textBuffer2.codeSelector.syncView()
 }

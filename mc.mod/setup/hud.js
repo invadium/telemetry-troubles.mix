@@ -33,7 +33,9 @@ function hud() {
     })
 
 
-    // === primary display ===
+
+    // === PRIMARY DISPLAY ===
+
     const primaryDisplay = $.PD = missionPanel.spawn('Display', {
         name: 'primaryDisplay',
         title: 'Communication',
@@ -55,24 +57,10 @@ function hud() {
             _ => _.h = _.normalH * (_.__.viewport.h - _.y - _.margin.south),
         ],
     })
-    const tab0P = primaryDisplay.bevel.tab0
-    extend( tab0P, {
-        title: 'InBox',
-        displayState: {
-            __: tab0P,
-            activate: function() {
-                log('TODO: show all inbox components here!')
-                this.__.__.spawnTab('next' + this.__.__.tabs)
-            },
-            deactivate: function() {
-                log('TODO: hide all inbox components here!')
-            },
-        }
-    })
 
-    const email = $.email = primaryDisplay.content.spawn('TextMode', {
+    const textBuffer1 = $.textBuffer1 = primaryDisplay.content.spawn('TextMode', {
         Z:            22,
-        name:         'email',
+        name:         'textBuffer',
         scale:        1.5,
         targetWidth:  32,
         targetHeight: 25,
@@ -95,39 +83,13 @@ function hud() {
         },
 
     })
-    email.adjust()
+    textBuffer1.adjust()
 
-    /*
-    const menu = email.spawn('Menu', {
-        name:  'mainMenu',
-        title: 'Main',
-        subtitle: 'subtitle',
-    })
-    menu.selectFrom({
-        items: [
-            'one',
-            'two',
-            'many',
-        ],
-        onSelect: function() {
-            log('selected!')
-        },
-        onHide: function() {
-            log('hidden!')
-        },
-    })
-    */
-    /*
-    email.spawn('CentralMessage', {
-        label:  'Central Command',
-        status: `I'm in the center!`,
-    })
-    */
-    const sectionTitle = email.spawn('SectionTitle')
-    const inbox = email.spawn('Inbox', {
+    const sectionTitle = textBuffer1.spawn('SectionTitle')
+    const inbox = textBuffer1.spawn('Inbox', {
         title: sectionTitle,
     })
-    const inboxScrollBar = email.spawn('ScrollBar', {
+    const inboxScrollBar = textBuffer1.spawn('ScrollBar', {
 
         sync: function() {
             this.cur = inbox.relativePos()
@@ -153,15 +115,15 @@ function hud() {
     })
     inbox.scrollBar = inboxScrollBar
 
-    const emailViewTitle = email.spawn('SectionTitle', {
+    const emailViewTitle = textBuffer1.spawn('SectionTitle', {
         FILLER: ' ',
         align: 'left',
     })
-    const emailView = email.spawn('EmailView', {
+    const emailView = textBuffer1.spawn('EmailView', {
         title: emailViewTitle,
         inbox: inbox,
     })
-    const emailViewScrollBar = email.spawn('ScrollBar', {
+    const emailViewScrollBar = textBuffer1.spawn('ScrollBar', {
         sync: function() {
             this.cur  = emailView.relativePos()
             this.fill = emailView.relativeFill()
@@ -184,7 +146,8 @@ function hud() {
     })
     emailView.scrollBar = emailViewScrollBar
 
-    const closeButton = email.spawn('TextButton', {
+    /*
+    const closeButton = textBuffer1.spawn('TextButton', {
         label: 'CLOSE',
 
         adjust() {
@@ -200,10 +163,56 @@ function hud() {
         },
     })
     emailView.closeButton = closeButton
+    */
 
     emailView.hide()
 
+    const tab0P = primaryDisplay.bevel.tab0
+    extend( tab0P, {
+        title: 'InBox',
+        displayState: {
+            __: tab0P,
+            activate: function() {
+                const inbox = $.PD.locate('&inbox')
+                inbox.show()
+            },
+            deactivate: function() {
+                const inbox = $.PD.locate('&inbox')
+                inbox.hide()
+            },
+        }
+    })
 
+    /*
+    const menu = textBuffer1.spawn('Menu', {
+        name:  'mainMenu',
+        title: 'Main',
+        subtitle: 'subtitle',
+    })
+    menu.selectFrom({
+        items: [
+            'one',
+            'two',
+            'many',
+        ],
+        onSelect: function() {
+            log('selected!')
+        },
+        onHide: function() {
+            log('hidden!')
+        },
+    })
+    */
+    /*
+    textBuffer1.spawn('CentralMessage', {
+        label:  'Central Command',
+        status: `I'm in the center!`,
+    })
+    */
+
+
+
+    // === SECONDARY DISPLAY ===
 
     const secondaryDisplay = $.SD = missionPanel.spawn('Display', {
         name: 'secondaryDisplay',
@@ -233,7 +242,9 @@ function hud() {
             __: tab0S,
             activate: function() {
                 log('TODO: show all inbox components here!')
-                this.__.__.spawnTab('next' + this.__.__.tabs)
+                // this.__.__.spawnTab({
+                //     title: 'next' + this.__.__.tabs,
+                // })
             },
             deactivate: function() {
                 log('TODO: hide all inbox components here!')
@@ -241,23 +252,12 @@ function hud() {
         }
     })
 
-    const monitor = $.monitor = secondaryDisplay.content.spawn('TextMode', {
+    const textBuffer2 = $.textBuffer2 = secondaryDisplay.content.spawn('TextMode', {
         Z:            24,
-        name:         'monitor',
+        name:         'textBuffer',
         scale:        1.5,
         targetWidth:  32,
         targetHeight: 25,
-
-        // backgroundColor: pal.direct.base,
-
-        /*
-        margins: {
-            north: 20,
-            east:  20,
-        },
-        */
-
-        email,
 
         adjustTargets: function() {
             const __     = this.__,
@@ -268,26 +268,17 @@ function hud() {
             this.targetHeight = floor(hUnits)
         },
 
-        adjustPos() {
-            /*
-            const __      = this.__,
-                  email   = this.email,
-                  margins = this.margins
-
-            this.x = margins.east
-            this.y = email.y + email.h + margins.north
-            */
-        }
+        adjustPos() {}
     })
-    monitor.adjust()
+    textBuffer2.adjust()
 
-    const monitorTitle = monitor.spawn('SectionTitle', {
+    const monitorTitle = textBuffer2.spawn('SectionTitle', {
         label: '  CORE MONITOR  ',
     })
 
     // === core dump ===
-    const dump = monitor.spawn('Dump')
-    const dumpScrollBar = monitor.spawn('ScrollBar', {
+    const dump = textBuffer2.spawn('Dump')
+    const dumpScrollBar = textBuffer2.spawn('ScrollBar', {
         sync: function() {
             this.cur = dump.relativePos()
             this.fill = dump.relativeFill()
@@ -312,7 +303,7 @@ function hud() {
     })
 
     // === code selector ===
-    const codeSelector = monitor.spawn('CodeSelector', {
+    const codeSelector = textBuffer2.spawn('CodeSelector', {
         dump: dump,
 
         adjust: function() {
@@ -325,7 +316,7 @@ function hud() {
         }
     })
 
-    const codeSelectorScrollBar = monitor.spawn('ScrollBar', {
+    const codeSelectorScrollBar = textBuffer2.spawn('ScrollBar', {
         sync: function() {
             this.cur  = codeSelector.relativePos()
             this.fill = codeSelector.relativeFill()

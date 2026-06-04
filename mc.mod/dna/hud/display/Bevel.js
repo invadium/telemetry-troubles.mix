@@ -26,18 +26,17 @@ class Bevel extends $.dna.hud.Container {
     }
 
     init() {
-        this.spawnTab('Main', {
+        const mainTab = this.spawnTab({
+            title: 'Main',
             action: function() {},
             close: function()  {},
         })
-        // this.spawnTab('two')
-        // this.spawnTab('many')
+        mainTab.display()
     }
 
-    spawnTab(title, st) {
-        const tag = this.spawn(dna.Tab, augment({
+    spawnTab(st) {
+        const tab = this.spawn(dna.Tab, augment({
             name:  'tab' + (this.tabs++),
-            title: title,
 
             h:     30,
             w:     72,
@@ -99,17 +98,17 @@ class Bevel extends $.dna.hud.Container {
 
             close: function() {
                 log('closing ' + this.name)
-                this.__.killTag(this)
+                this.__.killTab(this)
             },
 
         }, st) )
 
         if (this.lead) {
-            this.tail.next = tag
-            tag.prev = this.tail
-            this.tail = tag
+            this.tail.next = tab
+            tab.prev = this.tail
+            this.tail = tab
 
-            tag.spawn(dna.CloseButton, {
+            tab.spawn(dna.CloseButton, {
                 name: 'closeButton',
 
                 adjust: function() {
@@ -125,33 +124,46 @@ class Bevel extends $.dna.hud.Container {
             })
 
             /*
-            tag.onDisplay = function() {
+            tab.onDisplay = function() {
                 this.closeButton._active = true
             }
-            tag.onConceal = function() {
+            tab.onConceal = function() {
                 this.closeButton._active = false
             }
             */
         } else {
-            this.lead = tag
-            this.tail = tag
+            this.lead = tab
+            this.tail = tab
         }
+
+        return tab
+    }
+
+    countTabs() {
+        if (!this.lead) return 0
+
+        let i = 0
+        this.lead.chainApply( tab => i++ )
+        return i
     }
 
     disableAll() {
-        if (this.lead) this.lead.chainApply(tag => tag.conceal())
+        if (this.lead) this.lead.chainApply(tab => tab.conceal())
     }
 
-    killTag(tag) {
-        const prev = tag.prev
-        const next = tag.next
+    killTab(tab) {
+        const isDisplayed = tab.isDisplayed()
+        tab.conceal()
+        const prev = tab.prev
+        const next = tab.next
         if (prev) prev.next = next
         if (next) next.prev = prev
 
-        if (this.lead === tag) this.lead = next
-        if (this.tail === tag) this.tail = prev
+        if (this.lead === tab) this.lead = next
+        if (this.tail === tab) this.tail = prev
 
-        this.detach(tag)
+        this.detach(tab)
+        if (isDisplayed && prev) prev.display()
     }
 
     adjust() {
@@ -174,7 +186,7 @@ class Bevel extends $.dna.hud.Container {
 
     draw() {
         const { __, x, y, w, h } = this
-        const tag    = __.tag,
+        const tab    = __.tab,
               holder = __.holder,
               pd     = this.padding
 

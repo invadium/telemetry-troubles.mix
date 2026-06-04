@@ -11,7 +11,7 @@ class EmailView extends ScrollablePanel {
             margins: {
                 north: 1,
                 east:  0,
-                south: 1,
+                south: 0,
                 west:  1,
             },
 
@@ -25,13 +25,11 @@ class EmailView extends ScrollablePanel {
         this.__.adjust()
         this.title.show()
         this.scrollBar.show()
-        this.closeButton.show()
     }
 
     hide() {
         this.title.hide()
         this.scrollBar.hide()
-        this.closeButton.hide()
         this.hidden = true
         this.__.adjust()
     }
@@ -44,19 +42,54 @@ class EmailView extends ScrollablePanel {
         this.text = text.split('\n')
     }
 
-    showEmail(message) {
-        // TODO externalize tag extraction!
+    setEmail(envelope) {
+        this.lines = envelope.lines
+        this.message = envelope.message
+        this.title.label = envelope.label
+    }
+
+    openEmail(message) {
+        const _       = this
+        const display = _._display
+        const itabs   = display.bevel.countTabs()
+
+        if (itabs >= 4) {
+            // TODO ignore open request until we'll find an acceptable solution for many tabs
+            // TODO make a negative feedback effect (shake?, blink red?)
+            // TODO play 'deny' sfx
+            return
+        }
+
+        // create the message container
+        // TODO a way to determine the proper tag for each message
         const tag = message.read? ' ' : '*'
-        this.message = message
-        this.title.label = `[${tag}]${message.from}: ${message.subject}`
-        this.lines = message.content.split('\n') // TODO adjust the content and mark the plumbing points
-        this.inbox.hide()
-        this.show()
+        const envelope = {
+            message:  message,
+            label:   `[${tag}]${message.from}: ${message.subject}`,
+            lines:    message.content.split('\n'), // TODO adjust the content and mark the plumbing points
+        }
+
+        // create a new tab and setup display state with the message
+        const nextTab = display.bevel.spawnTab({
+            title: 'email' + itabs,
+            displayState: {
+                activate: function() {
+                    _.setEmail( envelope )
+                    _.show()
+                },
+                deactivate: function() {
+                    _.hide()
+                },
+            }
+        })
+        nextTab.display()
+        // this.inbox.hide()
+        // this.show()
     }
 
     open(at) {
         // TODO do Plan9-like plumbing over the email text to follow links and execute commands
-        log(`plumbing #${at}: ${this.lines[at]}`)
+        log(`TODO plumbing #${at}: ${this.lines[at]}`)
     }
 
     close() {

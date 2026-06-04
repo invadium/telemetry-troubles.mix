@@ -30,7 +30,7 @@ class Inbox extends ScrollablePanel {
                         time:     271.9,
                         from:    'HQ',
                         subject: 'Many',
-                        content: 'no data',
+                        content: 'hey, many more messages to come!',
                     },
                 ],
             },
@@ -84,7 +84,7 @@ class Inbox extends ScrollablePanel {
     open(pos) {
         const message = this.imap.messages[pos]
         message.read = true
-        defer(() => this.view.showEmail(message))
+        defer(() => this.view.openEmail(message))
     }
 
     draw() {

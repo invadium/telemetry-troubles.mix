@@ -107,6 +107,10 @@ class Display extends $.dna.hud.Container {
         return (this.focus && !this.detracted)
     }
 
+    onAttach(node) {
+        node._display = this
+    }
+
     onFocus() {
         if (!this.detracted) this.tag.lock = true
     }
