@@ -110,10 +110,6 @@ class Blueprint extends sys.LabFrame {
         const { w, h } = this
         // now we are in 100x117
 
-        lineWidth(.5)
-        stroke(env.palette.main)
-
-        rect(0, 0, 100, 117)
 
         save()
         translate(70, 35)
@@ -141,6 +137,11 @@ class Blueprint extends sys.LabFrame {
         save()
         translate(x, y)
         scale(w/100)
+
+        // render bluepring border
+        lineWidth(.5)
+        stroke(env.palette.main)
+        rect(0, 0, 100, 117)
 
         // this.drawProbeLayout()
         super.draw()
