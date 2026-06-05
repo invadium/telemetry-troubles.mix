@@ -1,9 +1,11 @@
-class Magnetometer {
+const Pod = require('/mod/mc/dna/ops/pod/Pod')
+
+class Magnetometer extends Pod {
 
     constructor(st) {
-        augment(this, {
+        super( augment({
             name: 'magnetometer',
-        }, st)
+        }, st) )
     }
 
 }

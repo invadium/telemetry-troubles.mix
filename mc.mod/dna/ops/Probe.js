@@ -22,21 +22,40 @@ class Probe extends sys.LabFrame {
         for (let pod of this._pods) {
             this.spawn(pod)
         }
-        this.activatePod('antenna')
+        this.enableTelemetry('antenna')
+        this.powerOn('antenna')
     }
 
-    activatePod(pod) {
+    // enable engineering telemetry - show the pod on the blueprint
+    enableTelemetry(pod) {
         if (isStr(pod)) pod = this.locate(pod)
-        if (!pod) return
+        if (!pod) throw new Error('the pod is missing!')
 
         this.blueprint.linkPod(pod)
+        pod.startTelemetry()
     }
 
-    deactivatePod(pod) {
+    // disable engineering telemetry - hide the pod on the blueprint
+    disableTelemetry(pod) {
         if (isStr(pod)) pod = this.locate(pod)
-        if (!pod) return
+        if (!pod) throw new Error('the pod is missing!')
 
         this.blueprint.detachPod(pod)
+        pod.stopTelemetry()
+    }
+
+    powerOn(pod) {
+        if (isStr(pod)) pod = this.locate(pod)
+        if (!pod) throw new Error('the pod is missing!')
+
+        pod.powerOn()
+    }
+
+    powerOff(pod) {
+        if (isStr(pod)) pod = this.locate(pod)
+        if (!pod) throw new Error('the pod is missing!')
+
+        pod.powerOff()
     }
 
     draw() {}

@@ -108,7 +108,6 @@ class Blueprint extends sys.LabFrame {
 
     drawProbeLayout() {
         const { w, h } = this
-        scale(w/100)
         // now we are in 100x117
 
         lineWidth(.5)
@@ -120,7 +119,6 @@ class Blueprint extends sys.LabFrame {
         translate(70, 35)
             this.drawFrontal()
         restore()
-
 
         lineWidth(2)
         let by = 50
@@ -142,8 +140,9 @@ class Blueprint extends sys.LabFrame {
 
         save()
         translate(x, y)
+        scale(w/100)
 
-        this.drawProbeLayout()
+        // this.drawProbeLayout()
         super.draw()
 
         restore()

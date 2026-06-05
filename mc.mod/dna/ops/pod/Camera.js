@@ -1,9 +1,11 @@
-class Camera {
+const Pod = require('/mod/mc/dna/ops/pod/Pod')
+
+class Camera extends Pod {
 
     constructor(st) {
-        augment(this, {
+        super( augment({
             name: 'camera',
-        }, st)
+        }, st) )
     }
 
 }

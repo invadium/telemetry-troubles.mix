@@ -1,9 +1,11 @@
-class TapeRecorder {
+const Pod = require('/mod/mc/dna/ops/pod/Pod')
+
+class TapeRecorder extends Pod {
 
     constructor(st) {
-        augment(this, {
+        super( augment({
             name: 'TapeRecorder',
-        }, st)
+        }, st) )
     }
 
 }

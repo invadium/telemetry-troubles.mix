@@ -1,9 +1,21 @@
-class CCS {
+const Pod = require('/mod/mc/dna/ops/pod/Pod')
+
+class CCS extends Pod {
 
     constructor(st) {
-        augment(this, {
+        super( augment({
             name: 'CCS',
-        }, st)
+        }, st) )
+        this.powerOn()
+    }
+
+    powerOn() {
+        this.power = true
+        this.poweredAt = env.time
+    }
+
+    powerOff() {
+        // can't be powered off - always on!
     }
 
 }

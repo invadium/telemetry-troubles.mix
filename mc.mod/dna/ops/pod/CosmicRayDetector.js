@@ -1,9 +1,11 @@
-class CosmicRayDetector {
+const Pod = require('/mod/mc/dna/ops/pod/Pod')
+
+class CosmicRayDetector extends Pod {
 
     constructor(st) {
-        augment(this, {
+        super( augment({
             name: 'cosmicRayDetector',
-        }, st)
+        }, st) )
     }
 
 }
