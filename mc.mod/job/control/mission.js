@@ -21,7 +21,7 @@ function checkStatus() {
     if (ms.over) return
 
     if (ms.balance <= 0) {
-        signal('missionOver')
+        signal('mission/over')
     }
 }
 
@@ -33,7 +33,7 @@ function evo(dt) {
 
     if (ms.timer + 1 - ms.day > 1) {
         ms.day ++
-        signal('nextDay', ms.day)
+        signal('mission/nextDay', ms.day)
     }
 }
 

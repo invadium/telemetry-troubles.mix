@@ -1,4 +1,4 @@
 function nextDay(day) {
     // log('next day: ' + day)
-    lab.control.mission.burn()
+    job.control.mission.burn()
 }

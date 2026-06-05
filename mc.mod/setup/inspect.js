@@ -1,4 +1,4 @@
-function probe() {
+function inspect() {
     /*
     lab.spawn('MouseProbe', {
         size:  3,
@@ -26,4 +26,4 @@ function probe() {
         })
     }
 }
-probe.Z = 101
+inspect.Z = 101

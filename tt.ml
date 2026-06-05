@@ -12,25 +12,16 @@ V [-] display tags are not sliding on first click even when there are active-ora
 > stylized tags
 > tag-driven memory banks
 
-> states transitions
-> title screen
-> main menu
-> credits
-> mission stats screen
-
-> sfx mapping
-> music player with cross-fades
-> dpad-only support?
-> retro-style print-out email viewer #spice
-> upload special effects #spice
 
 ### Proto I
+> probe entity
+> probe systems visual
+> experiment entity
+
+> mission entity
 > core game design
 > test-drive email system with messages on TT design, roadmap etc...
 > probe dev kit
-> mission entity
-> probe entity
-> experiment entity
 > probe subsystem emulators
 > MCCU emulator
 > command sequence editing
@@ -44,6 +35,17 @@ V [-] display tags are not sliding on first click even when there are active-ora
 
 ### System III
 > system terminal that can work as a debug console (e.g. for "fx", but within the game)
+> sfx mapping
+> music player with cross-fades
+> dpad-only support?
+> retro-style print-out email viewer #spice
+> upload special effects #spice
+
+> states transitions
+> title screen
+> main menu
+> credits
+> mission stats screen
 
 
 ## Collider
