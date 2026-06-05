@@ -131,6 +131,22 @@ class Blueprint extends sys.LabFrame {
         line(0, by, 20, by)
     }
 
+    drawPowerLevel(bx, by, h, level) {
+        save()
+        translate(bx, by)
+
+        line(0, 0, 0, h)
+
+        const R  = 2,
+              DX = -1,
+              y1 = level * h
+
+        fill(env.palette.main)
+        triangle( DX, y1, DX-R, y1-R, DX-R, y1+R )
+
+        restore()
+    }
+
     draw() {
         const { x, y, w, h } = this
 
@@ -145,6 +161,8 @@ class Blueprint extends sys.LabFrame {
 
         // this.drawProbeLayout()
         super.draw()
+
+        this.drawPowerLevel(96, 10, 100, .5 * (sin(env.time) + 1))
 
         restore()
     }
