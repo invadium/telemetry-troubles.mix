@@ -1,5 +1,7 @@
 const Z = 10
 
+const transient = true
+
 function draw() {
     const w = lab.w,
           h = lab.h

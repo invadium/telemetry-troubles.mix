@@ -5,6 +5,8 @@ function hud() {
     const hud = lab.spawn($.dna.hud.Hud, {
         Z:     21,
         name: 'hud',
+
+        transient: true,
     })
 
     // create a parent component to scale the UI components

@@ -2,6 +2,8 @@ const Z = 11
 
 const hidden = true
 
+const transient = true
+
 // render debug rectangles
 function draw() {
     const x = rx(.5),

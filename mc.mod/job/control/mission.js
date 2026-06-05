@@ -1,4 +1,20 @@
+function clear() {
+    const toKill = lab.filter(e => !e.transient)
+    toKill.forEach(e => kill(e))
+    lab.locate('&blueprint').clear()
+}
+
+function launchProbe() {
+    const probe = $.probe = lab.spawn('Probe', {
+        blueprint: lab.locate('&blueprint'),
+    })
+    pin.link(probe)
+}
+
 function start() {
+    this.clear()
+    this.launchProbe()
+
     this.status = env.missionStatus = {
         timer:      0,
         day:        1,

@@ -123,7 +123,18 @@ const palette = {
         })
     },
 
+    // copy defined colors to /alt/pal
+    copyColors: function() {
+        for (const prop in this) {
+            const val = this[prop]
+            if (!isFun(val) && !['background', 'indexed'].includes(prop)) {
+                pal[prop] = val
+            }
+        }
+    },
+
     setup: function() {
+        this.copyColors()
         this.indexColors()
     },
 }

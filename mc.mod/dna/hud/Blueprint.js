@@ -21,6 +21,22 @@ class Blueprint extends sys.LabFrame {
         }, st) )
     }
 
+    clear() {
+        this.detachAll()
+    }
+
+    linkPod(pod) {
+        if (this._ls.indexOf(pod) >= 0) return
+
+        this.link(pod)
+    }
+
+    detachPod(pod) {
+        if (this._ls.indexOf(pod) < 0) return
+
+        this.detach(pod)
+    }
+
     adjust() {
         const W         = this.__.viewport.w,
               H         = this.__.viewport.h,
@@ -90,10 +106,8 @@ class Blueprint extends sys.LabFrame {
         restore()
     }
 
-    draw() {
-        const { x, y, w, h } = this
-        save()
-        translate(x, y)
+    drawProbeLayout() {
+        const { w, h } = this
         scale(w/100)
         // now we are in 100x117
 
@@ -121,6 +135,16 @@ class Blueprint extends sys.LabFrame {
         by += 4
         stroke(env.palette.low)
         line(0, by, 20, by)
+    }
+
+    draw() {
+        const { x, y, w, h } = this
+
+        save()
+        translate(x, y)
+
+        this.drawProbeLayout()
+        super.draw()
 
         restore()
     }
