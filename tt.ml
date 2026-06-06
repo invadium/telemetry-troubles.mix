@@ -11,6 +11,7 @@ V [-] display tags are not sliding on first click even when there are active-ora
 > stylized buttons
 > stylized tags
 > tag-driven memory banks
+> [-] untangle email scroll bar positions for proper adjustment when switching between emails
 
 
 ### Proto I

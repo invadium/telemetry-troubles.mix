@@ -65,6 +65,7 @@ class Probe extends sys.LabFrame {
         this.enableTelemetry('antenna')
         this.enableTelemetry('tapeRecorder')
         this.enableTelemetry('camera')
+        this.enableTelemetry('battery')
         this.enableTelemetry('powerGauge')
         this.enableTelemetry('bandwidthGauge')
         this.enableTelemetry('thermalGauge')
