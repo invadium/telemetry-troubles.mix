@@ -45,22 +45,19 @@ const palette = {
             l:  .8,
             dl: .6
         },
+
+        // dusty button outer rim outline
+        rim: {
+            h: .148,
+            s:  1,
+            l: .5,
+           dl: .3,
+           ds: .5,
+        },
     },
 
     dustyButton: {
-        bevel0: '#989800FF',
-        bevel1: '#F8F830FF',
-        base:   '#f0e040',
-
-        hi0:    '#f8e850',
-        low0:   '#f8a810',
-        low1:   '#f8c800',
-
-        hi:     '#ffdd7d',
-        low:    '#ebb51c',
-        fence:  '#fcee4e',
-
-        text:   '#000000',
+        text: '#404040',
     },
 
     // define retro-screen background gradients

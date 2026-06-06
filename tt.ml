@@ -7,19 +7,20 @@ V keyboard support
 V window tag hover and mouse-down feedback
 V tab-driven email
 V [-] display tags are not sliding on first click even when there are active-orange
+V stylized buttons
+V stylized tags
 
-> stylized buttons
-> stylized tags
-> tag-driven memory banks
+> dusty button multiple color modes
 > [-] untangle email scroll bar positions for proper adjustment when switching between emails
 
 
 ### Proto I
-> probe entity
+V probe entity
+
 > probe systems visual
+> mission control/flow
 > experiment entity
 
-> mission entity
 > core game design
 > test-drive email system with messages on TT design, roadmap etc...
 > probe dev kit
@@ -41,6 +42,7 @@ V [-] display tags are not sliding on first click even when there are active-ora
 > dpad-only support?
 > retro-style print-out email viewer #spice
 > upload special effects #spice
+> tag-driven memory banks
 
 > states transitions
 > title screen

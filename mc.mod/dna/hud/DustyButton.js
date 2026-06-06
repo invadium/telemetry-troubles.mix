@@ -26,16 +26,19 @@ class DustyButton {
         const bc = cval.base
         _.renderBase(bc)
 
-        const vc = cval.bevel,
-              c0 = hsl( vc.h, vc.s, vc.l - vc.dl ),
-              c1 = hsl( vc.h, vc.s, vc.l         )
+        const vc  = cval.bevel,
+              c0  = hsl( vc.h, vc.s, vc.l - vc.dl ),
+              c1  = hsl( vc.h, vc.s, vc.l         ),
+              rc  = cval.rim,
+              c00 = hsl( rc.h, rc.s - rc.ds, rc.l - rc.dl ),
+              c01 = hsl( rc.h, rc.s, rc.l         )
 
         // TODO remap the rest of the colors from color -> cval
         // TODO introduce multiple styles - gray-disabled, red-active
         //      (maybe blinking red for the upload process?)
         const LW = 2
         ctx.lineCap = 'square'
-        _.bevel(0, 0, w, h, LW, color.bevel0, color.bevel1)
+        _.bevel(0, 0, w, h, LW, c00, c01)
 
         let tsh = 0
         if (_._hover) {
@@ -45,11 +48,11 @@ class DustyButton {
             tsh = -1 // shift text a little
         }
         if (this.toggled) {
-            _.bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel1)
-            _.cap(2, 2, w-3, h-3, 1, color.bevel0)
+            _.bevel(1, 1, w-2, h-2, LW, c00, c01)
+            _.cap(2, 2, w-3, h-3, 1, c00)
             tsh = 0
         } else {
-            _.bevel(1, 1, w-2, h-2, LW, color.bevel1, color.bevel0)
+            _.bevel(1, 1, w-2, h-2, LW, c01, c00)
         }
 
         baseMiddle()

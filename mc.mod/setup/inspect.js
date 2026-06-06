@@ -17,6 +17,8 @@ function inspect() {
             w: 320,
             h: 320,
 
+            transient: true,
+
             init: function() {
                 this.onResize()
             },
