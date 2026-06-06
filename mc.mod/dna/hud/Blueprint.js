@@ -66,6 +66,7 @@ class Blueprint extends sys.LabFrame {
         this.h = th
     }
 
+    // @deprecated
     drawFrontal() {
         lineWidth(.5)
         circle(0, 0, 22)
@@ -106,6 +107,7 @@ class Blueprint extends sys.LabFrame {
         restore()
     }
 
+    // @deprecated
     drawProbeLayout() {
         const { w, h } = this
         // now we are in 100x117
@@ -131,22 +133,6 @@ class Blueprint extends sys.LabFrame {
         line(0, by, 20, by)
     }
 
-    drawPowerLevel(bx, by, h, level) {
-        save()
-        translate(bx, by)
-
-        line(0, 0, 0, h)
-
-        const R  = 2,
-              DX = -1,
-              y1 = level * h
-
-        fill(env.palette.main)
-        triangle( DX, y1, DX-R, y1-R, DX-R, y1+R )
-
-        restore()
-    }
-
     draw() {
         const { x, y, w, h } = this
 
@@ -154,15 +140,14 @@ class Blueprint extends sys.LabFrame {
         translate(x, y)
         scale(w/100)
 
-        // render bluepring border
         lineWidth( env.style.blueprint.lineWidth )
         stroke(env.palette.main)
+
+        // render bluepring border
         rect(0, 0, 100, 117)
 
         // this.drawProbeLayout()
         super.draw()
-
-        this.drawPowerLevel(96, 10, 100, .5 * (sin(env.time) + 1))
 
         restore()
     }
