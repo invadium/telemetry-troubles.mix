@@ -357,6 +357,7 @@ function hud() {
 
         onClick: function() {
             log('Uplink...')
+            lab.locate('&dump').mode = 3
         },
     })
 

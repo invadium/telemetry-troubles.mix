@@ -35,10 +35,23 @@ class Probe extends sys.LabFrame {
             },
         })
         this.spawn('HGauge', {
+            name: 'thermalGauge',
+
+            x:    10,
+            y:    105,
+            w:    80,
+            h:    1,
+            dir:  1,
+
+            evo: function(dt) {
+                this.level = .5 * (sin(env.time * .29) + 1)
+            },
+        })
+        this.spawn('HGauge', {
             name: 'bandwidthGauge',
 
             x:    10,
-            y:    110,
+            y:    115,
             w:    80,
             h:    1,
             dir: -1,
@@ -48,22 +61,10 @@ class Probe extends sys.LabFrame {
             },
         })
 
-        this.spawn('HGauge', {
-            name: 'thermalGauge',
-
-            x:    10,
-            y:    100,
-            w:    80,
-            h:    1,
-            dir:  1,
-
-            evo: function(dt) {
-                this.level = .5 * (sin(env.time * .29) + 1)
-            },
-        })
 
         this.enableTelemetry('antenna')
         this.enableTelemetry('tapeRecorder')
+        this.enableTelemetry('CCS')
         this.enableTelemetry('camera')
         this.enableTelemetry('battery')
         this.enableTelemetry('powerGauge')

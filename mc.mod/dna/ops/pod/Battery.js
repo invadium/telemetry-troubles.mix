@@ -6,9 +6,9 @@ class Battery extends Pod {
         super( augment({
             name: 'battery',
 
-            x:     50,
-            y:     85,
-            w:     60,
+            x:     75,
+            y:     100,
+            w:     40,
             h:     4,
             level: .25,
 

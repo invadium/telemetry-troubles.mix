@@ -40,6 +40,7 @@ class Camera extends Pod {
         translate(x, y)
 
         lineWidth(.35)
+        stroke(env.palette.main)
         block( 0, 0, w, h )
 
         const R        = .35 * h,
