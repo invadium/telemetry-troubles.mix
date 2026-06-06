@@ -155,7 +155,7 @@ class Blueprint extends sys.LabFrame {
         scale(w/100)
 
         // render bluepring border
-        lineWidth(.5)
+        lineWidth( env.style.blueprint.lineWidth )
         stroke(env.palette.main)
         rect(0, 0, 100, 117)
 

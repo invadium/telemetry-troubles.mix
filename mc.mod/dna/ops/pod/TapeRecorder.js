@@ -57,7 +57,6 @@ class TapeRecorder extends Pod {
         save()
         translate(x, y)
 
-        lineWidth(.35)
         stroke(pal.main)
 
         // outline

@@ -59,6 +59,10 @@ const style = {
     hud: {
         targetWidth: 1000,
     },
+
+    blueprint: {
+        lineWidth: .35,
+    },
 }
 
 function classifyFonts() {

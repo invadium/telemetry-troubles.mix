@@ -23,8 +23,12 @@ class Probe extends sys.LabFrame {
             this.spawn(pod)
         }
         this.enableTelemetry('antenna')
-        this.powerOn('antenna')
         this.enableTelemetry('tapeRecorder')
+        this.enableTelemetry('camera')
+
+        this.powerOn('antenna')
+        this.powerOn('tapeRecorder')
+        this.powerOn('camera')
     }
 
     // enable engineering telemetry - show the pod on the blueprint
