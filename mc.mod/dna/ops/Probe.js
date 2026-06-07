@@ -61,7 +61,7 @@ class Probe extends sys.LabFrame {
             },
         })
 
-
+        this.enableTelemetry('RTG')
         this.enableTelemetry('antenna')
         this.enableTelemetry('tapeRecorder')
         this.enableTelemetry('CCS')
