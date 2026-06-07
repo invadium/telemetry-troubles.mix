@@ -37,6 +37,7 @@ class Inbox extends ScrollablePanel {
 
         }, st) )
 
+        /*
         for(let i = 0; i < 25; i++) {
             const N = i + 1
             const msg = {
@@ -51,6 +52,7 @@ class Inbox extends ScrollablePanel {
             }
             this.imap.messages.push(msg)
         }
+        */
     }
 
     show() {
@@ -65,6 +67,12 @@ class Inbox extends ScrollablePanel {
         this.scrollBar.hide()
         this.hidden = true
         this.__.adjust()
+    }
+
+    accept(msg) {
+        msg.read = false
+        msg.time = env.missionStatus.timer
+        this.imap.messages.push(msg)
     }
 
     contentLength() {
@@ -123,7 +131,7 @@ class Inbox extends ScrollablePanel {
 
         // content separator
         by++
-        this.hseparator(x1, by, w1 + w2 + w3 + 2)
+        this.hseparator(x1, by, w1 + w2 + w3 + w4 + 3)
 
         // messages
         by++
@@ -157,7 +165,9 @@ class Inbox extends ScrollablePanel {
             txt.at(x3 + w3, by).out('|')
         }
         if (by < y+h-1) {
-            this.hseparator(x1, by, w1 + w2 + w3 + 2)
+            txt.back(cidx.base)
+               .face(cidx.default)
+            this.hseparator(x1, by, w1 + w2 + w3 + w4 + 3)
         }
         // this.rect(x, y + 1, w, h - 1)
     }
