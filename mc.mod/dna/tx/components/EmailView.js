@@ -28,6 +28,9 @@ class EmailView extends ScrollablePanel {
     }
 
     hide() {
+        if (this.envelope) {
+            this.envelope.pos = this.stackPointer
+        }
         this.title.hide()
         this.scrollBar.hide()
         this.hidden = true
@@ -43,9 +46,11 @@ class EmailView extends ScrollablePanel {
     }
 
     setEmail(envelope) {
+        this.envelope = envelope
         this.lines = envelope.lines
         this.message = envelope.message
         this.title.label = envelope.label
+        this.stackPointer = envelope.pos
     }
 
     openEmail(message) {
@@ -67,6 +72,7 @@ class EmailView extends ScrollablePanel {
             message:  message,
             label:   `[${tag}]${message.from}: ${message.subject}`,
             lines:    message.content.split('\n'), // TODO adjust the content and mark the plumbing points
+            pos:      0,
         }
 
         // create a new tab and setup display state with the message

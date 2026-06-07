@@ -9,15 +9,15 @@ V tab-driven email
 V [-] display tags are not sliding on first click even when there are active-orange
 V stylized buttons
 V stylized tags
+V [-] untangle email scroll bar positions for proper adjustment when switching between emails
 
 > dusty button multiple color modes
-> [-] untangle email scroll bar positions for proper adjustment when switching between emails
 
 
 ### Proto I
 V probe entity
+V probe systems visual
 
-> probe systems visual
 > mission control/flow
 > experiment entity
 

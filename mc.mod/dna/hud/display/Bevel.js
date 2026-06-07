@@ -81,7 +81,6 @@ class Bevel extends $.dna.hud.Container {
             action: function() {},
 
             onDisplay: function() {
-                log('show main')
                 this.__.disableAll()
                 if (this.displayState) {
                     this.displayState.activate()
@@ -89,7 +88,6 @@ class Bevel extends $.dna.hud.Container {
                 if (this.closeButton) this.closeButton._active = true
             },
             onConceal: function() {
-                log('conceal main')
                 if (this.displayState) {
                     this.displayState.deactivate()
                 }
@@ -97,7 +95,6 @@ class Bevel extends $.dna.hud.Container {
             },
 
             close: function() {
-                log('closing ' + this.name)
                 this.__.killTab(this)
             },
 
