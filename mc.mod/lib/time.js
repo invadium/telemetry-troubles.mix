@@ -1,5 +1,5 @@
 function toString(time) {
-    const day  = (time | 0) + 1,
+    const day  = (time | 0),
           hour = floor((time % 1) * env.tune.dayHours),
           HOUR = (hour < 10)? '0' + hour : '' + hour
 
@@ -7,7 +7,7 @@ function toString(time) {
 }
 
 function toFixedString(time, len) {
-    const day  = (time | 0) + 1,
+    const day  = (time | 0),
           hour = floor((time % 1) * env.tune.dayHours),
           HOUR = (hour < 10)? '0' + hour : '' + hour
 

@@ -71,7 +71,7 @@ class Inbox extends ScrollablePanel {
 
     accept(msg) {
         msg.read = false
-        msg.time = env.missionStatus.timer
+        msg.time = env.missionStatus.time
         this.imap.messages.push(msg)
     }
 

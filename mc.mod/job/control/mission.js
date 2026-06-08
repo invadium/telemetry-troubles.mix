@@ -16,7 +16,7 @@ function start() {
     this.launchProbe()
 
     this.status = env.missionStatus = {
-        timer:      0,
+        time:      1,
         day:        1,
         timeFactor: 1 / env.tune.evoSpeed,
         burnRate:   env.tune.opt.burnRate,
@@ -50,20 +50,20 @@ function evo(dt) {
     const ms = env.missionStatus
     if (ms.over) return
 
-    ms.timer += dt * ms.timeFactor
+    ms.time += dt * ms.timeFactor
 
-    if (ms.timer + 1 - ms.day > 1) {
+    if (ms.time + 1 - ms.day > 1) {
         ms.day ++
         signal('mission/nextDay', ms.day)
     }
 }
 
 function getDay() {
-    return (this.status.timer | 0) + 1
+    return (this.status.time | 0)
 }
 
 function getHour() {
-    return floor((this.status.timer % 1) * env.tune.dayHours)
+    return floor((this.status.time % 1) * env.tune.dayHours)
 }
 
 function getHourString() {
@@ -72,7 +72,7 @@ function getHourString() {
 }
 
 function getTimeString() {
-    return lib.time.toString(this.status.timer)
+    return lib.time.toString(this.status.time)
 }
 
 function setup() {
