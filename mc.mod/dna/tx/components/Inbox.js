@@ -8,35 +8,11 @@ class Inbox extends ScrollablePanel {
 
             UNREAD_PREFIX: '* ',
 
-            // TODO move out
+            // TODO why do we need imap in the first place? Maybe only "messages" will suffice?
             imap: {
-                messages: [
-                    {
-                        read:     false,
-                        time:     1.1,
-                        from:    'Space HQ',
-                        subject: 'One',
-                        content: 'some data here',
-                    },
-                    {
-                        read:     false,
-                        time:     11.4,
-                        from:    'HQ',
-                        subject: 'Very Long Subject Message That Will Not Fit!',
-                        content: 'some data here as well',
-                    },
-                    {
-                        read:     true,
-                        time:     271.9,
-                        from:    'HQ',
-                        subject: 'Many',
-                        content: 'hey, many more messages to come!',
-                    },
-                ],
+                messages: [],
             },
-
         }, st) )
-
         /*
         for(let i = 0; i < 25; i++) {
             const N = i + 1
@@ -69,10 +45,17 @@ class Inbox extends ScrollablePanel {
         this.__.adjust()
     }
 
+    // accept an email from a message prototype (from, subject and content are expected!)
     accept(msg) {
-        msg.read = false
-        msg.time = env.missionStatus.time
-        this.imap.messages.push(msg)
+        const m = {
+            from:    msg.from,
+            subject: msg.subject,
+            content: msg.content,
+
+            time:    env.missionStatus.time,
+            read:    false,
+        }
+        this.imap.messages.push(m)
     }
 
     contentLength() {
@@ -135,7 +118,8 @@ class Inbox extends ScrollablePanel {
 
         // messages
         by++
-        let selectionPos = 0
+        let selectionPos = 0,
+            msgPrinted   = 0
         for (let i = NMSG - 1 - stackPointer; i >= 0 && by < y+h; i--, by++, selectionPos++) {
             const msg      = messages[i],
                   from     = msg.from,
@@ -163,8 +147,10 @@ class Inbox extends ScrollablePanel {
             txt.at(x1 + w1, by).out('|')
             txt.at(x2 + w2, by).out('|')
             txt.at(x3 + w3, by).out('|')
+
+            msgPrinted ++
         }
-        if (by < y+h-1) {
+        if (by < y+h-1 && msgPrinted > 0) {
             txt.back(cidx.base)
                .face(cidx.default)
             this.hseparator(x1, by, w1 + w2 + w3 + w4 + 3)

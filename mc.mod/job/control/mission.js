@@ -37,11 +37,6 @@ function checkStatus() {
     if (ms.over) return
 
     if (ms.balance <= 0) {
-        signal('email', {
-            from: 'HeadQuarters',
-            subject: 'Game Over',
-            content: 'This mission is over, dude!'
-        })
         signal('mission/over')
     }
 }

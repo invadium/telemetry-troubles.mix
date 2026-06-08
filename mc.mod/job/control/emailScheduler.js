@@ -1,33 +1,28 @@
 const schedule = []
 
-function init() {
-    this.register( 2, {
-        from: 'Author',
-        subject: 'The Game',
-        content: 'The game started',
-    })
-    this.register( 4, {
-        from: 'HQ',
-        subject: 'New Mission!',
-        content: 'Something to do...',
-    })
+function setup() {
+    for (const msg of res.msg) {
+        this.register(msg)
+    }
 }
 
-function register(time, msg) {
-    schedule.push({ time, msg })
+// register the message prototype
+function register(msg) {
+    msg.sent = false
+    schedule.push(msg)
 }
 
 function evo(dt) {
-    schedule.forEach(e => {
-        if (env.missionStatus.time >= e.time && !e.sent) {
-            e.sent = true
-            signal('email', e.msg)
-            defer(() => remove(e))
+    schedule.forEach(msg => {
+        if (env.missionStatus.time >= msg.at && !msg.sent) {
+            msg.sent = true
+            signal('email', msg)
+            defer(() => remove(msg))
         }
     })
 }
 
-function remove(e) {
-    const i = schedule.indexOf(e)
+function remove(msg) {
+    const i = schedule.indexOf(msg)
     if (i >= 0) schedule.splice(i, 1)
 }

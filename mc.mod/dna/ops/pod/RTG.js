@@ -13,7 +13,7 @@ class RTG extends Pod {
 
             padding: 3,
             fq:      5,
-            efq:     .05,
+            efq:     .02,
             sfq:     .2,
             speed:   10,
             ions:    [],
