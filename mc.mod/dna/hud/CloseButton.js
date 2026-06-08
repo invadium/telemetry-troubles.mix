@@ -18,14 +18,15 @@ class CloseButton {
     draw() {
         const _ = this
         const { x, y, w, h, cval, _active } = this
+        const level = _.toggled? -1 : (_.hover? 1 : 0)
 
         save()
         translate(x, y)
 
-        const bc = _active? cval.base : cval.base0
-        _.renderBase(bc)
+        const bc = _active? cval.base : cval.base1
+        _.renderBase(bc, level)
 
-        const vc = _active? cval.bevel : cval.bevel0,
+        const vc = _active? cval.bevel : cval.bevel1,
               c0 = hsl( vc.h, vc.s, vc.l - vc.dl ),
               c1 = hsl( vc.h, vc.s, vc.l         )
 

@@ -30,7 +30,7 @@ const buttonToolkit = {
         line(x, y + lw,  x,     y + h)
     },
 
-    renderBase(bc) {
+    renderBase(bc, level) {
         const { w, h } = this
 
         // fill the background base
@@ -39,22 +39,23 @@ const buttonToolkit = {
 
         // fill the corner shades
         const base = w < h? w : h
+        const lsh = .2 * level
 
         // right lower corner
-        let sh = .9 * base
+        let sh = (.9 + lsh) * base
         fill( hsl( bc.h, bc.s, bc.l - bc.dl ) )
         triangle(w, h, w-sh, h, w, h-sh)
 
-        sh = .7 * base
+        sh = (.7 + lsh) * base
         fill( hsl( bc.h, bc.s, bc.l - 2*bc.dl ) )
         triangle(w, h, w-sh, h, w, h-sh)
 
-        sh = .5 * base
+        sh = (.5 + lsh) * base
         fill( hsl( bc.h, bc.s, bc.l - 3*bc.dl ) )
         triangle(w, h, w-sh, h, w, h-sh)
 
         // top-left corner
-        sh = .5 * base
+        sh = (.5 + lsh) * base
         fill( hsl( bc.h, bc.s, bc.l + 2*bc.dl ) )
         triangle(0, 0, 0, sh, sh, 0)
     },

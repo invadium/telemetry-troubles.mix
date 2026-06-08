@@ -10,8 +10,8 @@ V [-] display tags are not sliding on first click even when there are active-ora
 V stylized buttons
 V stylized tags
 V [-] untangle email scroll bar positions for proper adjustment when switching between emails
+V dusty button multiple color modes
 
-> dusty button multiple color modes
 
 
 ### Proto I
@@ -49,6 +49,8 @@ V probe systems visual
 > main menu
 > credits
 > mission stats screen
+
+> [-] fix mouse coordinates shift when the page zooms - prevent zooming or compensate according to the zoom
 
 
 ## Collider

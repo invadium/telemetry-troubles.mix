@@ -343,7 +343,7 @@ function hud() {
     })
 
     secondaryDisplay.bevel.spawn('DustyButton', {
-        name:  'signal',
+        name:  'upload',
         label: 'Upload',
 
         h: 24,

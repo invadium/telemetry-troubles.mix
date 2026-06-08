@@ -20,6 +20,7 @@ const palette = {
         outline: '#000000',
     },
     button: {
+        // yellowish base and bever
         base: {
             h: .125,
             s: .9,
@@ -32,23 +33,52 @@ const palette = {
             l:  .8,
             dl: .6
         },
+        // dusty button bright yellow outer rim outline
+        rim: {
+            h: .148,
+            s:  1,
+            l: .5,
+           dl: .3,
+           ds: .5,
+        },
 
-        base0: {
+        // grayish base and bevel
+        base1: {
             h: .58,
             s: .2,
             l: .65,
             dl: .1,
         },
-        bevel0: {
+        bevel1: {
             h:  .58,
             s:  .1,
             l:  .8,
             dl: .6
         },
-
-        // dusty button outer rim outline
-        rim: {
+        rim1: {
             h: .148,
+            s:  0,
+            l: .5,
+           ds:  0,
+           dl: .3,
+        },
+
+        // yellowish base and bever
+        base2: {
+            h: .05,
+            s: .9,
+            l: .75,
+            dl: .06,
+        },
+        bevel2: {
+            h:  .04,
+            s:   1,
+            l:  .8,
+            dl: .6
+        },
+        // dusty button bright yellow outer rim outline
+        rim2: {
+            h: .03,
             s:  1,
             l: .5,
            dl: .3,
