@@ -1,5 +1,5 @@
 from:    HQ
-subject: Mission Cancellation
+subject: Game Over!
 -----------------------------
 This mission is over, dude!
 We have no more money to continue.

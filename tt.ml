@@ -11,6 +11,7 @@ V stylized buttons
 V stylized tags
 V [-] untangle email scroll bar positions for proper adjustment when switching between emails
 V dusty button multiple color modes
+V reframed parser and formatter
 
 
 

@@ -47,7 +47,7 @@ function evo(dt) {
 
     ms.time += dt * ms.timeFactor
 
-    if (ms.time + 1 - ms.day > 1) {
+    if (ms.time - ms.day > 1) {
         ms.day ++
         signal('mission/nextDay', ms.day)
     }

@@ -53,6 +53,20 @@ class EmailView extends ScrollablePanel {
         this.stackPointer = envelope.pos
     }
 
+    formatEnvelope(e) {
+        const w = this.w
+
+        if (!e.segments) {
+            e.segments = lib.reframed.parse(e.message.content, w)
+            dir(e.segments)
+        }
+        e.lines = lib.reframed.format(e.segments, w)
+        dir(e.lines)
+
+        // e.lines = e.message.content.split('\n') // TODO adjust the content and mark the plumbing points
+        // dir(e.lines)
+    }
+
     openEmail(message) {
         const _       = this
         const display = _._display
@@ -71,9 +85,11 @@ class EmailView extends ScrollablePanel {
         const envelope = {
             message:  message,
             label:   `[${tag}]${message.from}: ${message.subject}`,
-            lines:    message.content.split('\n'), // TODO adjust the content and mark the plumbing points
+            // lines:    message.content.split('\n'), // TODO adjust the content and mark the plumbing points
             pos:      0,
         }
+
+        this.formatEnvelope(envelope)
 
         // create a new tab and setup display state with the message
         const nextTab = display.bevel.spawnTab({
