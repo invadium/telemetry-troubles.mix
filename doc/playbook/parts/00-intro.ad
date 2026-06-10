@@ -1,0 +1,26 @@
+= Introduction
+
+Welcome to Telemetry Troubles!
+
+Your troubles begin here!
+
+
+
+== Concept
+
+Let's create one of the simplest meshes out there - a single triangle!
+
+----
+ADD
+101
+BX
+----
+
+=== Data Stack
+
+Data is stored on stack
+
+
+
+
+

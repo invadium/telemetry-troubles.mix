@@ -1,0 +1,6 @@
+# ignore asciidoc generated artifacts
+out
+
+# ignore the copied source package
+src
+

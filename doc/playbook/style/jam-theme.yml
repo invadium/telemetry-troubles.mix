@@ -1,0 +1,133 @@
+extends: default
+
+page:
+    layout: portrait 
+    margin: [0.75in, 0.5in, 0.75in, 0.5in]
+    size: A4
+
+font:
+  catalog:
+    CoverFont:
+        normal: psionic-regular.ttf
+    BaseFont:
+        normal:      EBGaramond-Regular.ttf
+        italic:      EBGaramond-Italic.ttf
+        bold:        EBGaramond-Bold.ttf
+        bold_italic: EBGaramond-BoldItalic.ttf 
+    TitleFont:
+        normal: nunito-regular.ttf
+        bold:   nunito-regular.ttf
+    HeaderFont:
+        normal: source-code-pro.regular.ttf
+    CodeFont:
+        normal: source-code-pro.regular.ttf
+
+title-page:
+  background-color: #EAEAEA
+  font:
+      color: #56a6a0
+      family: TitleFont
+      size: 20
+  title:
+    font:
+        color: #56a6a0
+        family: CoverFont
+        size: 50
+  authors:
+    font:
+        color: #56a6a0
+        size: 30
+  subtitle:
+    font:
+        color: #56a6a0
+        size: 20
+
+
+
+base:
+    font:
+        color: #222222
+        family: BaseFont
+        size: 14
+    align: justify
+
+heading:
+    h1:
+        align: center
+        font:
+            color: #4a6db2
+            family: TitleFont
+            size: 30
+        text_transform: uppercase
+        margin_top: 50
+
+    h2:
+        align: center
+        font:
+            color: #4a6db2
+            family: TitleFont
+            size: 24
+        text_transform: uppercase
+    h3:
+        align: left 
+        font:
+            color: #d78d42
+            family: TitleFont
+            size: 20
+        text_transform: uppercase
+    h4:
+        align: left 
+        font:
+            color: #70819d
+            family: TitleFont
+            size: 18
+        text_transform: uppercase
+
+code:
+    font:
+        family: CodeFont
+        size: 11
+    # background_color: #e4e4d8
+    # background_color: #f0dfbd
+    background_color: #ffffff
+    border_width: 1
+    border-color: #b0b0b0
+
+sidebar:
+    font:
+        family: HeaderFont
+        size: 14
+        style: italic
+    background_color: #f3f3f0
+    border_width: 1
+    border-color: #2f8e6d
+sidebar_title:
+    font:
+        family: HeaderFont
+        size: 16
+        style: bold
+        color: #2f8e6d
+    text_transform: uppercase
+
+#header:
+#    height: 0.5in
+#    line_height: 1.5
+#    recto_content:
+#        left: '*{page-number}* | {document-title}'
+#    verso_content:
+#        right: '{chapter-title} | *{page-nymber}*'
+ 
+footer:
+    height: 0.5in
+    line_height: 0.5
+      #recto_content:
+      #  left: ' *{page-number}* | {document-title} '
+      #verso_content:
+      #  right: ' {chapter-title} | *{page-number}* '
+    padding: [10, 0, 0, 0]
+    font:
+        family: HeaderFont
+        size: 12
+        style: normal
+        color: #7497a6
+

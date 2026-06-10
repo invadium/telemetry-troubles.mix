@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm -rf ./doc/playbook/src
+rm -rf ./doc/playbook/out
+

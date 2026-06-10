@@ -1,0 +1,32 @@
+#!/bin/bash
+
+spin() {
+    pid=$! # Process Id of the previous running command
+
+    spin='-\|/'
+
+    i=0
+    while kill -0 $pid 2>/dev/null
+    do
+      i=$(( (i+1) %4 ))
+      printf "\r${spin:$i:1}"
+      sleep .1
+    done
+    printf "\r[+]"
+}
+
+echo "Copying sources..."
+# rm -rf ./playbook/src
+# mkdir ./playbook/src
+# cp -r ../mod/up/* ./playbook/src/
+
+echo "=== PLAYBOOK ==="
+cd playbook
+./gen &
+spin
+cd ..
+
+echo ""
+echo "=== STAT ==="
+du -h ./playbook/out/*
+
