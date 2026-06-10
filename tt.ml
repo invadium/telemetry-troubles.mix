@@ -19,22 +19,35 @@ V reframed parser and formatter
 V probe entity
 V probe systems visual
 V dusty-12 emulator
+V mission over condition
+
+> core game design
+> test-drive email system with messages on TT design, roadmap etc...
+
+> dusty-12 ops
+    > math
+    > stack ops
+    > memory ops
+    > comparison ops
+    > jumps
+    > I/O (sense, out...)
+    > data lines control (turn telemetry on/off)
+    > power lines control (turn devices on/off)
 
 > mission control/flow
 > experiment entity
 
-> core game design
-> test-drive email system with messages on TT design, roadmap etc...
 > probe dev kit
 > probe subsystem emulators
 > command sequence editing
 > program upload
 > program execution
+
 > telemetry download
 > telemetry match with the experiment profile
 > $ earn for experiment
 > $ burn for passing days
-> mission over condition
+
 
 ### System III
 > system terminal that can work as a debug console (e.g. for "fx", but within the game)
@@ -50,6 +63,14 @@ V dusty-12 emulator
 > main menu
 > credits
 > mission stats screen
+
+
+Proto II
+> vm speed constrol instructions
+> telemetry layout instructions (adjust components)
+
+
+
 
 > [-] fix mouse coordinates shift when the page zooms - prevent zooming or compensate according to the zoom
 

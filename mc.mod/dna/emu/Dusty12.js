@@ -175,14 +175,20 @@ class Dusty12 {
         }
 
         _.spy = {
+            MODE: () => {
+                return MODE
+            },
             PC: () => {
                 return PC
             },
             CAP: () => {
                 return CAP
             },
-            MODE: () => {
-                return MODE
+            DSP: () => {
+                return DSP
+            },
+            XSP: () => {
+                return XSP
             },
             state: () => {
                 return {

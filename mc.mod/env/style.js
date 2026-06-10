@@ -28,6 +28,10 @@ const style = {
             family: 'pixel-operator-bold',
             size:    20,
         },
+        telemetry: {
+            family: 'pixel-operator-bold',
+            size:    5,
+        },
 
         menu: {
             family: 'moon',

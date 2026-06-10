@@ -15,6 +15,8 @@ class Probe extends sys.LabFrame {
                 'CCS',
                 'Battery',
                 'RTG',
+
+                'StackInspector',
             ],
         }, st) )
     }
@@ -71,6 +73,8 @@ class Probe extends sys.LabFrame {
         this.enableTelemetry('powerGauge')
         this.enableTelemetry('bandwidthGauge')
         this.enableTelemetry('thermalGauge')
+
+        this.enableTelemetry('stackInspector')
 
         this.powerOn('antenna')
         this.powerOn('tapeRecorder')
