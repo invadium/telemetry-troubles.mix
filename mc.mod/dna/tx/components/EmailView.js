@@ -58,13 +58,13 @@ class EmailView extends ScrollablePanel {
 
         if (!e.segments) {
             e.segments = lib.reframed.parse(e.message.content, w)
-            dir(e.segments)
+            // dir(e.segments)
         }
         e.lines = lib.reframed.format(e.segments, w)
-        dir(e.lines)
-
-        // e.lines = e.message.content.split('\n') // TODO adjust the content and mark the plumbing points
         // dir(e.lines)
+
+        // @deprecated simple legacy split
+        // e.lines = e.message.content.split('\n') // TODO adjust the content and mark the plumbing points
     }
 
     openEmail(message) {

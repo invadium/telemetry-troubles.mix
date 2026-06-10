@@ -239,7 +239,7 @@ function hud() {
     })
     const tab0S = secondaryDisplay.bevel.tab0
     extend( tab0S, {
-        title: 'Bank0',
+        title: 'Capsule0',
         displayState: {
             __: tab0S,
             activate: function() {
@@ -278,26 +278,26 @@ function hud() {
         label: '  CORE MONITOR  ',
     })
 
-    // === core dump ===
-    const dump = textBuffer2.spawn('Dump')
-    const dumpScrollBar = textBuffer2.spawn('ScrollBar', {
+    // === core monitor ===
+    const coreMonitor = textBuffer2.spawn('CoreMonitor')
+    const cmScrollBar = textBuffer2.spawn('ScrollBar', {
         sync: function() {
-            this.cur = dump.relativePos()
-            this.fill = dump.relativeFill()
+            this.cur = coreMonitor.relativePos()
+            this.fill = coreMonitor.relativeFill()
         },
 
         scrollUp: function() {
-            dump.scrollUp()
+            coreMonitor.scrollUp()
         },
 
         scrollDown: function() {
-            dump.scrollDown()
+            coreMonitor.scrollDown()
         },
 
         adjust: function() {
             const txt = this.tx
 
-            this.x = dump.w
+            this.x = coreMonitor.w
             this.y = 1
             this.w = 1
             this.h = txt.th - 1
@@ -306,7 +306,7 @@ function hud() {
 
     // === code selector ===
     const codeSelector = textBuffer2.spawn('CodeSelector', {
-        dump: dump,
+        coreMonitor,
 
         adjust: function() {
             const txt = this.tx
@@ -357,7 +357,8 @@ function hud() {
 
         onClick: function() {
             log('Uplink...')
-            lab.locate('&dump').mode = 3
+            lab.locate('&coreMonitor').mode = 3
+            lab.locate('&dusty').upload()
         },
     })
 

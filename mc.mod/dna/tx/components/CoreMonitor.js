@@ -4,27 +4,21 @@ const VIEW_MODE = 1
 const EDIT_MODE = 2
 const EXEC_MODE = 3
 
-class Dump extends ScrollablePanel {
+class CoreMonitor extends ScrollablePanel {
 
     constructor(st) {
         super( augment({
-            name:  'dump',
-            mode: VIEW_MODE,
-
-            // TODO move out to a separate Core entity
-            core: {
-                capacity: 128,
-                mem: [],
-                cp:   -1,
-                timer: 0,
-            },
+            name:  'coreMonitor',
+            mode: VIEW_MODE, // TODO look at Dusty12 for the current mode
 
             editPointer: -1,
         }, st) )
 
+        /*
         for (let i = 0; i < 64; i++) {
-            this.core.mem[i] = rnd() < .5? 'ADD' : RND(0, 32)
+            this.capsule[i] = rnd() < .5? 'ADD' : RND(0, 32)
         }
+        */
     }
 
     adjust() {
@@ -45,7 +39,16 @@ class Dump extends ScrollablePanel {
     }
 
     contentLength() {
-        return this.core.capacity
+        return this.capsule.capacity
+    }
+
+    bind(dusty) {
+        this.dusty = dusty
+        this.selectCapsule(0)
+    }
+
+    selectCapsule(icapsule) {
+        this.capsule = this.dusty.capsuleSnap(icapsule)
     }
 
     edit(at) {
@@ -60,12 +63,11 @@ class Dump extends ScrollablePanel {
 
     setCode(code) {
         if (this.mode !== EDIT_MODE || this.editPointer < 0) return -1
-        this.core.mem[this.editPointer] = code
+        this.capsule[this.editPointer] = code
     }
 
     open(at) {
-        const core = this.core,
-              mem  = core.mem
+        const capsule = this.capsule
 
         switch(this.mode) {
             case VIEW_MODE:
@@ -76,7 +78,7 @@ class Dump extends ScrollablePanel {
                 this.edit(at)
                 break
         }
-        // log('#' + lib.format.toHexString(at, 3) + ': ' + lib.format.toCodeString(mem[at], 4))
+        // log('#' + lib.format.toHexString(at, 3) + ': ' + lib.format.toCodeString(capsule[at], 4))
     }
 
     exit() {
@@ -111,8 +113,9 @@ class Dump extends ScrollablePanel {
     }
 
     evo(dt) {
-        // TODO move out to emu system
+        // TODO move out to the emu system
         
+        /*
         // emulate execution here
         if (this.mode !== EXEC_MODE) return
         const core = this.core
@@ -121,14 +124,15 @@ class Dump extends ScrollablePanel {
             // next step
             core.timer = env.time
             core.cp ++
-            if (core.cp >= core.mem.length) this.halt()
+            if (core.cp >= capsule.length) this.halt()
             else this.syncExecInView()
         }
+        */
     }
 
     draw() {
         const txt = this.tx
-        const { x, y, w, h, mode, stackPointer, editPointer, core } = this
+        const { x, y, w, h, mode, stackPointer, editPointer, capsule } = this
 
         let by = y
         this.background()
@@ -144,20 +148,19 @@ class Dump extends ScrollablePanel {
 
         // === column titles ===
         this.clipText('ADR', x1, by, w1)
-        this.clipText('CODE', x2, by, w2)
+        this.clipText(' OPS', x2, by, w2)
         txt.at(x1 + w1, by).out('|')
 
         // content separator
         by++
         this.hseparator(x1, by, w1 + w2 + 1)
 
-        // dump
+        // dump the memory snapshot
         by++
         let selectionPos = 0
-        const mem = core.mem
-        for (let i = stackPointer; i < core.capacity && by < y + h; i++, by++, selectionPos++) {
-            const opcode = mem[i],
-                  executed = (mode === EXEC_MODE && i === core.cp),
+        for (let i = stackPointer; i < capsule.capacity && by < y + h; i++, by++, selectionPos++) {
+            const opcode = capsule[i],
+                  executed = (mode === EXEC_MODE && i === capsule.cp),  // TODO remap on PC
                   edited   = (mode === EDIT_MODE && i === editPointer),
                   selected = (selectionPos === this.selection)
 
@@ -187,11 +190,11 @@ class Dump extends ScrollablePanel {
     }
 
     onFocus() {
-        // log('dump in focus!')
+        // log('core monitor is in focus!')
     }
 
     onUnfocus() {
-        // log('dump lost focus!')
+        // log('core monitor has lost focus!')
     }
 
     onKeyDown(e) {

@@ -40,11 +40,11 @@ class CodeSelector extends ScrollablePanel {
     }
 
     open(at) {
-        const { options, dump } = this
+        const { options, coreMonitor } = this
         const mnemonics = options[at]
         const newCode = mnemonics === '....'? null : mnemonics
-        // log(`@${dump.editPoint()}: #${at}::${lib.format.toCodeString(newCode)}`)
-        dump.setCode(newCode)
+        // log(`@${coreMonitor.editPoint()}: #${at}::${lib.format.toCodeString(newCode)}`)
+        coreMonitor.setCode(newCode)
     }
 
     exit() {
@@ -52,16 +52,16 @@ class CodeSelector extends ScrollablePanel {
     }
 
     sync() {
-        const dump = this.dump,
-              core = dump.core,
+        const coreMonitor = this.coreMonitor,
+              capsule = coreMonitor.capsule,
               options = this.options
 
-        const EP = dump.editPoint()
+        const EP = coreMonitor.editPoint()
         if (EP < 0) {
             this.codePointer = -1
             return
         }
-        const code = core.mem[EP]
+        const code = capsule[EP]
         this.codePointer = options.codeToIndex(code)
     }
 
@@ -77,7 +77,7 @@ class CodeSelector extends ScrollablePanel {
 
     draw() {
         const txt = this.tx
-        const { x, y, w, h, options, stackPointer, codePointer, dump } = this
+        const { x, y, w, h, options, stackPointer, codePointer, coreMonitor } = this
         this.sync()
 
         let by = y
@@ -110,7 +110,7 @@ class CodeSelector extends ScrollablePanel {
         by++
         this.hseparator(x2, by, w2)
 
-        // dump
+        // coreMonitor
         by++
         let selectionPos = 0
         for (let i = stackPointer; i < options.length && by < y + h; i++, by++, selectionPos++) {

@@ -8,7 +8,10 @@ function launchProbe() {
     const probe = $.probe = lab.spawn('Probe', {
         blueprint: lab.locate('&blueprint'),
     })
+    $.dusty = probe.dusty
     pin.link(probe)
+    pin.link(probe.dusty)
+    lab.locate('&coreMonitor').bind( probe.dusty )
 }
 
 function start() {

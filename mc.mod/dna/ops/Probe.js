@@ -6,6 +6,7 @@ class Probe extends sys.LabFrame {
             hidden:  true,
 
             _pods: [
+                'Dusty12',
                 'Antenna',
                 'TapeRecorder',
                 'Camera',
@@ -74,7 +75,6 @@ class Probe extends sys.LabFrame {
         this.powerOn('antenna')
         this.powerOn('tapeRecorder')
         this.powerOn('camera')
-
     }
 
     // enable engineering telemetry - show the pod on the blueprint

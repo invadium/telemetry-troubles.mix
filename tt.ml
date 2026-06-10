@@ -18,6 +18,7 @@ V reframed parser and formatter
 ### Proto I
 V probe entity
 V probe systems visual
+V dusty-12 emulator
 
 > mission control/flow
 > experiment entity
@@ -26,7 +27,6 @@ V probe systems visual
 > test-drive email system with messages on TT design, roadmap etc...
 > probe dev kit
 > probe subsystem emulators
-> MCCU emulator
 > command sequence editing
 > program upload
 > program execution
