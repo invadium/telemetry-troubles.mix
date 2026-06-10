@@ -356,9 +356,7 @@ function hud() {
         },
 
         onClick: function() {
-            log('Uplink...')
-            lab.locate('&coreMonitor').mode = 3
-            lab.locate('&dusty').upload()
+            lab.locate('&coreMonitor').walk()
         },
     })
 

@@ -1,7 +1,7 @@
 function flush(args) {
     const name = args[1]
 
-    if (isStr(name)) {
+    if (name && isStr(name)) {
         const src = lib.dust._dir[ name ]
         if (!src) throw new Error(`can't find [${name}.dust]!`)
 

@@ -1,3 +1,8 @@
+const HALT = 0
+const STEP = 1
+const WALK = 2
+const RUN  = 3
+
 class Dusty12 {
 
     constructor(st) {
@@ -9,10 +14,25 @@ class Dusty12 {
             core:   [], // core memory - consists of packaged capsules
             dstack: [], // data stack
             xstack: [], // execution (return) stack
+
+            time:       0,
+            lastCycle:  0,
+            walkSpeed:  1,
+            runSpeed:  .25,
+            runBatch:   128,
+
+            monitors:   [],
+
+            // expose execution modes
+            HALT, STEP, WALK, RUN,
         }, st)
         this.defineOps()
         this.spy.clearSnapshots()
         this.op('REST')
+    }
+
+    registerMonitor(m) {
+        this.monitors.push(m)
     }
 
     defineOps() {
@@ -23,12 +43,13 @@ class Dusty12 {
               xstack = _.xstack
         let capsule = null
 
-        // limits
+        // hard-wired limits
         const CAPSULES = 4,
               CAPACITY = 128,
               DSCAP = 64,
               XSCAP = 64
 
+        // registers
         let MODE =  0,
             PC   = -1,  // program counter - points to the next instruction to execute
             CAP  =  0,  // current capsule
@@ -111,11 +132,11 @@ class Dusty12 {
             actions[op.name] = op.fn
         })
 
-        function cycle() {
-            while(true) {
+        _.cycle = function cycle(steps) {
+            while(steps) {
                 const code = capsule[PC++]
                 if (!code) {
-                    return
+                    break
                 } else if (isNum(code)) {
                     push(code)
                 } else {
@@ -123,18 +144,34 @@ class Dusty12 {
                     if (!op) throw new Error(`Unknown operation: [${code}]`)
                     op()
                 }
+                steps--
+            }
+            _.lastCycle = _.time
+            if (steps) {
+                MODE = HALT
+                _.monitors.forEach(m => {
+                    if (isFun(m.onHalt)) m.onHalt()
+                })
             }
         }
 
-        _.eval = function() {
-            cycle()
-
-            log('=== completed ===')
-            dir(_.spy.state())
+        // one step through
+        _.step = function() {
+            MODE = STEP
+            log('STEP')
+            cycle(1)
         }
 
-        // step through
-        _.step = function() {
+        // walk instructions slowly one-by-one
+        _.walk = function() {
+            MODE = WALK
+            _.lastCycle = _.time
+        }
+
+        // run instructions fast
+        _.run = function() {
+            MODE = RUN
+            _.lastCycle = _.time
         }
 
         _.spy = {
@@ -143,6 +180,9 @@ class Dusty12 {
             },
             CAP: () => {
                 return CAP
+            },
+            MODE: () => {
+                return MODE
             },
             state: () => {
                 return {
@@ -202,14 +242,29 @@ class Dusty12 {
         op.fn()
     }
 
+    // upload and evaluate 
     upload() {
         this.op('REST')
         this.compile()
-        this.eval()
+        this.walk()
     }
 
-    evo(st) {
+    evo(dt) {
+        this.time += dt
         // TODO follow the current execution MODE (paused, stepping, slowRun, fastRun)
+        
+        switch(this.spy.MODE()) {
+            case WALK:
+                if (this.time >= this.lastCycle + this.walkSpeed) {
+                    this.cycle(1)
+                }
+                break
+            case RUN:
+                if (this.time >= this.lastCycle + this.runSpeed) {
+                    this.cycle(this.runBatch)
+                }
+                break
+        }
     }
 
     capsuleSnap(icapsule) {

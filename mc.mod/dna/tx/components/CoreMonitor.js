@@ -11,6 +11,8 @@ class CoreMonitor extends ScrollablePanel {
             name:  'coreMonitor',
             mode: VIEW_MODE, // TODO look at Dusty12 for the current mode
 
+            dusty: null,
+
             editPointer: -1,
         }, st) )
 
@@ -44,6 +46,7 @@ class CoreMonitor extends ScrollablePanel {
 
     bind(dusty) {
         this.dusty = dusty
+        dusty.registerMonitor(this)
         this.selectCapsule(0)
     }
 
@@ -88,6 +91,12 @@ class CoreMonitor extends ScrollablePanel {
         }
     }
 
+    walk() {
+        this.mode = EXEC_MODE
+        this.dusty.upload()
+    }
+
+    /*
     exec() {
         const core = this.core
         this.mode = EXEC_MODE
@@ -101,6 +110,7 @@ class CoreMonitor extends ScrollablePanel {
         core.cp = -1
         core.time = 0
     }
+    */
 
     syncExecInView() {
         const { stackPointer, core } = this
@@ -132,7 +142,10 @@ class CoreMonitor extends ScrollablePanel {
 
     draw() {
         const txt = this.tx
-        const { x, y, w, h, mode, stackPointer, editPointer, capsule } = this
+        const { x, y, w, h, mode, stackPointer, editPointer, dusty, capsule } = this
+        const MODE = dusty.spy.MODE(),
+              PC   = dusty.spy.PC(),
+              CAP  = dusty.spy.CAP()
 
         let by = y
         this.background()
@@ -160,7 +173,7 @@ class CoreMonitor extends ScrollablePanel {
         let selectionPos = 0
         for (let i = stackPointer; i < capsule.capacity && by < y + h; i++, by++, selectionPos++) {
             const opcode = capsule[i],
-                  executed = (mode === EXEC_MODE && i === capsule.cp),  // TODO remap on PC
+                  executed = (MODE >= dusty.STEP && i === PC),
                   edited   = (mode === EDIT_MODE && i === editPointer),
                   selected = (selectionPos === this.selection)
 
@@ -199,6 +212,10 @@ class CoreMonitor extends ScrollablePanel {
 
     onKeyDown(e) {
         log(e.code)
+    }
+
+    onHalt() {
+        this.mode = EDIT_MODE
     }
 
 }
