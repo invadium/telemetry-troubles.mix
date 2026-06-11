@@ -154,14 +154,74 @@ class Dusty12 {
                 info: 'rotate top three values on stack'
             },
 
+            // === MEMORY ACCESS ===
+            {
+                name: 'POKE',
+                fn: () => {
+                    const x  = pop(),
+                          at = pop()
+                    capsule[at] = x
+                },
+                effect: '@ x -- (memory @ set to x)',
+                info: 'set the specified memory location with the value on top of the stack'
+            },
+            {
+                name: 'PEEK',
+                fn: () => {
+                    const at  = pop()
+                    push( capsule[ at ] )
+                },
+                effect: '@ -- x',
+                info: 'read the memory cell at provided address and place it on top of the data stack'
+            },
+
+
             // === MATH ===
             {
                 name: 'ADD',
                 fn: () => {
                     push( pop() + pop() )
                 },
-                effect: 'x1 x2 -- r1',
+                effect: 'x y -- (x+y)',
                 info: 'add two values at the top of the data stack'
+            },
+            {
+                name: 'SUB',
+                fn: () => {
+                    const y = pop(),
+                          x = pop()
+                    push( x - y )
+                },
+                effect: 'x y -- (x-y)',
+                info: 'subtract the top number on stack from the previous one'
+            },
+            {
+                name: 'MUL',
+                fn: () => {
+                    push( pop() * pop() )
+                },
+                effect: 'x y -- (x*y)',
+                info: 'multiply two values at the top of the data stack'
+            },
+            {
+                name: 'DIV',
+                fn: () => {
+                    const y = pop(),
+                          x = pop()
+                    push( x/y )
+                },
+                effect: 'x y -- (x/y)',
+                info: 'divide'
+            },
+            {
+                name: 'MOD',
+                fn: () => {
+                    const y = pop(),
+                          x = pop()
+                    push( x%y )
+                },
+                effect: 'x y -- (x%y)',
+                info: 'remainder from the division'
             },
 
             {

@@ -25,19 +25,20 @@ V mission over condition
 > test-drive email system with messages on TT design, roadmap etc...
 
 > dusty-12 ops
-    > math
-    > stack ops
-    > memory ops
+    V math
+    V stack ops
+    V memory ops
     > comparison ops
     > jumps
     > I/O (sense, out...)
-    > data lines control (turn telemetry on/off)
-    > power lines control (turn devices on/off)
+    V data lines control (turn telemetry on/off)
+    V power lines control (turn devices on/off)
 
 > mission control/flow
 > experiment entity
 
 > probe dev kit
+> auto-advance (on left or right click?) when selecting the next code
 > probe subsystem emulators
 > command sequence editing
 > program upload
@@ -47,6 +48,7 @@ V mission over condition
 > telemetry match with the experiment profile
 > $ earn for experiment
 > $ burn for passing days
+
 
 
 ### System III
