@@ -91,6 +91,11 @@ class Dusty12 {
             }
         }
 
+        function peek() {
+            if (DSP <= 0) throw new Error('Empty stack!')
+            return dstack[DSP - 1]
+        }
+
         function pop() {
             if (DSP <= 0) throw new Error('Empty stack!')
             return dstack[--DSP]
@@ -108,12 +113,54 @@ class Dusty12 {
                 effect: ' -- ',
                 info: 'skip the operation and do nothing this cycle'
             },
+
+            // === STACK OPS ===
+            {
+                name: 'DROP',
+                fn: pop,
+                effect: 'x -- ',
+                info: 'drop the top value on stack'
+            },
+            {
+                name: 'DUP',
+                fn: () => {
+                    push( peek() )
+                },
+                effect: 'x -- x x',
+                info: 'duplicate the top value on stack'
+            },
+            {
+                name: 'SWAP',
+                fn: () => {
+                    const y = pop(),
+                          x = pop()
+                    push(y)
+                    push(x)
+                },
+                effect: 'x y -- y x',
+                info: 'swap top two values on stack'
+            },
+            {
+                name: 'ROT',
+                fn: () => {
+                    const z = pop(),
+                          y = pop(),
+                          x = pop()
+                    push(y)
+                    push(z)
+                    push(x)
+                },
+                effect: 'x y z -- y z x',
+                info: 'rotate top three values on stack'
+            },
+
+            // === MATH ===
             {
                 name: 'ADD',
                 fn: () => {
                     push( pop() + pop() )
                 },
-                effect: 'i1 i2 -- ir1',
+                effect: 'x1 x2 -- r1',
                 info: 'add two values at the top of the data stack'
             },
 
@@ -122,7 +169,7 @@ class Dusty12 {
                 fn: () => {
                     probe.openDataLine( pop() )
                 },
-                effect: 'i1 -- ',
+                effect: 'x1 -- ',
                 info: 'open data bus line to the specified instrument'
             },
             {
@@ -130,7 +177,7 @@ class Dusty12 {
                 fn: () => {
                     probe.closeDataLine( pop() )
                 },
-                effect: 'i1 -- ',
+                effect: 'x1 -- ',
                 info: 'close data bus line to the specified instrument'
             },
             {
@@ -138,7 +185,7 @@ class Dusty12 {
                 fn: () => {
                     probe.openPowerLine( pop() )
                 },
-                effect: 'i1 -- ',
+                effect: 'x1 -- ',
                 info: 'open powerline to the specified instrument'
             },
             {
@@ -146,12 +193,17 @@ class Dusty12 {
                 fn: () => {
                     probe.closePowerLine( pop() )
                 },
-                effect: 'i1 -- ',
+                effect: 'x1 -- ',
                 info: 'close powerline to the specified instrument'
             },
 
             {
                 name: 'HALT',
+                fn: () => {
+                    _.halt()
+                },
+                effect: ' -- ',
+                info: 'halt execution'
             },
             {
                 name: 'RST',
@@ -209,6 +261,10 @@ class Dusty12 {
         _.run = function() {
             MODE = RUN
             _.lastCycle = _.time
+        }
+
+        _.halt = function() {
+            MODE = HALT
         }
 
         _.spy = {
