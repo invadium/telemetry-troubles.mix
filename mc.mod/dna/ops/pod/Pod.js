@@ -2,6 +2,7 @@ class Pod {
 
     constructor(st) {
         augment( this, {
+            type:     'pod',
             power:     false,
             telemetry: false,
             poweredAt: 0,
@@ -28,6 +29,10 @@ class Pod {
         this.telemetry = false
     }
 
+    isTelemetric() {
+        return true
+    }
+
     powerOn() {
         this.power = true
         this.poweredAt = env.time
@@ -35,6 +40,10 @@ class Pod {
 
     powerOff() {
         this.power = false
+    }
+
+    isPowerControlled() {
+        return true
     }
 
 }

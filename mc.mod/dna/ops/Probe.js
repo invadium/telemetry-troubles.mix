@@ -7,17 +7,21 @@ class Probe extends sys.LabFrame {
 
             _pods: [
                 'Dusty12',
+
+                'RTG',
+                'Battery',
+                'CCS',             // dusty 12 representation
                 'Antenna',
                 'TapeRecorder',
                 'Camera',
                 'Magnetometer',
                 'CosmicRayDetector',
-                'CCS',
-                'Battery',
-                'RTG',
 
-                'StackInspector',
+                'StackInspector',  // depends on Dusty12
             ],
+
+            powerLines: [],
+            dataLines:  [],
         }, st) )
     }
 
@@ -99,6 +103,16 @@ class Probe extends sys.LabFrame {
         pod.stopTelemetry()
     }
 
+    openDataLine(n) {
+        const pod = this.dataLines[n]
+        if (pod) this.enableTelemetry(pod)
+    }
+
+    closeDataLine(n) {
+        const pod = this.dataLines[n]
+        if (pod) this.disableTelemetry(pod)
+    }
+
     powerOn(pod) {
         if (isStr(pod)) pod = this.locate(pod)
         if (!pod) throw new Error('the pod is missing!')
@@ -113,5 +127,28 @@ class Probe extends sys.LabFrame {
         pod.powerOff()
     }
 
+    openPowerLine(n) {
+        const pod = this.powerLines[n]
+        if (pod) this.powerOn(pod)
+    }
+
+    closePowerLine(n) {
+        const pod = this.powerLines[n]
+        if (pod) this.powerOff(pod)
+    }
+
     draw() {}
+
+    onAttach(pod) {
+        if (pod.type !== 'pod') return
+
+        if (pod.isPowerControlled()) {
+            this.powerLines.push(pod)
+            pod.powerLine = this.powerLines.length
+        }
+        if (pod.isTelemetric()) {
+            this.dataLines.push(pod)
+            pod.dataLine = this.dataLines.length
+        }
+    }
 }

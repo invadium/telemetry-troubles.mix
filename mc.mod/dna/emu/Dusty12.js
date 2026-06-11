@@ -26,6 +26,9 @@ class Dusty12 {
             // expose execution modes
             HALT, STEP, WALK, RUN,
         }, st)
+    }
+
+    init() {
         this.defineOps()
         this.spy.clearSnapshots()
         this.op('RST')
@@ -40,7 +43,8 @@ class Dusty12 {
               snap   = _.snap,
               core   = _.core,
               dstack = _.dstack,
-              xstack = _.xstack
+              xstack = _.xstack,
+              probe  = _.__
         let capsule = null
 
         // hard-wired limits
@@ -101,7 +105,7 @@ class Dusty12 {
             {
                 name: 'NOP',
                 fn: () => {},
-                effect: '( -- )',
+                effect: ' -- ',
                 info: 'skip the operation and do nothing this cycle'
             },
             {
@@ -109,8 +113,41 @@ class Dusty12 {
                 fn: () => {
                     push( pop() + pop() )
                 },
-                effect: '(i1 i2 -- ir1)',
+                effect: 'i1 i2 -- ir1',
                 info: 'add two values at the top of the data stack'
+            },
+
+            {
+                name: 'OBUS',
+                fn: () => {
+                    probe.openDataLine( pop() )
+                },
+                effect: 'i1 -- ',
+                info: 'open data bus line to the specified instrument'
+            },
+            {
+                name: 'CBUS',
+                fn: () => {
+                    probe.closeDataLine( pop() )
+                },
+                effect: 'i1 -- ',
+                info: 'close data bus line to the specified instrument'
+            },
+            {
+                name: 'OPOW',
+                fn: () => {
+                    probe.openPowerLine( pop() )
+                },
+                effect: 'i1 -- ',
+                info: 'open powerline to the specified instrument'
+            },
+            {
+                name: 'CPOW',
+                fn: () => {
+                    probe.closePowerLine( pop() )
+                },
+                effect: 'i1 -- ',
+                info: 'close powerline to the specified instrument'
             },
 
             {
@@ -135,7 +172,7 @@ class Dusty12 {
         _.cycle = function cycle(steps) {
             while(steps) {
                 const code = capsule[PC++]
-                if (!code) {
+                if (code == null) {
                     break
                 } else if (isNum(code)) {
                     push(code)
