@@ -8,5 +8,9 @@ module.exports = {
 
     email: {
         inbox: 'INBOX',
+
+        from:    '  From  ',
+        subject: '   Subject   ',
+        day:     ' Day ',
     },
 }

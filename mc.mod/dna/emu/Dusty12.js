@@ -28,7 +28,7 @@ class Dusty12 {
         }, st)
         this.defineOps()
         this.spy.clearSnapshots()
-        this.op('REST')
+        this.op('RST')
     }
 
     registerMonitor(m) {
@@ -117,7 +117,7 @@ class Dusty12 {
                 name: 'HALT',
             },
             {
-                name: 'REST',
+                name: 'RST',
                 fn: reset,
                 effect: '(... -- empty memory and stacks, zeroed registers)',
                 info: 'reset the VM',
@@ -250,7 +250,7 @@ class Dusty12 {
 
     // upload and evaluate 
     upload() {
-        this.op('REST')
+        this.op('RST')
         this.compile()
         this.walk()
     }

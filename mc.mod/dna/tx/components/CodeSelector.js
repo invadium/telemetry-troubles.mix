@@ -8,15 +8,8 @@ class CodeSelector extends ScrollablePanel {
 
             codePointer: -1,
 
-            // TODO move out to a separate Ops catalog
             options: [
                 '....',
-                'push',
-                'pop',
-                'drop',
-                'swap',
-                'add',
-                'sub',
             ]
         }, st) )
 
@@ -32,6 +25,14 @@ class CodeSelector extends ScrollablePanel {
             if (isNum(code)) return this.indexOf(code)
             return 0
         }
+    }
+
+    unlock(code) {
+        if (!code) return
+        code = code.toUpperCase()
+        if (this.options.indexOf(code) >= 0) return // already unlocked!
+
+        this.options.splice(1, 0, code)
     }
 
     contentLength() {

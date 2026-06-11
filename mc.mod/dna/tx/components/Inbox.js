@@ -54,6 +54,8 @@ class Inbox extends ScrollablePanel {
 
             time:    env.missionStatus.time,
             read:    false,
+
+            onRead:  msg.onRead,
         }
         this.imap.messages.push(m)
     }
@@ -74,7 +76,13 @@ class Inbox extends ScrollablePanel {
 
     open(pos) {
         const message = this.imap.messages[pos]
-        message.read = true
+        dir(message)
+        if (!message.read) {
+            if ( isFun(message.onRead) ) {
+                message.onRead()
+            }
+            message.read = true
+        }
         defer(() => this.view.openEmail(message))
     }
 
@@ -105,9 +113,9 @@ class Inbox extends ScrollablePanel {
 
         // === column titles ===
         this.clipText('#',       x1, by, w1)
-        this.clipText('From',    x2, by, w2)
-        this.clipText('Subject', x3, by, w3)
-        this.clipText('Day',     x4, by, w4)
+        this.clipText(env.text.email.from,    x2, by, w2)
+        this.clipText(env.text.email.subject, x3, by, w3)
+        this.clipText(env.text.email.day,     x4, by, w4)
         txt.at(x1 + w1, by).out('|')
         txt.at(x2 + w2, by).out('|')
         txt.at(x3 + w3, by).out('|')

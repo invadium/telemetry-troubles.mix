@@ -10,7 +10,9 @@ function launchProbe() {
     })
     $.dusty = probe.dusty
     pin.link(probe)
+    pub.link(probe)
     pin.link(probe.dusty)
+    pub.link(probe.dusty)
     lab.locate('&coreMonitor').bind( probe.dusty )
 }
 
