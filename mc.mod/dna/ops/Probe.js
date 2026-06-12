@@ -8,6 +8,7 @@ class Probe extends sys.LabFrame {
             _pods: [
                 'Dusty12',
 
+                'Gyroscope',
                 'RTG',
                 'Battery',
                 'CCS',             // dusty 12 representation
@@ -68,6 +69,7 @@ class Probe extends sys.LabFrame {
             },
         })
 
+        /*
         this.enableTelemetry('RTG')
         this.enableTelemetry('antenna')
         this.enableTelemetry('tapeRecorder')
@@ -83,6 +85,7 @@ class Probe extends sys.LabFrame {
         this.powerOn('antenna')
         this.powerOn('tapeRecorder')
         this.powerOn('wideAngleCamera')
+        */
     }
 
     // enable engineering telemetry - show the pod on the blueprint
@@ -113,6 +116,10 @@ class Probe extends sys.LabFrame {
         if (pod) this.disableTelemetry(pod)
     }
 
+    lastDataLine() {
+        return this.dataLines.length - 1
+    }
+
     powerOn(pod) {
         if (isStr(pod)) pod = this.locate(pod)
         if (!pod) throw new Error('the pod is missing!')
@@ -135,6 +142,10 @@ class Probe extends sys.LabFrame {
     closePowerLine(n) {
         const pod = this.powerLines[n]
         if (pod) this.powerOff(pod)
+    }
+
+    lastPowerLine() {
+        return this.powerLines.length - 1
     }
 
     draw() {}

@@ -14,6 +14,7 @@ class Battery extends Pod {
 
             padding: 1,
         }, st) )
+        this.powerOn()
     }
 
     evo(dt) {

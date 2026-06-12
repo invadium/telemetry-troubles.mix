@@ -16,7 +16,8 @@ class Viewport extends sys.LabFrame {
                 color:  hsl( .55, .55, .55),
             },
 
-            clip:  true,
+            hidden: true,
+            clip:   false,
         }, st) )
     }
 

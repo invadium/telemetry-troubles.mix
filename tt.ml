@@ -33,9 +33,6 @@ V dusty-12 ops
     V data lines control (turn telemetry on/off)
     V power lines control (turn devices on/off)
 
-
-> test-drive email system with messages on TT design, roadmap etc...
-
 > probe dev kit
     > step, walk, run, stop buttons instead of "Upload"
 > program upload
@@ -72,6 +69,7 @@ Proto II
 > telemetry layout instructions (adjust components)
 > dusty 12 I/O (sense, out...)???
 > dusty 12 mode switch ops
+> test-drive email system with messages on TT design, roadmap etc... (an Easter Egg?)
 
 
 
