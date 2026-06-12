@@ -76,13 +76,14 @@ class Inbox extends ScrollablePanel {
 
     open(pos) {
         const message = this.imap.messages[pos]
-        dir(message)
+
         if (!message.read) {
             if ( isFun(message.onRead) ) {
                 message.onRead()
             }
             message.read = true
         }
+
         defer(() => this.view.openEmail(message))
     }
 

@@ -69,7 +69,14 @@ class CoreMonitor extends ScrollablePanel {
         this.capsule[this.editPointer] = code
     }
 
-    open(at) {
+    shiftForward() {
+        if (this.mode !== EDIT_MODE) return
+        if (this.editPointer < this.contentLength() - 1) {
+            this.editPointer ++
+        }
+    }
+
+    open(at, e) {
         const capsule = this.capsule
 
         switch(this.mode) {

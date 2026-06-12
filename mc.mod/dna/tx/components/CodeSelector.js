@@ -40,12 +40,16 @@ class CodeSelector extends ScrollablePanel {
         return this.options.length
     }
 
-    open(at) {
+    open(at, e) {
         const { options, coreMonitor } = this
         const mnemonics = options[at]
         const newCode = mnemonics === '....'? null : mnemonics
         // log(`@${coreMonitor.editPoint()}: #${at}::${lib.format.toCodeString(newCode)}`)
         coreMonitor.setCode(newCode)
+
+        if (e.buttons & 2) {
+            coreMonitor.shiftForward()
+        }
     }
 
     exit() {

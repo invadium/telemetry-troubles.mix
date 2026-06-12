@@ -182,7 +182,7 @@ class Dusty12 {
                 fn: () => {
                     push( pop() + pop() )
                 },
-                effect: 'x y -- (x+y)',
+                effect: 'x y -- [x+y]',
                 info: 'add two values at the top of the data stack'
             },
             {
@@ -192,7 +192,7 @@ class Dusty12 {
                           x = pop()
                     push( x - y )
                 },
-                effect: 'x y -- (x-y)',
+                effect: 'x y -- [x-y]',
                 info: 'subtract the top number on stack from the previous one'
             },
             {
@@ -200,7 +200,7 @@ class Dusty12 {
                 fn: () => {
                     push( pop() * pop() )
                 },
-                effect: 'x y -- (x*y)',
+                effect: 'x y -- [x*y]',
                 info: 'multiply two values at the top of the data stack'
             },
             {
@@ -210,7 +210,7 @@ class Dusty12 {
                           x = pop()
                     push( x/y )
                 },
-                effect: 'x y -- (x/y)',
+                effect: 'x y -- [x/y]',
                 info: 'divide'
             },
             {
@@ -220,8 +220,108 @@ class Dusty12 {
                           x = pop()
                     push( x%y )
                 },
-                effect: 'x y -- (x%y)',
+                effect: 'x y -- [x%y]',
                 info: 'remainder from the division'
+            },
+
+            // === COMPARISON ====
+            {
+                name: 'EQ',
+                fn: () => {
+                    const y = pop(),
+                          x = pop()
+                    if ( x === y ) push( 1 )
+                    else push( 0 )
+                },
+                effect: 'x y -- [1|0]',
+                info: 'compares the top two values on the data stack and places 1 if equal and 0 if not'
+            },
+            {
+                name: 'NEQ',
+                fn: () => {
+                    const y = pop(),
+                          x = pop()
+                    if ( x !== y ) push( 1 )
+                    else push( 0 )
+                },
+                effect: 'x y -- [0|1]',
+                info: 'compares the top two values on the data stack and places 0 if equal and 1 if not'
+            },
+            {
+                name: 'LT',
+                fn: () => {
+                    const y = pop(),
+                          x = pop()
+                    if ( x < y ) push( 1 )
+                    else push( 0 )
+                },
+                effect: 'x y -- [1|0]',
+                info: 'compares the top two values on the data stack and places 1 if less than and 0 otherwise'
+            },
+            {
+                name: 'LTE',
+                fn: () => {
+                    const y = pop(),
+                          x = pop()
+                    if ( x <= y ) push( 1 )
+                    else push( 0 )
+                },
+                effect: 'x y -- [1|0]',
+                info: 'compares the top two values on the data stack and places 1 if less than or equal and 0 otherwise'
+            },
+            {
+                name: 'GT',
+                fn: () => {
+                    const y = pop(),
+                          x = pop()
+                    if ( x > y ) push( 1 )
+                    else push( 0 )
+                },
+                effect: 'x y -- [1|0]',
+                info: 'compares the top two values on the data stack and places 1 if greater than and 0 otherwise'
+            },
+            {
+                name: 'GTE',
+                fn: () => {
+                    const y = pop(),
+                          x = pop()
+                    if ( x >= y ) push( 1 )
+                    else push( 0 )
+                },
+                effect: 'x y -- [1|0]',
+                info: 'compares the top two values on the data stack and places 1 if greater than or equal and 0 otherwise'
+            },
+
+            // === LOGICAL OPS ===
+            {
+                name: 'NOT',
+                fn: () => {
+                    const x = pop()
+                    if ( x === 0 ) push( 1 )
+                    else push( 0 )
+                },
+                effect: 'x -- [1|0]',
+                info: 'logical NOT for the top value on the data stack'
+            },
+
+            // === FLOW CONTROL ===
+            {
+                name: 'JMP',
+                fn: () => {
+                    PC = pop()
+                },
+                effect: '@ -- ',
+                info: 'unconditional jump to the address specified on the data stack'
+            },
+            {
+                name: 'JNZ',
+                fn: () => {
+                    const x  = pop(),
+                          at = pop()
+                    if (x !== 0) PC = at
+                },
+                effect: '@ x -- ',
+                info: 'conditional jump to the address specified on the data stack only if the top value is zero'
             },
 
             {

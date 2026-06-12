@@ -44,7 +44,7 @@ class StackInspector extends Pod {
         let bx = PD, by = PD
         for (let i = DSP - 1; i >= 0 && by < h; i--, by += 4) {
             const val = stack[i]
-            if (val) text(`${val}`, bx, by)
+            if ( isNum(val) ) text(`${val}`, bx, by)
         }
 
         restore()

@@ -83,7 +83,7 @@ class ScrollablePanel extends Panel {
         return this.h - this.header - 1
     }
 
-    select(tx, ty) {
+    select(tx, ty, e) {
         const { x, y, w, h } = this
         if (tx < 0 || tx >= w || ty < this.header || ty >= h) {
             this.clearSelection()
@@ -100,10 +100,10 @@ class ScrollablePanel extends Panel {
 
     exit() {}
 
-    enter(tx, ty) {
-        this.select(tx, ty)
+    enter(tx, ty, e) {
+        this.select(tx, ty, e)
         if (this.selection < 0) {
-            this.exit()
+            this.exit(e)
             return
         }
 
@@ -111,10 +111,10 @@ class ScrollablePanel extends Panel {
         const pos = this.stackPointer + this.selection
         if (pos >= this.contentLength()) return
 
-        this.open(pos)
+        this.open(pos, e)
     }
 
-    open() {
+    open(pos, e) {
         throw new Error('not implemented')
     }
 
@@ -130,7 +130,7 @@ class ScrollablePanel extends Panel {
 
     onMouseDown(tx, ty, b, e) {
         // log(`mouse #${e.button + 1} down: ${tx}:${ty}`)
-        this.enter(tx, ty)
+        this.enter(tx, ty, e)
     }
 
     onMouseUp(tx, ty, b, e) {

@@ -20,30 +20,30 @@ V probe entity
 V probe systems visual
 V dusty-12 emulator
 V mission over condition
-
-> core game design
-> test-drive email system with messages on TT design, roadmap etc...
-
-> dusty-12 ops
+V core game design
+V command sequence editing
+V auto-advance (on left or right click?) when selecting the next code
+V program execution
+V dusty-12 ops
     V math
     V stack ops
     V memory ops
-    > comparison ops
-    > jumps
-    > I/O (sense, out...)
+    V comparison ops
+    V jumps
     V data lines control (turn telemetry on/off)
     V power lines control (turn devices on/off)
 
-> mission control/flow
-> experiment entity
+
+> test-drive email system with messages on TT design, roadmap etc...
 
 > probe dev kit
-> auto-advance (on left or right click?) when selecting the next code
-> probe subsystem emulators
-> command sequence editing
+    > step, walk, run, stop buttons instead of "Upload"
 > program upload
-> program execution
+    > sfx
 
+> mission control/flow
+> experiment entity
+> probe subsystem emulators
 > telemetry download
 > telemetry match with the experiment profile
 > $ earn for experiment
@@ -70,6 +70,8 @@ V mission over condition
 Proto II
 > vm speed constrol instructions
 > telemetry layout instructions (adjust components)
+> dusty 12 I/O (sense, out...)???
+> dusty 12 mode switch ops
 
 
 
