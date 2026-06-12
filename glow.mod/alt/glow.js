@@ -193,8 +193,9 @@ const glow = {
         // TODO do primitive assembly if faces are provided
 
         // render points
-        const N  = w.length,
-              R  = 2 * this.vp.dx * this.lw,
+        const vp = this.vp,
+              N  = w.length,
+              R  = 2 * vp.dx * this.lw,
               R2 = 2*R,
               M  = this.model,
               V  = this.view,
@@ -206,10 +207,12 @@ const glow = {
         const NEARZ = 1
         const FOVY = 30
         const fd = 1/Math.tan(.5 * FOVY * DEG_TO_RAD)
+        const aspect = vp.aspect
+        const vaspect = vp.vaspect
 
         ctx.fillStyle   = this.cl
         ctx.strokeStyle = this.cl
-        ctx.lineWidth   = this.vp.dx * this.lw
+        ctx.lineWidth   = vp.dx * this.lw
 
         let fv, pv 
         for (let i = 0; i < N; i += 9) {
@@ -220,17 +223,17 @@ const glow = {
             math.vec4.applyMat43(v1, v1, MV)
             //v1[3] -= v1[2]
             v1[3] = -v1[2]
-            v1[0] = -(v1[0] * fd) / (v1[3] + fd)
+            v1[0] = -(v1[0] * fd) * vaspect / (v1[3] + fd)
             v1[1] = (v1[1] * fd) / (v1[3] + fd)
             math.vec4.applyMat43(v2, v2, MV)
             //v2[3] -= v2[2]
             v2[3] = -v2[2]
-            v2[0] = -(v2[0] * fd) / (v2[3] + fd)
+            v2[0] = -(v2[0] * fd) * vaspect / (v2[3] + fd)
             v2[1] = (v2[1] * fd) / (v2[3] + fd)
             math.vec4.applyMat43(v3, v3, MV)
             //v3[3] -= v3[2]
             v3[3] = -v3[2]
-            v3[0] = -(v3[0] * fd) / (v3[3] + fd)
+            v3[0] = -(v3[0] * fd) * vaspect / (v3[3] + fd)
             v3[1] = (v3[1] * fd) / (v3[3] + fd)
             /*
             // transform vertices

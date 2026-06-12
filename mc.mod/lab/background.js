@@ -9,6 +9,7 @@ function draw() {
     save()
     //ctx.clearRect(0, 0, ctx.width, ctx.height)
     //background('#165955')
+    if (!h || h > 9999 || h < 0) debugger
     const gradient = ctx.createLinearGradient(0, 0, 0, h)
     env.palette.background.gradients.forEach(g => {
         gradient.addColorStop( g.stop, g.color )

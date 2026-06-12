@@ -11,6 +11,7 @@ class Blueprint extends sys.LabFrame {
             h: 0,
 
             aspect: .85,
+            outline: false,
 
             margins: {
                 north: 5,
@@ -143,8 +144,9 @@ class Blueprint extends sys.LabFrame {
         lineWidth( env.style.blueprint.lineWidth )
         stroke(env.palette.main)
 
-        // render bluepring border
-        rect(0, 0, 100, 117)
+        if (this.outline) {
+            rect(0, 0, 100, 117)
+        }
 
         // this.drawProbeLayout()
         super.draw()

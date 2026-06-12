@@ -9,7 +9,7 @@ class WideAngleCamera extends Pod {
             aperture: 0,
 
             x: 15,
-            y: 60,
+            y: 85,
             w: 10,
             h: 10,
 

@@ -24,7 +24,7 @@ function glare() {
 
             const W = lab.w,
                   H = lab.h
-            this.x = .35  * W
+            this.x = .38 * W
             this.y = .25 * H
             this.w = .5 * W
             this.h = .5 * H

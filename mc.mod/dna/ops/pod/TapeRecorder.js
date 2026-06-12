@@ -6,8 +6,8 @@ class TapeRecorder extends Pod {
         super( augment({
             name: 'tapeRecorder',
 
-            x:     50,
-            y:     50,
+            x:     76,
+            y:     15,
             w:     40,
             h:     25,
 
