@@ -1,0 +1,280 @@
+// glow state and low-level functions
+const glow = {
+
+    vp: {
+        x: 0,
+        y: 0,
+        w: 1,
+        h: 1,
+    },
+    cl: '#ffffffff',
+    cc: [ 0, 0, 0, 0 ],
+    lw: 1,
+
+    ctx:   ctx,
+    model: null,
+    view:  null,
+    MV:    null,
+
+    mstack: [],
+    istack: 0,
+
+    initContext: function(localCtx) {
+        this.model = math.mat43()
+        this.view  = math.mat43()
+        this.MV    = math.mat43() // model-view buffer
+        this.mat   = this.model
+        this.ctx   = localCtx || ctx
+    },
+
+    useModel: function() {
+        this.mat = this.model
+    },
+
+    useView: function() {
+        this.mat = this.view
+    },
+
+    identity: function() {
+        math.mat43.identity(this.mat)
+    },
+
+    setMatrix: function(m) {
+        if (this.mat === this.model) this.model = m
+        else this.view = m
+        this.mat = m
+    },
+
+    pushMatrix: function() {
+        let BM = this.mstack[ this.istack ]
+        if (!BM) {
+            this.mstack[ this.istack ] = BM = math.mat43()
+        }
+        math.mat43.copy(BM, this.mat)
+        this.istack ++
+    },
+
+    popMatrix: function() {
+        if (this.istack === 0) throw new Error("can't pop the matrix - the stack is empty!")
+
+        this.istack --
+        math.mat43.copy(this.mat, this.mstack[ this.istack ])
+    },
+
+    scale(v3) {
+        const M = [
+            v3[0], 0,     0,
+            0,     v3[1], 0,
+            0,     0,     v3[2],
+            0,     0,     0,
+        ]
+        math.mat43.mul(this.mat, this.mat, M)
+    },
+
+    rotateX(a) {
+        const M = [
+            1, 0,       0,
+            0, cos(a), -sin(a),
+            0, sin(a),  cos(a),
+            0, 0,       0,
+        ]
+        math.mat43.mul(this.mat, this.mat, M)
+    },
+
+    rotateY(a) {
+        const M = [
+            cos(a), 0, -sin(a),
+            0,      1,  0,
+            sin(a), 0,  cos(a),
+            0,      0,  0,
+        ]
+        math.mat43.mul(this.mat, this.mat, M)
+    },
+
+    rotateZ(a) {
+        const M = [
+            cos(a), -sin(a), 0,
+            sin(a),  cos(a), 0,
+            0,       0,      1,
+            0,       0,      0,
+        ]
+        math.mat43.mul(this.mat, this.mat, M)
+    },
+
+    rot(v) {
+        const 
+            cx = cos(v[0]), sx = sin(v[0]),
+            cy = cos(v[1]), sy = sin(v[1]),
+            cz = cos(v[2]), sz = sin(v[2])
+
+        const M = [
+            // x
+            cy * cz,
+            sx * sy * cz + cx * sz,
+            -cx * sy * cz + sx * sz,
+            // y
+            -cy * sz,
+            -sx * sy * sz + cx * cz,
+            cx * sy * sz + sx * cz,
+            // z
+            sy,
+            -sx * cy,
+            cx * cy,
+            // w
+            0,
+            0,
+            0,
+        ]
+        math.mat43.mul(this.mat, this.mat, M)
+    },
+
+    translate(v3) {
+        const M = [
+            1,     0,     0,
+            0,     1,     0,
+            0,     0,     1,
+            v3[0], v3[1], v3[2],
+        ]
+        math.mat43.mul(this.mat, this.mat, M)
+    },
+
+    viewport(x, y, w, h) {
+        const vp = this.vp
+        vp.x  = x
+        vp.y  = y
+        vp.w  = w
+        vp.h  = h
+        vp.hw = .5 * w
+        vp.hh = .5 * h
+        vp.dx =  2 / w
+        vp.dy =  2 / h
+        vp.xscale  = .5 * w
+        vp.yscale  = .5 * h
+        vp.aspect  = w / h
+        vp.vaspect = h / w
+
+        this.ctx.save()
+        this.ctx.translate(x + .5*w, y + .5*h)
+        this.ctx.scale( vp.xscale, -vp.yscale )
+    },
+
+    perspective(vfov, aspect, zNear, zFar) {
+        math.mat43.perspective(this.mat, vfov, aspect, zNear, zFar)
+    },
+
+    clearColor: function(c4) {
+        this.cc = c4
+    },
+
+    color: function(cl) {
+        this.cl = cl
+    },
+
+    lineWidth: function(lw) {
+        this.lw = lw
+    },
+
+    clear: function() {
+        this.ctx.fillStyle = rgba(this.cc)
+        this.ctx.fillRect( -1, -1, 2, 2 )
+        /*
+        // test normalized triangle
+        lineWidth(this.vp.dx * this.lw)
+        stroke(.5, .5, .5)
+        line( -.5, -.5,   0,  .5 )
+        line(   0,  .5,  .5, -.5 )
+        line(  .5, -.5, -.5, -.5 )
+        */
+    },
+
+    draw: function(w) {
+        const ctx = this.ctx
+        // TODO do model and view translation
+        // TODO do primitive assembly if faces are provided
+
+        // render points
+        const N  = w.length,
+              R  = 2 * this.vp.dx * this.lw,
+              R2 = 2*R,
+              M  = this.model,
+              V  = this.view,
+              MV = this.MV
+
+        math.mat43.copy(MV, V)
+        math.mat43.mul(MV, MV, M)
+        
+        const NEARZ = 1
+        const FOVY = 30
+        const fd = 1/Math.tan(.5 * FOVY * DEG_TO_RAD)
+
+        ctx.fillStyle   = this.cl
+        ctx.strokeStyle = this.cl
+        ctx.lineWidth   = this.vp.dx * this.lw
+
+        let fv, pv 
+        for (let i = 0; i < N; i += 9) {
+            const v1 = [ w[i    ], w[i + 1], w[i + 2], 1 ],
+                  v2 = [ w[i + 3], w[i + 4], w[i + 5], 1 ],
+                  v3 = [ w[i + 6], w[i + 7], w[i + 8], 1 ]
+
+            math.vec4.applyMat43(v1, v1, MV)
+            //v1[3] -= v1[2]
+            v1[3] = -v1[2]
+            v1[0] = -(v1[0] * fd) / (v1[3] + fd)
+            v1[1] = (v1[1] * fd) / (v1[3] + fd)
+            math.vec4.applyMat43(v2, v2, MV)
+            //v2[3] -= v2[2]
+            v2[3] = -v2[2]
+            v2[0] = -(v2[0] * fd) / (v2[3] + fd)
+            v2[1] = (v2[1] * fd) / (v2[3] + fd)
+            math.vec4.applyMat43(v3, v3, MV)
+            //v3[3] -= v3[2]
+            v3[3] = -v3[2]
+            v3[0] = -(v3[0] * fd) / (v3[3] + fd)
+            v3[1] = (v3[1] * fd) / (v3[3] + fd)
+            /*
+            // transform vertices
+            math.vec4.applyMat43(v1, v1, MV)
+            v1[0] = v1[0] / (v1[3] - v1[2])
+            v1[1] = v1[1] / (v1[3] - v1[2])
+            v1[2] = v1[2] / (v1[3] - v1[2])
+            math.vec4.applyMat43(v2, v2, MV)
+            v2[0] = v2[0] / (v2[3] - v2[2])
+            v2[1] = v2[1] / (v2[3] - v2[2])
+            v2[2] = v2[2] / (v2[3] - v2[2])
+            math.vec4.applyMat43(v3, v3, MV)
+            v3[0] = v3[0] / (v3[3] - v3[2])
+            v3[1] = v3[1] / (v3[3] - v3[2])
+            v3[2] = v3[2] / (v3[3] - v3[2])
+            */
+
+            if (v1[2] < 0 && v2[2] < 0 && v3[2] < 0) {
+            // if (v1[2] > 0 && v2[2] > 0 && v3[2] > 0) {
+                /*
+                ctx.fillRect(v1[0]-R, v1[1]-R, R2, R2)
+                ctx.fillRect(v2[0]-R, v2[1]-R, R2, R2)
+                ctx.fillRect(v3[0]-R, v3[1]-R, R2, R2)
+                */
+                // TODO set current color?
+
+
+                ctx.beginPath()
+                    ctx.moveTo(v1[0], v1[1])
+                    ctx.lineTo(v2[0], v2[1])
+                    ctx.lineTo(v3[0], v3[1])
+                    ctx.lineTo(v1[0], v1[1])
+                ctx.stroke()
+
+                // line(v1[0], v1[1], v2[0], v2[1])
+                // line(v2[0], v2[1], v3[0], v3[1])
+                // line(v3[0], v3[1], v1[0], v1[1])
+            }
+        }
+    },
+
+    flush: function() {
+        this.ctx.restore()
+    },
+
+}
+lib.glow = glow

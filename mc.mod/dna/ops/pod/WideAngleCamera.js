@@ -1,10 +1,10 @@
 const Pod = require('/mod/mc/dna/ops/pod/Pod')
 
-class Camera extends Pod {
+class WideAngleCamera extends Pod {
 
     constructor(st) {
         super( augment({
-            name:    'camera',
+            name:    'wideAngleCamera',
             time:     0,
             aperture: 0,
 

@@ -1,0 +1,112 @@
+#depends dish
+#depends bus
+#depends boom
+#depends triBoom
+#depends antenna
+#depends RTG
+#depends sphere
+
+neogeo
+
+-- place the main dish
+"dish" place
+
+mpush
+ 0  -.3   0  translate
+.1   .1  .1  mscale
+"dish" place
+mpop
+
+mpush
+    mpush
+        0 .35 .5 translate
+        .2 PI mul mrotY
+        .3 .76 .3 mscale
+        "triBoom" place
+    mpop
+    mpush
+        .333 TAU mul mrotX
+        0 .35 .5 translate
+        .2 PI mul mrotY
+        .3 .76 .3 mscale
+        "triBoom" place
+    mpop
+    mpush
+        .666 TAU mul mrotX
+        0 .35 .5 translate
+        .2 PI mul mrotY
+        .3 .76 .3 mscale
+        "triBoom" place
+    mpop
+mpop
+
+-- shift and place the main bus
+0 .5 0 translate
+"bus"  place
+
+buf mid
+0 -.5 0 translate
+unbuf
+
+mpush
+.31 .62 .31 translate
+-- "sphere" place -- place marker
+
+.7 PI mul mrotZ
+-.2 PI mul mrotY
+--.5 PI mul mrotX
+
+"boom" place
+0 -1.25 0 translate
+
+"RTG" place
+0 -.5 0 translate
+"RTG" place
+0 -.5 0 translate
+"RTG" place
+
+mpop
+
+mpush
+0 .62 0 translate
+-.35 PI mul mrotX
+.31 0 .31 translate
+
+.85 PI mul mrotZ
+-.2 PI mul mrotY
+"antenna" place
+mpop
+
+mpush
+0 .62 0 translate
+-.75 PI mul mrotX
+.31 0 .31 translate
+
+.7 PI mul mrotZ
+-.2 PI mul mrotY
+"triBoom" place
+
+0 -1.05 0 translate
+-- -.1 PI mul mrotZ
+"triBoom" place
+
+mpop
+
+mpush
+0 .62 0 translate
+.75 PI mul mrotX
+.31 0 .31 translate
+
+.7 PI mul mrotZ
+-.2 PI mul mrotY
+"triBoom" place
+
+0 -1.05 0 translate
+-- -.1 PI mul mrotZ
+"triBoom" place
+
+mpop
+
+
+"probe" dup tag name brew
+

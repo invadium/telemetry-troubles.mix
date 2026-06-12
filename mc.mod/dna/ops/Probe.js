@@ -13,7 +13,7 @@ class Probe extends sys.LabFrame {
                 'CCS',             // dusty 12 representation
                 'Antenna',
                 'TapeRecorder',
-                'Camera',
+                'WideAngleCamera',
                 'Magnetometer',
                 'CosmicRayDetector',
 
@@ -72,7 +72,7 @@ class Probe extends sys.LabFrame {
         this.enableTelemetry('antenna')
         this.enableTelemetry('tapeRecorder')
         this.enableTelemetry('CCS')
-        this.enableTelemetry('camera')
+        this.enableTelemetry('wideAngleCamera')
         this.enableTelemetry('battery')
         this.enableTelemetry('powerGauge')
         this.enableTelemetry('bandwidthGauge')
@@ -82,7 +82,7 @@ class Probe extends sys.LabFrame {
 
         this.powerOn('antenna')
         this.powerOn('tapeRecorder')
-        this.powerOn('camera')
+        this.powerOn('wideAngleCamera')
     }
 
     // enable engineering telemetry - show the pod on the blueprint

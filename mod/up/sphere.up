@@ -1,0 +1,9 @@
+=== just a sphere ===
+
+neogeo -- declare a new shape
+.05 .05 .05 mscale
+sphere
+
+-- name and brew the shape
+"sphere" name brew
+
