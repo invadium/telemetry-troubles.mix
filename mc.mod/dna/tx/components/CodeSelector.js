@@ -31,6 +31,7 @@ class CodeSelector extends ScrollablePanel {
         if (!code) return
         code = code.toUpperCase()
         if (this.options.indexOf(code) >= 0) return // already unlocked!
+        // TODO check if the instruction exists in DUSTY-12
 
         this.options.splice(1, 0, code)
     }

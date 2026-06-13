@@ -5,7 +5,7 @@ function clear() {
 }
 
 function launchProbe() {
-    const probe = $.probe = lab.spawn('Probe', {
+    const probe = this.probe = $.probe = lab.spawn('Probe', {
         blueprint: lab.locate('&blueprint'),
     })
     $.dusty = probe.dusty
@@ -21,6 +21,7 @@ function start() {
     this.clear()
     this.launchProbe()
 
+    this.activeExperiments = []
     this.status = $.env.missionStatus = env.missionStatus = {
         time:        1,
         day:         1,
@@ -40,6 +41,13 @@ function checkStatus() {
     if (ms.balance <= 0) {
         signal('mission/over')
     }
+}
+
+function earn(amount) {
+    const ms = env.missionStatus
+
+    ms.balance += amount
+    this.checkStatus()
 }
 
 function burn(amount) {
@@ -84,9 +92,44 @@ function evo(dt) {
     this.checkStatus()
 }
 
+function declareExperiment(exp) {
+    this.activeExperiments.push(exp)
+}
+
+function completeExperiment(exp) {
+    const _  = this
+    const MS = _.status
+    if (!exp) return false
+    const i = _.activeExperiments.indexOf(exp)
+    if (i < 0) return false
+    if (exp.completed) return false
+
+    exp.completed = true
+    _.earn(exp.reward)
+    MS.experiments ++
+    signal('email', {
+        from: 'HQ',
+        subject: `${exp.shortName} Complete`,
+        content: `${exp.name} is complete!\n`
+                 + `Reward: $${exp.reward}`, 
+    })
+    defer(() => _.activeExperiments.splice(i, 1))
+
+    return true
+}
+
+function verifyExperiments() {
+    const _     = this,
+          probe = this.probe
+
+    _.activeExperiments.forEach(exp => {
+        if (exp.verify(probe, _)) _.completeExperiment(exp)
+    })
+}
+
 function onHalt() {
     log('checking experiment results...')
-    // TODO
+    this.verifyExperiments()
 }
 
 function getDay() {
