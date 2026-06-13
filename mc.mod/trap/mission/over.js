@@ -1,6 +1,7 @@
 function over() {
-    // signal('email', 'game-over')
-    env.missionStatus.over = true
+    log('=== GAME OVER ===')
+    const MS = env.missionStatus
+    MS.over = true
+    MS.overAt = MS.time
     job.control.emailScheduler.sendAfter('game-over', 5)
-    log('The Mission is Over!!!')
 }

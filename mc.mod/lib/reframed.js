@@ -13,7 +13,7 @@ function nonEmpty(c) {
     return (!isWhitespace(c) && !isLineFeed(c))
 }
       
-function parse(src, LW) {
+function parse(src, LW, dataResolver) {
     const seg = [],
           t   = src.split(''),
           N   = t.length
@@ -169,7 +169,17 @@ function parse(src, LW) {
                 && sg.chars[0] === '$'
                 && sg.chars[1] === '['
                 && sg.chars[sg.chars.length - 1] === ']') {
-            log('^^^^^^^^ resolve the data link: ' + sg.text)
+            const text = sg.text
+            const pattern = text.substring(2, text.length - 1)
+            let replacement = dataResolver.match(pattern)
+            if (replacement !== undefined) {
+                replacement = '' + replacement
+                sg.text = replacement
+                sg.chars = replacement.split('')
+                sg.len = sg.text.length
+            } else {
+                log.warn(`unable to replace ${text}`)
+            }
         }
         return sg
     }

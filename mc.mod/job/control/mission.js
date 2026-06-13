@@ -21,12 +21,14 @@ function start() {
     this.launchProbe()
 
     this.status = $.env.missionStatus = env.missionStatus = {
-        time:      1,
-        day:        1,
-        timeFactor: 1 / env.tune.evoSpeed,
-        burnRate:   env.tune.opt.burnRate,
-        balance:    env.tune.opt.startBalance,
-        over:       false,
+        time:        1,
+        day:         1,
+        timeFactor:  1 / env.tune.evoSpeed,
+        burnRate:    env.tune.opt.burnRate,
+        balance:     env.tune.opt.startBalance,
+        burned:      0,
+        experiments: 0,
+        over:        false,
     }
 }
 

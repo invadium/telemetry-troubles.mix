@@ -7,7 +7,7 @@ There is no budget left to continue, and the administration has requested to cea
 
 It has been a wild ride:
 
-The mission lasted for [$stat/day] days, we completed [$stat/experiments] experiments, and burned through $[$stat/burned] cash.
+The mission lasted for $[day] days, we completed $[experiments] experiments, and burned through $[burned] cash.
 
 Now is the time to say goodbye to our faraway mechanical colleague. You've been a good friend! Now, fly away into the coldness of outer space!
 

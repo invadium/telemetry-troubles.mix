@@ -57,7 +57,7 @@ class EmailView extends ScrollablePanel {
         const w = this.w
 
         if (!e.segments) {
-            e.segments = lib.reframed.parse(e.message.content, w)
+            e.segments = lib.reframed.parse(e.message.content, w, job.data.resolver)
             // dir(e.segments)
         }
         e.lines = lib.reframed.format(e.segments, w)
