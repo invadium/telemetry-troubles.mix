@@ -9,6 +9,7 @@ function launchProbe() {
         blueprint: lab.locate('&blueprint'),
     })
     $.dusty = probe.dusty
+    probe.dusty.monitors.push(this)
     pin.link(probe)
     pub.link(probe)
     pin.link(probe.dusty)
@@ -41,11 +42,27 @@ function checkStatus() {
     }
 }
 
-function burn() {
+function burn(amount) {
     const ms = env.missionStatus
 
-    ms.balance = max(floor(ms.balance - ms.burnRate), 0)
+    let change = 0
+    if (amount <= ms.balance) {
+        ms.balance -= amount
+        ms.burned += amount
+    } else {
+        change = amount - ms.balance
+        const realBurn = amount - change
+        ms.balance = 0
+        ms.burned += realBurn
+    }
     this.checkStatus()
+    return change
+}
+
+function dailyBurn() {
+    const ms = env.missionStatus
+
+    return this.burn(ms.burnRate)
 }
 
 function setBalance(amount) {
@@ -65,6 +82,11 @@ function evo(dt) {
         signal('mission/nextDay', ms.day)
     }
     this.checkStatus()
+}
+
+function onHalt() {
+    log('checking experiment results...')
+    // TODO
 }
 
 function getDay() {

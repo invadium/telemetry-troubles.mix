@@ -4,6 +4,6 @@ function match(pattern) {
     switch(pattern) {
         case 'day':         return ms.day;
         case 'experiments': return ms.experiments;
-        case 'burned':      return ms.burned;
+        case 'burned':      return '$' + ms.burned;
     }
 }

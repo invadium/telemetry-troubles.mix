@@ -397,10 +397,7 @@ class Dusty12 {
             }
             _.lastCycle = _.time
             if (steps) {
-                MODE = HALT
-                _.monitors.forEach(m => {
-                    if (isFun(m.onHalt)) m.onHalt()
-                })
+                _.halt()
             }
         }
 
@@ -425,6 +422,9 @@ class Dusty12 {
 
         _.halt = function() {
             MODE = HALT
+            _.monitors.forEach(m => {
+                if (isFun(m.onHalt)) m.onHalt()
+            })
         }
 
         _.spy = {
