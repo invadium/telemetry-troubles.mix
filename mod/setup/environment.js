@@ -14,13 +14,16 @@ function environment() {
     $.env.statusInfo = mod.mc.env.statusInfo = {}
 
     const console = $.mod.console
-    console.env.pauseRootLab = true
+    if (console) {
+        // trip debug console if present
+        console.env.pauseRootLab = true
 
-    console.trap.on('open', () => {
-        mod.mc.pauseLab()
-    })
-    console.trap.on('close', () => {
-        mod.mc.resumeLab()
-    })
+        console.trap.on('open', () => {
+            mod.mc.pauseLab()
+        })
+        console.trap.on('close', () => {
+            mod.mc.resumeLab()
+        })
+    }
 }
 environment.Z = 1
