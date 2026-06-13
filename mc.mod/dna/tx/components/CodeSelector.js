@@ -17,7 +17,7 @@ class CodeSelector extends ScrollablePanel {
         options.forEach((o, i) => {
             options[i] = o.toUpperCase()
         })
-        for (let i = 0; i < 64; i++) {
+        for (let i = 0; i < env.tune.selectorNumbers; i++) {
             options.push(i)
         }
         options.codeToIndex = function(code) {

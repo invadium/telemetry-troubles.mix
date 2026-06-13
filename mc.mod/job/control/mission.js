@@ -20,7 +20,7 @@ function start() {
     this.clear()
     this.launchProbe()
 
-    this.status = env.missionStatus = {
+    this.status = $.env.missionStatus = env.missionStatus = {
         time:      1,
         day:        1,
         timeFactor: 1 / env.tune.evoSpeed,
@@ -28,13 +28,6 @@ function start() {
         balance:    env.tune.opt.startBalance,
         over:       false,
     }
-}
-
-function burn() {
-    const ms = env.missionStatus
-
-    ms.balance = max(floor(ms.balance - ms.burnRate), 0)
-    this.checkStatus()
 }
 
 function checkStatus() {
@@ -46,16 +39,30 @@ function checkStatus() {
     }
 }
 
+function burn() {
+    const ms = env.missionStatus
+
+    ms.balance = max(floor(ms.balance - ms.burnRate), 0)
+    this.checkStatus()
+}
+
+function setBalance(amount) {
+    const ms = env.missionStatus
+
+    ms.balance = amount
+    this.checkStatus()
+}
+
 function evo(dt) {
     const ms = env.missionStatus
-    if (ms.over) return
-
     ms.time += dt * ms.timeFactor
+    if (ms.over) return
 
     if (ms.time - ms.day > 1) {
         ms.day ++
         signal('mission/nextDay', ms.day)
     }
+    this.checkStatus()
 }
 
 function getDay() {

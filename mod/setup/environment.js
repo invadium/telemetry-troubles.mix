@@ -12,5 +12,15 @@ function environment() {
 
     // pin status info in envs
     $.env.statusInfo = mod.mc.env.statusInfo = {}
+
+    const console = $.mod.console
+    console.env.pauseRootLab = true
+
+    console.trap.on('open', () => {
+        mod.mc.pauseLab()
+    })
+    console.trap.on('close', () => {
+        mod.mc.resumeLab()
+    })
 }
 environment.Z = 1

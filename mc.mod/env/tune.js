@@ -1,10 +1,12 @@
 const tune = {
     bufferScale: 1,
 
-    evoSpeed: 30, // seconds/day
-    dayHours: 29,
+    evoSpeed: 60, // seconds/day
+    dayHours: 30,
 
     displayNW: .44,
+
+    selectorNumbers:  48,
 
     opt: {
         startBalance: 1000,

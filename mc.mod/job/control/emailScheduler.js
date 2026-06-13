@@ -12,6 +12,16 @@ function register(msg) {
     schedule.push(msg)
 }
 
+function sendAfter(msg, timeout) {
+    const ms = env.missionStatus
+    if (isStr(msg)) {
+        // locate the email prototype in /res/msg by name
+        msg = res.msg.locate('&' + msg)
+    }
+    msg.at = ms.time + timeout * ms.timeFactor
+    schedule.push(msg)
+}
+
 function evo(dt) {
     schedule.forEach(msg => {
         if (env.missionStatus.time >= msg.at && !msg.sent) {

@@ -164,12 +164,22 @@ function parse(src, LW) {
         }
     }
 
+    function resolveSegment(sg) {
+        if (sg.chars
+                && sg.chars[0] === '$'
+                && sg.chars[1] === '['
+                && sg.chars[sg.chars.length - 1] === ']') {
+            log('^^^^^^^^ resolve the data link: ' + sg.text)
+        }
+        return sg
+    }
+
     function normalizeSegment(sg) {
         if (sg.chars) {
             sg.text = sg.chars.join('')
             sg.len  = sg.chars.length
         }
-        return sg
+        return resolveSegment(sg)
     }
 
     let sg = nextSegment()
