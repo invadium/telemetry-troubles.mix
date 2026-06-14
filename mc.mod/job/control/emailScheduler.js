@@ -1,8 +1,9 @@
 const schedule = []
 
 function setup() {
+    // schedule email prototypes for dispatch
     for (const msg of res.msg) {
-        this.register(msg)
+        if (msg.at) this.register(msg)
     }
 }
 

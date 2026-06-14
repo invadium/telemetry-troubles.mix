@@ -15,6 +15,8 @@ function launchProbe() {
     pin.link(probe.dusty)
     pub.link(probe.dusty)
     lab.locate('&coreMonitor').bind( probe.dusty )
+
+    job.control.HQ.setupExperiments()
 }
 
 function start() {
@@ -94,6 +96,8 @@ function evo(dt) {
 
 function declareExperiment(exp) {
     this.activeExperiments.push(exp)
+    log(`declaring experiment:`)
+    dir(exp)
 }
 
 function completeExperiment(exp) {
@@ -114,6 +118,7 @@ function completeExperiment(exp) {
                  + `Reward: $${exp.reward}`, 
     })
     defer(() => _.activeExperiments.splice(i, 1))
+    job.control.HQ.reportCompleteExperiment(exp)
 
     return true
 }

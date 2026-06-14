@@ -316,12 +316,12 @@ class Dusty12 {
             {
                 name: 'JNZ',
                 fn: () => {
-                    const x  = pop(),
-                          at = pop()
+                    const at = pop(),
+                          x  = pop()
                     if (x !== 0) PC = at
                 },
-                effect: '@ x -- ',
-                info: 'conditional jump to the address specified on the data stack only if the top value is zero'
+                effect: 'x @ -- ',
+                info: 'conditional jump to the address specified on the data stack only if the second value is not zero'
             },
 
             {
