@@ -1,0 +1,10 @@
+The ANGEL-F5 probe is powered by Radioisotope Thermoelectric Generators
+and a support battery.
+
+Enable telemetry on datalines 1 and 2 to receive data on those devices.
+-----------------------------------------------------------------------
+01
+OBUS -- enable RTGs telemetry
+02
+OBUS -- enable the battery telemetry
+

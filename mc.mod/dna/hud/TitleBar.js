@@ -24,7 +24,7 @@ class TitleBar extends $.dna.hud.Container {
             outline: env.palette.outline,
 
             msg: '',
-            status:   'Today is the Day!', // TODO move to resources?
+            status:   'Current day and hour', // TODO move to resources?
 
             adjustPos: function() {
                 const __ = this.__,
@@ -35,7 +35,7 @@ class TitleBar extends $.dna.hud.Container {
             },
 
             sync: function() {
-                this.msg = `${env.text.title.day}: ${$.mission.getTimeString()}`
+                this.msg = `${env.text.title.day}: ${pub.missionControl.getTimeString()}`
             },
         })
 
@@ -47,7 +47,7 @@ class TitleBar extends $.dna.hud.Container {
 
             msg:      '',
             burnRate: -1,
-            status:   'Burn!', // TODO move to resources?
+            status:   'The daily cost of the program', // TODO move to resources?
 
             adjustPos: function() {
                 const __  = this.__,
@@ -79,7 +79,7 @@ class TitleBar extends $.dna.hud.Container {
 
             msg:      '',
             balance: -1,
-            status:   'Money!', // TODO move to resources?
+            status:   'Do not run out of money, or the mission will be cancelled!', // TODO move to resources?
 
             adjustPos: function() {
                 const __  = this.__,

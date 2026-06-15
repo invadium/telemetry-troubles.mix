@@ -21,8 +21,9 @@ function requestNewExperiment(prevExp) {
 
     const msg = {
         from:    `HQ`,
-        subject: `Experiment ${nextExp.code}`,
-        content:  nextExp.task
+        subject: `Request ${nextExp.code}`,
+        content: `Series ${nextExp.series}, Experiment ${nextExp.experiment}\n\n`
+                    + nextExp.task
                     + `\nReward: $${nextExp.reward}`,
 
         onRead: function() {
@@ -46,17 +47,21 @@ function scanExperiments(frame) {
     const experiments = this.experiments
     const experimentDir = this.experimentDir
     const codeHi = frame.name.toUpperCase()
+    const seriesN = parseInt(codeHi.substring(1))
 
     for (let name in frame._dir) {
         const e = frame._dir[name]
         const codeLow = name.split('-')[0]
+        const expN = parseInt(codeLow.substring(1))
 
         if ( isFrame(e) ) {
             this.scanExperiments(e)
         } else {
             const exp = extend({
                 id:   experiments.length + 1,
-                code: codeHi + codeLow.toUpperCase()
+                code: codeHi + codeLow.toUpperCase(),
+                series:     seriesN,
+                experiment: expN,
             }, e)
 
             experiments.push(exp)

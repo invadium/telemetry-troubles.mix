@@ -8,7 +8,7 @@ class Probe extends sys.LabFrame {
             _pods: [
                 'Dusty12',
 
-                'Gyroscope',
+                'Gyroscope',       // reflects the probe attitude
                 'RTG',
                 'Battery',
                 'CCS',             // dusty 12 representation

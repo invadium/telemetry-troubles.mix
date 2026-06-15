@@ -123,6 +123,23 @@ function completeExperiment(exp) {
     return true
 }
 
+function loadSolution(code) {
+    if (code) {
+        return false
+    } else {
+        const aE = this.activeExperiments
+        if (aE.length === 0) return false
+
+        const exp = aE[ aE.length - 1 ]
+        if (exp && isStr(exp.solution)) {
+            this.probe.dusty.flush(exp.solution)
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
 function verifyExperiments() {
     const _     = this,
           probe = this.probe
@@ -155,5 +172,6 @@ function getTimeString() {
 }
 
 function setup() {
-    $.mission = this
+    $.missionControl = this
+    pub.link(this, 'missionControl')
 }
