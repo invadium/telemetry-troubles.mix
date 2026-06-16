@@ -45,19 +45,9 @@ class Inbox extends ScrollablePanel {
         this.__.adjust()
     }
 
-    // accept an email from a message prototype (from, subject and content are expected!)
-    accept(msg) {
-        const m = {
-            from:    msg.from,
-            subject: msg.subject,
-            content: msg.content,
-
-            time:    env.missionStatus.time,
-            read:    false,
-
-            onRead:  msg.onRead,
-        }
-        this.imap.messages.push(m)
+    // accept a fully-formed email object
+    accept( message ) {
+        this.imap.messages.push( message )
     }
 
     contentLength() {

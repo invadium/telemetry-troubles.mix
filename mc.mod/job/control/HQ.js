@@ -1,12 +1,13 @@
 // HeadQuarters controller - issue specs and experiments
 
+
 function locateNextExperiment(prevExp) {
     for (let e of this.experiments) {
         if (!e.issued) return e
     }
 }
 
-function requestNewExperiment(prevExp) {
+function requestNewExperiment(prevExp, at) {
     log('requesting a new experiment!')
     const nextExp = this.locateNextExperiment(prevExp)
     if (!nextExp) {
@@ -14,12 +15,13 @@ function requestNewExperiment(prevExp) {
         return
     }
 
-    log('this is the one to launch:')
+    log('found next experiment:')
     nextExp.issued    = true
     nextExp.completed = false
     dir(nextExp)
 
     const msg = {
+        at:       at,
         from:    `HQ`,
         subject: `Request ${nextExp.code}`,
         content: `Series ${nextExp.series}, Experiment ${nextExp.experiment}\n\n`
@@ -30,7 +32,8 @@ function requestNewExperiment(prevExp) {
             job.control.mission.declareExperiment(nextExp)
         },
     }
-    signal('email', msg)
+    job.control.emailScheduler.schedule( msg )
+    // signal('email', msg)
 }
 
 function reportCompleteExperiment(exp) {
@@ -74,7 +77,7 @@ function setupExperiments() {
     this.experiments   = []
     this.experimentDir = {}
 
-    this.scanExperiments(res.exp)
+    this.scanExperiments(__$.exp)
 }
 
 function setup() {

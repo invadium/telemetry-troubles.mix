@@ -1,6 +1,5 @@
 function task(src, name, path) {
     let solution
-    if (name.startsWith('e4')) debugger
 
     const rg = new RegExp(/^\s*----*\s*$/m)
 
