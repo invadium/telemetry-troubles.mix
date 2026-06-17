@@ -64,15 +64,25 @@ class Inbox extends ScrollablePanel {
         this.open(pos)
     }
 
+    markRead(message) {
+        if (!message || message.read) return
+
+        if ( isFun(message.onRead) ) {
+            message.onRead()
+        }
+        message.read = true
+        signal('read', message)
+    }
+
+    markAllRead() {
+        const _ = this
+        this.imap.messages.forEach( m => _.markRead(m) )
+    }
+
     open(pos) {
         const message = this.imap.messages[pos]
 
-        if (!message.read) {
-            if ( isFun(message.onRead) ) {
-                message.onRead()
-            }
-            message.read = true
-        }
+        this.markRead(message)
 
         defer(() => this.view.openEmail(message))
     }

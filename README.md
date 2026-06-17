@@ -55,6 +55,8 @@ Available flags:
 --plain      - disable the CRT effect
 --showBuffer - show the original mission control buffer preview
 --magnify    - show magnifying window for pixel-perfect tuning
+
+--autosolve  - create the bot to autosolve the puzzles
 ```
 
 Use it with ```jam``` command like so:

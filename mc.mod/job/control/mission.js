@@ -98,6 +98,7 @@ function declareExperiment(exp) {
     this.activeExperiments.push(exp)
     log(`declaring experiment:`)
     dir(exp)
+    signal('newExperiment', exp)
 }
 
 function completeExperiment(exp) {
@@ -119,6 +120,7 @@ function completeExperiment(exp) {
     })
     defer(() => _.activeExperiments.splice(i, 1))
     job.control.HQ.reportCompleteExperiment(exp)
+    signal('experimentComplete', exp)
 
     return true
 }

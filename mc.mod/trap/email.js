@@ -19,5 +19,7 @@ function email(msg) {
     }
 
     if ( isFun(message.onDispatch) ) message.onDispatch()
+    signal('dispatch', message)
+
     lab.locate('&inbox').accept( message )
 }
