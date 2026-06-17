@@ -28,7 +28,8 @@ function requestNewExperiment(prevExp, at) {
                     + nextExp.task
                     + `\nReward: $${nextExp.reward}`,
 
-        onRead: function() {
+        experiment: nextExp,
+        onRead:     function() {
             job.control.mission.declareExperiment(nextExp)
         },
     }

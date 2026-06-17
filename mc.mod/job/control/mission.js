@@ -125,9 +125,10 @@ function completeExperiment(exp) {
     return true
 }
 
-function loadSolution(code) {
-    if (code) {
-        return false
+function loadSolution(solution) {
+    if (solution) {
+        this.probe.dusty.flush(solution)
+        return true
     } else {
         const aE = this.activeExperiments
         if (aE.length === 0) return false

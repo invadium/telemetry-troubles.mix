@@ -491,6 +491,8 @@ class Dusty12 {
         for (let i = 0; i < ops.length; i++) {
             capSnap[i] = ops[i]
         }
+
+        signal('flush', src)
     }
 
     op(name) {
