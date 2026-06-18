@@ -56,7 +56,7 @@ function sendAfter(msg, inDays) {
     sendAt(msg, at)
 }
 
-function evo(dt) {
+function evo() {
     emailSchedule.forEach(msg => {
         if (env.missionStatus.time >= msg.at && !msg.sent) {
             msg.sent = true

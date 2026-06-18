@@ -209,6 +209,26 @@ function getTimeString() {
     return lib.time.toString(this.status.time)
 }
 
+function slow() {
+    env._evoSpeed = env.tune.slowFactor
+}
+
+function normal() {
+    env._evoSpeed = 1
+}
+
+function fast() {
+    env._evoSpeed = env.tune.fastFactor
+}
+
+function speedUp() {
+    env._evoSpeed *= env.tune.speedUpStep
+}
+
+function slowDown() {
+    env._evoSpeed *= env.tune.slowDownStep
+}
+
 function setup() {
     $.missionControl = this
     pub.link(this, 'missionControl')

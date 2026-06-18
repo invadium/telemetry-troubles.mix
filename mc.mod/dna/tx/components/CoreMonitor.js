@@ -129,23 +129,7 @@ class CoreMonitor extends ScrollablePanel {
         }
     }
 
-    evo(dt) {
-        // TODO move out to the emu system
-        
-        /*
-        // emulate execution here
-        if (this.mode !== EXEC_MODE) return
-        const core = this.core
-        const EXEC_SPEED = .25
-        if (core.timer + EXEC_SPEED < env.time) {
-            // next step
-            core.timer = env.time
-            core.cp ++
-            if (core.cp >= capsule.length) this.halt()
-            else this.syncExecInView()
-        }
-        */
-    }
+    evo() {}
 
     draw() {
         const txt = this.tx

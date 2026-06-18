@@ -71,3 +71,21 @@ Or by directly setting the env variable in JS:
 env.showBuffer = true
 ```
 
+## Time Control
+
+You can manipulate the mission time speed with the following keystrokes:
+
+```
+Ctrl+P - pause, press any other key to resume
+Ctrl+[ - hold to slow down
+Ctrl+] - hold to speed up
+Ctrl+Shift+[ - slow down
+Ctrl+Shift+] - speed up
+```
+
+You need to hold a simple Ctrl combination to apply speed up or slow down.
+If you want the changes to be permanent, use the combinations with Shift.
+To go back to the normal speed once changed permanently,
+just use the holding speed up or slow down combination and it will be back
+to normal once you stop holding.
+
