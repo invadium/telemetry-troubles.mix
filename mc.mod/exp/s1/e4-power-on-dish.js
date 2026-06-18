@@ -1,6 +1,5 @@
 const experiment = {
-    name:      'Experiment 2',
-    shortName: 'Exp2',
+    title:     'Experiment 2',
     reward:     1000,
 
     verify: function(probe, MC) {

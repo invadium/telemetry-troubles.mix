@@ -1,6 +1,5 @@
 const experiment = {
     title:     'Attitude telemetry',
-    shortName: 'Exp1',
     reward:     1000,
 
     verify: function(probe, MC) {

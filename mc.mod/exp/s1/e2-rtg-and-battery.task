@@ -3,6 +3,11 @@ and a support battery.
 
 Enable telemetry on datalines 1 and 2 to receive data on those devices.
 -----------------------------------------------------------------------
+Use OBUS instruction to open data lines,
+place a line number on stack first:
+    02
+    OBUS
+-----------------------------------------------------------------------
 01
 OBUS -- enable RTGs telemetry
 02

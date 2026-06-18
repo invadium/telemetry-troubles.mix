@@ -1,14 +1,15 @@
 Proto II
-> experiment chain
+V experiment chain
 > more experiments
     > enable even more data lines with a hint
     > power up a single device
     > power on more devices
 
+> hints
+
 > core sfx
 > randomized ambient noises
 
-> hints
 
 > keyboard control
 > instruction placement feedback
@@ -35,6 +36,7 @@ Proto II
 
 
 ### System III
+> time control
 > sfx mapping
 > music player with cross-fades
 > dpad-only support?

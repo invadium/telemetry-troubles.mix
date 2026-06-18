@@ -23,6 +23,7 @@ function start() {
     this.clear()
     this.launchProbe()
 
+    this.experimentLog = []
     this.activeExperiments = []
     this.status = $.env.missionStatus = env.missionStatus = {
         time:        1,
@@ -95,6 +96,7 @@ function evo(dt) {
 }
 
 function declareExperiment(exp) {
+    this.experimentLog.push(exp)
     this.activeExperiments.push(exp)
     log(`declaring experiment:`)
     dir(exp)
@@ -114,7 +116,7 @@ function completeExperiment(exp) {
     MS.experiments ++
     signal('email', {
         from: 'HQ',
-        subject: `${exp.shortName} Complete`,
+        subject: `${exp.code} Complete`,
         content: `${exp.name} is complete!\n`
                  + `Reward: $${exp.reward}`, 
     })
@@ -125,6 +127,39 @@ function completeExperiment(exp) {
     return true
 }
 
+function lastExperimentCode() {
+    const aE = this.activeExperiments
+    if (aE.length === 0) return ''
+
+    return aE[ aE.length - 1 ].code
+}
+
+// request for the last or provided experiment
+// @param exp { object/experiment | string/code | undefined } - optional experiment object or code
+function requestHint(exp) {
+    if (!exp) {
+        const aE = this.activeExperiments
+        if (aE.length === 0) return false
+
+        exp = aE[ aE.length - 1 ]
+    } else if ( isStr(exp) ) {
+        const code = exp.toUpperCase()
+        const ls = this.experimentLog.filter(e => e.code === code)
+        if (ls.length === 0) return
+        exp = ls[0]
+    }
+    if ( !isObj(exp) ) return false
+    if ( !isStr(exp.hint) ) return false
+
+    signal('email', {
+        from: 'Tech Supp.',
+        subject: `${exp.code} Hint`,
+        content: exp.hint,
+    })
+    return true
+}
+
+// TODO refactor on null/id/expObject model like the hint!
 function loadSolution(solution) {
     if (solution) {
         this.probe.dusty.flush(solution)

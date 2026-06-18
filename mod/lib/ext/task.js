@@ -1,16 +1,18 @@
 function task(src, name, path) {
-    let solution
-
     const rg = new RegExp(/^\s*----*\s*$/m)
 
-    const match = rg.exec(src)
-    if (match && match.length > 0) {
-        solution = src.substring(match.index + match[0].length)
-        src = src.substring(0, match.index)
-    }
+    const parts = src.split(rg)
+
+    const task = parts[0]
+
+    let solution
+    if (parts.length > 1) solution = parts[ parts.length - 1 ]
+    let hint
+    if (parts.length > 2) hint = parts[1]
 
     return {
-        task: src,
+        task,
+        hint,
         solution,
     }
 }

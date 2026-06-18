@@ -62,8 +62,8 @@ function scanExperiments(frame) {
             this.scanExperiments(e)
         } else {
             const exp = extend({
-                id:   experiments.length + 1,
-                code: codeHi + codeLow.toUpperCase(),
+                id:         experiments.length + 1,
+                code:       codeHi + codeLow.toUpperCase(),
                 series:     seriesN,
                 experiment: expN,
             }, e)
