@@ -1,5 +1,5 @@
 at:      2
-from:    HQ
+from:    Tech Sup
 subject: Get Started
 ----------------------------
 

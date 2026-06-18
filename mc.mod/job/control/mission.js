@@ -104,8 +104,10 @@ function declareExperiment(exp) {
 }
 
 function completeExperiment(exp) {
-    const _  = this
-    const MS = _.status
+    const _     = this,
+          MS    = _.status,
+          probe = _.probe
+
     if (!exp) return false
     const i = _.activeExperiments.indexOf(exp)
     if (i < 0) return false
@@ -117,9 +119,12 @@ function completeExperiment(exp) {
     signal('email', {
         from: 'HQ',
         subject: `${exp.code} Complete`,
-        content: `${exp.name} is complete!\n`
+        content: `${exp.code}: ${exp.title} is complete!\n\n`
                  + `Reward: $${exp.reward}`, 
     })
+    if ( isFun(exp.next) ) {
+        exp.next(probe, _)
+    }
     defer(() => _.activeExperiments.splice(i, 1))
     job.control.HQ.reportCompleteExperiment(exp)
     signal('experimentComplete', exp)
@@ -152,7 +157,7 @@ function requestHint(exp) {
     if ( !isStr(exp.hint) ) return false
 
     signal('email', {
-        from: 'Tech Supp.',
+        from: 'Tech Sup',
         subject: `${exp.code} Hint`,
         content: exp.hint,
     })

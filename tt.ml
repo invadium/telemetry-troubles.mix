@@ -63,6 +63,10 @@ V experiment chain
 > review picking, create troubleshooting section - _centered & w/h for _rectangular MUST be defined!
 
 
+### Plot
+> We lost tech specs of the probe, there are now encoded onboard and we need to hack it out and download the pieces in order to get details!
+
+
 
 ### Proto I
 V probe entity

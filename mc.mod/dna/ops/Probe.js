@@ -15,10 +15,11 @@ class Probe extends sys.LabFrame {
                 'Antenna',
                 'TapeRecorder',
                 'WideAngleCamera',
-                'Magnetometer',
-                'CosmicRayDetector',
 
                 'StackInspector',  // depends on Dusty12
+
+                'Magnetometer',
+                'CosmicRayDetector',
             ],
 
             powerLines: [],

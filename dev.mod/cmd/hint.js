@@ -4,7 +4,6 @@ function hint(args) {
         code = pub.missionControl.lastExperimentCode()
     }
 
-    // TODO send directly and not through the trap
     $.mod.mc.enable()
     const sent = pub.missionControl.requestHint(code)
     if (sent) {

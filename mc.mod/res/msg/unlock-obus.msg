@@ -1,5 +1,5 @@
 at:      2.1
-from:    HQ
+from:    Tech Sup
 subject: Unlocked OBUS
 ----------------------------
 
