@@ -1,6 +1,6 @@
 const experiment = {
     title:     'Attitude telemetry',
-    reward:     1000,
+    reward:     500,
 
     verify: function(probe, MC) {
         log('verifying that the telemetry on dataline #0 is open...')

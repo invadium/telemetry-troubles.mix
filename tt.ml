@@ -5,7 +5,8 @@ V experiment chain
     > power up a single device
     > power on more devices
 
-> hints
+> text mode active links with plumbing
+> hints requested by active links in the experiment request email
 
 > core sfx
 > randomized ambient noises
@@ -20,7 +21,7 @@ V experiment chain
 > pdf manual with specs, instructions and backstory
 
 
-
+> detect executed but unsolved solutions in experiments by autosolver
 > dusty 12 mode switch ops
 > telemetry layout instructions (adjust components)
 > dusty 12 I/O (sense, out...)???

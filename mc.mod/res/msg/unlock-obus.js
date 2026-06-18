@@ -1,8 +1,8 @@
 module.exports = {
     onDispatch: function() {
-        const codeSelector = $.locate('&codeSelector')
-        codeSelector.unlock('OBUS')
+        $.locate('&codeSelector').unlock('OBUS')
 
+        // initiate experiment sequence!
         job.control.HQ.requestNewExperiment( null, env.missionStatus.time + 0.25)
     },
     onRead: function() {
