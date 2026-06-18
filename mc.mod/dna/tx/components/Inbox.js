@@ -45,9 +45,27 @@ class Inbox extends ScrollablePanel {
         this.__.adjust()
     }
 
+    syncMainTab() {
+        const unread = this.unread()
+        const total = this.imap.messages.length
+        this.mainTab.title = `InBox(${unread}/${total})`
+    }
+
+    unread() {
+        const ls = this.imap.messages
+
+        let n = 0
+        for (let i = ls.length - 1; i >= 0; i--) {
+            if (!ls[i].read) n++
+        }
+
+        return n
+    }
+
     // accept a fully-formed email object
     accept( message ) {
         this.imap.messages.push( message )
+        this.syncMainTab()
     }
 
     contentLength() {
@@ -72,11 +90,13 @@ class Inbox extends ScrollablePanel {
         }
         message.read = true
         signal('read', message)
+        this.syncMainTab()
     }
 
     markAllRead() {
         const _ = this
         this.imap.messages.forEach( m => _.markRead(m) )
+        this.syncMainTab()
     }
 
     open(pos) {

@@ -93,7 +93,7 @@ class EmailView extends ScrollablePanel {
 
         // create a new tab and setup display state with the message
         const nextTab = display.bevel.spawnTab({
-            title: 'email' + itabs,
+            title: 'Msg' + itabs,
             displayState: {
                 activate: function() {
                     _.setEmail( envelope )

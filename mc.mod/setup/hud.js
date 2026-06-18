@@ -184,6 +184,8 @@ function hud() {
             },
         }
     })
+    inbox.mainTab = tab0P
+    inbox.syncMainTab()
 
     /*
     const menu = textBuffer1.spawn('Menu', {
