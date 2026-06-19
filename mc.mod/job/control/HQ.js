@@ -21,7 +21,7 @@ function requestNewExperiment(prevExp, at) {
     dir(nextExp)
 
     const msg = {
-        at:       at,
+        at:       at || 0,
         from:    `HQ`,
         subject: `Request ${nextExp.code}`,
         content: `Series ${nextExp.series}, Experiment ${nextExp.experiment}\n\n`
@@ -38,7 +38,12 @@ function requestNewExperiment(prevExp, at) {
 }
 
 function reportCompleteExperiment(exp) {
-    this.requestNewExperiment(exp)
+    const mS = env.missionStatus
+    const timeout = exp.embargo? exp.embargo
+            : (env.tune.HQ.baseRequestDelay + env.tune.HQ.varRequestDelay * rnd())
+    const at = mS.time + timeout * mS.timeFactor
+
+    this.requestNewExperiment(exp, at)
 }
 
 function evo() {}

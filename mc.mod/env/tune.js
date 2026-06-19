@@ -6,7 +6,7 @@ const tune = {
     displayNW:  .44,
 
     slowFactor:   .25,
-    fastFactor:    4,
+    fastFactor:    12,
     slowDownStep: .5,
     speedUpStep:   2,
 
@@ -15,5 +15,10 @@ const tune = {
     opt: {
         startBalance: 1000,
         burnRate:     100,
+    },
+
+    HQ: {
+        baseRequestDelay: 2,
+        varRequestDelay:  3,
     },
 }

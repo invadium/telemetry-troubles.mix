@@ -1,5 +1,7 @@
 Proto II
 V experiment chain
+V randomize email batches, so they would arrive sequencially (introduce a delay in the mail)
+
 > more experiments
     > enable even more data lines with a hint
     > power up a single device
@@ -10,9 +12,6 @@ V experiment chain
 
 > core sfx
 > randomized ambient noises
-
-> randomize email batches, so they would arrive sequencially (introduce a delay in the mail)
-
 
 > keyboard control
 > instruction placement feedback

@@ -1,6 +1,7 @@
 const experiment = {
     title:     'RTG and Battery Telemetry',
     reward:     500,
+    embargo:    15,
 
     // verify that we have achieved the desired effect/state
     verify: function(probe, MC) {
@@ -13,10 +14,11 @@ const experiment = {
     },
     // next custom actions after the experiment is completed
     next: function(probe, MC) {
-        signal('email', 'telemetry')
-        signal('email', 'unlock-sub')
-        signal('email', 'unlock-dup')
-        signal('email', 'unlock-jnz')
+        const eS = job.control.emailScheduler
+        eS.sendAfter('telemetry',  1)
+        eS.sendAfter('unlock-sub', 3)
+        eS.sendAfter('unlock-dup', 4)
+        eS.sendAfter('unlock-jnz', 7)
     },
 }
 module.exports = experiment
