@@ -11,6 +11,8 @@ V experiment chain
 > core sfx
 > randomized ambient noises
 
+> randomize email batches, so they would arrive sequencially (introduce a delay in the mail)
+
 
 > keyboard control
 > instruction placement feedback

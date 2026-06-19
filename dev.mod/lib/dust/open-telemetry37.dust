@@ -1,0 +1,13 @@
+07
+
+-- enable the current dataline
+DUP
+OBUS
+
+01
+SUB
+DUP
+02
+SUB
+01
+JNZ

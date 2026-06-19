@@ -8,40 +8,53 @@ page:
 font:
   catalog:
     CoverFont:
-        normal: psionic-regular.ttf
+        normal: got-heroin.regular.ttf
     BaseFont:
-        normal:      EBGaramond-Regular.ttf
-        italic:      EBGaramond-Italic.ttf
-        bold:        EBGaramond-Bold.ttf
-        bold_italic: EBGaramond-BoldItalic.ttf 
-    TitleFont:
-        normal: nunito-regular.ttf
-        bold:   nunito-regular.ttf
+        # normal:      underwood-champion.regular.ttf
+        # normal:      kingthings-trypewriter-2.regular.ttf
+        normal:       underwood-champion.regular.ttf
+        italic:       underwood-champion.regular.ttf
+        bold:         underwood-champion.regular.ttf
+        bold_italic:  underwood-champion.regular.ttf
     HeaderFont:
-        normal: source-code-pro.regular.ttf
+        normal:   if.regular.ttf
+        bold:     if.regular.ttf
+    Header2Font:
+        normal: got-heroin.regular.ttf
+        bold:   got-heroin.regular.ttf
     CodeFont:
-        normal: source-code-pro.regular.ttf
+        normal: dotty.regular.ttf
+    FooterFont:
+        normal:      dotty.regular.ttf
+    SidebarHeaderFont:
+        normal: got-heroin.regular.ttf
+        bold:   got-heroin.regular.ttf
+    SidebarFont:
+        normal:      tippa.regular.ttf 
+        italic:      tippa.regular.ttf 
+        bold:        tippa.regular.ttf 
+        bold_italic: tippa.regular.ttf 
 
 title-page:
   background-color: #EAEAEA
   font:
       color: #56a6a0
-      family: TitleFont
-      size: 20
+      family: HeaderFont
+      size: 30
   title:
     font:
         color: #56a6a0
         family: CoverFont
-        size: 50
+        size: 70
   authors:
     font:
         color: #56a6a0
+        family: CoverFont
         size: 30
   subtitle:
     font:
         color: #56a6a0
-        size: 20
-
+        size: 28
 
 
 base:
@@ -56,7 +69,7 @@ heading:
         align: center
         font:
             color: #4a6db2
-            family: TitleFont
+            family: HeaderFont
             size: 30
         text_transform: uppercase
         margin_top: 50
@@ -65,48 +78,50 @@ heading:
         align: center
         font:
             color: #4a6db2
-            family: TitleFont
+            family: HeaderFont
             size: 24
         text_transform: uppercase
     h3:
         align: left 
         font:
-            color: #d78d42
-            family: TitleFont
-            size: 20
+            # color: #d78d42
+            color: #70819d
+            family: Header2Font
+            size: 30
         text_transform: uppercase
     h4:
         align: left 
         font:
             color: #70819d
-            family: TitleFont
-            size: 18
+            family: Header2Font
+            size: 20
         text_transform: uppercase
 
 code:
     font:
         family: CodeFont
-        size: 11
+        size: 24
+        color:  #606060
     # background_color: #e4e4d8
     # background_color: #f0dfbd
     background_color: #ffffff
-    border_width: 1
-    border-color: #b0b0b0
+    border_width:     1
+    border-color:     #b0b0b0
 
 sidebar:
     font:
-        family: HeaderFont
-        size: 14
-        style: italic
+        family: SidebarFont
+        size:   12
+        style:  normal
     background_color: #f3f3f0
     border_width: 1
     border-color: #2f8e6d
 sidebar_title:
     font:
-        family: HeaderFont
-        size: 16
-        style: bold
-        color: #2f8e6d
+        family: SidebarHeaderFont
+        size:   30
+        style:  normal
+        color:  #2f8e6d
     text_transform: uppercase
 
 #header:
@@ -126,8 +141,8 @@ footer:
       #  right: ' {chapter-title} | *{page-number}* '
     padding: [10, 0, 0, 0]
     font:
-        family: HeaderFont
-        size: 12
+        family: FooterFont
+        size: 28
         style: normal
-        color: #7497a6
+        color: #909095
 

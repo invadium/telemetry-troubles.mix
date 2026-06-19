@@ -6,19 +6,38 @@ Your troubles begin here!
 
 
 
-== Concept
+== Concept 101 Here
 
-Let's create one of the simplest meshes out there - a single triangle!
+Lets test _some of the styles_ like **bold** and others.
+
+Italic symbols: _here ~!@#$%^&**(--\|/_
+
+bold symbols: **some comments here .,~!@#$%^&*()_+-=\|/ OK**
 
 ----
-ADD
-101
-BX
+-- some comments here .,~!@#$%^&*()_+-=\|/
+101 -- place 101 on the data stack
+ADD -- add two top number of the data stack
+DUP -- duplicate the top number
 ----
 
 === Data Stack
 
 Data is stored on stack
+
+==== Another One
+
+And stack is there.
+
+.Optional Title
+****
+Sidebars are used to visually separate auxiliary bits of content
+that supplement the main text.
+
+TIP: They can contain any type of content.
+
+Some symbols here: ~!@#$%^&**(--\|/_
+****
 
 
 
