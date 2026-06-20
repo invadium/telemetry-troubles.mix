@@ -28,7 +28,7 @@ class Dusty12 {
         }, st)
     }
 
-    nit() {
+    init() {
         this.defineOps()
         this.spy.formatCore()
         this.op('RST')
@@ -136,7 +136,7 @@ class Dusty12 {
                 name: 'DROP',
                 fn: pop,
                 effect: 'x -- ',
-                info: 'drop the top value on stack'
+                info: 'drop the top value on the stack'
             },
             {
                 name: 'DUP',
@@ -144,7 +144,7 @@ class Dusty12 {
                     push( peek() )
                 },
                 effect: 'x -- x x',
-                info: 'duplicate the top value on stack'
+                info: 'duplicate the top value on the stack'
             },
             {
                 name: 'SWAP',
@@ -189,7 +189,7 @@ class Dusty12 {
                     push( capsule[ at ] )
                 },
                 effect: '@ -- x',
-                info: 'read the memory cell at provided address and place it on top of the data stack'
+                info: 'read the memory cell at the provided address and place it on top of the data stack'
             },
 
 
@@ -210,7 +210,7 @@ class Dusty12 {
                     push( x - y )
                 },
                 effect: 'x y -- [x-y]',
-                info: 'subtract the top number on stack from the previous one'
+                info: 'subtract the top number on the stack from the previous one'
             },
             {
                 name: 'MUL',
