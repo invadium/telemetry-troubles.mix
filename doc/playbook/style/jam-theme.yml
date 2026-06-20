@@ -10,12 +10,14 @@ font:
     CoverFont:
         normal: got-heroin.regular.ttf
     BaseFont:
-        # normal:      underwood-champion.regular.ttf
-        # normal:      kingthings-trypewriter-2.regular.ttf
         normal:       underwood-champion.regular.ttf
         italic:       underwood-champion.regular.ttf
         bold:         underwood-champion.regular.ttf
         bold_italic:  underwood-champion.regular.ttf
+        # normal:      kingthings-trypewriter-2.regular.ttf
+        # bold:        kingthings-trypewriter-2.regular.ttf
+        # italic:      kingthings-trypewriter-2.regular.ttf
+        # bold_italic: kingthings-trypewriter-2.regular.ttf
     HeaderFont:
         normal:   if.regular.ttf
         bold:     if.regular.ttf
@@ -30,17 +32,25 @@ font:
         normal: got-heroin.regular.ttf
         bold:   got-heroin.regular.ttf
     SidebarFont:
-        normal:      tippa.regular.ttf 
-        italic:      tippa.regular.ttf 
-        bold:        tippa.regular.ttf 
-        bold_italic: tippa.regular.ttf 
+        normal:       underwood-champion.regular.ttf
+        italic:       underwood-champion.regular.ttf
+        bold:         underwood-champion.regular.ttf
+        bold_italic:  underwood-champion.regular.ttf
+        # normal:      kingthings-trypewriter-2.regular.ttf
+        # bold:        kingthings-trypewriter-2.regular.ttf
+        # italic:      kingthings-trypewriter-2.regular.ttf
+        # bold_italic: kingthings-trypewriter-2.regular.ttf
+        # normal:      tippa.regular.ttf 
+        # italic:      tippa.regular.ttf 
+        # bold:        tippa.regular.ttf 
+        # bold_italic: tippa.regular.ttf 
 
 title-page:
   background-color: #EAEAEA
   font:
       color: #56a6a0
-      family: HeaderFont
-      size: 30
+      family: CodeFont
+      size: 26
   title:
     font:
         color: #56a6a0
@@ -54,7 +64,7 @@ title-page:
   subtitle:
     font:
         color: #56a6a0
-        size: 28
+        size: 20
 
 
 base:
@@ -68,7 +78,8 @@ heading:
     h1:
         align: center
         font:
-            color: #4a6db2
+            # color: #4a6db2
+            color: #56a6a0
             family: HeaderFont
             size: 30
         text_transform: uppercase
@@ -77,7 +88,8 @@ heading:
     h2:
         align: center
         font:
-            color: #4a6db2
+            # color: #4a6db2
+            color: #56a6a0
             family: HeaderFont
             size: 24
         text_transform: uppercase
@@ -85,14 +97,16 @@ heading:
         align: left 
         font:
             # color: #d78d42
-            color: #70819d
+            # color: #70819d
+            color: #56a6a0
             family: Header2Font
             size: 30
         text_transform: uppercase
     h4:
         align: left 
         font:
-            color: #70819d
+            # color: #70819d
+            color: #56a6a0
             family: Header2Font
             size: 20
         text_transform: uppercase
@@ -111,17 +125,20 @@ code:
 sidebar:
     font:
         family: SidebarFont
-        size:   12
+        size:   14
         style:  normal
+        # color:  #4a6db2
+        color: #70819d
     background_color: #f3f3f0
-    border_width: 1
-    border-color: #2f8e6d
+    border_width:     1
+    border-color:     #70819d
 sidebar_title:
     font:
         family: SidebarHeaderFont
         size:   30
         style:  normal
-        color:  #2f8e6d
+        # color:  #4a6db2
+        color: #70819d
     text_transform: uppercase
 
 #header:

@@ -1,8 +1,11 @@
 = Introduction
 
+Establishing Downlink...
+
 Welcome to Telemetry Troubles!
 
-Your troubles begin here!
+This is just the beginning of your troubles.
+The following chapters cover the full depth of our deep-space exploration program and associated challenges. Are you ready to lead humankind into outer space?
 
 
 
@@ -29,16 +32,30 @@ Data is stored on stack
 
 And stack is there.
 
-.Optional Title
+
+== Dusty-12
+
+Dusty-12 family of Command and Control Units is the latest series of spaceframes by the famous StarDust Bureau.
+
+
+.Deep-Space Legacy
 ****
-Sidebars are used to visually separate auxiliary bits of content
-that supplement the main text.
+We all enjoy an abundance of memory and computational resources these days.
+Home terminals use the satellite uplink to connect to powerful mainframes
+of many Megahertz and Megabytes.
+Even at home, many own workstations with up to 640Kb of RAM, which is more than enough
+for any conceivable task.
 
-TIP: They can contain any type of content.
+So one might ask, why are our deep-space exploration vehicles so low-powered
+and have very limited memory?
 
-Some symbols here: ~!@#$%^&**(--\|/_
+Partly it is explained by timing - it takes a lot of time to design and build a space probe and it takes many more years to reach the outer rim of the Solar System.
+So the probes are limited by the technology available at the time of construction.
+
+Also, we can't use the stock components in the construction of such a probe. Strong magnetic fields, solar winds, flares, cosmic rays and other high-energy phenomena are affecting the proper functions of electronic components. Therefore, all on-board computers are deliberately downgraded and made out of space-grade materials to harden them against such harsh conditions.
+
+Indeed, DUSTY-12 looks peculiar, but there is a good reason for that weirdness.
 ****
-
 
 
 
