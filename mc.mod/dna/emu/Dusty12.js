@@ -10,7 +10,7 @@ class Dusty12 {
             name:  'dusty',
             model: 'DUSTY-12',
 
-            snap:   [], // memory snapshots
+            // snap:   [], // memory snapshots
             core:   [], // core memory - consists of packaged capsules
             dstack: [], // data stack
             xstack: [], // execution (return) stack
@@ -28,9 +28,9 @@ class Dusty12 {
         }, st)
     }
 
-    init() {
+    nit() {
         this.defineOps()
-        this.spy.clearSnapshots()
+        this.spy.formatCore()
         this.op('RST')
     }
 
@@ -40,7 +40,7 @@ class Dusty12 {
 
     defineOps() {
         const _      = this,
-              snap   = _.snap,
+              // snap   = _.snap,
               core   = _.core,
               dstack = _.dstack,
               xstack = _.xstack,
@@ -65,8 +65,10 @@ class Dusty12 {
             CAP = 0
             DSP = 0
             XSP = 0
+        }
 
-            // prefill memory
+        function formatCore() {
+            // prefill memory cells
             core.capacity = 0
             for (let i = 0; i < CAPSULES; i++) {
                 const capsule = core[i] = []
@@ -76,9 +78,12 @@ class Dusty12 {
                 capsule.capacity = CAPACITY
                 core.capacity += CAPACITY
             }
-            capsule = core[CAP]
+            capsule = core[CAP] // select current capsule
+
+            return core.capacity
         }
 
+        /*
         function clearSnapshots() {
             snap.capacity = 0
             for (let i = 0; i < CAPSULES; i++) {
@@ -90,6 +95,18 @@ class Dusty12 {
                 snap.capacity += CAPACITY
             }
         }
+        function clearCore() {
+            core.capacity = 0
+            for (let i = 0; i < CAPSULES; i++) {
+                const capsule = core[i] = []
+                for (let j = 0; j < CAPACITY; j++) {
+                    capsule[j] = null
+                }
+                capsule.capacity = CAPACITY
+                core.capacity += CAPACITY
+            }
+        }
+        */
 
         function peek() {
             if (DSP <= 0) throw new Error('Empty stack!')
@@ -370,7 +387,7 @@ class Dusty12 {
                 fn: reset,
                 effect: '(... -- empty memory and stacks, zeroed registers)',
                 info: 'reset the VM',
-            }
+            },
         ]
 
         const mnemonics = this.mnemonics = {}
@@ -450,12 +467,15 @@ class Dusty12 {
                     core, capsule, dstack, xstack,
                 }
             },
-            clearSnapshots,
+            formatCore: () => {
+                return formatCore()
+            },
         }
     }
 
+    /*
     compile() {
-        const { snap, core } = this
+        const { core } = this
 
         for (let icapsule = 0; icapsule < snap.length; icapsule++) {
             const capSnap = snap[icapsule],
@@ -465,6 +485,7 @@ class Dusty12 {
             }
         }
     }
+    */
 
     flush(src) {
         const ops = src
@@ -480,16 +501,16 @@ class Dusty12 {
                 else return e
             })
 
-        const capSnap = this.snap[0] // TODO how to flush other capsules?
+        const capsule = this.core[0] // TODO how to flush other capsules?
                                      //      is it only current? 
                                      //      is it selected in source?
         // clear the capsule snapshot
-        for (let i = 0; i < capSnap.capacity; i++) {
-            capSnap[i] = null
+        for (let i = 0; i < capsule.capacity; i++) {
+            capsule[i] = null
         }
         // set the capsule cells
         for (let i = 0; i < ops.length; i++) {
-            capSnap[i] = ops[i]
+            capsule[i] = ops[i]
         }
 
         signal('flush', src)
@@ -506,7 +527,7 @@ class Dusty12 {
     // upload and evaluate 
     upload() {
         this.op('RST')
-        this.compile()
+        // this.compile()
         this.walk()
     }
 
@@ -528,7 +549,7 @@ class Dusty12 {
         }
     }
 
-    capsuleSnap(icapsule) {
-        return this.snap[icapsule]
+    capsule(icapsule) {
+        return this.core[icapsule]
     }
 }

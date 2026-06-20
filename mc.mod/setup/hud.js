@@ -221,7 +221,7 @@ function hud() {
     const secondaryDisplay = $.SD = missionPanel.spawn('Display', {
         name: 'secondaryDisplay',
         title: 'Core Monitor',
-        status:  'Development Environment. Use right click to auto-advance the cursor', // TODO move to resources?
+        status:  'Use right click on CODE to auto-advance the cursor', // TODO move to resources?
 
         anchor: {
             north: primaryDisplay,

@@ -51,7 +51,7 @@ class CoreMonitor extends ScrollablePanel {
     }
 
     selectCapsule(icapsule) {
-        this.capsule = this.dusty.capsuleSnap(icapsule)
+        this.capsule = this.dusty.capsule(icapsule)
     }
 
     edit(at) {
