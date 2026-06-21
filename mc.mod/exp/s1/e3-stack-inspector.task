@@ -1,0 +1,25 @@
+Number literals you pick with Code Selector are placed
+on the data stack when executed.
+
+DUSTY-12 uses the data stack as a staging area for values.
+Most instructions are going to take some values from the data stack
+and then place back the results instead.
+
+It is nice to inspect the content of the data stack
+any moment in time.
+The telemetry stream from the data stack inspector allows
+you to do just that. It would be invaluable to have
+observability into the DUSTY-12 stack for the following
+experiments, so HQ is requesting to set it up.
+
+Enable telemetry on dataline 7 to be able to inspect the data stack
+values.
+-----------------------------------------------------------------------
+Use OBUS instruction to open data lines,
+place a line number on stack first:
+    07
+    OBUS
+-----------------------------------------------------------------------
+07
+OBUS -- enable the data stack telemetry
+

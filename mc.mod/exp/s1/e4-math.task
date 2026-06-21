@@ -1,0 +1,21 @@
+These days, one can get by without math for a long time.
+But it is not the case when you are in deep space.
+Orbital insertions, gravity assist, station keeping, docking procedures, attitude control...
+
+Precise math is the foundation of space flight.
+
+That is why DUSTY-12 has a solid core of arithmetic operands capable of performing additions, subtractions, multiplications, among other things.
+
+The ground control wants to evaluate DUSTY-12 arithmetic functions.
+
+Select a pair of numbers, place them on the data stack, and perform the ADD operation on them.
+
+Then select another pair and perform a subtraction (SUB).
+
+-----------------------------------------------------------------------
+05
+06
+ADD
+08
+SUB
+
