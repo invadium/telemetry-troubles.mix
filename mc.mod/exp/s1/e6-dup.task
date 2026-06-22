@@ -1,0 +1,4 @@
+Place a number on the data stack and duplicate it with DUP instruction
+-----------------------------------------------------------------------
+05
+DUP

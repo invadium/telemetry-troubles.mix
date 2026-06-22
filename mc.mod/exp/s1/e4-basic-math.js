@@ -1,5 +1,5 @@
 const experiment = {
-    title:     'Math Functions Test',
+    title:     'Basic Math Functions Test',
     reward:     750,
 
     verify: function(probe, MC) {
@@ -12,5 +12,4 @@ const experiment = {
         return false
     }
 }
-
 module.exports = experiment

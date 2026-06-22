@@ -3,6 +3,10 @@ V experiment chain
 V randomize email batches, so they would arrive sequencially (introduce a delay in the mail)
 
 > more experiments
+    > comparisons
+    > conditional jumps
+    > simple loop tutorial
+    > more stack manipulation
     > enable even more data lines with a hint
     > power up a single device
     > power on more devices

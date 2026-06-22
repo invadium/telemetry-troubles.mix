@@ -76,10 +76,18 @@ function remove(msg) {
 }
 
 function setup() {
+    // clear the schedule
     emailSchedule = []
 
-    // schedule email prototypes for dispatch
-    for (const msg of res.msg) {
-        if (msg.at) schedule( msg )
+    function processTemplates(node) {
+        // schedule email prototypes for dispatch
+        for (const msg of node) {
+            if ( isFrame(msg) ) {
+                processTemplates(msg)
+            } else {
+                if (msg.at) schedule( msg )
+            }
+        }
     }
+    processTemplates(res.msg)
 }

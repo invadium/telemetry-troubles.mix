@@ -1,0 +1,17 @@
+The ground control wants to evaluate DUSTY-12 advanced arithmetic functions.
+
+Select a pair of numbers, place them on the data stack, and perform the MUL operation on them.
+
+Then add another number and do the DIV.
+
+And finally, place another number and perform MOD (modulus or division reminder)
+
+-----------------------------------------------------------------------
+04
+05
+MUL
+02
+DIV
+04
+MOD
+

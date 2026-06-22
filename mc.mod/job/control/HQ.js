@@ -8,7 +8,8 @@ function locateNextExperiment(prevExp) {
 }
 
 function requestNewExperiment(prevExp, at) {
-    log('requesting a new experiment!')
+    const suffix = prevExp? ` after [${prevExp.code}]` : ''
+    log(`requesting a new experiment${suffix}`)
     const nextExp = this.locateNextExperiment(prevExp)
     if (!nextExp) {
         log.warn('unable to find a new experiment')
