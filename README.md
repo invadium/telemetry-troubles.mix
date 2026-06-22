@@ -41,9 +41,40 @@ The probe has a wide range or instruments and subsystems crucial for it's missio
 
 ## Mission Command and Control Unit
 
-* JMP
-* JZ
-* JNZ
+This is the main mission computer.
+
+It implements DUSTY-12 architecture with 27 basic commands:
+
+```
+NOP ( -- ) - skip the operation and do nothing this cycle
+DROP (x -- ) - drop the top value on the stack
+DUP (x -- x x) - duplicate the top value on the stack
+SWAP (x y -- y x) - swap top two values on stack
+ROT (x y z -- y z x) - rotate top three values on stack
+POKE (@ x -- (memory @ set to x)) - set the specified memory location with the value on top of the stack
+PEEK (@ -- x) - read the memory cell at the provided address and place it on top of the data stack
+ADD (x y -- [x+y]) - add two values at the top of the data stack
+SUB (x y -- [x-y]) - subtract the top number on the stack from the previous one
+MUL (x y -- [x*y]) - multiply two values at the top of the data stack
+DIV (x y -- [x/y]) - divide
+MOD (x y -- [x%y]) - remainder from the division
+EQ (x y -- [1|0]) - compares the top two values on the data stack and places 1 if equal and 0 if not
+NEQ (x y -- [0|1]) - compares the top two values on the data stack and places 0 if equal and 1 if not
+LT (x y -- [1|0]) - compares the top two values on the data stack and places 1 if less than and 0 otherwise
+LTE (x y -- [1|0]) - compares the top two values on the data stack and places 1 if less than or equal and 0 otherwise
+GT (x y -- [1|0]) - compares the top two values on the data stack and places 1 if greater than and 0 otherwise
+GTE (x y -- [1|0]) - compares the top two values on the data stack and places 1 if greater than or equal and 0 otherwise
+NOT (x -- [1|0]) - logical NOT for the top value on the data stack
+JMP (@ -- ) - unconditional jump to the address specified on the data stack
+JNZ (x @ -- ) - conditional jump to the address specified on the data stack only if the second value is not zero
+OBUS (x1 -- ) - open data bus line to the specified instrument
+CBUS (x1 -- ) - close data bus line to the specified instrument
+OPOW (x1 -- ) - open powerline to the specified instrument
+CPOW (x1 -- ) - close powerline to the specified instrument
+HALT ( -- ) - halt execution
+RST ((... -- empty memory and stacks, zeroed registers)) - reset the VM
+```
+
 
 
 ## How to Debug
@@ -56,7 +87,10 @@ Available flags:
 --showBuffer - show the original mission control buffer preview
 --magnify    - show magnifying window for pixel-perfect tuning
 
---autosolve  - create the bot to autosolve the puzzles
+--autosolve (limit/stopper)
+             - create the bot to autosolve the puzzles
+             -- provide optional limit of how many experiments to solve before stopping: [--autosolve 5]
+             -- provide optional stopper experiment code: [--autosolve s1e4]
 ```
 
 Use it with ```jam``` command like so:

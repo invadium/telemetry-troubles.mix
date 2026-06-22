@@ -2,7 +2,14 @@ class AutoSolver {
 
     constructor(st) {
         augment(this, {
-            name: 'autoSolver',
+            name:    'autoSolver',
+
+            solved:   0,
+            limit:    0,
+            stopper:  null,
+
+            paused:   false,
+            disabled: false,
 
             tasks: [],
 
@@ -18,18 +25,28 @@ class AutoSolver {
                     // _.report(`done reading`)
                 },
                 newExperiment:      (e, _) => {
-                    _.report(`experimentos ${e.code}`)
+                    _.report(`solving experiment [${e.code}]`)
                     // solve solution heere!
                     pub.missionControl.loadSolution( e.solution )
                 },
                 experimentComplete: (e, _) => {
+                    _.report(`experiment complete: [${e.code}]`)
+
+                    _.solved ++
+                    if ((_.limit && _.solved >= _.limit) || (_.stopper && _.stopper === e.code)) {
+                        log('=== HALT AUTOSOLVER ===')
+                        _.halt()
+                    }
                 },
                 flush:              (e, _) => {
-                    _.report(`flushed the solution already!`)
+                    _.report(`walk the solution!`)
                     lab.locate('&coreMonitor').walk()
                 },
             },
         }, st)
+
+        this.mask.newExperiment.reactionBase = 0
+        this.mask.newExperiment.reactionTime = 0
     }
 
     init() {
@@ -51,25 +68,34 @@ class AutoSolver {
         }
     }
 
-    schedule(fn, timeout) {
+    schedule(st) {
         const MS = env.missionStatus
 
+        // add signal handler to the task list
         this.tasks.push({
-            at:   MS.time + timeout * MS.timeFactor,
-            fn:   fn,
-            done: false,
+            at:     MS.time + st.timeout * MS.timeFactor,
+            signal: st.signal,
+            fn:     st.fn,
+            done:   false,
         })
     }
 
+    // default subtrap signal handler
     default(st, signal) {
         const _ = this
         this.report(`signal: [${signal}]`)
 
         const handler = this.mask[signal]
         if (handler) {
-            this.schedule(() => {
-                handler(st, _)
-            }, 2 + 3*rnd())
+            const base = handler.reactionBase ?? 2
+            const time = handler.reactionTime ?? 3
+            this.schedule({
+                signal:  signal,
+                timeout: base + time*rnd(),
+                fn: () => {
+                    handler(st, _)
+                },
+            })
         } else {
             log.warn(`[autosolver] no handlers for [${signal}]`)
         }
@@ -80,4 +106,13 @@ class AutoSolver {
         log(`[${stime}][autosolver] ${msg}`)
     }
 
+    halt() {
+        this.paused   = true
+        this.disabled = true
+    }
+
+    resume() {
+        this.paused   = false
+        this.disabled = false
+    }
 }
