@@ -69,6 +69,10 @@ class CoreMonitor extends ScrollablePanel {
         this.capsule[this.editPointer] = code
     }
 
+    resetCapsule() {
+        this.dusty.spy.formatCapsule()
+    }
+
     shiftForward() {
         if (this.mode !== EDIT_MODE) return
         if (this.editPointer < this.contentLength() - 1) {
@@ -98,9 +102,30 @@ class CoreMonitor extends ScrollablePanel {
         }
     }
 
+    step() {
+        this.mode = EXEC_MODE
+        this.dusty.step()
+    }
+
     walk() {
         this.mode = EXEC_MODE
-        this.dusty.upload()
+        // this.dusty.upload()
+        this.dusty.walk()
+    }
+
+    run() {
+        this.mode = EXEC_MODE
+        // this.dusty.op('RST')
+        this.dusty.run()
+    }
+
+    suspend() {
+        this.dusty.suspend()
+    }
+
+    stop() {
+        this.dusty.halt()
+        this.dusty.op('RST')
     }
 
     /*

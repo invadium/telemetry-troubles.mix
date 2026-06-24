@@ -3,6 +3,9 @@ V experiment chain
 V randomize email batches, so they would arrive sequencially (introduce a delay in the email)
 V move experiment prerequisites inside the experiment structure (instead of the previous experiment)
 V time expectations for email reading
+V probe dev kit
+    V step, walk, run, stop buttons instead of "Upload"
+    V clear capsule
 
 > more experiments
     > comparisons
@@ -13,8 +16,11 @@ V time expectations for email reading
     > power up a single device
     > power on more devices
 
+> unlock instructions on flush
+> detect executed but unsolved solutions in experiments by autosolver
 > text mode active links with plumbing
 > hints requested by active links in the experiment request email
+
 
 > core sfx
 > randomized ambient noises
@@ -28,17 +34,12 @@ V time expectations for email reading
 > pdf manual with specs, instructions and backstory
 
 
-> detect executed but unsolved solutions in experiments by autosolver
 > dusty 12 mode switch ops
 > telemetry layout instructions (adjust components)
 > dusty 12 I/O (sense, out...)???
 > test-drive email system with messages on TT design, roadmap etc... (an Easter Egg?)
 
 
-> probe dev kit
-    > step, walk, run, stop buttons instead of "Upload"
-    > clear capsule?
-    > open another capsule? save capsule? select capsule?
 > program upload
     > sfx
 

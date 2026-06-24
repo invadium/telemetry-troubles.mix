@@ -345,12 +345,13 @@ function hud() {
         },
     })
 
-    secondaryDisplay.bevel.spawn('DustyButton', {
-        name:  'upload',
-        label: 'Upload',
+    const runButton = secondaryDisplay.bevel.spawn('DustyButton', {
+        name:  'run',
+        icon:   res.ico.run,
+        status: 'Run program',
 
         h: 24,
-        w: 72,
+        w: 24,
 
         adjust: function() {
             const __ = this.__
@@ -359,7 +360,106 @@ function hud() {
         },
 
         onClick: function() {
+            lab.locate('&coreMonitor').run()
+        },
+    })
+
+    const walkButton = secondaryDisplay.bevel.spawn('DustyButton', {
+        name:   'walk',
+        icon:    res.ico.walk,
+        status: 'Walk over program',
+
+        h: 24,
+        w: 24,
+
+        runButton,
+        adjust: function() {
+            const __ = this.__
+            this.x = this.runButton.x - this.w
+            this.y = this.runButton.y
+        },
+
+        onClick: function() {
             lab.locate('&coreMonitor').walk()
+        },
+    })
+
+    const stepButton = secondaryDisplay.bevel.spawn('DustyButton', {
+        name:   'step',
+        icon:    res.ico.step,
+        status: 'Execute program one step at the time',
+
+        h: 24,
+        w: 24,
+
+        walkButton,
+        adjust: function() {
+            const __ = this.__
+            this.x = this.walkButton.x - this.w
+            this.y = this.walkButton.y
+        },
+
+        onClick: function() {
+            lab.locate('&coreMonitor').step()
+        },
+    })
+
+    const pauseButton = secondaryDisplay.bevel.spawn('DustyButton', {
+        name:  'pause',
+        icon:   res.ico.pause,
+        status: 'Pause execution',
+
+        h: 24,
+        w: 24,
+
+        stepButton,
+        adjust: function() {
+            const __ = this.__
+            this.x = this.stepButton.x - this.w
+            this.y = this.stepButton.y
+        },
+
+        onClick: function() {
+            lab.locate('&coreMonitor').suspend()
+        },
+    })
+    const stopButton = secondaryDisplay.bevel.spawn('DustyButton', {
+        name:  'stop',
+        icon:   res.ico.stop,
+        status: 'Stop execution',
+
+        h: 24,
+        w: 24,
+
+        pauseButton,
+        adjust: function() {
+            const __ = this.__
+            this.x = this.pauseButton.x - this.w
+            this.y = this.pauseButton.y
+        },
+
+        onClick: function() {
+            lab.locate('&coreMonitor').stop()
+        },
+    })
+    const resetButton = secondaryDisplay.bevel.spawn('DustyButton', {
+        name:  'reset',
+        icon:   res.ico.reset,
+        status: 'Clear current capsule',
+
+        h: 24,
+        w: 24,
+
+        stopButton,
+        adjust: function() {
+            const __ = this.__
+            this.x = this.stopButton.x - this.w
+            this.y = this.stopButton.y
+        },
+
+        onClick: function() {
+            // TODO clear current capsule
+            lab.locate('&coreMonitor').resetCapsule()
         },
     })
 

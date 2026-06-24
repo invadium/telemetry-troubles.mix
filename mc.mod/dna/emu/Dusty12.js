@@ -67,14 +67,20 @@ class Dusty12 {
             XSP = 0
         }
 
+        function formatCapsule(i) {
+            const icapsule = i ?? CAP
+            const capsule = core[icapsule]
+            for (let j = 0; j < CAPACITY; j++) {
+                capsule[j] = null
+            }
+        }
+
         function formatCore() {
             // prefill memory cells
             core.capacity = 0
             for (let i = 0; i < CAPSULES; i++) {
                 const capsule = core[i] = []
-                for (let j = 0; j < CAPACITY; j++) {
-                    capsule[j] = null
-                }
+                formatCapsule(i)
                 capsule.capacity = CAPACITY
                 core.capacity += CAPACITY
             }
@@ -418,15 +424,23 @@ class Dusty12 {
             }
         }
 
+        _.suspend = function() {
+            MODE = STEP
+            log('SUS')
+        }
+
         // one step through
         _.step = function() {
             MODE = STEP
             log('STEP')
-            cycle(1)
+            _.cycle(1)
         }
 
         // walk instructions slowly one-by-one
         _.walk = function() {
+            if (MODE !== STEP) {
+                _.op('RST')
+            }
             MODE = WALK
             _.lastCycle = _.time
         }
@@ -467,9 +481,8 @@ class Dusty12 {
                     core, capsule, dstack, xstack,
                 }
             },
-            formatCore: () => {
-                return formatCore()
-            },
+            formatCore,
+            formatCapsule,
         }
     }
 
@@ -524,12 +537,14 @@ class Dusty12 {
         op.fn()
     }
 
+    /*
     // upload and evaluate 
     upload() {
         this.op('RST')
         // this.compile()
         this.walk()
     }
+    */
 
     evo(dt) {
         this.time += dt

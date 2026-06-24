@@ -75,11 +75,15 @@ class DustyButton {
             _.bevel(1, 1, w-2, h-2, LW, c01, c00)
         }
 
-        baseMiddle()
-        alignCenter()
-        fill( color.text )
-        font( this.font.head )
-        text(this.label, .5 * w + tsh, .5 * h + tsh)
+        if (this.icon) {
+            sprite(this.icon, .5 * w + tsh, .5 * h + tsh, 16, 16)
+        } else if (this.label) {
+            baseMiddle()
+            alignCenter()
+            fill( color.text )
+            font( this.font.head )
+            text(this.label, .5 * w + tsh, .5 * h + tsh)
+        }
 
         restore()
     }
