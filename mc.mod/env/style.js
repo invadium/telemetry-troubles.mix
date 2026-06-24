@@ -29,7 +29,7 @@ const style = {
             size:    20,
         },
         telemetry: {
-            family: 'pixel-operator-bold',
+            family: 'pixel-operator-mono-bold',
             size:    5,
         },
 

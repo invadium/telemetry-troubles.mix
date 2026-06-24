@@ -12,8 +12,8 @@ function padLeft(str, len, c) {
     return prefix.join('') + str
 }
 
-function toHexString(n, padding) {
-    return n.toString(16).padStart(padding || 1, '0').toUpperCase()
+function toHexString(n, padding, pad) {
+    return n.toString(16).padStart(padding || 1, pad || '0').toUpperCase()
 }
 
 function toCodeString(code, padding) {

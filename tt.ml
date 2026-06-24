@@ -6,6 +6,7 @@ V time expectations for email reading
 V probe dev kit
     V step, walk, run, stop buttons instead of "Upload"
     V clear capsule
+    V fill stack inspector from the bottom with HEX values
 
 > more experiments
     > comparisons

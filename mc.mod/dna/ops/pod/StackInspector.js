@@ -28,6 +28,8 @@ class StackInspector extends Pod {
         const { x, y, w, h, stack } = this
         const PD = this.padding
         const DSP = this.__.dusty.spy.DSP()
+        const yStep = 4
+        const ITEMS = DSP
 
         save()
         translate(x - .5*w, y - .5*h)
@@ -41,10 +43,13 @@ class StackInspector extends Pod {
         font( env.style.font.telemetry.head )
         fill( env.palette.main )
 
-        let bx = PD, by = PD
-        for (let i = DSP - 1; i >= 0 && by < h; i--, by += 4) {
+        let bx = PD
+        let by = h - PD - ITEMS * yStep
+        if (by < PD) by = PD
+        for (let i = DSP - 1; i >= 0 && by < h; i--, by += yStep) {
             const val = stack[i]
-            if ( isNum(val) ) text(`${val}`, bx, by)
+            const hex = lib.format.toHexString(val, 4, '.')
+            if ( isNum(val) ) text(`${hex}`, bx, by)
         }
 
         restore()
