@@ -20,7 +20,7 @@ function messageProto(msg) {
 // schedule a message prototype
 //
 // @param {object | string/template-name} msg 
-// @param {number} timeout - specifies the timeout in seconds for sending the message
+// @param {number} at - specifies the exact time in game days to send the message
 function schedule(msg, at) {
     const now = env.missionStatus? env.missionStatus.time : 0
 
@@ -29,6 +29,16 @@ function schedule(msg, at) {
         at:   (at || msg.at || 0),
         sent: false,
     }, msg)
+    dir(message)
+
+    // adjust for possible hold
+    if ( isNumber(message.hold) && message.hold > 0 ) {
+        if (message.at > 0) {
+            message.at += message.hold * env.missionStatus.timeFactor
+        } else {
+            message.at = now + message.hold * env.missionStatus.timeFactor
+        }
+    }
 
     if ( isNumber(message.at) && message.at > now ) {
         emailSchedule.push( message )
@@ -41,7 +51,8 @@ function schedule(msg, at) {
 // send after the timeout in seconds
 //
 // @param {object | string} msg - a message object or a message prototype name to lookup
-// @param {number} timeout - specifies the timeout in seconds for sending the message
+// @param {number} baseTimeout - specifies the timeout in seconds for sending the message
+// @param {number} varTimeout - specifies the variable timeout in seconds for sending the message
 function sendAfter(msg, baseTimeout, varTimeout) {
     const MS = env.missionStatus
     const at = MS.time + (baseTimeout + (varTimeout? varTimeout : 0) * rnd()) * MS.timeFactor
@@ -90,4 +101,8 @@ function setup() {
         }
     }
     processTemplates(res.msg)
+}
+
+function getSchedule() {
+    return emailSchedule
 }

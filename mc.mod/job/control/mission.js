@@ -6,7 +6,8 @@ function clear() {
 
 function launchProbe() {
     const probe = this.probe = $.probe = lab.spawn('Probe', {
-        blueprint: lab.locate('&blueprint'),
+        missionControl: this,
+        blueprint:      lab.locate('&blueprint'),
     })
     $.dusty = probe.dusty
     probe.dusty.monitors.push(this)
@@ -16,6 +17,7 @@ function launchProbe() {
     pub.link(probe.dusty)
     lab.locate('&coreMonitor').bind( probe.dusty )
 
+    job.control.HQ.setProbe(probe)
     job.control.HQ.setupExperiments()
 }
 
@@ -123,7 +125,7 @@ function completeExperiment(exp) {
                  + `Reward: $${exp.reward}`, 
     })
     if ( isFun(exp.next) ) {
-        exp.next(probe, _)
+        exp.next(probe)
     }
     defer(() => _.activeExperiments.splice(i, 1))
     job.control.HQ.reportCompleteExperiment(exp)
@@ -188,7 +190,7 @@ function verifyExperiments() {
           probe = this.probe
 
     _.activeExperiments.forEach(exp => {
-        if (exp.verify(probe, _)) _.completeExperiment(exp)
+        if (exp.verify(probe)) _.completeExperiment(exp)
     })
 }
 

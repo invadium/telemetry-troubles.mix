@@ -8,6 +8,7 @@ function locateNextExperiment(prevExp) {
 }
 
 function requestNewExperiment(prevExp, at) {
+    const probe = this.probe
     const suffix = prevExp? ` after [${prevExp.code}]` : ''
     log(`requesting a new experiment${suffix}`)
     const nextExp = this.locateNextExperiment(prevExp)
@@ -21,8 +22,18 @@ function requestNewExperiment(prevExp, at) {
     nextExp.completed = false
     dir(nextExp)
 
+    // check prerequisites
+    if ( isFun(nextExp.prerequisites) ) {
+        job.control.taskScheduler.schedule(() => {
+            nextExp.prerequisites(probe)
+        }, at)
+    }
+
+    const hold  = nextExp.hold ?? 0
+
     const msg = {
-        at:       at || 0,
+        at:       at,
+        hold:     hold,
         from:    `HQ`,
         subject: `Request ${nextExp.code}`,
         content: `Series ${nextExp.series}, Experiment ${nextExp.experiment}\n\n`
@@ -89,4 +100,8 @@ function setupExperiments() {
 function setup() {
     pin.link(this)
     $.HQ = this
+}
+
+function setProbe(probe) {
+    this.probe = probe
 }

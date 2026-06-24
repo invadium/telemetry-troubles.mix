@@ -12,9 +12,6 @@ const experiment = {
     },
     // next custom actions after the experiment is completed
     next: function(probe, MC) {
-        const eS = job.control.emailScheduler
-        eS.sendAfter('unlock-add', 3)
-        eS.sendAfter('unlock-sub', 4)
     },
 }
 module.exports = experiment
