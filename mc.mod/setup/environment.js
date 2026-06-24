@@ -4,5 +4,7 @@ function environment() {
     lib.util.syncViewportSize()
 
     job.control._attachPolicy = sys.Frame.REPLACE
+
+    env.link($.env.config, 'config')
 }
 environment.Z = 1

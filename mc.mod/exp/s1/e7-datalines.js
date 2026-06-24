@@ -1,6 +1,7 @@
 const experiment = {
     title:     'Open All Datalines',
     reward:     2000,
+    estimate:   3,      // estimate solution time in days
 
     // verify that we have achieved the desired effect/state
     verify: function(probe, MC) {
@@ -11,6 +12,7 @@ const experiment = {
         }
         return true
     },
+
     // next custom actions after the experiment is completed
     next: function(probe, MC) {
         const eS = job.control.emailScheduler

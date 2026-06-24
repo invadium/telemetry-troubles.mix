@@ -2,8 +2,7 @@ Proto II
 V experiment chain
 V randomize email batches, so they would arrive sequencially (introduce a delay in the email)
 V move experiment prerequisites inside the experiment structure (instead of the previous experiment)
-
-> time expectations for email reading
+V time expectations for email reading
 
 > more experiments
     > comparisons

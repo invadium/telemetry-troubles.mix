@@ -29,7 +29,6 @@ function schedule(msg, at) {
         at:   (at || msg.at || 0),
         sent: false,
     }, msg)
-    dir(message)
 
     // adjust for possible hold
     if ( isNumber(message.hold) && message.hold > 0 ) {

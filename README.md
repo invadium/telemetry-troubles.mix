@@ -91,6 +91,7 @@ Available flags:
              - create the bot to autosolve the puzzles
              -- provide optional limit of how many experiments to solve before stopping: [--autosolve 5]
              -- provide optional stopper experiment code: [--autosolve s1e4]
+--keepTiming - apply delays for email reading and experiment solving
 ```
 
 Use it with ```jam``` command like so:

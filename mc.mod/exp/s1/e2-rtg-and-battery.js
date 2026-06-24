@@ -12,6 +12,7 @@ const experiment = {
         }
         return true
     },
+
     // next custom actions after the experiment is completed
     next: function(probe, MC) {
         const eS = job.control.emailScheduler

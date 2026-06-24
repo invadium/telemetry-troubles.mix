@@ -15,9 +15,20 @@ class AutoSolver {
 
             mask: {
                 dispatch:           (e, _) => {
-                    // in a few seconds after accepting, the email has to be read
-                    _.report(`reading email "${e.subject}" from "${e.from}"`)
-                    lab.locate('&inbox').markRead(e)
+                    // timely reaction to accepted email
+                    if (env.config.keepTiming) {
+                        // estimate reading time
+                        e.words = e.content.split(/\s+/)
+                        const delay = round(.5 * e.words.length) // estimating 120 words/minute
+                        _.report(`reading email "${e.subject}" from "${e.from}" with ${e.words.length} words in ${delay}s`)
+                        job.control.taskScheduler.doAfter(() => {
+                            lab.locate('&inbox').markRead(e)
+                        }, delay)
+                    } else {
+                        // read immediately
+                        _.report(`reading email "${e.subject}" from "${e.from}"`)
+                        lab.locate('&inbox').markRead(e)
+                    }
                 },
                 read:               (e, _) => {
                     // post-reading routines
@@ -26,6 +37,7 @@ class AutoSolver {
                 },
                 newExperiment:      (e, _) => {
                     _.report(`solving experiment [${e.code}]`)
+                    this.lastExperiment = e
                     // solve solution heere!
                     pub.missionControl.loadSolution( e.solution )
                 },
@@ -39,8 +51,14 @@ class AutoSolver {
                     }
                 },
                 flush:              (e, _) => {
-                    _.report(`walk the solution!`)
-                    lab.locate('&coreMonitor').walk()
+                    let estimate = 0.1
+                    if (env.config.keepTiming) {
+                        estimate = this.lastExperiment.estimate || 1
+                    }
+                    _.report(`walk the solution in ${floor(estimate * 10)/10} days`)
+                    job.control.taskScheduler.doInDays(() => {
+                        lab.locate('&coreMonitor').walk()
+                    }, estimate)
                 },
             },
         }, st)
@@ -83,7 +101,7 @@ class AutoSolver {
     // default subtrap signal handler
     default(st, signal) {
         const _ = this
-        this.report(`signal: [${signal}]`)
+        // this.report(`signal: [${signal}]`)
 
         const handler = this.mask[signal]
         if (handler) {
