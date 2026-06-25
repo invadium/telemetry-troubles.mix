@@ -86,6 +86,7 @@ function scanExperiments(frame) {
 
             experiments.push(exp)
             experimentDir[exp.code] = exp
+            log(`  ${exp.id}. [${exp.code}] ${exp.title}`)
         }
     }
 }
@@ -93,7 +94,7 @@ function scanExperiments(frame) {
 function setupExperiments() {
     this.experiments   = []
     this.experimentDir = {}
-
+    log('=== Experiments Scanner ===')
     this.scanExperiments(__$.exp)
 }
 

@@ -73,6 +73,10 @@ class CoreMonitor extends ScrollablePanel {
         this.dusty.spy.formatCapsule()
     }
 
+    flush(src) {
+        this.dusty.flush(src)
+    }
+
     shiftForward() {
         if (this.mode !== EDIT_MODE) return
         if (this.editPointer < this.contentLength() - 1) {
@@ -228,6 +232,14 @@ class CoreMonitor extends ScrollablePanel {
 
     onKeyDown(e) {
         log(e.code)
+    }
+
+    onFlush(e) {
+        const codeSelector = this.__.codeSelector
+        const ops = e.ops.filter(e => isString(e))
+        for (let i = ops.length - 1; i >= 0; i--) {
+            codeSelector.unlock(ops[i])
+        }
     }
 
     onHalt() {

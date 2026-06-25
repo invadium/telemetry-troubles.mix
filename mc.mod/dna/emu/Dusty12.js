@@ -500,7 +500,7 @@ class Dusty12 {
     }
     */
 
-    flush(src) {
+    flush(src, icapsule) {
         const ops = src
             .split('\n')
             .map(e => e.trim())
@@ -508,25 +508,33 @@ class Dusty12 {
             .map(e => e.split('--')[0])
             .map(e => e.trim())
             .filter(e => e)
+            .map(e => e.split(/\s+/))
+            .flat()
             .map(e => e.toUpperCase())
             .map(e => {
                 if (e.charAt(0) === '0') return parseInt(e, 16)
                 else return e
             })
 
-        const capsule = this.core[0] // TODO how to flush other capsules?
-                                     //      is it only current? 
-                                     //      is it selected in source?
-        // clear the capsule snapshot
-        for (let i = 0; i < capsule.capacity; i++) {
-            capsule[i] = null
-        }
+        icapsule = icapsule ?? this.spy.CAP()
+        const capsule = this.core[icapsule] // TODO how to flush other capsules?
+                                            //      is it only current? 
+                                            //      is it selected in source?
+        this.spy.formatCapsule(icapsule)
         // set the capsule cells
         for (let i = 0; i < ops.length; i++) {
             capsule[i] = ops[i]
         }
 
-        signal('flush', src)
+        const e = {
+            icapsule,
+            src,
+            ops,
+        }
+        this.monitors.forEach(m => {
+            if (isFun(m.onFlush)) m.onFlush(e)
+        })
+        signal('flush', e)
     }
 
     op(name) {

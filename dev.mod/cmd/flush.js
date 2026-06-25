@@ -6,7 +6,7 @@ function flush(args) {
         if (!src) throw new Error(`can't find [${name}.dust]!`)
 
         this.print(`flushing [${name}.dust] into core memory...`)
-        lab.locate('&dusty').flush(src)
+        lab.locate('&coreMonitor').flush(src)
 
     } else {
         this.print('Available .dust scripts:')
