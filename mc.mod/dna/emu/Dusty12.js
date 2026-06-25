@@ -456,6 +456,7 @@ class Dusty12 {
             _.monitors.forEach(m => {
                 if (isFun(m.onHalt)) m.onHalt()
             })
+            signal('halt')
         }
 
         _.spy = {

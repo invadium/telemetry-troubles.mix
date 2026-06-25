@@ -3,6 +3,10 @@ let tasks
 function perform(task) {
     task.fn()
     task.done = true
+
+    const stime = lib.time.toString( env.missionStatus.time )
+    const suffix = task.title? task.title : ''
+    log(`[${stime}][task-${task.id}]${suffix}`)
 }
 
 // schedule a task
@@ -16,8 +20,9 @@ function schedule(tsk, at) {
         fn: tsk,
     }
     const task = extend({
-        at:   (at || task.at || 0),
-        sent: false,
+        id:   id('task'),
+        at:   (at || tsk.at || 0),
+        done: false,
     }, proto)
 
     // adjust for possible hold

@@ -8,6 +8,7 @@ V probe dev kit
     V clear capsule
     V fill stack inspector from the bottom with HEX values
     V unlock instructions on flush
+V detect executed but unsolved solutions in experiments by autosolver
 
 > more experiments
     > comparisons
@@ -18,7 +19,6 @@ V probe dev kit
     > power up a single device
     > power on more devices
 
-> detect executed but unsolved solutions in experiments by autosolver
 > text mode active links with plumbing
 > hints requested by active links in the experiment request email
 

@@ -11,8 +11,6 @@ class AutoSolver {
             paused:   false,
             disabled: false,
 
-            tasks: [],
-
             mask: {
                 dispatch:           (e, _) => {
                     // timely reaction to accepted email
@@ -21,8 +19,12 @@ class AutoSolver {
                         e.words = e.content.split(/\s+/)
                         const delay = round(.5 * e.words.length) // estimating 120 words/minute
                         _.report(`reading email "${e.subject}" from "${e.from}" with ${e.words.length} words in ${delay}s`)
-                        job.control.taskScheduler.doAfter(() => {
-                            lab.locate('&inbox').markRead(e)
+                        job.control.taskScheduler.doAfter({
+                            owner:  _,
+                            title: `[autosolver] marking email read`,
+                            fn: () => {
+                                lab.locate('&inbox').markRead(e)
+                            },
                         }, delay)
                     } else {
                         // read immediately
@@ -46,8 +48,8 @@ class AutoSolver {
 
                     _.solved ++
                     if ((_.limit && _.solved >= _.limit) || (_.stopper && _.stopper === e.code)) {
-                        log('=== HALT AUTOSOLVER ===')
-                        _.halt()
+                        log('=== STOP AUTOSOLVER ===')
+                        _.stop()
                     }
                 },
                 flush:              (e, _) => {
@@ -60,6 +62,25 @@ class AutoSolver {
                         lab.locate('&coreMonitor').walk()
                     }, estimate)
                 },
+                halt:               (e, _) => {
+                    const lastExp = _.lastExperiment
+                    if (!lastExp) return
+
+                    job.control.taskScheduler.doAfter({
+                        owner:  _,
+                        title: `[autosolver][${lastExp.code}] checking status`,
+                        fn: () => {
+                            const stime = lib.time.toString( env.missionStatus.time )
+                            if (!lastExp.completed) {
+                                // the experiment should be solved by now!
+                                log.warn(`[${stime}][autosolver] failed to solve the experiment [${lastExp.code}]`)
+                                dir(lastExp)
+                            } else {
+                                log(`[${stime}][autosolver] the solution for [${lastExp.code}] - OK!`)
+                            }
+                        },
+                    }, 5)
+                },
             },
         }, st)
 
@@ -71,31 +92,19 @@ class AutoSolver {
         trap.subtraps.push(this)
     }
 
-    evo(dt) {
-        const tasks = this.tasks,
-              now   = env.missionStatus.time
-
-        for (let i = tasks.length - 1; i >= 0; i--) {
-            const task = tasks[i]
-            if (!task.done) {
-                if (task.at <= now) {
-                    task.fn()
-                    task.done = true
-                }
-            }
-        }
-    }
-
     schedule(st) {
-        const MS = env.missionStatus
-
+        // const MS = env.missionStatus
+        // job.control.taskScheduler.schedule(st)
+        /*
         // add signal handler to the task list
-        this.tasks.push({
+        job.control.taskScheduler.schedule({
+            // this.tasks.push({
+            title:  
             at:     MS.time + st.timeout * MS.timeFactor,
             signal: st.signal,
             fn:     st.fn,
-            done:   false,
         })
+        */
     }
 
     // default subtrap signal handler
@@ -107,9 +116,10 @@ class AutoSolver {
         if (handler) {
             const base = handler.reactionBase ?? 2
             const time = handler.reactionTime ?? 3
-            this.schedule({
+            job.control.taskScheduler.schedule({
+                title:  `[autosolver] handling signal [${signal}]`,
                 signal:  signal,
-                timeout: base + time*rnd(),
+                hold:    base + time*rnd(),
                 fn: () => {
                     handler(st, _)
                 },
@@ -124,7 +134,7 @@ class AutoSolver {
         log(`[${stime}][autosolver] ${msg}`)
     }
 
-    halt() {
+    stop() {
         this.paused   = true
         this.disabled = true
     }

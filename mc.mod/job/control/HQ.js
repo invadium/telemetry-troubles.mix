@@ -24,8 +24,12 @@ function requestNewExperiment(prevExp, at) {
 
     // check prerequisites
     if ( isFun(nextExp.prerequisites) ) {
-        job.control.taskScheduler.schedule(() => {
-            nextExp.prerequisites(probe)
+        job.control.taskScheduler.schedule({
+            owner:  this,
+            title: `[HQ][${nextExp.code}] checking prerequisites`,
+            fn:    () => {
+                nextExp.prerequisites(probe)
+            },
         }, at)
     }
 
