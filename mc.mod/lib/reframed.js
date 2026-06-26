@@ -9,7 +9,8 @@ const EMPTY_LINE = 0,
       STRONG     = 5,
       UNSTRONG   = 6,
       LINK       = 7,
-      UNLINK     = 8
+      UNLINK     = 8,
+      ACTION     = 9
 
 function isWhitespace(c) {
     return (c === ' ' || c === '\t')
@@ -110,6 +111,7 @@ function parse(src, LW, dataResolver) {
         while(c && !isLineFeed(c)) {
             w.push(c)
             skipc()
+            /*
             if (w.length >= LW) {
                 // TODO the mode will be lost on next words! preserve till the actual CRLF?
                 return {
@@ -117,6 +119,7 @@ function parse(src, LW, dataResolver) {
                     chars: w,
                 }
             }
+            */
 
             c = aheadc()
         }
@@ -124,6 +127,31 @@ function parse(src, LW, dataResolver) {
         return {
             type:  LINE,
             chars: w,
+        }
+    }
+
+    function spanUntil(stopper) {
+        if (!more()) return
+
+        const w = []
+
+        let c = aheadc()
+        while(c && c != stopper) {
+            w.push(c)
+            skipc()
+            c = aheadc()
+        }
+
+        return {
+            type:  SEGMENT,
+            chars: w,
+        }
+    }
+
+    function lastOf(type) {
+        for (let i = seg.length - 1; i >= 0; i--) {
+            const sg = seg[i]
+            if (sg.type === type) return sg
         }
     }
 
@@ -140,6 +168,14 @@ function parse(src, LW, dataResolver) {
         const w = []
         let c = aheadc()
 
+        function currentWord() {
+            return {
+                type:  WORD,
+                chars: w,
+                gap:   gap,
+            }
+        }
+
         while(c && nonEmpty(c)) {
 
             if (flag.escape) {
@@ -152,13 +188,7 @@ function parse(src, LW, dataResolver) {
                         c = aheadc()
                         continue
                     case '*':
-                        if (w.length > 0) {
-                            return {
-                                type:  WORD,
-                                chars: w,
-                                gap:   gap,
-                            }
-                        }
+                        if (w.length > 0) return currentWord()
 
                         skipc()
                         if (flag.strong) {
@@ -178,18 +208,36 @@ function parse(src, LW, dataResolver) {
                         }
                         break
                     case '[':
-                        if (w.length > 0) {
-                            return {
-                                type:  WORD,
-                                chars: w,
-                                gap:   gap,
-                            }
-                        }
+                        if (w.length > 0) return currentWord()
+
                         skipc()
+                        flag.link = true
                         return {
                             type: LINK,
                             mod:  c,
                             gap:   gap,
+                        }
+                        break
+                    case '|':
+                        if (flag.link) {
+                            if (w.length > 0) return currentWord()
+
+                            skipc()
+                            const action = spanUntil(']')
+                            if (action) {
+                                const link = action.chars.join('')
+                                const lead = lastOf(LINK)
+                                if (lead) {
+                                    lead.link = link
+                                }
+                                return {
+                                    type: ACTION,
+                                    link: link,
+                                    len:  link.length,
+                                    mod:  '|',
+                                    gap:  gap,
+                                }
+                            }
                         }
                         break
                     case ']':
@@ -201,6 +249,7 @@ function parse(src, LW, dataResolver) {
                             }
                         }
                         skipc()
+                        flag.link = false
                         return {
                             type: UNLINK,
                             mod:  c,
@@ -283,8 +332,8 @@ function parse(src, LW, dataResolver) {
     return seg
 }
 
-function format(segments, w) {
-    const lines = []
+function formatSegments(segments, w) {
+    const spans = []
 
     let cur  = 0,
         line = 0,
@@ -295,7 +344,7 @@ function format(segments, w) {
         if (seg.type === EMPTY_LINE || seg.type === LINE) {
             if (cur > 0) {
                 // we are in the middle of the previous line, capture it first
-                lines.push({
+                spans.push({
                     at:   cur - text.length,
                     line: line,
                     type: LINE,
@@ -305,7 +354,7 @@ function format(segments, w) {
                 text = ''
                 line ++
             }
-            lines.push({
+            spans.push({
                 at:   cur,
                 line: line,
                 type: seg.type,
@@ -315,7 +364,7 @@ function format(segments, w) {
             /*
             if (seg.type === LINE) {
             } else {
-                lines.push({
+                spans.push({
                     at:   cur,
                     line: line,
                     type: seg.type,
@@ -327,7 +376,7 @@ function format(segments, w) {
             // a modifier
             if (text.length > 0) {
                 // consume existing line as a segment
-                lines.push({
+                spans.push({
                     at:   cur - text.length,
                     line: line,
                     type: SEGMENT,
@@ -335,7 +384,7 @@ function format(segments, w) {
                 })
                 // add space if required
                 if (cur < w && seg.gap > 0) {
-                    lines.push({
+                    spans.push({
                         at:   cur,
                         line: line,
                         type: SPACE,
@@ -345,14 +394,25 @@ function format(segments, w) {
                 }
                 text = ''
             }
-            // emit the modifier
-            lines.push({
-                at:   cur,
-                line: line,
-                gap:  seg.gap,
-                type: seg.type,
-                mod:  seg.mod,
-            })
+
+            if (seg.type === ACTION) {
+                for (let i = spans.length - 1; i >= 0; i--) {
+                    const span = spans[i]
+                    if (span.type === LINK) break
+                    else span.link = seg.link
+                }
+            } else {
+                // emit the modifier
+                const modifier = ({
+                    at:   cur,
+                    line: line,
+                    gap:  seg.gap,
+                    type: seg.type,
+                    mod:  seg.mod,
+                })
+                if (seg.link) modifier.link = seg.link
+                spans.push(modifier)
+            }
 
         } else if (cur === 0) {
             cur  += seg.len
@@ -368,7 +428,7 @@ function format(segments, w) {
                 cur  += seg.len
                 text += seg.text
             } else {
-                lines.push({
+                spans.push({
                     at:   cur - text.length,
                     line: line,
                     type: LINE,
@@ -382,7 +442,7 @@ function format(segments, w) {
         }
     }
     if (cur > 0) {
-        lines.push({
+        spans.push({
             at:   cur - text.length,
             line: line,
             type: LINE,
@@ -391,15 +451,16 @@ function format(segments, w) {
         line ++
     }
 
-    lines.EMPTY_LINE = EMPTY_LINE
-    lines.LINE       = LINE
-    lines.WORD       = WORD
-    lines.SEGMENT    = SEGMENT
-    lines.SPACE      = SPACE,
-    lines.STRONG     = STRONG
-    lines.UNSTRONG   = UNSTRONG
-    lines.LINK       = LINK
-    lines.UNLINK     = UNLINK
+    spans.EMPTY_LINE = EMPTY_LINE
+    spans.LINE       = LINE
+    spans.WORD       = WORD
+    spans.SEGMENT    = SEGMENT
+    spans.SPACE      = SPACE,
+    spans.STRONG     = STRONG
+    spans.UNSTRONG   = UNSTRONG
+    spans.LINK       = LINK
+    spans.UNLINK     = UNLINK
+    spans.ACTION     = ACTION
 
-    return lines
+    return spans
 }

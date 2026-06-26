@@ -108,13 +108,13 @@ class ScrollablePanel extends Panel {
         }
 
         // const pos = this.contentLength() - 1 - this.stackPointer - this.selection
-        const pos = this.stackPointer + this.selection
-        if (pos >= this.contentLength()) return
+        const line = this.stackPointer + this.selection
+        if (line >= this.contentLength()) return
 
-        this.open(pos, e)
+        this.open(line, tx, ty, e)
     }
 
-    open(pos, e) {
+    open(line, tx, ty, e) {
         throw new Error('not implemented')
     }
 

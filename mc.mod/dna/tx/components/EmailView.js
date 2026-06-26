@@ -15,7 +15,7 @@ class EmailView extends ScrollablePanel {
                 west:  1,
             },
 
-            lines: [],
+            spans: [],
         }, st) )
         this.inbox.view = this
     }
@@ -38,7 +38,7 @@ class EmailView extends ScrollablePanel {
     }
 
     contentLength() {
-        return this.lines.length
+        return this.spans.length
     }
 
     setText(text) {
@@ -47,7 +47,7 @@ class EmailView extends ScrollablePanel {
 
     setEmail(envelope) {
         this.envelope = envelope
-        this.lines = envelope.lines
+        this.spans = envelope.spans
         this.message = envelope.message
         this.title.label = envelope.label
         this.stackPointer = envelope.pos
@@ -60,11 +60,11 @@ class EmailView extends ScrollablePanel {
             e.segments = lib.reframed.parse(e.message.content, w, job.data.resolver)
             dir(e.segments)
         }
-        e.lines = lib.reframed.format(e.segments, w)
-        dir(e.lines)
+        e.spans = lib.reframed.formatSegments(e.segments, w)
+        dir(e.spans)
 
         // @deprecated simple legacy split
-        // e.lines = e.message.content.split('\n') // TODO adjust the content and mark the plumbing points
+        // e.spans = e.message.content.split('\n') // TODO adjust the content and mark the plumbing points
     }
 
     openEmail(message) {
@@ -85,7 +85,7 @@ class EmailView extends ScrollablePanel {
         const envelope = {
             message:  message,
             label:   `[${tag}]${message.from}: ${message.subject}`,
-            // lines:    message.content.split('\n'), // TODO adjust the content and mark the plumbing points
+            // spans :    message.content.split('\n'), // TODO adjust the content and mark the plumbing points
             pos:      0,
         }
 
@@ -109,10 +109,20 @@ class EmailView extends ScrollablePanel {
         // this.show()
     }
 
-    open(at) {
+    open(line, tx, ty, e) {
         // TODO do Plan9-like plumbing over the email text to follow links and execute commands
-        log(`TODO plumbing #${at}: ${this.lines[at].text}`)
-        dir(this.lines[at])
+        // determine the span
+        const spans = this.spans
+        let target
+        for (let i = 0; i < spans.length; i++) {
+            const span = spans[i]
+            if (span.text && span.line === line && span.at < tx) target = span
+        }
+
+        if (target) {
+            dir(target)
+            log(`TODO plumbing #${line}: ${target.text}`)
+        }
     }
 
     close() {
@@ -121,11 +131,11 @@ class EmailView extends ScrollablePanel {
     }
 
     draw() {
-        const { x, y, w, h, stackPointer, lines, message } = this
+        const { x, y, w, h, stackPointer, spans, message } = this
         const txt = this.tx
 
         this.background()
-        if (!lines) return
+        if (!spans) return
 
         const w1 = w
 
@@ -147,42 +157,42 @@ class EmailView extends ScrollablePanel {
         by++
         */
 
-        for (let i = 0; i < lines.length && cy < h; i++) {
-            const line = lines[i]
-            if (line.line < stackPointer) continue
+        for (let i = 0; i < spans.length && cy < h; i++) {
+            const span = spans[i]
+            if (span.line < stackPointer) continue
 
-            if (ll < line.line) {
+            if (ll < span.line) {
                 cy ++
-                ll = line.line
+                ll = span.line
             }
 
-            switch(line.type) {
-                case lines.STRONG:
+            switch(span.type) {
+                case spans.STRONG:
                     face = cidx.base
                     back = cidx.alert
                     break
-                case lines.UNSTRONG:
+                case spans.UNSTRONG:
                     back = cidx.base
                     face = cidx.alert
                     break
-                case lines.LINK:
+                case spans.LINK:
                     face = cidx.base
                     back = cidx.alert
                     break
-                case lines.UNLINK:
+                case spans.UNLINK:
                     back = cidx.base
                     face = cidx.alert
                     break
             }
 
-            if (line.type <= lines.SPACE) {
+            if (span.type <= spans.SPACE) {
                 // regular text
                 txt.back(back)
                    .face(face)
 
-                cx = line.at
+                cx = span.at
                 ww = w1 - cx
-                this.clipText(line.text, cx, y + cy, w1)
+                this.clipText(span.text, cx, y + cy, w1)
             }
         }
     }
