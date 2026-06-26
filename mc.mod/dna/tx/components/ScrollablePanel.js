@@ -1,4 +1,4 @@
-const Panel = require('/mod/mc/dna/tx/components/Panel')
+ const Panel = require('/mod/mc/dna/tx/components/Panel')
 
 class ScrollablePanel extends Panel {
 

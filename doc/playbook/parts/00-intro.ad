@@ -1,49 +1,25 @@
 = Introduction
 
-Establishing Downlink...
+Establishing Downlink. . .
 
 Welcome to Telemetry Troubles!
 
 You begin your career with one of the Outer Rim League companies. There are many ways you can apply your talent within the League, but the fact that you are holding this playbook right now suggests you are considering a path in spacecraft systems engineering. Congratulations! A perfect choice!
 
 But this is just the beginning of your troubles.
-The following chapters cover the full depth of our deep-space exploration program and associated challenges. Are you ready to lead humankind into outer space?
+The following chapters cover the full depth of our deep-space exploration program and associated challenges. Are you ready to lead humanity into outer space?
 
 
 
-== Concept 101 Here
+== DUSTY-12
 
-Let's test _some of the styles_ like **bold** and others.
-
-Italic symbols: _here ~!@#$%^&**(--\|/_
-
-bold symbols: **some comments here .,~!@#$%^&*()_+-=\|/ OK**
-
-----
--- some comments here .,~!@#$%^&*()_+-=\|/
-101 -- place 101 on the data stack
-ADD -- add two top number of the data stack
-DUP -- duplicate the top number
-----
-
-=== Data Stack
-
-Data is stored on stack
-
-==== Another One
-
-And stack is there.
-
-
-== Dusty-12
-
-Dusty-12 family of Command and Control Units is the latest series of spaceframes by the famous StarDust Bureau.
+((DUSTY-12)) family of Command and Control Units is the latest series of spaceframes by the famous StarDust Bureau.
 
 
 .Deep-Space Legacy
 ****
 We all enjoy an abundance of memory and computational resources these days.
-Home terminals use the satellite uplink to connect to powerful mainframes
+Home terminals use the Megabit satellite uplink to connect to powerful mainframes
 of many Megahertz and Megabytes.
 Even at home, many own workstations with up to 640Kb of RAM, which is more than enough
 for any conceivable task.
@@ -52,9 +28,9 @@ So one might ask, why are our deep-space exploration vehicles so low-powered
 and have very limited memory?
 
 Partly it is explained by timing - it takes a lot of time to design and build a space probe and it takes many more years to reach the outer rim of the Solar System.
-So the probes are limited by the technology available at the time of construction.
+So the probes are limited by the technology available at the time of design and construction.
 
-Also, we can't use the stock components in the construction of such a probe. Strong magnetic fields, solar winds, flares, cosmic rays and other high-energy phenomena are affecting the proper functions of electronic components. Therefore, all on-board computers are deliberately downgraded and made out of space-grade materials to harden them against such harsh conditions.
+Also, we can't use stock components for the construction of such a probe. Strong magnetic fields, solar winds, flares, cosmic rays, and other high-energy phenomena are affecting the proper functions of electronic components. Therefore, all on-board computers are deliberately downgraded and made out of space-grade materials to harden them against such harsh conditions.
 
 Indeed, DUSTY-12 looks peculiar, but there is a good reason for that weirdness.
 ****

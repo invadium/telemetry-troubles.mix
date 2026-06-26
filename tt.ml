@@ -19,6 +19,7 @@ V detect executed but unsolved solutions in experiments by autosolver
     > power up a single device
     > power on more devices
 
+> autoskip experiments (after multiple attempts? time? both?)
 > text mode active links with plumbing
 > hints requested by active links in the experiment request email
 

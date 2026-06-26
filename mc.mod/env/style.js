@@ -11,6 +11,12 @@ const style = {
             cellWidth:  8,
             cellHeight: 10,
         },
+        terminalBold: {
+            family:    'pixel-operator-bold8',
+            size:       8,
+            cellWidth:  8,
+            cellHeight: 10,
+        },
         title: {
             family: 'pixel-operator-mono8',
             size:   16,

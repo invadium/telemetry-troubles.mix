@@ -58,10 +58,10 @@ class EmailView extends ScrollablePanel {
 
         if (!e.segments) {
             e.segments = lib.reframed.parse(e.message.content, w, job.data.resolver)
-            // dir(e.segments)
+            dir(e.segments)
         }
         e.lines = lib.reframed.format(e.segments, w)
-        // dir(e.lines)
+        dir(e.lines)
 
         // @deprecated simple legacy split
         // e.lines = e.message.content.split('\n') // TODO adjust the content and mark the plumbing points
@@ -111,7 +111,8 @@ class EmailView extends ScrollablePanel {
 
     open(at) {
         // TODO do Plan9-like plumbing over the email text to follow links and execute commands
-        log(`TODO plumbing #${at}: ${this.lines[at]}`)
+        log(`TODO plumbing #${at}: ${this.lines[at].text}`)
+        dir(this.lines[at])
     }
 
     close() {
@@ -126,13 +127,17 @@ class EmailView extends ScrollablePanel {
         this.background()
         if (!lines) return
 
-        let by = y
-        const x1 = x
         const w1 = w
+
+        let cy   = -1,
+            ll   = -1,
+            cx   =  x,
+            ww   =  0,
+            back =  cidx.base,
+            face =  cidx.alert
+        /*
         txt.back(cidx.base)
            .face(cidx.alert)
-
-        /*
         // subject
         this.clipText(message.subject, x1, by, w1)
 
@@ -142,15 +147,43 @@ class EmailView extends ScrollablePanel {
         by++
         */
 
-        for (let i = stackPointer; i < lines.length && by < y + h; i++, by++) {
+        for (let i = 0; i < lines.length && cy < h; i++) {
             const line = lines[i]
+            if (line.line < stackPointer) continue
 
-            // regular text
-            txt.back(cidx.base)
-               .face(cidx.alert)
+            if (ll < line.line) {
+                cy ++
+                ll = line.line
+            }
 
-            this.clipText(line, x1, by, w1)
+            switch(line.type) {
+                case lines.STRONG:
+                    face = cidx.base
+                    back = cidx.alert
+                    break
+                case lines.UNSTRONG:
+                    back = cidx.base
+                    face = cidx.alert
+                    break
+                case lines.LINK:
+                    face = cidx.base
+                    back = cidx.alert
+                    break
+                case lines.UNLINK:
+                    back = cidx.base
+                    face = cidx.alert
+                    break
+            }
+
+            if (line.type <= lines.SPACE) {
+                // regular text
+                txt.back(back)
+                   .face(face)
+
+                cx = line.at
+                ww = w1 - cx
+                this.clipText(line.text, cx, y + cy, w1)
+            }
         }
     }
-
 }

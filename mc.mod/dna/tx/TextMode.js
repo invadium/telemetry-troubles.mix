@@ -64,6 +64,7 @@ class TextMode extends sys.LabFrame {
             h:      0,
 
             font: env.style.font.terminal.head,
+            bold: env.style.font.terminalBold.head,
             cellWidth: env.style.font.terminal.cellWidth,
             cellHeight: env.style.font.terminal.cellHeight,
 

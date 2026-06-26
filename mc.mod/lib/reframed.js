@@ -1,6 +1,16 @@
 const NORMAL    = 0,
       PREFORMAT = 1
 
+const EMPTY_LINE = 0,
+      LINE       = 1,
+      WORD       = 2,
+      SEGMENT    = 3,
+      SPACE      = 4,
+      STRONG     = 5,
+      UNSTRONG   = 6,
+      LINK       = 7,
+      UNLINK     = 8
+
 function isWhitespace(c) {
     return (c === ' ' || c === '\t')
 }
@@ -21,7 +31,8 @@ function parse(src, LW, dataResolver) {
     let at       = 0,
         line     = 0,
         linePos  = 0,
-        mode     = NORMAL
+        mode     = NORMAL,
+        flag     = {}
 
     function more() {
         return (at < N)
@@ -102,7 +113,7 @@ function parse(src, LW, dataResolver) {
             if (w.length >= LW) {
                 // TODO the mode will be lost on next words! preserve till the actual CRLF?
                 return {
-                    type:  2, // the line
+                    type:  LINE, // the line
                     chars: w,
                 }
             }
@@ -111,30 +122,100 @@ function parse(src, LW, dataResolver) {
         }
 
         return {
-            type:  2,
+            type:  LINE,
             chars: w,
         }
     }
 
     function nextWord() {
-        if (linePos === 0 && skipWhitespaces() > 0) {
+        const startedAt = linePos
+        const whitespaces = skipWhitespaces()
+        if (startedAt === 0 && whitespaces > 0) {
             // preformatted line
             return nextLine()
-        } else {
-            skipWhitespaces()
         }
         if (!more()) return
 
+        const gap = startedAt === 0? 1 : whitespaces
         const w = []
         let c = aheadc()
 
         while(c && nonEmpty(c)) {
+
+            if (flag.escape) {
+                flag.escape = false
+            } else {
+                switch(c) {
+                    case '\\':
+                        flag.escape = true
+                        skipc()
+                        c = aheadc()
+                        continue
+                    case '*':
+                        if (w.length > 0) {
+                            return {
+                                type:  WORD,
+                                chars: w,
+                                gap:   gap,
+                            }
+                        }
+
+                        skipc()
+                        if (flag.strong) {
+                            flag.strong = false
+                            return {
+                                type: UNSTRONG,
+                                mod:  c,
+                                gap:   gap,
+                            }
+                        } else {
+                            flag.strong = true
+                            return {
+                                type: STRONG,
+                                mod:  c,
+                                gap:   gap,
+                            }
+                        }
+                        break
+                    case '[':
+                        if (w.length > 0) {
+                            return {
+                                type:  WORD,
+                                chars: w,
+                                gap:   gap,
+                            }
+                        }
+                        skipc()
+                        return {
+                            type: LINK,
+                            mod:  c,
+                            gap:   gap,
+                        }
+                        break
+                    case ']':
+                        if (w.length > 0) {
+                            return {
+                                type:  WORD,
+                                chars: w,
+                                gap:   gap,
+                            }
+                        }
+                        skipc()
+                        return {
+                            type: UNLINK,
+                            mod:  c,
+                            gap:   gap,
+                        }
+                        break
+                }
+            }
             w.push(c)
             skipc()
             if (w.length >= LW) {
                 return {
-                    type:  2, // the line
+                    type:  LINE,
                     chars: w,
+                    gap:   gap,
                 }
             }
 
@@ -142,8 +223,9 @@ function parse(src, LW, dataResolver) {
         }
 
         return {
-            type:  1,
+            type:  WORD,
             chars: w,
+            gap:   gap,
         }
     }
 
@@ -153,8 +235,8 @@ function parse(src, LW, dataResolver) {
             if (skipLineFeed() && lp === 0) {
                 // empty line segment
                 return {
-                    type: 0,
-                    text: '\n',
+                    type: EMPTY_LINE,
+                    text: '',
                 }
             }
 
@@ -205,36 +287,119 @@ function format(segments, w) {
     const lines = []
 
     let cur  = 0,
-        line = ''
+        line = 0,
+        text = ''
     for (let i = 0; i < segments.length; i++) {
         const seg = segments[i]
-        if (seg.type === 0 || seg.type === 2) {
+
+        if (seg.type === EMPTY_LINE || seg.type === LINE) {
             if (cur > 0) {
-                cur = 0
-                lines.push(line)
-                line = ''
+                // we are in the middle of the previous line, capture it first
+                lines.push({
+                    at:   cur - text.length,
+                    line: line,
+                    type: LINE,
+                    text: text,
+                })
+                cur  = 0
+                text = ''
+                line ++
             }
-            if (seg.type === 2) lines.push(seg.text)
-            else lines.push('')
-        } else if (cur === 0) {
-            cur += seg.len
-            line += seg.text
-        } else {
-            if (cur + 1 + seg.len < w) {
-                cur += seg.len + 1
-                line += ' '
-                line += seg.text
+            lines.push({
+                at:   cur,
+                line: line,
+                type: seg.type,
+                text: seg.text,
+            })
+            line ++
+            /*
+            if (seg.type === LINE) {
             } else {
-                lines.push(line)
+                lines.push({
+                    at:   cur,
+                    line: line,
+                    type: seg.type,
+                    text: seg.text,
+                })
+            }
+            */
+        } else if (seg.type >= STRONG) {
+            // a modifier
+            if (text.length > 0) {
+                // consume existing line as a segment
+                lines.push({
+                    at:   cur - text.length,
+                    line: line,
+                    type: SEGMENT,
+                    text: text,
+                })
+                // add space if required
+                if (cur < w && seg.gap > 0) {
+                    lines.push({
+                        at:   cur,
+                        line: line,
+                        type: SPACE,
+                        text: ' ',
+                    })
+                    cur ++
+                }
+                text = ''
+            }
+            // emit the modifier
+            lines.push({
+                at:   cur,
+                line: line,
+                gap:  seg.gap,
+                type: seg.type,
+                mod:  seg.mod,
+            })
+
+        } else if (cur === 0) {
+            cur  += seg.len
+            text += seg.text
+        } else {
+            if (seg.gap > 0 && cur + 1 + seg.len < w) {
+                // accumulate current line
+                cur  += seg.len + 1
+                text += ' '
+                text += seg.text
+            } else if (cur + seg.len < w) {
+                // accumulate current line skipping space
+                cur  += seg.len
+                text += seg.text
+            } else {
+                lines.push({
+                    at:   cur - text.length,
+                    line: line,
+                    type: LINE,
+                    text: text,
+                })
                 // start a new line with current segment
-                cur = seg.len
-                line = seg.text
+                cur  = seg.len
+                text = seg.text
+                line ++
             }
         }
     }
     if (cur > 0) {
-        lines.push(line)
+        lines.push({
+            at:   cur - text.length,
+            line: line,
+            type: LINE,
+            text: text,
+        })
+        line ++
     }
+
+    lines.EMPTY_LINE = EMPTY_LINE
+    lines.LINE       = LINE
+    lines.WORD       = WORD
+    lines.SEGMENT    = SEGMENT
+    lines.SPACE      = SPACE,
+    lines.STRONG     = STRONG
+    lines.UNSTRONG   = UNSTRONG
+    lines.LINK       = LINK
+    lines.UNLINK     = UNLINK
 
     return lines
 }
