@@ -123,24 +123,38 @@ class EmailView extends ScrollablePanel {
     open(line, tx, ty, e) {
         // TODO do Plan9-like plumbing over the email text to follow links and execute commands
         const target = this.spanAt(tx, ty)
-        if (target) {
-            dir(target)
-            const suffix = target.link? ` => ${target.link}` : ''
-            log(`TODO plumbing #${line}: ${target.text}${suffix}`)
-        }
+        this.openTarget = target
+        dir(target)
     }
 
     onSelect(tx, ty, e) {
         const { x, y, w, h } = this
         if (tx < 0 || tx >= w || ty < this.header || ty >= h) {
-            if (this.selectedSpan) this.selectedSpan.over = false
+            if (this.selectedSpan) {
+                this.selectedSpan.over = false
+                this.selectedSpan.down = false
+            }
         } else {
             const target = this.spanAt(tx, ty)
             if (target) {
                 if (this.selectedSpan) this.selectedSpan.over = false
                 this.selectedSpan = target
                 target.over = true
+                if (e.buttons & 1) target.down = true
+                else target.down = false
             }
+        }
+    }
+
+    onMouseUp(tx, ty, b, e) {
+        // log(`mouse #${e.button + 1} up: ${tx}:${ty}`)
+        this.select(tx, ty, e)
+
+        if (this.openTarget) {
+            if (this.openTarget.link) {
+                signal('plumb', this.openTarget.link)
+            }
+            this.openTarget = null
         }
     }
 
@@ -201,15 +215,21 @@ class EmailView extends ScrollablePanel {
                     txt.setFlag('underscore')
 
                     span.over = false
+                    span.down = false
                     for (let s of span.spans) {
                         if (s.over) span.over = true
+                        if (s.down) span.down = true
                     }
                     if (span.over) {
                         face = cidx.base
                         back = cidx.alert
                     }
+                    if (span.down) {
+                        txt.setFlag('strong')
+                    }
                     break
                 case spans.UNLINK:
+                    txt.unsetFlag('strong')
                     txt.unsetFlag('underscore')
                     back = cidx.base
                     face = cidx.alert

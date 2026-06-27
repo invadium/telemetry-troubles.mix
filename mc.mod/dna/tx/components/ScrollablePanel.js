@@ -132,15 +132,17 @@ class ScrollablePanel extends Panel {
     onMouseDown(tx, ty, b, e) {
         // log(`mouse #${e.button + 1} down: ${tx}:${ty}`)
         this.enter(tx, ty, e)
+        this.select(tx, ty, e)
     }
 
     onMouseUp(tx, ty, b, e) {
         // log(`mouse #${e.button + 1} up: ${tx}:${ty}`)
+        this.select(tx, ty, e)
     }
 
     onMouseMove(tx, ty, e) {
         // log(`mouse move: ${tx}:${ty}`)
-        this.select(tx, ty)
+        this.select(tx, ty, e)
     }
 
     onMouseEnter() {

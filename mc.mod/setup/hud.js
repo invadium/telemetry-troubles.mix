@@ -59,6 +59,7 @@ function hud() {
             _ => _.h = _.normalH * (_.__.viewport.h - _.y - _.margin.south),
         ],
     })
+    pub.link(primaryDisplay, 'PD')
 
     const textBuffer1 = $.textBuffer1 = primaryDisplay.content.spawn('TextMode', {
         Z:            22,
@@ -240,6 +241,8 @@ function hud() {
             _ => _.h = _.__.viewport.h - _.y - _.anchor.south.h - _.margin.south,
         ],
     })
+    pub.link(secondaryDisplay, 'SD')
+
     const tab0S = secondaryDisplay.bevel.tab0
     extend( tab0S, {
         title: 'Capsule0',

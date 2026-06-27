@@ -9,6 +9,8 @@ V probe dev kit
     V fill stack inspector from the bottom with HEX values
     V unlock instructions on flush
 V detect executed but unsolved solutions in experiments by autosolver
+V text mode active links with plumbing
+V hints requested by active links in the experiment request email
 
 > more experiments
     > comparisons
@@ -20,9 +22,6 @@ V detect executed but unsolved solutions in experiments by autosolver
     > power on more devices
 
 > autoskip experiments (after multiple attempts? time? both?)
-> text mode active links with plumbing
-> hints requested by active links in the experiment request email
-
 
 > core sfx
 > randomized ambient noises
