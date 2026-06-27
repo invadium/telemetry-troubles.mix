@@ -175,6 +175,9 @@ class EmailView extends ScrollablePanel {
         this.hseparator(x1, by, w1)
         by++
         */
+        txt.unsetFlag('strong')
+        txt.unsetFlag('underscore')
+        txt.clear()
 
         for (let i = 0; i < spans.length && cy < h; i++) {
             const span = spans[i]
@@ -187,14 +190,16 @@ class EmailView extends ScrollablePanel {
 
             switch(span.type) {
                 case spans.STRONG:
-                    face = cidx.base
-                    back = cidx.alert
+                    // txt.setFlag('underscore')
+                    txt.setFlag('strong')
                     break
                 case spans.UNSTRONG:
-                    back = cidx.base
-                    face = cidx.alert
+                    // txt.unsetFlag('underscore')
+                    txt.unsetFlag('strong')
                     break
                 case spans.LINK:
+                    txt.setFlag('underscore')
+
                     span.over = false
                     for (let s of span.spans) {
                         if (s.over) span.over = true
@@ -205,6 +210,7 @@ class EmailView extends ScrollablePanel {
                     }
                     break
                 case spans.UNLINK:
+                    txt.unsetFlag('underscore')
                     back = cidx.base
                     face = cidx.alert
                     break
@@ -220,5 +226,6 @@ class EmailView extends ScrollablePanel {
                 this.clipText(span.text, cx, y + cy, w1)
             }
         }
+
     }
 }

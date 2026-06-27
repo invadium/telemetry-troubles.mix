@@ -29,6 +29,7 @@ class TextMode extends sys.LabFrame {
 
     constructor(st) {
         super()
+
         this.buf = {
             char:  [],
             face:  [],
@@ -56,16 +57,18 @@ class TextMode extends sys.LabFrame {
 
         augment(this, {
             name: 'textMode',
-            border: 0.05,
+
+            time:   0,
 
             x:      0,
             y:      0,
             w:      0,
             h:      0,
 
-            font: env.style.font.terminal.head,
-            bold: env.style.font.terminalBold.head,
-            cellWidth: env.style.font.terminal.cellWidth,
+            border:     0.05,
+            font:       env.style.font.terminal.head,
+            bold:       env.style.font.terminalBold.head,
+            cellWidth:  env.style.font.terminal.cellWidth,
             cellHeight: env.style.font.terminal.cellHeight,
 
             fallbackTextColor:       '#ffff00',
@@ -320,6 +323,8 @@ class TextMode extends sys.LabFrame {
                 this.put(this.cursor.x, this.cursor.y,
                     this.cursor.fx, FX)
             }
+        } else if (this.cursor.fx) {
+            this.put(this.cursor.x, this.cursor.y, this.cursor.fx, FX)
         }
         this.next()
         return this
@@ -357,8 +362,35 @@ class TextMode extends sys.LabFrame {
         return this
     }
 
-    set(settings) {
-        this.cursor.fx = settings
+    set(st) {
+        augment( this.cursor.fx, st)
+        return this
+    }
+
+    setFlag(name) {
+        this.cursor.fx[name] = true
+        return this
+    }
+
+    unset(st) {
+        for (let prop in st) {
+            const val = this.cursor.fx[prop]
+            if (isBoolean(val)) {
+                this.cursor.fx[prop] = false
+            } else {
+                this.cursor.fx[prop] = null
+            }
+        }
+        return this
+    }
+
+    unsetFlag(name) {
+        this.cursor.fx[name] = false
+        return this
+    }
+
+    unsetAll() {
+        this.cursor.fx = {}
         return this
     }
 
@@ -366,9 +398,14 @@ class TextMode extends sys.LabFrame {
         this.cursor.face = 0
         this.cursor.back = 0
         this.cursor.mode = 0
+        this.cursor.fx = {
+            strong:     false,
+            underscore: false,
+        }
         return this
     }
 
+    // clear the screen with current cursor settings
     clear() {
         this.reset()
         this.at(0, 0)
@@ -380,8 +417,10 @@ class TextMode extends sys.LabFrame {
     }
 
     evo(dt) {
-        const n = this.tw * this.th
-        for (let i = 0; i < n; i++) {
+        this.time += dt
+
+        const N = this.tw * this.th
+        for (let i = 0; i < N; i++) {
             const mode = this.buf.mode[i]
             if (mode) {
                 if (this.fx[mode].evo) {
@@ -391,6 +430,7 @@ class TextMode extends sys.LabFrame {
             }
         }
 
+        // evolve components
         for (let i = 0; i < this._ls.length; i++) {
             const component = this._ls[i]
             if (component.evo) component.evo(dt)
@@ -427,6 +467,7 @@ class TextMode extends sys.LabFrame {
             for (let tx = this.tw - 1; tx >= 0; tx--) {
                 const sh = ty * this.tw + tx
                 const symbol = this.buf.char[sh]
+                const fx     = this.buf.fx[sh]
 
                 // background
                 const cback = this.buf.cback[sh]
@@ -453,12 +494,22 @@ class TextMode extends sys.LabFrame {
                     fill(pal._ls[face] || this.fallbackTextColor)
                 }
 
+                save()
+                if (fx.strong) {
+                    font(this.bold)
+                }
+                if (fx.underscore) {
+                    text('_', tx*cw + hw + .5, ty*ch + hh + 1.5)
+                }
+
                 // character
                 if (symbol) {
                     text(symbol, tx*cw + hw + .5, ty*ch + hh + .5)
                 } else {
                     //text('.', tx*cw + hw, ty*ch + hh)
                 }
+
+                restore()
             }
         }
 
