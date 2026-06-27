@@ -91,6 +91,7 @@ class ScrollablePanel extends Panel {
             this.selection = ty - this.header
             this.column = tx
         }
+        if (this.onSelect) this.onSelect(tx, ty, e)
     }
 
     clearSelection() {

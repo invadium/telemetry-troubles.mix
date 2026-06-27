@@ -6,5 +6,5 @@ possible with REFRAMED format.
 
 For example, a *bold* message or an _underscore_?
 
-We also should have active links [like this|actionated!@#$here** ]
+We also should have active links ![like this|action=unlock]
 and escape sequences for these with \\ - \[ and \].

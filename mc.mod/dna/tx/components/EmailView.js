@@ -62,9 +62,6 @@ class EmailView extends ScrollablePanel {
         }
         e.spans = lib.reframed.formatSegments(e.segments, w)
         dir(e.spans)
-
-        // @deprecated simple legacy split
-        // e.spans = e.message.content.split('\n') // TODO adjust the content and mark the plumbing points
     }
 
     openEmail(message) {
@@ -109,19 +106,41 @@ class EmailView extends ScrollablePanel {
         // this.show()
     }
 
-    open(line, tx, ty, e) {
-        // TODO do Plan9-like plumbing over the email text to follow links and execute commands
-        // determine the span
+    spanAt(tx, ty) {
+        const line = this.stackPointer + this.selection
+        if (line < 0 || line >= this.contentLength()) return
+
         const spans = this.spans
+
         let target
         for (let i = 0; i < spans.length; i++) {
             const span = spans[i]
             if (span.text && span.line === line && span.at < tx) target = span
         }
+        return target
+    }
 
+    open(line, tx, ty, e) {
+        // TODO do Plan9-like plumbing over the email text to follow links and execute commands
+        const target = this.spanAt(tx, ty)
         if (target) {
             dir(target)
-            log(`TODO plumbing #${line}: ${target.text}`)
+            const suffix = target.link? ` => ${target.link}` : ''
+            log(`TODO plumbing #${line}: ${target.text}${suffix}`)
+        }
+    }
+
+    onSelect(tx, ty, e) {
+        const { x, y, w, h } = this
+        if (tx < 0 || tx >= w || ty < this.header || ty >= h) {
+            if (this.selectedSpan) this.selectedSpan.over = false
+        } else {
+            const target = this.spanAt(tx, ty)
+            if (target) {
+                if (this.selectedSpan) this.selectedSpan.over = false
+                this.selectedSpan = target
+                target.over = true
+            }
         }
     }
 
@@ -176,8 +195,14 @@ class EmailView extends ScrollablePanel {
                     face = cidx.alert
                     break
                 case spans.LINK:
-                    face = cidx.base
-                    back = cidx.alert
+                    span.over = false
+                    for (let s of span.spans) {
+                        if (s.over) span.over = true
+                    }
+                    if (span.over) {
+                        face = cidx.base
+                        back = cidx.alert
+                    }
                     break
                 case spans.UNLINK:
                     back = cidx.base

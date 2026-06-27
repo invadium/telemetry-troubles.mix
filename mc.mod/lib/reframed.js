@@ -9,8 +9,7 @@ const EMPTY_LINE = 0,
       STRONG     = 5,
       UNSTRONG   = 6,
       LINK       = 7,
-      UNLINK     = 8,
-      ACTION     = 9
+      UNLINK     = 8
 
 function isWhitespace(c) {
     return (c === ' ' || c === '\t')
@@ -39,8 +38,8 @@ function parse(src, LW, dataResolver) {
         return (at < N)
     }
 
-    function aheadc() {
-        return t[at]
+    function aheadc(sh) {
+        return t[at + (sh? sh - 1 : 0)]
     }
 
     function getc() {
@@ -207,15 +206,18 @@ function parse(src, LW, dataResolver) {
                             }
                         }
                         break
-                    case '[':
-                        if (w.length > 0) return currentWord()
+                    case '!':
+                        if (aheadc(2) === '[') {
+                            if (w.length > 0) return currentWord()
 
-                        skipc()
-                        flag.link = true
-                        return {
-                            type: LINK,
-                            mod:  c,
-                            gap:   gap,
+                            skipc()
+                            skipc()
+                            flag.link = true
+                            return {
+                                type:  LINK,
+                                mod:   '![',
+                                gap:   gap,
+                            }
                         }
                         break
                     case '|':
@@ -224,12 +226,14 @@ function parse(src, LW, dataResolver) {
 
                             skipc()
                             const action = spanUntil(']')
+
                             if (action) {
                                 const link = action.chars.join('')
                                 const lead = lastOf(LINK)
                                 if (lead) {
                                     lead.link = link
                                 }
+                                /*
                                 return {
                                     type: ACTION,
                                     link: link,
@@ -237,23 +241,31 @@ function parse(src, LW, dataResolver) {
                                     mod:  '|',
                                     gap:  gap,
                                 }
+                                */
                             }
                         }
-                        break
+                        // fall through to ']' !!!
                     case ']':
-                        if (w.length > 0) {
-                            return {
-                                type:  WORD,
-                                chars: w,
-                                gap:   gap,
+                        if (flag.link) {
+                            if (w.length > 0) return currentWord()
+
+                            const lead = lastOf(LINK)
+                            const tail = {
+                                type: UNLINK,
+                                lead: lead,
+                                mod:  c,
+                                gap:  gap,
                             }
-                        }
-                        skipc()
-                        flag.link = false
-                        return {
-                            type: UNLINK,
-                            mod:  c,
-                            gap:   gap,
+                            if (lead.link) {
+                                tail.link = lead.link
+                                tail.mod = '|]'
+                            }
+                            lead.tail = tail
+
+                            skipc()
+                            flag.link = false
+
+                            return tail
                         }
                         break
                 }
@@ -395,24 +407,30 @@ function formatSegments(segments, w) {
                 text = ''
             }
 
-            if (seg.type === ACTION) {
+            if (seg.type === UNLINK) {
+                const included = []
                 for (let i = spans.length - 1; i >= 0; i--) {
                     const span = spans[i]
-                    if (span.type === LINK) break
-                    else span.link = seg.link
+                    if (span.type === LINK) {
+                        span.spans = included
+                        break
+                    } else {
+                        span.link = seg.link
+                        included.push(span)
+                    }
                 }
-            } else {
-                // emit the modifier
-                const modifier = ({
-                    at:   cur,
-                    line: line,
-                    gap:  seg.gap,
-                    type: seg.type,
-                    mod:  seg.mod,
-                })
-                if (seg.link) modifier.link = seg.link
-                spans.push(modifier)
             }
+
+            // emit the modifier
+            const modifier = ({
+                at:   cur,
+                line: line,
+                gap:  seg.gap,
+                type: seg.type,
+                mod:  seg.mod,
+            })
+            if (seg.link) modifier.link = seg.link
+            spans.push(modifier)
 
         } else if (cur === 0) {
             cur  += seg.len
@@ -460,7 +478,6 @@ function formatSegments(segments, w) {
     spans.UNSTRONG   = UNSTRONG
     spans.LINK       = LINK
     spans.UNLINK     = UNLINK
-    spans.ACTION     = ACTION
 
     return spans
 }
