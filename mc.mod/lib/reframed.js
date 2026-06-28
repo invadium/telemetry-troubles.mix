@@ -441,7 +441,7 @@ function formatSegments(segments, w) {
                 cur  += seg.len + 1
                 text += ' '
                 text += seg.text
-            } else if (cur + seg.len < w) {
+            } else if (seg.gap === 0 && cur + seg.len < w) {
                 // accumulate current line skipping space
                 cur  += seg.len
                 text += seg.text
