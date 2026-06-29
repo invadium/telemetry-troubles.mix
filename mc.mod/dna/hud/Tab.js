@@ -27,12 +27,13 @@ class Tab extends $.dna.hud.Container {
     }
 
     // show the components/data associated with the tag
-    display() {
+    display(mute) {
         if (this._displayed) return
 
         if (isFun(this.action)) this.action()
         this.onDisplay()
         this._displayed = true
+        if (!mute) sfx('tab-open')
     }
 
     // hide the components/data associated with the tag
@@ -149,7 +150,11 @@ class Tab extends $.dna.hud.Container {
 
         if (!pending) {
             this._toggled = true
-        }
+
+            if (this._displayed) {
+                sfx('tab-touch')
+            }
+        } 
     }
 
     onMouseUp(x, y, b, e) {

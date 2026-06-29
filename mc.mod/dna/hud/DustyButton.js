@@ -88,8 +88,7 @@ class DustyButton {
         restore()
     }
 
-    onClick(e) {
-    }
+    onClick(e) {}
 
     onMouseMove() {}
 
@@ -97,11 +96,20 @@ class DustyButton {
 
     onMouseDown(e) {
         this.toggled = true
+        sfx('button-click')
     }
 
     onMouseUp(e) {
-        // this.onClick()
         this.toggled = false
+        // sfx('up')
+    }
+
+    onMouseEnter(e) {
+        sfx('button-hover')
+    }
+
+    onMouseExit(e) {
+        // sfx('out')
     }
 }
 

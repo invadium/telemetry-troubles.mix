@@ -51,11 +51,13 @@ class Display extends $.dna.hud.Container {
                 target.stretch = v
             }, $.dna.kinetix.easingNG.bounce.out)
                 .time(2)
+            sfx('expand')
         } else if (this.stretch === 1) {
             job.kinetix.tween( (v, t) => {
                 target.stretch = 1 - v
             }, $.dna.kinetix.easingNG.bounce.out)
                 .time(2)
+            sfx('detract')
         }
     }
 
@@ -111,9 +113,12 @@ class Display extends $.dna.hud.Container {
         node._display = this
     }
 
-    onFocus() {}
+    onFocus() {
+        sfx('display-select')
+    }
 
-    onUnfocus() {}
+    onUnfocus() {
+    }
 
     // onClick(x, y, e) {
     //    super.onClick(x, y, e)

@@ -31,7 +31,7 @@ class Bevel extends $.dna.hud.Container {
             action: function() {},
             close: function()  {},
         })
-        mainTab.display()
+        mainTab.display(true)
     }
 
     spawnTab(st) {
@@ -117,6 +117,7 @@ class Bevel extends $.dna.hud.Container {
                 onClick() {
                     // close the parent tab
                     this.__.close()
+                    sfx('tab-close')
                 }
             })
 

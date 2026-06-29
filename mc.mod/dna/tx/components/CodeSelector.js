@@ -41,7 +41,7 @@ class CodeSelector extends ScrollablePanel {
         return this.options.length
     }
 
-    open(at, e) {
+    open(at, tx, ty, e) {
         const { options, coreMonitor } = this
         const mnemonics = options[at]
         const newCode = mnemonics === '....'? null : mnemonics
@@ -51,6 +51,7 @@ class CodeSelector extends ScrollablePanel {
         if (e.buttons & 2) {
             coreMonitor.shiftForward()
         }
+        sfx('code-pick')
     }
 
     exit() {

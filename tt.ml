@@ -11,6 +11,7 @@ V probe dev kit
 V detect executed but unsolved solutions in experiments by autosolver
 V text mode active links with plumbing
 V hints requested by active links in the experiment request email
+V core sfx
 
 > more experiments
     > comparisons
@@ -23,7 +24,6 @@ V hints requested by active links in the experiment request email
 
 > autoskip experiments (after multiple attempts? time? both?)
 
-> core sfx
 > randomized ambient noises
 
 > keyboard control

@@ -97,6 +97,7 @@ class CoreMonitor extends ScrollablePanel {
                 break
         }
         // log('#' + lib.format.toHexString(at, 3) + ': ' + lib.format.toCodeString(capsule[at], 4))
+        sfx('cell-pick')
     }
 
     exit() {

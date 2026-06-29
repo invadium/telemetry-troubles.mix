@@ -101,4 +101,10 @@ class Tag extends sys.LabFrame {
     }
 
     onMouseDrag() {}
+
+    onMouseEnter() {
+        if (this.__.isActive()) {
+            sfx('tag-hover')
+        }
+    }
 }
