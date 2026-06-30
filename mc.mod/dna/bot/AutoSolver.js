@@ -24,12 +24,14 @@ class AutoSolver {
                             title: `[autosolver] marking email read`,
                             fn: () => {
                                 lab.locate('&inbox').markRead(e)
+                                sfx('email-read')
                             },
                         }, delay)
                     } else {
                         // read immediately
                         _.report(`reading email "${e.subject}" from "${e.from}"`)
                         lab.locate('&inbox').markRead(e)
+                        sfx('email-read')
                     }
                 },
                 read:               (e, _) => {

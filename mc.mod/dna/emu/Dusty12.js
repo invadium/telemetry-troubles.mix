@@ -420,6 +420,7 @@ class Dusty12 {
             }
             _.lastCycle = _.time
             if (steps) {
+                // we still have steps, but no ops to run - HALT the system
                 _.halt()
             }
         }
@@ -563,6 +564,9 @@ class Dusty12 {
             case WALK:
                 if (this.time >= this.lastCycle + this.walkSpeed) {
                     this.cycle(1)
+                    this.monitors.forEach(m => {
+                        if (m.onStep) m.onStep()
+                    })
                 }
                 break
             case RUN:

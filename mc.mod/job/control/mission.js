@@ -130,6 +130,7 @@ function completeExperiment(exp) {
     defer(() => _.activeExperiments.splice(i, 1))
     job.control.HQ.reportCompleteExperiment(exp)
     signal('experimentComplete', exp)
+    sfx('experiment-complete')
 
     return true
 }

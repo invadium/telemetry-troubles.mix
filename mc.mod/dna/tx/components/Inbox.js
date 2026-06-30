@@ -188,4 +188,12 @@ class Inbox extends ScrollablePanel {
         // this.rect(x, y + 1, w, h - 1)
     }
 
+    onSelect(tx, ty, e, prevSelection) {
+        if (this.selection !== prevSelection
+                && this.selection >= 0
+                && this.selection < this.contentLength()) {
+            tsfx('email-selected', .1)
+        }
+    }
+
 }

@@ -116,6 +116,7 @@ class CoreMonitor extends ScrollablePanel {
         this.mode = EXEC_MODE
         // this.dusty.upload()
         this.dusty.walk()
+        sfx('dusty-step')
     }
 
     run() {
@@ -223,6 +224,14 @@ class CoreMonitor extends ScrollablePanel {
         */
     }
 
+    onSelect(tx, ty, e, prevSelection) {
+        if (this.selection !== prevSelection
+                && this.selection >= 0
+                && this.selection < this.contentLength()) {
+            tsfx('cell-selected', .1)
+        }
+    }
+
     onFocus() {
         // log('core monitor is in focus!')
     }
@@ -243,8 +252,13 @@ class CoreMonitor extends ScrollablePanel {
         }
     }
 
+    onStep() {
+        sfx('dusty-step')
+    }
+
     onHalt() {
         this.mode = EDIT_MODE
+        sfx('dusty-halt')
     }
 
 }

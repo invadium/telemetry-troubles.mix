@@ -145,4 +145,11 @@ class CodeSelector extends ScrollablePanel {
         return 'selection: ' + this.selection + ' sp: ' + this.stackPointer
     }
 
+    onSelect(tx, ty, e, prevSelection) {
+        if (this.selection !== prevSelection
+                && this.selection >= 0
+                && this.selection < this.contentLength()) {
+            tsfx('code-selected', .1)
+        }
+    }
 }

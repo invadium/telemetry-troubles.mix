@@ -85,13 +85,15 @@ class ScrollablePanel extends Panel {
 
     select(tx, ty, e) {
         const { x, y, w, h } = this
+        const prevSelection = this.selection
+
         if (tx < 0 || tx >= w || ty < this.header || ty >= h) {
             this.clearSelection()
         } else {
             this.selection = ty - this.header
             this.column = tx
         }
-        if (this.onSelect) this.onSelect(tx, ty, e)
+        if (this.onSelect) this.onSelect(tx, ty, e, prevSelection)
     }
 
     clearSelection() {
@@ -121,12 +123,16 @@ class ScrollablePanel extends Panel {
 
     scrollUp() {
         if (this.stackPointer > 0) this.stackPointer --
+        // sfx('email-selected')
     }
 
     scrollDown() {
         const __ = this,
               stackPointer = this.stackPointer
-        if (stackPointer < __.contentLength() - __.selectionCapacity() - 1) __.stackPointer ++
+        if (stackPointer < __.contentLength() - __.selectionCapacity() - 1) {
+            __.stackPointer ++
+            // sfx('email-selected')
+        }
     }
 
     onMouseDown(tx, ty, b, e) {

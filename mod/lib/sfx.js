@@ -28,6 +28,5 @@ module.exports = function(name, vol, pan) {
         log.warn(`missing resource for [${name}], using default tone`)
     }
 
-    log(`plaing [${name}] - !${vol}`)
     sys.sfx(clip, vol, pan)
 }
