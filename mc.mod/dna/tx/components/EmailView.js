@@ -1,6 +1,5 @@
 const ScrollablePanel = require('/mod/mc/dna/tx/components/ScrollablePanel')
 
-
 class EmailView extends ScrollablePanel {
 
     constructor(st) {
@@ -201,6 +200,7 @@ class EmailView extends ScrollablePanel {
                 cy ++
                 ll = span.line
             }
+            if (cy >= h) break
 
             switch(span.type) {
                 case spans.STRONG:

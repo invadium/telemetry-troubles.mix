@@ -221,9 +221,11 @@ function registerTry(exp) {
 
     exp.tries = exp.tries? exp.tries + 1 : 1
     if (!exp.essential
+            && !exp.followed
             && exp.tries >= env.tune.missionControl.maxTries
             && this.activeExperiments.length < env.tune.missionControl.maxActiveExperiments) {
         // maximum number of tries reached, issue the next experiment
+        exp.followed = true
         job.control.HQ.requestNewExperiment()
     }
 }
@@ -232,12 +234,15 @@ function verifyExperiments(tried) {
     const _     = this,
           probe = this.probe
 
+    let tryRegistered = false
     _.activeExperiments.forEach( exp => {
         if (exp.verify(probe)) _.completeExperiment(exp)
+
+        if (tried && !tryRegistered && !exp.completed && !exp.followed) {
+            this.registerTry( exp )
+            tryRegistered = true
+        }
     })
-    if (tried && _.activeExperiments.length > 0) {
-        this.registerTry( _.activeExperiments[0] )
-    }
 }
 
 function onHalt() {

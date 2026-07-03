@@ -44,7 +44,7 @@ function requestNewExperiment(prevExp, at) {
         content: `Series ${nextExp.series}, Experiment ${nextExp.experiment}\n\n`
                     + nextExp.task
                     + `\nReward: $${nextExp.reward}`
-                    + `\n\n![Request a Hint|>hint:${nextExp.code}]`,
+                    + (nextExp.hint? `\n\n![Request a Hint|>hint:${nextExp.code}]` : ``),
 
         experiment: nextExp,
         onRead:     function() {

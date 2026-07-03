@@ -14,6 +14,10 @@ V hints requested by active links in the experiment request email
 V core sfx
 V time control
 V sfx mapping
+V autoskip experiments (after multiple attempts? time? both?)
+V fix display wrap-unwrap problem
+V fix "request hint" link on experiments where no hint is present
+V fix the last email line rendering glitch
 
 > more experiments
     > comparisons
@@ -24,13 +28,10 @@ V sfx mapping
     > power up a single device
     > power on more devices
 
-> autoskip experiments (after multiple attempts? time? both?)
 > keyboard control
 > instruction placement feedback
 > onHalt -> 1s -> experiment success/fail sfx or nothing (if no active experiment found)
-> fix display wrap-unwrap problem
 > fix trailing underscore bug on the scrollbar
-> fix "request hint" link on experiments where no hint is present
 
 
 # presentation
