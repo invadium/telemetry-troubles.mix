@@ -30,7 +30,9 @@ function start() {
     this.status = $.env.missionStatus = env.missionStatus = {
         time:        1,
         day:         1,
+        hour:        0,
         timeFactor:  1 / env.tune.evoSpeed,
+        hourTime:    env.tune.evoSpeed / env.tune.dayHours,
         burnRate:    env.tune.opt.burnRate,
         balance:     env.tune.opt.startBalance,
         burned:      0,
@@ -90,16 +92,26 @@ function evo(dt) {
     ms.time += dt * ms.timeFactor
     if (ms.over) return
 
+    if (ms.time - ms.day - ms.hour * ms.hourTime * ms.timeFactor >= ms.hourTime * ms.timeFactor) {
+        ms.hour ++
+        // log('hour: ' + ms.hour + ' time: ' + ms.time + ' => ' + this.getTimeString())
+        this.checkStatus()
+        this.reviewActiveExperiments()
+        signal('mission/nextHour', ms.hour)
+    }
+
     if (ms.time - ms.day > 1) {
         ms.day ++
+        ms.hour = 0
+        this.checkStatus()
         signal('mission/nextDay', ms.day)
     }
-    this.checkStatus()
 }
 
 function declareExperiment(exp) {
     this.experimentLog.push(exp)
     this.activeExperiments.push(exp)
+    exp.acceptedAt = this.status.time
     log(`declaring experiment:`)
     dir(exp)
     signal('newExperiment', exp)
@@ -186,18 +198,51 @@ function loadSolution(solution) {
     }
 }
 
-function verifyExperiments() {
+function reviewActiveExperiments() {
+    if (this.activeExperiments.length >= env.tune.missionControl.maxActiveExperiments) return
+    const mS = this.status
+
+    let requestNew = false
+    this.activeExperiments.forEach( exp => {
+        if (!exp.essential && !exp.followed && (mS.time - exp.acceptedAt) > env.tune.missionControl.experimentTimeoutDays) {
+            log(`Unsolved ${exp.code}: requesting a new experiment!`)
+            requestNew = true
+            exp.followed = true
+        }
+    })
+
+    if (requestNew) {
+        job.control.HQ.requestNewExperiment()
+    }
+}
+
+function registerTry(exp) {
+    if (!exp) return
+
+    exp.tries = exp.tries? exp.tries + 1 : 1
+    if (!exp.essential
+            && exp.tries >= env.tune.missionControl.maxTries
+            && this.activeExperiments.length < env.tune.missionControl.maxActiveExperiments) {
+        // maximum number of tries reached, issue the next experiment
+        job.control.HQ.requestNewExperiment()
+    }
+}
+
+function verifyExperiments(tried) {
     const _     = this,
           probe = this.probe
 
-    _.activeExperiments.forEach(exp => {
+    _.activeExperiments.forEach( exp => {
         if (exp.verify(probe)) _.completeExperiment(exp)
     })
+    if (tried && _.activeExperiments.length > 0) {
+        this.registerTry( _.activeExperiments[0] )
+    }
 }
 
 function onHalt() {
     log('checking experiment results...')
-    this.verifyExperiments()
+    this.verifyExperiments(true)
 }
 
 function getDay() {

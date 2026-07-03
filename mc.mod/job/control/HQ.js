@@ -20,6 +20,7 @@ function requestNewExperiment(prevExp, at) {
     log('found next experiment:')
     nextExp.issued    = true
     nextExp.completed = false
+    nextExp.issuedAt  = env.missionStatus.time
     dir(nextExp)
 
     // check prerequisites

@@ -18,7 +18,12 @@ const tune = {
     },
 
     HQ: {
-        baseRequestDelay: 2,
-        varRequestDelay:  3,
+        baseRequestDelay:      2,
+        varRequestDelay:       3,
+    },
+    missionControl: {
+        maxTries:              5,
+        maxActiveExperiments:  5,
+        experimentTimeoutDays: 5,
     },
 }

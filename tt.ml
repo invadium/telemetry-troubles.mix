@@ -12,6 +12,8 @@ V detect executed but unsolved solutions in experiments by autosolver
 V text mode active links with plumbing
 V hints requested by active links in the experiment request email
 V core sfx
+V time control
+V sfx mapping
 
 > more experiments
     > comparisons
@@ -23,11 +25,13 @@ V core sfx
     > power on more devices
 
 > autoskip experiments (after multiple attempts? time? both?)
-
-> randomized ambient noises
-
 > keyboard control
 > instruction placement feedback
+> onHalt -> 1s -> experiment success/fail sfx or nothing (if no active experiment found)
+> fix display wrap-unwrap problem
+> fix trailing underscore bug on the scrollbar
+> fix "request hint" link on experiments where no hint is present
+
 
 # presentation
 > title screenshot
@@ -35,19 +39,8 @@ V core sfx
 > pdf manual with specs, instructions and backstory
 
 
-> dusty 12 mode switch ops
-> telemetry layout instructions (adjust components)
-> dusty 12 I/O (sense, out...)???
-> test-drive email system with messages on TT design, roadmap etc... (an Easter Egg?)
-
-
-> program upload
-    > sfx
-
-
 ### System III
-> time control
-> sfx mapping
+> set execution pointer with right/middle(?) click when on pause
 > music player with cross-fades
 > dpad-only support?
 > retro-style print-out email viewer #spice
@@ -63,10 +56,18 @@ V core sfx
 > system terminal that can work as a debug console (e.g. for "fx", but within the game)
 
 
+### Proto III
+> dusty 12 mode switch ops
+> telemetry layout instructions (adjust components)
+> dusty 12 I/O (sense, out...)???
+> test-drive email system with messages on TT design, roadmap etc... (an Easter Egg?)
 
-
+> program upload
+    > sfx
+> randomized ambient noises
 
 > [-] fix mouse coordinates shift when the page zooms - prevent zooming or compensate according to the zoom
+
 
 
 ## Collider
