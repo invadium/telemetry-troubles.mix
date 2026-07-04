@@ -502,7 +502,7 @@ class Dusty12 {
     }
     */
 
-    flush(src, icapsule) {
+    flush(src, icapsule, unlocked) {
         const ops = src
             .split('\n')
             .map(e => e.trim())
@@ -532,6 +532,7 @@ class Dusty12 {
             icapsule,
             src,
             ops,
+            unlocked: !!unlocked,
         }
         this.monitors.forEach(m => {
             if (isFun(m.onFlush)) m.onFlush(e)

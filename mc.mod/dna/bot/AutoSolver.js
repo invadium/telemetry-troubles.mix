@@ -42,9 +42,17 @@ class AutoSolver {
                 newExperiment:      (e, _) => {
                     _.report(`solving experiment [${e.code}]`)
                     this.lastExperiment = e
-                    // solve solution heere!
-                    pub.missionControl.loadSolution( e.solution )
-                    sfx('flush-solution')
+
+                    lab.locate('&coreMonitor').resetCapsule()
+                    job.control.taskScheduler.doAfter({
+                        owner: _,
+                        title: `[autosolver][${e.code}] flushing solution`,
+                        fn: () => {
+                            // solve solution heere!
+                            pub.missionControl.loadSolution( e.solution, true )
+                            sfx('flush-solution')
+                        },
+                    }, 3)
                 },
                 experimentComplete: (e, _) => {
                     _.report(`experiment complete: [${e.code}]`)
@@ -78,6 +86,12 @@ class AutoSolver {
                                 // the experiment should be solved by now!
                                 log.warn(`[${stime}][autosolver] failed to solve the experiment [${lastExp.code}]`)
                                 dir(lastExp)
+                                sfx('solution-failed')
+                                signal('email', {
+                                    from: 'Tester',
+                                    subject: `${lastExp.code} Unsolved`,
+                                    content: `Unable to solve [${lastExp.code}: ${lastExp.title}]!`,
+                                })
                             } else {
                                 log(`[${stime}][autosolver] the solution for [${lastExp.code}] - OK!`)
                             }

@@ -145,7 +145,7 @@ function completeExperiment(exp) {
             job.control.HQ.reportCompleteExperiment(exp)
             signal('experimentComplete', exp)
         },
-    }, 1)
+    }, 3)
 
     if ( isFun(exp.next) ) {
         exp.next(probe)
@@ -189,9 +189,9 @@ function requestHint(exp) {
 }
 
 // TODO refactor on null/id/expObject model like the hint!
-function loadSolution(solution) {
+function loadSolution(solution, unlocked) {
     if (solution) {
-        this.probe.dusty.flush(solution)
+        this.probe.dusty.flush(solution, 0, unlocked)
         return true
     } else {
         const aE = this.activeExperiments
@@ -199,7 +199,7 @@ function loadSolution(solution) {
 
         const exp = aE[ aE.length - 1 ]
         if (exp && isStr(exp.solution)) {
-            this.probe.dusty.flush(exp.solution)
+            this.probe.dusty.flush(exp.solution, 0, unlocked)
             return true
         } else {
             return false

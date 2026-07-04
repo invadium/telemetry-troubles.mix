@@ -16,7 +16,7 @@ const experiment = {
     // next custom actions after the experiment is completed
     next: function(probe, MC) {
         const eS = job.control.emailScheduler
-        eS.sendAfter('telemetry',  1)
+        eS.sendAfter('telemetry',  7)
     },
 }
 module.exports = experiment

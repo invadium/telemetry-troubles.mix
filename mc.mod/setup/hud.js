@@ -40,7 +40,7 @@ function hud() {
 
     const primaryDisplay = $.PD = missionPanel.spawn('Display', {
         name: 'primaryDisplay',
-        title: 'Communication',
+        title: 'CommLink',
 
         anchor: {
             north: titleBar,

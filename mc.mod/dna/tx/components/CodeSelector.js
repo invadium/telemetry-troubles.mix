@@ -27,6 +27,14 @@ class CodeSelector extends ScrollablePanel {
         }
     }
 
+    isLocked(code) {
+        if (!code) return true
+        code = code.toUpperCase()
+
+        if (this.options.indexOf(code) >= 0) return false
+        else return true
+    }
+
     unlock(code) {
         if (!code) return
         code = code.toUpperCase()

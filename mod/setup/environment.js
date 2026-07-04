@@ -6,7 +6,7 @@ function environment() {
                 || p.startsWith('hide')
                 || p.startsWith('enable')
                 || p.startsWith('disable')) {
-            env[p] = env.config[p]
+            env[p] = mod.mc.env[p] = env.config[p]
         }
     }
 

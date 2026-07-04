@@ -24,7 +24,7 @@ module.exports = {
     },
     'tag-hover': {
         res: 'tripple-drop',
-        vol: .25,
+        vol: .1,
     },
     'detract': {
         res: 'detract',
@@ -97,7 +97,11 @@ module.exports = {
     },
     'flush-solution': {
         res: 'evil-computer',
-        vol: .5,
+        vol: .1,
+    },
+    'solution-failed': {
+        res: 'dan2008--access-denied',
+        vol: .75,
     },
 
 

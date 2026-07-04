@@ -248,7 +248,15 @@ class CoreMonitor extends ScrollablePanel {
         const codeSelector = this.__.codeSelector
         const ops = e.ops.filter(e => isString(e))
         for (let i = ops.length - 1; i >= 0; i--) {
-            codeSelector.unlock(ops[i])
+            if (env.debug && e.unlocked && codeSelector.isLocked( ops[i] )) {
+                log.warn(`${ops[i]} is expected to be unlocked by now!`)
+                signal('email', {
+                    from: 'Tester',
+                    subject: `${ops[i]} Locked!`,
+                    content: `The code [${ops[i]}] is expected to be unlocked by now!`,
+                })
+            }
+            codeSelector.unlock( ops[i] )
         }
     }
 
