@@ -44,6 +44,7 @@ class AutoSolver {
                     this.lastExperiment = e
                     // solve solution heere!
                     pub.missionControl.loadSolution( e.solution )
+                    sfx('flush-solution')
                 },
                 experimentComplete: (e, _) => {
                     _.report(`experiment complete: [${e.code}]`)

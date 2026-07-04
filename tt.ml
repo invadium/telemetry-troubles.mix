@@ -28,10 +28,10 @@ V fix the last email line rendering glitch
     > power up a single device
     > power on more devices
 
+> onHalt -> 1s -> experiment success/fail sfx or nothing (if no active experiment found), do experiment verify on halt
+> fix trailing underscore bug on the scrollbar
 > keyboard control
 > instruction placement feedback
-> onHalt -> 1s -> experiment success/fail sfx or nothing (if no active experiment found)
-> fix trailing underscore bug on the scrollbar
 
 
 # presentation
@@ -63,8 +63,9 @@ V fix the last email line rendering glitch
 > dusty 12 I/O (sense, out...)???
 > test-drive email system with messages on TT design, roadmap etc... (an Easter Egg?)
 
-> program upload
-    > sfx
+> program walk sfx
+> program run sfx
+> program step sfx?
 > randomized ambient noises
 
 > [-] fix mouse coordinates shift when the page zooms - prevent zooming or compensate according to the zoom

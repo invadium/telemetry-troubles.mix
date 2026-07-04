@@ -95,6 +95,10 @@ module.exports = {
         res: 'jerimee--objective-complete',
         vol: .5,
     },
+    'flush-solution': {
+        res: 'evil-computer',
+        vol: .5,
+    },
 
 
     default: {
