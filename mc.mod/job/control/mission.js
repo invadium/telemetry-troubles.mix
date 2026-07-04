@@ -128,20 +128,29 @@ function completeExperiment(exp) {
     if (exp.completed) return false
 
     exp.completed = true
-    _.earn(exp.reward)
     MS.experiments ++
-    signal('email', {
-        from: 'HQ',
-        subject: `${exp.code} Complete`,
-        content: `${exp.code}: ${exp.title} is complete!\n\n`
-                 + `Reward: $${exp.reward}`, 
-    })
+
+    job.control.taskScheduler.doAfter({
+        owner:  _,
+        title: `[mission-control] send experiment complete email`,
+        fn: () => {
+            _.earn(exp.reward)
+            signal('email', {
+                from: 'HQ',
+                subject: `${exp.code} Complete`,
+                content: `${exp.code}: ${exp.title} is complete!\n\n`
+                         + `Reward: $${exp.reward}`, 
+            })
+
+            job.control.HQ.reportCompleteExperiment(exp)
+            signal('experimentComplete', exp)
+        },
+    }, 1)
+
     if ( isFun(exp.next) ) {
         exp.next(probe)
     }
     defer(() => _.activeExperiments.splice(i, 1))
-    job.control.HQ.reportCompleteExperiment(exp)
-    signal('experimentComplete', exp)
     sfx('experiment-complete')
 
     return true
