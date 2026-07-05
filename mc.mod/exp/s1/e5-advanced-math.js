@@ -6,12 +6,9 @@ const experiment = {
         const eS = job.control.emailScheduler
 
         log('sending advanced math prerequisites...')
-        /*
-        // TODO introduce unlock emails for the following ops:
         eS.sendAfter('unlock-mul', 3)
         eS.sendAfter('unlock-div', 4)
         eS.sendAfter('unlock-mod', 5)
-        */
     },
 
     verify: function(probe) {
