@@ -28,8 +28,7 @@ V fix the last email line rendering glitch
     > power up a single device
     > power on more devices
 
-> onHalt -> 1s -> experiment success/fail sfx or nothing (if no active experiment found), do experiment verify on halt
-> fix trailing underscore bug on the scrollbar
+V fix trailing underscore bug on the scrollbar
 > keyboard control
 > instruction placement feedback
 
@@ -41,6 +40,7 @@ V fix the last email line rendering glitch
 
 
 ### System III
+> fix link out-of-bound selection effect seeing on S1E2
 > set execution pointer with right/middle(?) click when on pause
 > music player with cross-fades
 > dpad-only support?

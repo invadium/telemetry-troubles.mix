@@ -14,7 +14,8 @@ v0.1, June 2026
 :front-cover-image: image:cover.png[Front Cover,align=center]
 
 include::parts/00-intro.ad[]
-include::parts/03-core-tenets.ad[]
+include::parts/03-tech-specs.ad[]
+include::parts/05-business-landscape.ad[]
 include::parts/11-tips.ad[]
 include::parts/15-story.ad[]
 include::parts/17-appendix.ad[]

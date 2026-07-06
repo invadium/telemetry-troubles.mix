@@ -1,5 +1,22 @@
 [appendix]
 = Glossary
 
-* Orbital Insertion - strange thing out there
+* Orbital Insertion - when a probe on an interplanetary trajectory attempts to drop excess speed and enter into a stable orbit around a planet or satellite.
+* Gravity Assist - when a probe uses a planet or moon gravity to accelerate and change its trajectory towards the target. It is a totally legal way to "steal" a little of the planet orbital momentum to gain some speed and reduce travel time to the target.
+* Mainframe - a major land-based computational node that provides Megahertz of computational power and Megabytes of memory storage.
+* Spaceframe - a space-based major computational node, usually much less powerful than land-based mainframes due to the limitations associated with weight, power, heat dissipation, and radiation.
+* CISC - Complex Instruction Set Computer - an architectural style that tries to include a wide range of operations in the basic instruction set
+* RISC - Reduced Instruction Set Computer - an architectural style that reduces the number of available basic instructions by simplifying possible addressing modes and excluding complex operations in favor of a series of simpler ones.
+* MISC - Minimal Instruction Set Computer - an architectural style that minimized the number or available operations by leaving only the most essential ones.
+
+
+
+
+
+
+
+
+
+
+
 

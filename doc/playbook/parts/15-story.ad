@@ -2,13 +2,67 @@
 
 == Programming Games Origins
 
+Despite obscurity, the programming games are a very ancient genre going back to 60s and the age of mainframes.
+
+The first known instance could be Darwin, invented in August 1961 at Bell Labs by Victor A. Vyssotsky, Robert Morris Sr., and M. Douglas McIlroy (later famous for involvement in early UNIX). It was implemented on an IBM 7090 mainframe.
+
+In Darwin, each player creates a program in 7090 assembly and loads it into the memory area called "arena". These programs run against each other by probing memory, copying themselves, and killing other programs. And the last running program is declared a winner.
+
+Darwin, along with the idea of self-replicating programs like Creeper and Reaper, inspired another programming game named Core War. It defines RedCode, an abstract assembly language for writing battle programs. The code runs on a virtual machine called MARS (stands for Memory Array Redcode Simulator) and is usually accompanied by a graphical memory monitor that allows you to see how programs are moved through memory and eliminate each other.
+
+After exploring the idea of abstract fighting programs, the genre branched into the programming of fighting vehicles. Like RobotWars developed in 70s for the PLATO system and later ported to other platforms, where you program a robot to battle other robots. Or Omega by Origin, released in 1989, where you design and program battle tanks.
+
+A very interesting variety of programming games evolved with the appearance of 3D-capable gaming consoles. Carnage Heart, created by a Japanese corporation Artdink in 1995, was a very different experience, allowing players to design sophisticated battle-mechs and program them in a visual programming environment that works only with a game controller (no keyboard!) Not only does it involve engaging 3D battles between giant robots, but also a backstory, a well-developed plot, advancing research and development, manufacturing, and strategic elements. It was followed by a bunch of sequels and similar games like Pandora Project (PS1, 1996), Marionette Handler for Sega Dreamcast (1999), Gladiabots (Steam, 2019), and some versions of the Armored Core series.
+
+Then, there were hacking simulations of various complexities. Some of them involved programming elements.
+
+And finally, there are many puzzle games, where you have to write some code in order to progress forward. It could be actual code or logic blocks you need to place in the right order.
+
+One of the best examples providing great educational value is ColorBot, where you use a Java-like object-oriented language to program bots to complete multiple missions of planet colonisation. You program bots to find, collect, and process resources, do manufacturing, and fight threatening alien lifeforms.
+
+The most prominent programming puzzle games are probably the ones from legendary Zachtronics - titles like TIS-100 and ExaPunks, among others.
+
+ 
+
 == Journey
 
-== Ludum Dare 59
+I was always fascinated by programming games. I played many of them, I explored their design, and I discussed those games with fellow game designers and developers.
+
+I used game challenges in many of my classes and bootcamps. And I noticed that it is somewhat hard to design a well-balanced and challenging programming game, but when done and applied right, the game can give an unbelievable boost to the learning flow and general engagement.
+
+And finally, I designed and developed a bunch of them. Some were just experiments in programming game design, exploring the possibilities of what such a game might look like. Some were created for a particular theme of a particular game jam, like Sonado that I've created for Meta Game Jam. And it explores the idea of a virtual game console and implements a virtual machine that runs right from the cart image. The same image contains all maps and sprites for the game, along with instructions for a virtual machine specially developed for this particular game (that is another of my virtual machines).
+
+I also designed games for particular topics of my development bootcamps. These were very specific games, like a UNIX quest designed to familiarize developers with the shell and teach them the UNIX-Way to do things.
+
+
+
+== Ludum Dare 59 - Signal
+
+Well, that was a total failure. I came up with the idea of a failing deep-space probe that is struggling to function because someone mixed up metric and imperial units while building its Radioisotope Thermoelectric Generators (RTGs).
+
+
 
 == Noise Jam
 
+Since Noise Jam doesn't require building everything from scratch and allows you to start early, I've decided to join Noise Jam and fully develop that deep-space probe debugging idea. I considered 3 weeks of Noise Jam to be enough to properly explore and develop the idea.
+
+I was wrong. I established an overambitious scope for the jam - not only was I developing the game with a unique GUI system, but I was also debugging in-game text-mode interface, porting a js13k procedural modeler to Collider.JAM with its compiler and interpreter, writing a software 3D wireframe renderer for authentic probe telemetry, modeling the probe in my own DSL, and also inventing another programming language suitable for the probe programming within the existing game interface (I wanted to avoid using the keyboard if possible, so you can program just with the mouse or a gamepad).
+
+It was another failure. Well, I've managed to ship something barely playable this time, but I discovered that programming puzzles are really hard to come up with, design, playtest, and iterate over. Especially when these puzzles are chained together in a logical sequence (for example, you can't do the loop mission without discovering and unlocking the SUB instruction).
+
+But at least I've achieved something - an actual little sequence of programming puzzles manipulating telemetry and good visual feedback, which I always wanted to have, but never really knew if that would work.
+
+Assembly programming is the most frustrating form of programming due to its low-level nature. You have to do a lot of bits and bytes manipulation, pointer arithmetic and jumps, often without immediate visual feedback. And that makes assembly programming both frustrating and mysterious. A lot of stuff needs to be done in order to get even minimal results.
+
+Telemetry Troubles is somewhat unique in the way it provides feedback. A running DUSTY-12 program often causes immediate changes in the telemetry stream so you can see the effects of your instructions right away. And I believe it is the only reasonable way to learn programming - when your feedback is direct and immediate.
+
+That is what  Wally Feurzeig, Cynthia Solomon, and Seymour Papert envisioned while creating the sadly forgotten Logo language - a system with immediate feedback built upon constructivist ideas of learning proposed by a Swiss development psychologist, Jean Piaget.
+
+
+
 == JetPakBoy Challenges
+
+The next challenge is to playtest the existing scenario with JetPakBoy and evaluate the effectiveness of learning the foundations of system programming while solving puzzles in the game. I hope that the engaging plot and immediate visual feedback will help to establish the learning flow.
 
 
 

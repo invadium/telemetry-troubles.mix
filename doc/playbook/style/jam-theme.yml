@@ -2,8 +2,10 @@ extends: default
 
 page:
     layout: portrait 
-    margin: [0.75in, 0.5in, 0.75in, 0.5in]
-    size: A4
+    margin: [ 0.75in, 0.5in, 0.75in, 0.5in ]
+    margin-inner: 1.25in
+    margin-outer: 0.75in
+    size:   A4
 
 font:
   catalog:
@@ -22,15 +24,16 @@ font:
         normal:   if.regular.ttf
         bold:     if.regular.ttf
     Header2Font:
-        normal: got-heroin.regular.ttf
-        bold:   got-heroin.regular.ttf
+        normal:   if.regular.ttf
+        bold:     if.regular.ttf
     CodeFont:
-        normal: dotty.regular.ttf
+        normal:   dotty.regular.ttf
     FooterFont:
-        normal:      dotty.regular.ttf
+        normal:   dotty.regular.ttf
+
     SidebarHeaderFont:
-        normal: got-heroin.regular.ttf
-        bold:   got-heroin.regular.ttf
+        normal:   got-heroin.regular.ttf
+        bold:     got-heroin.regular.ttf
     SidebarFont:
         normal:       underwood-champion.regular.ttf
         italic:       underwood-champion.regular.ttf
@@ -100,7 +103,7 @@ heading:
             # color: #70819d
             color: #56a6a0
             family: Header2Font
-            size: 30
+            size: 20
         text_transform: uppercase
     h4:
         align: left 
