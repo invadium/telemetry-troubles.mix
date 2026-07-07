@@ -361,7 +361,7 @@ class Dusty12 {
                     probe.closeDataLine( pop() )
                 },
                 effect: 'x1 -- ',
-                info: 'close data bus line to the specified instrument'
+                info: 'close the data bus line to the specified instrument'
             },
             {
                 name: 'OPOW',
@@ -369,7 +369,7 @@ class Dusty12 {
                     probe.openPowerLine( pop() )
                 },
                 effect: 'x1 -- ',
-                info: 'open powerline to the specified instrument'
+                info: 'open the powerline to the specified instrument'
             },
             {
                 name: 'CPOW',
@@ -377,7 +377,7 @@ class Dusty12 {
                     probe.closePowerLine( pop() )
                 },
                 effect: 'x1 -- ',
-                info: 'close powerline to the specified instrument'
+                info: 'close the powerline to the specified instrument'
             },
 
             {

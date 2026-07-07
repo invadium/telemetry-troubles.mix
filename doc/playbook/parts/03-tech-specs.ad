@@ -31,9 +31,9 @@ NOT (x -- [1|0]) - logical NOT for the top value on the data stack
 JMP (@ -- ) - unconditional jump to the address specified on the data stack
 JNZ (x @ -- ) - conditional jump to the address specified on the data stack only if the second value is not zero
 OBUS (x1 -- ) - open data bus line to the specified instrument
-CBUS (x1 -- ) - close data bus line to the specified instrument
-OPOW (x1 -- ) - open powerline to the specified instrument
-CPOW (x1 -- ) - close powerline to the specified instrument
+CBUS (x1 -- ) - close the data bus line to the specified instrument
+OPOW (x1 -- ) - open the powerline to the specified instrument
+CPOW (x1 -- ) - close the powerline to the specified instrument
 HALT ( -- ) - halt execution
 RST ((... -- empty memory and stacks, zeroed registers)) - reset the VM
 ```

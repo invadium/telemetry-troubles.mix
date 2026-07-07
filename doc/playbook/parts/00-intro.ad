@@ -60,28 +60,65 @@ DUSTY-12 memory consists of several capsules, each representing a continuous ran
 Every cell contains a 12-bit number. For a data or stack capsule, these are considered to be signed integer values. For a code capsule, these can be either numbers (when the first bit is 0) or an instruction (when the first bit is 1). Therefore, an instruction format is a 1 bit followed by the instruction number:
 
 ```
-0x100 - the first instruction (NOP)
-0x101 - the second instruction
+0x100 - the first VM instruction (NOP)
+0x101 - the second VM instruction (DROP)
+...
 ```
 
 Usually, you work with DUSTY-12 capsules through Core Monitor, which automatically translates these opcodes to human-readable assembly mnemonics. So you don't care about the actual opcode number for each instruction and operate with mnemonics like "ADD", "SUB" and "JMP".
-It is just useful to know that the DUSTY-12 assembly is just a thin abstraction layer above the actual DUSTY-12 machine code and behind every assembly mnemonics there is an actual opcode number that DUSTY-12 knows how to interpret.
+It is just useful to know that the DUSTY-12 assembly is just a thin abstraction layer above the actual DUSTY-12 machine code, and behind every assembly mnemonic there is an actual opcode number that DUSTY-12 knows how to interpret.
 
 
 Each memory cell is associated with an address. DUSTY-12 addresses are 12-bit. They start at 0x000 and go sequentially up to 0xFFF, which is the highest possible address for any capsule.
 
-== 
 
 
+== DUSTY-12 Input/Output
 
+Command and Control Unit of a space probe is useful only when there is something to command and control. DUSTY-12 has input and output facilities to control data and power lines of the probe and manage data exchange with external devices and instruments.
 
+For example, to enable telemetry from device #4, you need the following code:
 
+```
+04
+OBUS
+```
 
+First, we place a HEX value 0x04 on the data stack. Next, we call the OBUS command that picks the top of the data stack and opens the specified data line to receive the telemetry.
 
+The same way, the telemetry data line can be closed with CBUS:
 
+```
+04
+CBUS
+```
 
+Other I/O commands work in a similar way. For example, we can power on device #5 with OPOW:
 
+```
+05
+OPOW
+```
 
+And then power it down with:
 
+```
+06
+CPOW
+```
 
+.Stealing the Dust
+****
+ANGEL-F5 probe is designed and built by the Orbital Equipment Corp (OEC). Yet, it is controlled by a spaceframe based at the core on the DUSTY-12 architecture of the famous Stardust Bureau.
+
+One might wonder how OEC managed to build a Command and Control Unit on DUSTY-12 without buying a license from Stardust Bureau.
+
+The following story is based totally on rumors and rare pieces of inside information collected throughout our industry. But the overall picture seems to be pretty clear.
+
+When Orbital Equipment Corp. won the Heliosphere Survey Group contract on a deep space mission, it didn't have a proven radiation-hardened chipset able to operate in outer space conditions. OEC, after all, was mostly a low-orbit operator and had no experience or know-how in operating in highly radioactive environments.
+
+Initially, they went into an agreement with Stardust Bureau to get the necessary engineering help and technologies. But the deal fell apart due to the licensing disagreements over who is going to control the resulting technology.
+
+EOC, however, managed to preserve some essential blueprints during Stardust Bureau technology evaluation. That, some engineering chipsets obtained through third parties, plus a little of industrial espionage, and OEC managed to build a DUSTY-12 compatible chipset hardened enough to survive an encounter with any gas giant.
+****
 

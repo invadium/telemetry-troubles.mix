@@ -10,15 +10,15 @@ In Darwin, each player creates a program in 7090 assembly and loads it into the 
 
 Darwin, along with the idea of self-replicating programs like Creeper and Reaper, inspired another programming game named Core War. It defines RedCode, an abstract assembly language for writing battle programs. The code runs on a virtual machine called MARS (stands for Memory Array Redcode Simulator) and is usually accompanied by a graphical memory monitor that allows you to see how programs are moved through memory and eliminate each other.
 
-After exploring the idea of abstract fighting programs, the genre branched into the programming of fighting vehicles. Like RobotWars developed in 70s for the PLATO system and later ported to other platforms, where you program a robot to battle other robots. Or Omega by Origin, released in 1989, where you design and program battle tanks.
+After exploring the idea of abstract fighting programs, the genre branched into the programming of fighting vehicles. Like RobotWars, developed in 70s for the PLATO system and later ported to other platforms, where you program a robot to battle other robots. Another classic is Omega by Origin, released in 1989, where you design and program battle tanks.
 
-A very interesting variety of programming games evolved with the appearance of 3D-capable gaming consoles. Carnage Heart, created by a Japanese corporation Artdink in 1995, was a very different experience, allowing players to design sophisticated battle-mechs and program them in a visual programming environment that works only with a game controller (no keyboard!) Not only does it involve engaging 3D battles between giant robots, but also a backstory, a well-developed plot, advancing research and development, manufacturing, and strategic elements. It was followed by a bunch of sequels and similar games like Pandora Project (PS1, 1996), Marionette Handler for Sega Dreamcast (1999), Gladiabots (Steam, 2019), and some versions of the Armored Core series.
+A very interesting variety of programming games evolved with the appearance of 3D-capable gaming consoles. Carnage Heart, created by a Japanese corporation Artdink in 1995, was a very different experience, allowing players to design sophisticated battle-mechs and program them in a visual programming environment that works only with a game controller (no keyboard!) Not only does it involve engaging 3D battles between giant robots, but also a backstory, a well-developed plot, advancing research and development, manufacturing, and strategic elements. It was followed by a bunch of sequels and similar games like Pandora Project (PlayStation, 1996), Marionette Handler (Sega Dreamcast, 1999), Gladiabots (Steam, 2019), and some entries in the Armored Core series.
 
-Then, there were hacking simulations of various complexities. Some of them involved programming elements.
+Then, there were hacking simulations of various complexities. Some were simple mechanical hacking simulations with no programming whatsoever - like epic Uplink by Introversion. But some involved programming elements.
 
-And finally, there are many puzzle games, where you have to write some code in order to progress forward. It could be actual code or logic blocks you need to place in the right order.
+And finally, there are many puzzle games, where you have to write code in order to progress forward. It could be actual code or logic blocks you need to place in the right order.
 
-One of the best examples providing great educational value is ColorBot, where you use a Java-like object-oriented language to program bots to complete multiple missions of planet colonisation. You program bots to find, collect, and process resources, do manufacturing, and fight threatening alien lifeforms.
+One of the best examples providing great educational value is ColoBot, where you use a Java-like object-oriented language to program bots to complete multiple missions of planet colonisation. You program bots to find, collect, and process resources, do manufacturing, and fight threatening alien lifeforms.
 
 The most prominent programming puzzle games are probably the ones from legendary Zachtronics - titles like TIS-100 and ExaPunks, among others.
 
@@ -30,15 +30,42 @@ I was always fascinated by programming games. I played many of them, I explored 
 
 I used game challenges in many of my classes and bootcamps. And I noticed that it is somewhat hard to design a well-balanced and challenging programming game, but when done and applied right, the game can give an unbelievable boost to the learning flow and general engagement.
 
-And finally, I designed and developed a bunch of them. Some were just experiments in programming game design, exploring the possibilities of what such a game might look like. Some were created for a particular theme of a particular game jam, like Sonado that I've created for Meta Game Jam. And it explores the idea of a virtual game console and implements a virtual machine that runs right from the cart image. The same image contains all maps and sprites for the game, along with instructions for a virtual machine specially developed for this particular game (that is another of my virtual machines).
+And finally, I designed and developed a bunch of them. Some were just experiments in programming game design, exploring the possibilities of what such a game might look like.
 
-I also designed games for particular topics of my development bootcamps. These were very specific games, like a UNIX quest designed to familiarize developers with the shell and teach them the UNIX-Way to do things.
+Some were created with a particular theme and for a particular game jam. Like Sonado, created for Meta Game Jam. It explores the idea of a virtual game console and implements a virtual machine that runs right from the cart image. The same image contains all maps and sprites for the game, along with instructions for a virtual machine specially developed for this particular game (that is another of my virtual machines).
+
+I also designed games for particular topics of my development bootcamps. These were very specific games, like a UNIX quest designed to familiarize developers with the shell and teach them the UNIX-Way of doing things.
 
 
 
 == Ludum Dare 59 - Signal
 
-Well, that was a total failure. I came up with the idea of a failing deep-space probe that is struggling to function because someone mixed up metric and imperial units while building its Radioisotope Thermoelectric Generators (RTGs).
+Ludum Dare 59 was a total failure.
+
+I was not planning to participate in the first place, and no one from the team was able to join. Also, to enter a jam as intense as Ludum Dare without a warm-up is a recipe for disaster.
+
+I failed to warm up due to a ballistic missile attack on the city two days prior that left 60 people injured and 4 dead. A loud and sleepless night destroyed my focus and killed any desire to do anything for the next couple of days.
+
+So how did I end up jamming?
+
+Well, I woke up on Saturday and opened the Ludum Dare site to check the announced theme. Most of the time, I struggle with jam themes. It was always challenging to come up with a well-defined game concept in a limited time. Not this time, though.
+
+"Signal" was simple, clear, very narrow... In fact, so confined that a game idea almost instantly popped up in my mind. No research. No Pinterest surfing for inspiration. No brainstorming... No usual struggle, long considerations, doubts...
+
+Just a pure game concept I can clearly visualize.
+
+There is a deep-space probe at the edge of the solar system. It is on an important mission - maybe searching for rare metal deposits in the Kuiper belt. A lot of money was spent on the design, manufacturing, and launch of the probe. Many years were spent reaching the edge of the solar system.
+
+Once the probe was out and ready to activate and perform its primary mission, a slight problem was discovered. Turns out someone mixed up metric and imperial units while building its Radioisotope Thermoelectric Generators (RTGs). Now the probe doesn't have sufficient power and must be remotely reprogrammed to compensate for the loss and still perform the job.
+
+And that was the image that clearly stuck in my mind.
+
+On the right of the screen, you see a wireframe model of a probe resembling Voyager or Cassini-Huygens. On top of it, you can see the telemetry stream - some gauges and indicators jumping and blinking, showing all sorts of activities - indicating that the probe was still alive.
+
+On the left side, there is a window with an email from the HQ instructing you to activate or deactivate a particular system.
+
+There is another window where you can define appropriate instructions in a low-level assembly-like language and upload and run that program on the probe.
+
 
 
 
@@ -52,7 +79,7 @@ It was another failure. Well, I've managed to ship something barely playable thi
 
 But at least I've achieved something - an actual little sequence of programming puzzles manipulating telemetry and good visual feedback, which I always wanted to have, but never really knew if that would work.
 
-Assembly programming is the most frustrating form of programming due to its low-level nature. You have to do a lot of bits and bytes manipulation, pointer arithmetic and jumps, often without immediate visual feedback. And that makes assembly programming both frustrating and mysterious. A lot of stuff needs to be done in order to get even minimal results.
+Assembly programming is the most frustrating form of programming due to its low-level nature. You have to do a lot of bits and bytes manipulation, pointer arithmetic, and jumps, often without immediate visual feedback. And that makes assembly programming both frustrating and mysterious. A lot of stuff needs to be done in order to get even minimal results.
 
 Telemetry Troubles is somewhat unique in the way it provides feedback. A running DUSTY-12 program often causes immediate changes in the telemetry stream so you can see the effects of your instructions right away. And I believe it is the only reasonable way to learn programming - when your feedback is direct and immediate.
 
@@ -62,7 +89,16 @@ That is what  Wally Feurzeig, Cynthia Solomon, and Seymour Papert envisioned whi
 
 == JetPakBoy Challenges
 
-The next challenge is to playtest the existing scenario with JetPakBoy and evaluate the effectiveness of learning the foundations of system programming while solving puzzles in the game. I hope that the engaging plot and immediate visual feedback will help to establish the learning flow.
+The next challenge is to playtest the existing scenario with JetPakBoy and evaluate the effectiveness of learning the foundations of system programming by solving the game's puzzles. I hope that the engaging plot and immediate visual feedback will help to establish the learning flow.
+
+
+
+
+
+
+
+
+
 
 
 
