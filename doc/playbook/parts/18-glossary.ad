@@ -1,6 +1,7 @@
 [appendix]
 = Glossary
 
+
 * Orbital Insertion - when a probe on an interplanetary trajectory attempts to drop excess speed and enter into a stable orbit around a planet or satellite.
 * Gravity Assist - when a probe uses a planet or moon gravity to accelerate and change its trajectory towards the target. It is a totally legal way to "steal" a little of the planet orbital momentum to gain some speed and reduce travel time to the target.
 * Mainframe - a major land-based computational node that provides Megahertz of computational power and Megabytes of memory storage.

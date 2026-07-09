@@ -7,6 +7,15 @@ page:
     margin-outer: 0.75in
     size:   A4
 
+ulist:
+    marker:
+      disc:
+          content: "*"    # Default bullet (•)
+      square:
+          content: "\u25AA"    # Square bullet (▪)
+      circle:
+          content: "\u25E6"    # Circle bullet (◦)
+
 font:
   catalog:
     CoverFont:

@@ -1,0 +1,106 @@
+== DUSTY-12 Spaceframe
+
+((DUSTY-12)) family of Command and Control Units is the latest series of spaceframes by the famous StarDust Bureau. It controls major spacecraft operations and can be programmed in DUSTY-12 assembly language.
+
+Its architecture can be described as a multiple-stack-based Minimal Instruction Set Computer (or MSB-MISC).
+
+
+.MISC
+****
+We, ground folks, are familiar mostly with two types of Command and Control Units architectures - CISC and RISC.
+
+CISC stands for Complex Instruction Set Computer and represents the "classical" architecture with hundreds of instructions that cover a wide range of operations across multiple registers and various addressing modes. That architectural style necessitates bigger chips, since you need more silicon real estate to implement all these instructions. And a bigger chip means a bigger target for ionizing radiation and high-energy plasma. Not exactly the thing we want in outer space.
+
+RISC is a Reduced Instruction Set Computer, and it eliminates many operations found in a CISC machine, resulting in a simpler, more straightforward architecture. It means a smaller chip core and lighter radiation protection shell.
+
+But when we go really deep, especially near gas giants with their enormous radiation belts, we want to use **MISC** - a Minimal Instruction Set Computer. These machines are predominantly stack-based and operate on a bare minimum instruction set. The ultimate machine for any spaceframe developer!
+****
+
+DUSTY-12 is a 12-bit architecture, meaning it operates mostly with 12-bit numbers in a 12-bit address space.
+Each 12-bit value in DUSTY-12 is called a "word," and words are placed sequentially in memory, addressed by a 12-bit address.
+
+
+.Deep-Space Legacy
+****
+We all enjoy an abundance of memory and computational resources these days.
+Home terminals use the Megabit satellite uplink to connect to powerful mainframes
+of many Megahertz and Megabytes.
+Even at home, many own workstations with up to 640Kb of RAM, which is more than enough for any conceivable task.
+
+So one might ask, why are our deep-space exploration vehicles so low-powered and have very limited memory?
+
+Partly, it is explained by timing - it takes a lot of time to design and build a space probe, and it takes many more years to reach the outer rim of the Solar System.
+So the probes are limited by the technology available at the time of design and construction.
+
+Also, we can't use stock components for the construction of such a probe. Strong magnetic fields, solar winds, flares, cosmic rays, and other high-energy phenomena are affecting the proper functions of electronic components. Therefore, all on-board computers are deliberately downgraded and made out of space-grade materials to harden them against such harsh conditions.
+
+Indeed, DUSTY-12 looks peculiar, but there is a good reason for that weirdness.
+****
+
+== DUSTY-12 Memory
+DUSTY-12 memory consists of several capsules, each representing a continuous range of memory cells. The memory cells contain numbers that can be interpreted either as data or instructions.
+
+Every cell contains a 12-bit number. For a data or stack capsule, these are considered to be signed integer values. For a code capsule, these can be either numbers (when the first bit is 0) or an instruction (when the first bit is 1). Therefore, an instruction format is a 1 bit followed by the instruction number:
+
+```
+0x100 - the first VM instruction (NOP)
+0x101 - the second VM instruction (DROP)
+...
+```
+
+Usually, you work with DUSTY-12 capsules through Core Monitor, which automatically translates these opcodes to human-readable assembly mnemonics. So you don't care about the actual opcode number for each instruction and operate with mnemonics like "ADD", "SUB" and "JMP".
+It is just useful to know that the DUSTY-12 assembly is just a thin abstraction layer above the actual DUSTY-12 machine code, and behind every assembly mnemonic there is an actual opcode number that DUSTY-12 knows how to interpret.
+
+
+Each memory cell is associated with an address. DUSTY-12 addresses are 12-bit. They start at 0x000 and go sequentially up to 0xFFF, which is the highest possible address for any capsule.
+
+
+
+== DUSTY-12 Input/Output
+
+Command and Control Unit of a space probe is useful only when there is something to command and control. DUSTY-12 has input and output facilities to control data and power lines of the probe and manage data exchange with external devices and instruments.
+
+For example, to enable telemetry from device #4, you need the following code:
+
+```
+04
+OBUS
+```
+
+First, we place a HEX value 0x04 on the data stack. Next, we call the OBUS command that picks the top of the data stack and opens the specified data line to receive the telemetry.
+
+The same way, the telemetry data line can be closed with CBUS:
+
+```
+04
+CBUS
+```
+
+Other I/O commands work in a similar way. For example, we can power on device #5 with OPOW:
+
+```
+05
+OPOW
+```
+
+And then power it down with:
+
+```
+06
+CPOW
+```
+
+.Stealing the Dust
+****
+ANGEL-F5 probe is designed and built by the Orbital Equipment Corp (OEC). Yet, it is controlled by a spaceframe based at the core on the DUSTY-12 architecture of the famous Stardust Bureau.
+
+One might wonder how OEC managed to build a Command and Control Unit on DUSTY-12 without buying a license from Stardust Bureau.
+
+The following story is based totally on rumors and rare pieces of inside information collected throughout our industry. But the overall picture seems to be pretty clear.
+
+When Orbital Equipment Corp. won the Heliosphere Survey Group contract on a deep space mission, it didn't have a proven radiation-hardened chipset able to operate in outer space conditions. OEC, after all, was mostly a low-orbit operator and had no experience or know-how in operating in highly radioactive environments.
+
+Initially, they went into an agreement with Stardust Bureau to get the necessary engineering help and technologies. But the deal fell apart due to the licensing disagreements over who is going to control the resulting technology.
+
+EOC, however, managed to preserve some essential blueprints during Stardust Bureau technology evaluation. That, some engineering chipsets obtained through third parties, plus a little of industrial espionage, and OEC managed to build a DUSTY-12 compatible chipset hardened enough to survive an encounter with any gas giant.
+****
