@@ -134,29 +134,24 @@ class CoreMonitor extends ScrollablePanel {
         this.dusty.op('RST')
     }
 
-    /*
-    exec() {
-        const core = this.core
-        this.mode = EXEC_MODE
-        core.cp = 0
-        core.timer = env.time
-    }
-
-    halt() {
-        const core = this.core
-        this.mode = VIEW_MODE
-        core.cp = -1
-        core.time = 0
-    }
-    */
-
     syncExecInView() {
-        const { stackPointer, core } = this
-        const cp = core.cp
+        const { stackPointer, dusty } = this
+        const state = dusty.spy.state()
+        const PC = state.PC
         const screenCapacity = this.screenCapacity()
 
-        if (cp < stackPointer || cp >= stackPointer + screenCapacity) {
-            this.stackPointer = cp
+        if (PC < stackPointer || PC >= stackPointer + screenCapacity) {
+            this.stackPointer = PC
+        }
+    }
+
+    syncEditInView() {
+        const { stackPointer, editPointer } = this
+        const screenCapacity = this.screenCapacity()
+
+        if (editPointer < stackPointer || editPointer >= stackPointer + screenCapacity) {
+            this.stackPointer = editPointer - 1
+            if (this.stackPointer < 0) this.stackPointer = 0
         }
     }
 
@@ -261,6 +256,7 @@ class CoreMonitor extends ScrollablePanel {
     }
 
     onStep() {
+        this.syncExecInView()
         sfx('dusty-step')
     }
 

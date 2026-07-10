@@ -62,6 +62,8 @@ V fix trailing underscore bug on the scrollbar
 > telemetry layout instructions (adjust components)
 > dusty 12 I/O (sense, out...)???
 > test-drive email system with messages on TT design, roadmap etc... (an Easter Egg?)
+> delete the cell and shift up #core-monitor
+> when paused (or walking/running?) set the command pointer (with right click? ctrl+click?)
 
 > program walk sfx
 > program run sfx
