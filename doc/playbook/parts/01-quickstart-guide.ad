@@ -1,4 +1,92 @@
 == QuickStart Guide
 
+This chapter guides you over the basics of DUSTY-12 development. It provides a surface view of the Comm Link system, Core Monitor, and DUSTY-12 assembly language. It has everything you need to start. But you will not find any in-depth information here - for a more comprehensive description and detailed technical specifications, reference other sections of this manual.
 
+=== Your First Steps
+
+The first day you start at any of the Outer Rim League (ORL) companies, you will be connected to CommLink. It is a standard communication system based on the TRUST-8 protocol. It allows you to send and receive messages among the members of the ORL as well as access ORL databanks and bulletin boards.
+
+Locate the CommLink display - it should show your InBox with a Welcome email that you should've received shortly after joining. It is an introductory message common among the outer rim companies.
+
+image::shots/inbox-welcome.png[Welcome Message in InBox]
+
+You can see who it is from, the subject line, and also the exact day and hour the message was received. The star to the left indicates that the message was not read yet.
+
+Click on it and read the content.
+
+image::shots/email-welcome.png[Email view on the Welcome Message]
+
+The message will be shown in a separate tab, and you can close it when no longer needed.
+
+There will be more messages covering the current state of affairs, some technical details, and instructions. Read them all.
+
+=== First Experiment
+
+Eventually, you will receive a Request for an Experiment. It is the moment you are waiting for. The most significant step in your career. Your first programming task!
+
+image::shots/inbox-first-request.png[InBox - First Request]
+
+The experiment will be encoded as S1E1 (Series 1 Experiment 1) and will require you to enable the first telemetry line.
+
+image::shots/email-first-request.png[First Request Email]
+
+It is a very simple task. You already have a DUSTY-12 instruction OBUS (stands for Open data BUS) unlocked - the details should already be in your InBox.
+
+Now is the time for programming.
+
+Locate the Core Monitor display. It shows the code for the current DUSTY-12 capsule and should be empty at the moment. If not, locate and click the "Clear current capsule" button.
+
+image::shots/core-monitor.png[Core Monitor]
+
+You can select any of the memory cells. Click on the one at address 0x000. The Code Selector section to the right will show the possible options, which include the list of hexadecimal numbers and all DUSTY-12 instructions unlocked so far.
+
+Click on any of the available options to set the memory cell. More experienced engineers prefer to use right-click to auto-advance the cursor to the next memory address.
+
+We've been requested to open telemetry data line #0. So let's place the dataline number on the stack first - select 0x00 as the first instruction. Next we need to tell DUSTY-12 to open the data line by providing the OBUS instruction. That instruction will pop the top value on the data stack (0x00) and open the telemetry dataline corresponding to that value.
+
+The whole program will look like this:
+
+```
+00
+OBUS
+```
+
+Or when typed into the Core Monitor:
+
+image::shots/core-monitor-S1E1-solution.png[S1E1 Solution]
+
+You can control Core Monitor with a row of control buttons:
+
+image::shots/debug-monitor-controls.png[Core Monitor Controls]
+
+They are from left to right:
+
+* Clear current capsule
+* Stop execution
+* Pause execution
+* One step forward
+* Walk the program (slow execution)
+* Run the program (fast execution)
+
+On this stage, we recommend running DUSTY-12 in the Walk mode. Or even in step-by-step mode if you want to carefully examine the effect of every single step.
+
+Press the "Walk Program" button and observe how the red cursor highlights an instruction to be executed. The program stops when it reaches an empty memory cell.
+
+
+
+
+
+
+After the walk, the probe telemetry dataline #0 will start to send telemetry over the engineering channel. You should see the probe wireframe model approximated from that data.
+
+image::shots/telemetry-0.png[Telemetry DataLine #0]
+
+
+Congratulations!
+
+Your first experiment is complete and you should receive your reward shortly (there will be an email notification in your InBox).
+
+image::shots/email-S1E1-complete.png["Attitude telemetry experiment is complete" email]
+
+Take your hard-earned money and get some lunch and coffee. Because there is more than one experiment coming along the way!
 

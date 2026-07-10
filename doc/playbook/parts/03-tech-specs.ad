@@ -1,3 +1,4 @@
+
 == DUSTY-12 Instruction Set
 
 ((DUSTY-12)) processing core provides 27 basic instructions. These cover things like math, basic stack manipulations, comparisons, conditional and unconditional jumps, memory access, data and power control.

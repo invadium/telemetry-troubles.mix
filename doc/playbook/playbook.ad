@@ -12,6 +12,7 @@ v0.1, June 2026
 :source-highlighter: coderay
 :imagesdir: img 
 :front-cover-image: image:cover.png[Front Cover,align=center]
+:text-align: left
 
 include::parts/00-intro.ad[]
 include::parts/01-quickstart-guide.ad[]
