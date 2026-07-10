@@ -181,12 +181,12 @@ class Dusty12 {
             {
                 name: 'POKE',
                 fn: () => {
-                    const x  = pop(),
-                          at = pop()
+                    const at  = pop(),
+                           x = pop()
                     capsule[at] = x
                 },
-                effect: '@ x -- (memory @ set to x)',
-                info: 'set the specified memory location with the value on top of the stack'
+                effect: 'x @ -- ',
+                info: 'set the specified memory location with the value under address'
             },
             {
                 name: 'PEEK',
@@ -396,8 +396,8 @@ class Dusty12 {
             },
         ]
 
-        const mnemonics = this.mnemonics = {}
-        const actions   = this.actions   = {}
+        const mnemonics = _.mnemonics = {}
+        const actions   = _.actions   = {}
         ops.forEach((op, i) => {
             op.id = i
             mnemonics[op.name] = op

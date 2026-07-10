@@ -6,7 +6,8 @@ class CodeSelector extends ScrollablePanel {
         super( augment({
             name: 'codeSelector',
 
-            codePointer: -1,
+            codePointer:        -1,
+            prevSelectedOption: -1,
 
             options: [
                 '....',
@@ -79,6 +80,8 @@ class CodeSelector extends ScrollablePanel {
         }
         const code = capsule[EP]
         this.codePointer = options.codeToIndex(code)
+
+
     }
 
     syncView() {
@@ -155,10 +158,35 @@ class CodeSelector extends ScrollablePanel {
     }
 
     onSelect(tx, ty, e, prevSelection) {
-        if (this.selection !== prevSelection
+        const dusty = this.coreMonitor.dusty
+        const at = this.stackPointer + this.selection
+
+        if (at !== this.prevSelectedOption
                 && this.selection >= 0
                 && this.selection < this.contentLength()) {
+
+            const mnemonic = this.options[at]
+            if (isStr(mnemonic)) {
+                const op = dusty.mnemonics[ mnemonic ]
+                if (op) {
+                    if (op.effect) {
+                        this.status = `(${op.effect}) ${op.info}`
+                    } else {
+                        this.status = op.info
+                    }
+                }
+            } else {
+                this.status = `push [${mnemonic}] on the data stack`
+            }
+
+            this.prevSelectedOption = at
+
             tsfx('code-selected', .1)
+        }
+        if (this.selection < 0 || this.selection > this.contentLength()) {
+            // TODO current code point?
+            this.prevSelectedOption = -1
+            this.status = ''
         }
     }
 }

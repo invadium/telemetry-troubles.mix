@@ -88,7 +88,7 @@ class ScrollablePanel extends Panel {
         const prevSelection = this.selection
 
         if (tx < 0 || tx >= w || ty < this.header || ty >= h) {
-            this.clearSelection()
+            return this.clearSelection()
         } else {
             this.selection = ty - this.header
             this.column = tx
@@ -151,8 +151,8 @@ class ScrollablePanel extends Panel {
         this.select(tx, ty, e)
     }
 
-    onMouseEnter() {
-        // log('menu: the mouse is in!')
+    onMouseEnter(tx, ty, e) {
+        this.select(tx, ty, e)
     }
 
     onMouseExit() {
@@ -162,6 +162,7 @@ class ScrollablePanel extends Panel {
     onMouseWheel(delta, tx, ty, e) {
         if (delta > 0) this.scrollUp()
         else if (delta < 0) this.scrollDown()
+        this.select(tx, ty, e)
     }
 
 }

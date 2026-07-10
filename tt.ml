@@ -55,6 +55,8 @@ V fix trailing underscore bug on the scrollbar
 > mission stats screen
 
 > system terminal that can work as a debug console (e.g. for "fx", but within the game)
+> autoscroll status bar when the content is too long
+> gracefully handle errors like empty stack - the machine should just stop and wait
 
 
 ### Proto III
@@ -63,6 +65,7 @@ V fix trailing underscore bug on the scrollbar
 > dusty 12 I/O (sense, out...)???
 > test-drive email system with messages on TT design, roadmap etc... (an Easter Egg?)
 > delete the cell and shift up #core-monitor
+> insert a new cell and shift the content down
 > when paused (or walking/running?) set the command pointer (with right click? ctrl+click?)
 
 > program walk sfx
