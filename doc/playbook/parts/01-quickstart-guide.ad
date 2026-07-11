@@ -4,7 +4,7 @@ This chapter guides you over the basics of DUSTY-12 development. It provides a s
 
 === Your First Steps
 
-The first day you start at any of the Outer Rim League (ORL) companies, you will be connected to CommLink. It is a standard communication system based on the TRUST-8 protocol. It allows you to send and receive messages among the members of the ORL as well as access ORL databanks and bulletin boards.
+The first day you start at any of the Outer Rim League (ORL) companies, you will be connected to CommLink. It is a standard communication system based on the TRUST-8 protocol. It allows you to send and receive messages among other members of the ORL as well as access ORL databanks and bulletin boards.
 
 Locate the CommLink display - it should show your InBox with a Welcome email that you should've received shortly after joining. It is an introductory message common among the outer rim companies.
 
@@ -68,14 +68,9 @@ They are from left to right:
 * Walk the program (slow execution)
 * Run the program (fast execution)
 
-On this stage, we recommend running DUSTY-12 in the Walk mode. Or even in step-by-step mode if you want to carefully examine the effect of every single step.
+On this stage, we recommend running DUSTY-12 in the Walk mode, or even in the step-by-step mode, carefully examining the effect of each instruction.
 
 Press the "Walk Program" button and observe how the red cursor highlights an instruction to be executed. The program stops when it reaches an empty memory cell.
-
-
-
-
-
 
 After the walk, the probe telemetry dataline #0 will start to send telemetry over the engineering channel. You should see the probe wireframe model approximated from that data.
 
@@ -84,9 +79,9 @@ image::shots/telemetry-0.png[Telemetry DataLine #0]
 
 Congratulations!
 
-Your first experiment is complete and you should receive your reward shortly (there will be an email notification in your InBox).
+Your first experiment is complete, and you should receive your reward shortly (there will be an email notification in your InBox).
 
 image::shots/email-S1E1-complete.png["Attitude telemetry experiment is complete" email]
 
-Take your hard-earned money and get some lunch and coffee. Because there is more than one experiment coming along the way!
+Take your hard-earned money and grab some coffee. It is only the beginning. There is more than one experiment coming along the way!
 

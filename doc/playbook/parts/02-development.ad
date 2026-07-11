@@ -4,7 +4,7 @@
 
 
 
-== DUSTY-12 Spaceframe
+== Spaceframe
 
 ((DUSTY-12)) family of Command and Control Units is the latest series of spaceframes by the famous StarDust Bureau. It controls major spacecraft operations and can be programmed in DUSTY-12 assembly language.
 
@@ -43,7 +43,7 @@ Also, we can't use stock components for the construction of such a probe. Strong
 Indeed, DUSTY-12 looks peculiar, but there is a good reason for that weirdness.
 ****
 
-== DUSTY-12 Memory
+== Memory
 DUSTY-12 memory consists of several capsules, each representing a continuous range of memory cells. The memory cells contain numbers that can be interpreted either as data or instructions.
 
 Every cell contains a 12-bit number. For a data or stack capsule, these are considered to be signed integer values. For a code capsule, these can be either numbers (when the first bit is 0) or an instruction (when the first bit is 1). Therefore, an instruction format is a 1 bit followed by the instruction number:
@@ -62,7 +62,7 @@ Each memory cell is associated with an address. DUSTY-12 addresses are 12-bit. T
 
 
 
-== DUSTY-12 Input/Output
+== Input/Output
 
 Command and Control Unit of a space probe is useful only when there is something to command and control. DUSTY-12 has input and output facilities to control data and power lines of the probe and manage data exchange with external devices and instruments.
 

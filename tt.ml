@@ -18,6 +18,7 @@ V autoskip experiments (after multiple attempts? time? both?)
 V fix display wrap-unwrap problem
 V fix "request hint" link on experiments where no hint is present
 V fix the last email line rendering glitch
+V fix trailing underscore bug on the scrollbar
 
 > more experiments
     > comparisons
@@ -28,7 +29,6 @@ V fix the last email line rendering glitch
     > power up a single device
     > power on more devices
 
-V fix trailing underscore bug on the scrollbar
 > keyboard control
 > instruction placement feedback
 

@@ -24,17 +24,37 @@ The most prominent programming puzzle games are probably the ones from legendary
 
  
 
-== Journey
+== My Journey
 
-I was always fascinated by programming games. I played many of them, I explored their design, and I discussed those games with fellow game designers and developers.
+This chapter explores my unexpected journey into the world of programming games.
 
-I used game challenges in many of my classes and bootcamps. And I noticed that it is somewhat hard to design a well-balanced and challenging programming game, but when done and applied right, the game can give an unbelievable boost to the learning flow and general engagement.
+I was always fascinated by programming games.
 
-And finally, I designed and developed a bunch of them. Some were just experiments in programming game design, exploring the possibilities of what such a game might look like.
+Ever since I started my programming odyssey on the ZX Spectrum in the early 90s, I have been fascinated by the idea of automation. Sure thing, I played a lot of games back then. And subconsciously, I split the games not by genres, but by the level of abstraction.
 
-Some were created with a particular theme and for a particular game jam. Like Sonado, created for Meta Game Jam. It explores the idea of a virtual game console and implements a virtual machine that runs right from the cart image. The same image contains all maps and sprites for the game, along with instructions for a virtual machine specially developed for this particular game (that is another of my virtual machines).
+On level 1, there are games where you directly control the hero. These were arcade-style action games, adventures, platformers, vehicle simulations, and later FPS. The next level holds the games with indirect control - tactics, strategies, tycoons, various simulations, and God-games. You give orders and see the results.
 
-I also designed games for particular topics of my development bootcamps. These were very specific games, like a UNIX quest designed to familiarize developers with the shell and teach them the UNIX-Way of doing things.
+The third level is the most abstract one - you automate units or processes by defining sequences or rules.
+
+My first encounter with that level was even earlier than I discovered the programming - probably when I was 4 or 5. And not with computer games, but with toys - I had a Lunokhod toy, which in turn was a Soviet clone of the American BigTrak programmable six-wheel Sci-Fi tank (ironic that the country that landed an actual Lunokhod robotic rover on the Moon never managed to come up with a viable kids' toy and resorted to cloning one from the ideological enemy). But regarding its shady origin, Lunokhod was an awesome toy. You can program a sequence of actions - move, turn, shoot the laser gun - and see it play out right in your room.
+
+Then, there were computer games with hints of automation. ZX-Spectrum has strategy games like Nether Earth and Carrier Command. And even though the proper automation was not possible there and you have to give direct orders to your robots and vehicles, I entertained the idea "wouldn't it be cool" if only one could set a sequence of steps, preferebly with some sensor-based conditions.
+
+Later on, I discovered a little obscure DOS game by Gamos called Snake Battle, where you pit your snake against the others in an epic autobattle. And there is an interesting twist - you have to define your snake behavior in a sequence of cards, each describing a pattern or a "situation" and a direction you have to turn when the pattern is matched. Each step, every snake will look through its cards, trying to match the current situation - a wall in front of it or an enemy tail - and figure out the next move.
+
+Later, my interest was reinforced with other titles I've discovered.
+I played many of them, explored their designs, and discussed those games with fellow game designers\...
+Who can forget programming bots to fight against evil spiders in ColoBot?
+
+Realizing a still unexplored educational value in such games, I made multiple attempts to design and prototype games that would include some elements of programming puzzles or automation.
+
+I used programming game challenges in many of my classes and bootcamps. And I noticed that it is somewhat hard to design a well-balanced and challenging programming game, but when done right and applied properly, it can give an unbelievable boost to the learning flow and general engagement. Gamification in education is not a gimmick, but a really powerful tool. Games, after all, appeared way before modern humans did. They are observed with all advanced species and are widely used to learn valuable life skills in a controlled environment.
+
+Some of my programming games were created with a particular theme and for a particular game jam. Like Sonado, created for Meta Game Jam. It explores the idea of a virtual game console and implements a virtual machine that runs right from the cart image. The same image contains all maps and sprites for the game, along with instructions for a virtual machine specially developed for this particular game (just another of my virtual machines).
+
+I also designed games for particular topics of my development bootcamps. These were very specific games, like a UNIX quest designed to familiarize developers with the shell tools and teach them the UNIX-Way of doing things.
+
+So, from my personal perspective, Telemetry Troubles is nothing new, but another entry in a sequence of programming games I've been designing and developing.
 
 
 
@@ -83,23 +103,13 @@ Assembly programming is the most frustrating form of programming due to its low-
 
 Telemetry Troubles is somewhat unique in the way it provides feedback. A running DUSTY-12 program often causes immediate changes in the telemetry stream so you can see the effects of your instructions right away. And I believe it is the only reasonable way to learn programming - when your feedback is direct and immediate.
 
-That is what  Wally Feurzeig, Cynthia Solomon, and Seymour Papert envisioned while creating the sadly forgotten Logo language - a system with immediate feedback built upon constructivist ideas of learning proposed by a Swiss development psychologist, Jean Piaget.
+That is what  Wally Feurzeig, Cynthia Solomon, and Seymour Papert envisioned while creating the sadly forgotten Logo language - a system with immediate feedback built upon constructivist ideas of learning proposed by a Swiss development psychologist, Jean Piaget. A programmer can command the turtle movements and immediately see the resulting graphics.
 
 
 
 == JetPakBoy Challenges
 
-The next challenge is to playtest the existing scenario with JetPakBoy and evaluate the effectiveness of learning the foundations of system programming by solving the game's puzzles. I hope that the engaging plot and immediate visual feedback will help to establish the learning flow.
-
-
-
-
-
-
-
-
-
-
+The next challenge is to playtest the existing scenario with JetPakBoy. I want to evaluate the effectiveness of learning the foundations of system programming by solving coding puzzles. I hope that the engaging plot and immediate visual feedback will help to establish the learning flow.
 
 
 
