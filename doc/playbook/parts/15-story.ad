@@ -1,8 +1,14 @@
 = Designer Notes
 
+The following chapters cover the unabridged origin story of Telemetry Troubles; everything from humble beginnings to the spectacular boost into outer space.
+
+This section will be compelling for anyone who wants a glimpse into the backstage of game design and development - how I was inspired and motivated, what unexpected trials were waiting for me in the Fog of Design & Development. Facts and artifacts, rumors, conspiracies, industry insights, and strong opinions - that, and more, will wait for you below.
+
+
+
 == Programming Games Origins
 
-Despite obscurity, the programming games are a very ancient genre going back to 60s and the age of mainframes.
+Despite obscurity, the programming games are a very ancient genre going back to the 60s and the age of mainframes.
 
 The first known instance could be Darwin, invented in August 1961 at Bell Labs by Victor A. Vyssotsky, Robert Morris Sr., and M. Douglas McIlroy (later famous for involvement in early UNIX). It was implemented on an IBM 7090 mainframe.
 
@@ -18,9 +24,9 @@ Then, there were hacking simulations of various complexities. Some were simple m
 
 And finally, there are many puzzle games, where you have to write code in order to progress forward. It could be actual code or logic blocks you need to place in the right order.
 
-One of the best examples providing great educational value is ColoBot, where you use a Java-like object-oriented language to program bots to complete multiple missions of planet colonisation. You program bots to find, collect, and process resources, do manufacturing, and fight threatening alien lifeforms.
+One of the best examples with immense educational value is ColoBot, where you use a Java-like object-oriented language to program bots to complete multiple missions of planet colonisation. You program bots to find, collect, and process resources, do manufacturing, and fight threatening alien lifeforms.
 
-The most prominent programming puzzle games are probably the ones from legendary Zachtronics - titles like TIS-100 and ExaPunks, among others.
+There is one company (or rather, a one-man company) that is famous for programming elements in its games. That is legendary Zachtronics, with titles like TIS-100 and Shenzhen I/O and ExaPunks, where gameplay is driven by programming.
 
  
 
@@ -64,7 +70,7 @@ Ludum Dare 59 was a total failure.
 
 I was not planning to participate in the first place, and no one from the team was able to join. Also, to enter a jam as intense as Ludum Dare without a warm-up is a recipe for disaster.
 
-I failed to warm up due to a ballistic missile attack on the city two days prior that left 60 people injured and 4 dead. A loud and sleepless night destroyed my focus and killed any desire to do anything for the next couple of days.
+I failed to warm up due to a ballistic missile attack on my city two days prior that left 60 people injured and 4 dead. A loud and sleepless night destroyed my focus and killed any desire to do anything for the next couple of days.
 
 So how did I end up jamming?
 
@@ -74,19 +80,33 @@ Well, I woke up on Saturday and opened the Ludum Dare site to check the announce
 
 Just a pure game concept I can clearly visualize.
 
-There is a deep-space probe at the edge of the solar system. It is on an important mission - maybe searching for rare metal deposits in the Kuiper belt. A lot of money was spent on the design, manufacturing, and launch of the probe. Many years were spent reaching the edge of the solar system.
+There is a deep-space probe at the edge of the solar system. It is on an important mission - maybe searching for rare metal deposits in the Kuiper belt. A lot of money was spent on the design, manufacturing, and launch of the probe. And many years have passed to reach the edge of the solar system.
 
 Once the probe was out and ready to activate and perform its primary mission, a slight problem was discovered. Turns out someone mixed up metric and imperial units while building its Radioisotope Thermoelectric Generators (RTGs). Now the probe doesn't have sufficient power and must be remotely reprogrammed to compensate for the loss and still perform the job.
 
-And that was the image that clearly stuck in my mind.
+On the right side of the screen, you would see a wireframe model of a probe resembling Voyager or maybe Cassini-Huygens. Around it, you can see the telemetry stream - some gauges and indicators jumping and blinking, showing all sorts of activities - indicating that the probe was still alive.
 
-On the right of the screen, you see a wireframe model of a probe resembling Voyager or Cassini-Huygens. On top of it, you can see the telemetry stream - some gauges and indicators jumping and blinking, showing all sorts of activities - indicating that the probe was still alive.
+On the left side, there would be two windows.
 
-On the left side, there is a window with an email from the HQ instructing you to activate or deactivate a particular system.
+The top one shows emails from the HQ providing updates and requesting activation or deactivation of certain systems.
 
-There is another window where you can define appropriate instructions in a low-level assembly-like language and upload and run that program on the probe.
+There is another window at the bottom left, where you can define necessary instructions in a low-level assembly-like language and upload them to the probe. The program will execute, and the desired effect will be matched against the requested requirements. If matched, the associated payment will be deposited into your account.
 
+The space mission you are a part of has a defined burn rate. The goal is to keep the mission alive as long as possible by completing experiments and earning enough money for the next burn.
 
+The mission will be cancelled when you run out of money. It is game over.
+
+That was the game vision. It clearly stuck in my mind.
+
+The only problem was that it was too ambitious even for a team jam. And for a solo developer, the task was insurmountable. I had to design the UI layout and style, develop the inbox, the email viewer and email subsystem, the mission subsystem to issue and check the experiments, the budgeting subsystem to keep the balance and burn cash, the programming UI... And most importantly, I had to develop a simulation for the probe and its subsystems, mirror those instruments on visual telemetry gadgets, and create a virtual machine to control it all.
+
+And only when all these systems and components are ready, can I start implementing actual puzzles - the programming challenges for the probe and its on-board instruments.
+
+Needless to say, by the end of the Jam, I only managed to mock up the necessary systems and create some plausible and almost functioning UI layout. But beyond that, nothing was even remotely playable.
+
+The idea, thought, persisted in my agitated brain. For weeks, I was haunted by the vision of the probe telemetry pulsing and blinking, waiting for assembly instructions to be executed. And once I click the Play button, the program counter will step over my instructions, enable required instruments, and turn on the tape recorder to capture the data stream. That vision was exhilarating.
+
+Probably, I was heavily inspired by the 2024 Voyager 1 remote fix story, when the spacecraft started to return garbage instead of a valid telemetry stream and had to be remotely debugged and reprogrammed. And by "remotely", I mean more than 24 billion kilometers or 162 AU of space between Earth and the probe. Even light takes almost two days to travel there and back.
 
 
 == Noise Jam
@@ -110,6 +130,14 @@ That is what  Wally Feurzeig, Cynthia Solomon, and Seymour Papert envisioned whi
 == JetPakBoy Challenges
 
 The next challenge is to playtest the existing scenario with JetPakBoy. I want to evaluate the effectiveness of learning the foundations of system programming by solving coding puzzles. I hope that the engaging plot and immediate visual feedback will help to establish the learning flow.
+
+
+
+
+
+
+
+
 
 
 

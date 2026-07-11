@@ -85,3 +85,98 @@ image::shots/email-S1E1-complete.png["Attitude telemetry experiment is complete"
 
 Take your hard-earned money and grab some coffee. It is only the beginning. There is more than one experiment coming along the way!
 
+
+=== Non-Trivial Challenge
+
+The previous example is one of the simplest programs one can imagine - just placing a single number on the data stack and executing an instruction with that number as a parameter.
+
+To illustrate more complex features of DUSTY-12 and demonstrate the creation of less trivial programs, let's spike the complexity level and create a program that opens data and power lines #0 up to #7. It is a significant leap from the previous example that presents more advanced coding techniques. Don't worry, if the code looks strange and unfamiliar at first - only the most experienced spaceframe engineers can figure it out from the get-go.
+
+The section covers some advanced instructions not available in early experiments. So don't try to repeat this at the beginning of your career. Down the line, You'll encounter similar experiments. This example here is only to show what can be achieved when more advanced DUSTY-12 instructions are unlocked.
+
+Given that we already know about opening datalines with OBUS and there is a similar instruction OPOW to open a powerline, it should be easy to open and power them all:
+
+```
+00
+OBUS
+00
+OPOW
+01
+OBUS
+01
+OPOW
+...
+```
+
+Or a little more sophisticated way that includes the usage of the DUP operation that duplicates the top value on the data stack:
+
+```
+00
+DUP
+OBUS
+OPOW
+01
+DUP
+OBUS
+OPOW
+...
+```
+
+It may work for 1 or 2 lines, maybe even 3. But once we get to bigger numbers, we'll end up with many snippets of similarly structured code with only slight changes (like line numbers). It will look heavy and non-maintainable. And you will learn fast that when it comes to deep space operations, maintenance is paramount.
+
+.DRY
+****
+Space is a dry place. There is no atmospheric pressure in the hard vacuum. So any exposed water molecules instantly evaporate and drift through the void. That is why we, outer rim spacecraft engineers, use the DRY principle.
+
+DRY stands for Don't Repeat Yourself and guides us to detect and eliminate any unnecessary duplications.
+
+We duplicate a lot for a reason - computers, propulsion, and communication systems of our spacecraft are often duplicated to provide additional reliability. But when it comes to code, duplication causes many problems. Heavily duplicated code is harder to debug and keep in sync. That is why we always try to keep it DRY.
+
+Don't be shy, keep it DRY!
+****
+
+To simplify our approach and follow the DRY principle, all we need is a simple loop. We can use the loop counter to open the corresponding data and power lines.
+
+The following screenshot demonstrates such a loop:
+
+image::shots/simple-loop.png[Simple Loop]
+
+Let's examine the details of implementation.
+
+We place the number 0x08 on the data stack first. This is our loop counter. We want to make the action (open a data and power lines) x8 times in total.
+
+When we program on such a low level, it is more convenient to make the loop from the initial count value down to zero. And loop it with the JNZ instruction that jumps if the value on top is not zero. Once we reach zero, JNZ will let us through, and the loop is over.
+
+After the initial conditions, we enter the loop. The loop counter is reduced. This structure is more preferable for this particular loop, since we want to use values 7 down to 0 (including 0) and only then finish the loop. Alternatives would require additional math and stack manipulations.
+
+On the first cycle, we'll end up with 0x07 at the top of the data stack. That is both the data/power line number and the loop counter value we want to test with JNZ.
+
+But each command will "eat" the top value on the data stack. Therefore, we have to DUP it each time we want to use it (to preserve another copy deeper in the stack for future use).
+
+That is why we do DUP before each open instruction:
+
+```
+DUP
+OBUS
+DUP
+OPOW
+```
+
+Now, when the data and power lines are open, we will jump to the address 0x01 if the test value is not zero.
+
+```
+DUP
+01
+JNZ
+```
+
+Since the first cycle, the value will be 0x07, we should jump back to 0x01 and repeat those actions again - subtracting 0x01, opening the corresponding data and power lines, testing the end condition\...
+
+Once the loop counter reaches 0x00, we exit the loop. There is nothing after, so now the program is over.
+
+Good work!
+
+You've managed to get through the most complex section of the QuickStart Guide.
+
+
+

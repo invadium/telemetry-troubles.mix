@@ -96,17 +96,4 @@ And then power it down with:
 CPOW
 ```
 
-.Stealing the Dust
-****
-ANGEL-F5 probe is designed and built by the Orbital Equipment Corp (OEC). Yet, it is controlled by a spaceframe based at the core on the DUSTY-12 architecture of the famous Stardust Bureau.
 
-One might wonder how OEC managed to build a Command and Control Unit on DUSTY-12 without buying a license from Stardust Bureau.
-
-The following story is based totally on rumors and rare pieces of inside information collected throughout our industry. But the overall picture seems to be pretty clear.
-
-When Orbital Equipment Corp. won the Heliosphere Survey Group contract on a deep space mission, it didn't have a proven radiation-hardened chipset able to operate in outer space conditions. OEC, after all, was mostly a low-orbit operator and had no experience or know-how in operating in highly radioactive environments.
-
-Initially, they went into an agreement with Stardust Bureau to get the necessary engineering help and technologies. But the deal fell apart due to the licensing disagreements over who is going to control the resulting technology.
-
-EOC, however, managed to preserve some essential blueprints during Stardust Bureau technology evaluation. That, some engineering chipsets obtained through third parties, plus a little of industrial espionage, and OEC managed to build a DUSTY-12 compatible chipset hardened enough to survive an encounter with any gas giant.
-****
