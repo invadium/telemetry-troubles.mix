@@ -1,29 +1,68 @@
-
 = DUSTY-12
 
+This section gives a comprehensive introduction to ((DUSTY-12)).
+
+DUSTY-12 is an architecture, rather than a specific product. It is designed by the famous StartDust Bureau and licensed to several interplanetary corporations to use in their spacecraft.
+
+It means the implementation details of each type of unit may be different, but the general principles and characteristics stay the same across all these machines. That is why when we say "DUSTY-12" we usually mean the DUSTY-12 family of spaceframes and not a particular product, unless directly specified.
 
 
 
 == Spaceframe
 
-((DUSTY-12)) family of Command and Control Units is the latest series of spaceframes by the famous StarDust Bureau. It controls major spacecraft operations and can be programmed in DUSTY-12 assembly language.
+The ((DUSTY-12)) family is the latest series of spaceframes by the famous StarDust Bureau. It controls major spacecraft operations and can be programmed in DUSTY-12 assembly language.
 
 Its architecture can be described as a multiple-stack-based Minimal Instruction Set Computer (or MSB-MISC).
 
 
 .MISC
 ****
-We, ground folks, are familiar mostly with two types of Command and Control Units architectures - CISC and RISC.
+We, ground folks, are familiar mostly with two types of mainframe architectures - CISC and RISC.
 
-CISC stands for Complex Instruction Set Computer and represents the "classical" architecture with hundreds of instructions that cover a wide range of operations across multiple registers and various addressing modes. That architectural style necessitates bigger chips, since you need more silicon real estate to implement all these instructions. And a bigger chip means a bigger target for ionizing radiation and high-energy plasma. Not exactly the thing we want in outer space.
+CISC stands for Complex Instruction Set Computer and represents the "classical" architecture with hundreds of instructions that cover a wide range of operations across multiple registers and various addressing modes. That architectural style necessitates bigger chips, since you need more silicon real estate to implement all these instructions. And a bigger chip means a bigger target for ionizing radiation and high-energy plasma. Not exactly the thing we want to deal with in outer space.
 
-RISC is a Reduced Instruction Set Computer, and it eliminates many operations found in a CISC machine, resulting in a simpler, more straightforward architecture. It means a smaller chip core and lighter radiation protection shell.
+RISC is a Reduced Instruction Set Computer. It eliminates many operations found in a CISC machine, resulting in a simpler, more straightforward architecture. It means a smaller chip core and a lighter radiation protection shell.
 
 But when we go really deep, especially near gas giants with their enormous radiation belts, we want to use **MISC** - a Minimal Instruction Set Computer. These machines are predominantly stack-based and operate on a bare minimum instruction set. The ultimate machine for any spaceframe developer!
 ****
 
 DUSTY-12 is a 12-bit architecture, meaning it operates mostly with 12-bit numbers in a 12-bit address space.
 Each 12-bit value in DUSTY-12 is called a "word," and words are placed sequentially in memory, addressed by a 12-bit address.
+
+
+
+== Memory
+
+DUSTY-12 memory consists of several capsules, each representing a continuous range of memory cells. The memory cells contain numbers that can be interpreted either as data or instructions.
+
+Every cell contains a 12-bit number. For a data or stack capsule, these are considered to be signed integer values.
+
+For a code capsule, each cell contains an instruction to execute.
+
+When the first bit is 0, the instruction is considered to be a push constant instruction - it pushes the associated value on the data stack.
+
+When the first bit is 1, it is considered to be a regular instruction - NOP, DROP, DUP, ADD, SUB or other\...
+
+The highest possible value 0xFFF has all bits to 1 and is considered to be an empty cell instruction. When DUSTY-12 tries to execute that instruction, it stops, so it works just like HALT. Although HALT is intentional, 0xFFF is the default.
+
+
+```
+0x000 - push 0x00 value to the data stack
+0x001 - push 0x01 value to the data stack
+0x00F - push 0x0F value to the data stack
+0x100 - VM instruction #0 (NOP)
+0x101 - VM instruction #1 (DROP)
+0x102 - VM instruction #2 (DUP)
+0xFFF - HALT the execution process
+...
+```
+
+Usually, you work with DUSTY-12 capsules through Core Monitor, which automatically translates these opcodes to human-readable assembly mnemonics. So you don't care about the actual opcode number for each instruction and operate with mnemonics like "ADD", "SUB" and "JMP".
+It is just useful to know that the DUSTY-12 assembly is just a thin abstraction layer above the actual DUSTY-12 machine code, and behind every assembly mnemonic there is an actual opcode number that DUSTY-12 knows how to interpret.
+
+
+Each memory cell is associated with an address. DUSTY-12 addresses are 12-bit. They start at 0x000 and go sequentially up to 0xFFF, which is the highest possible address for any capsule.
+
 
 
 .Deep-Space Legacy
@@ -42,23 +81,6 @@ Also, we can't use stock components for the construction of such a probe. Strong
 
 Indeed, DUSTY-12 looks peculiar, but there is a good reason for that weirdness.
 ****
-
-== Memory
-DUSTY-12 memory consists of several capsules, each representing a continuous range of memory cells. The memory cells contain numbers that can be interpreted either as data or instructions.
-
-Every cell contains a 12-bit number. For a data or stack capsule, these are considered to be signed integer values. For a code capsule, these can be either numbers (when the first bit is 0) or an instruction (when the first bit is 1). Therefore, an instruction format is a 1 bit followed by the instruction number:
-
-```
-0x100 - the first VM instruction (NOP)
-0x101 - the second VM instruction (DROP)
-...
-```
-
-Usually, you work with DUSTY-12 capsules through Core Monitor, which automatically translates these opcodes to human-readable assembly mnemonics. So you don't care about the actual opcode number for each instruction and operate with mnemonics like "ADD", "SUB" and "JMP".
-It is just useful to know that the DUSTY-12 assembly is just a thin abstraction layer above the actual DUSTY-12 machine code, and behind every assembly mnemonic there is an actual opcode number that DUSTY-12 knows how to interpret.
-
-
-Each memory cell is associated with an address. DUSTY-12 addresses are 12-bit. They start at 0x000 and go sequentially up to 0xFFF, which is the highest possible address for any capsule.
 
 
 
@@ -95,5 +117,12 @@ And then power it down with:
 06
 CPOW
 ```
+
+
+
+
+
+
+
 
 
