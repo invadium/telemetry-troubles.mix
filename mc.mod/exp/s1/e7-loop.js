@@ -10,15 +10,18 @@ const experiment = {
     },
 
     // verify that we have achieved the desired effect/state
-    verify: function(probe, MC) {
+    verify: function(probe, MC, tried) {
         log('[experiment] verifying values on stack...')
 
         const state = probe.dusty.spy.state()
-        dir(state.dstack)
-        // TODO verify somehow?
 
-        return false
-        // return true
+        if (state.DSP !== 8) return false
+
+        for (let i = state.DSP - 1; i >= 0; i--) {
+            if (state.dstack[i] !== 7 - i) return false
+        }
+
+        return true
     },
 }
 module.exports = experiment

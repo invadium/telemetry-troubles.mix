@@ -12,18 +12,8 @@ You can do it sequentially:
     ...
 
 But the most efficient way to do that is a loop with JNZ instruction.
-To organize a simple loop, you also need the DUP and SUB instructions:
 
-    07  -- the initial loop counter
-    NOP -- loop body - do something here
-    01
-    SUB -- decrement
-    DUP
-    01
-    JNZ -- jump to the position 0001
-        -- if the counter is > 0
 
-Tech Support has unlocked the associated instructions.
 
 -----------------------------------------------------------------------
 -- the initial data line to start

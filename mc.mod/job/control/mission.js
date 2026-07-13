@@ -245,7 +245,7 @@ function verifyExperiments(tried) {
 
     let tryRegistered = false
     _.activeExperiments.forEach( exp => {
-        if (exp.verify(probe)) _.completeExperiment(exp)
+        if (exp.verify(probe, _, tried)) _.completeExperiment(exp)
 
         if (tried && !tryRegistered && !exp.completed && !exp.followed) {
             this.registerTry( exp )

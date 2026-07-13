@@ -1,19 +1,48 @@
-But the most efficient way to do that is a loop with JNZ instruction.
-To organize a simple loop, you also need the DUP and SUB instructions:
+**Loops** are essential when you want to repeat an action many times, potentially with small variations.
 
-    07  -- the initial loop counter
-    NOP -- loop body - do something here
-    01
-    SUB -- decrement
-    DUP
-    01
-    JNZ -- jump to the position 0001
-        -- if the counter is > 0
+Check the probe's **looping subroutines**.
+Place values 7 down to 0 on the data stack using a loop.
+
+Use the following approach:
+
+ * push number 0x07 as a loop
+   counter on the data stack
+ * DUP it to preserve a copy
+   on the stack
+ * decrement the value
+   by 0x01 with SUB
+ * DUP it for use by JNZ
+ * push loop entry address
+   (probably 0x01)
+ * use JNZ to loop
+   unless we have 0
 
 Tech Support has unlocked the associated instructions.
+-----------------------------------------------------------------------
+You can use the JNZ instruction to loop.
+It eats the address and the next value on the data stack and jumps to that address if the value is not zero.
 
+  07  -- setup loop counter
+  DUP -- preserve a copy
+
+Then decrease the loop counter by 0x01 with SUB:
+  01
+  SUB
+
+Then make a copy for the loop gate:
+  DUP
+
+Finally, place the loop entry address and jump if the loop counter is not 0
+  01
+  JNZ -- jump to the position 0001
+      -- if the counter is > 0
 -----------------------------------------------------------------------
 07
--- enable the current dataline
+
 DUP
-OBUS
+01
+SUB
+DUP
+01
+JNZ
+
