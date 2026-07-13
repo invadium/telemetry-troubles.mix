@@ -453,6 +453,7 @@ class Dusty12 {
         }
 
         _.halt = function() {
+            if (MODE === HALT) return
             MODE = HALT
             _.monitors.forEach(m => {
                 if (isFun(m.onHalt)) m.onHalt()

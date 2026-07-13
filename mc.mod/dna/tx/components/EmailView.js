@@ -137,7 +137,11 @@ class EmailView extends ScrollablePanel {
             const target = this.spanAt(tx, ty)
             if (target) {
                 if (this.selectedSpan) this.selectedSpan.over = false
+                if (target.link && this.selectedSpan !== target) {
+                    sfx('email-selected')
+                }
                 this.selectedSpan = target
+
                 target.over = true
                 if (e.buttons & 1) target.down = true
                 else target.down = false

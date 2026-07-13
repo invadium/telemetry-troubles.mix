@@ -19,15 +19,17 @@ V fix display wrap-unwrap problem
 V fix "request hint" link on experiments where no hint is present
 V fix the last email line rendering glitch
 V fix trailing underscore bug on the scrollbar
+V conditional jumps
+V simple loop tutorial
+V program walk sfx
 
 > more experiments
-    > comparisons
-    > conditional jumps
-    > simple loop tutorial
-    > more stack manipulation
-    > enable even more data lines with a hint
     > power up a single device
     > power on more devices
+    > power of a device
+    > comparisons
+    > more stack manipulation
+    > enable even more data lines with a hint
 
 > keyboard control
 > instruction placement feedback
@@ -40,6 +42,7 @@ V fix trailing underscore bug on the scrollbar
 
 
 ### System III
+> fix sfx volum jumps
 > fix link out-of-bound selection effect seeing on S1E2
 > set execution pointer with right/middle(?) click when on pause
 > music player with cross-fades
@@ -68,7 +71,6 @@ V fix trailing underscore bug on the scrollbar
 > insert a new cell and shift the content down
 > when paused (or walking/running?) set the command pointer (with right click? ctrl+click?)
 
-> program walk sfx
 > program run sfx
 > program step sfx?
 > randomized ambient noises

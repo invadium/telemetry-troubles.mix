@@ -59,9 +59,11 @@ class CodeSelector extends ScrollablePanel {
 
         if (e.buttons & 2) {
             coreMonitor.shiftForward()
+            sfx('code-place')
+        } else {
+            sfx('code-pick')
         }
         coreMonitor.syncEditInView()
-        sfx('code-pick')
     }
 
     exit() {

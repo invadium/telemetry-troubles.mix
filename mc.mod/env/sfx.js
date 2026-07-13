@@ -58,11 +58,11 @@ module.exports = {
         vol: .15,
     },
     'cell-selected': {
-        res: 'ym-the-cosmic--flipping-page-forward',
+        res: 'ym-the-cosmic--flipping-page-back',
         vol: .15,
     },
     'code-selected': {
-        res: 'ym-the-cosmic--flipping-page-back',
+        res: 'onlyoz--paper-page-flip',
         vol: .15,
     },
 
@@ -71,9 +71,16 @@ module.exports = {
         vol: .3,
     },
     'code-pick': {
-        res: 'code-select',
+        // res: 'code-select',
+        // res: 'beezlefm--item-sound',
+        res: 'philip-berger--light-switch-on',
         vol: .3,
     },
+    'code-place': {
+        res: 'thesuprememuffinpooter--woody-swoosh',
+        vol: .3,
+    },
+
 
     // dusty-12
     'dusty-step': {
