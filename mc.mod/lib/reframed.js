@@ -101,10 +101,15 @@ function parse(src, LW, dataResolver) {
         let c = aheadc()
     }
 
-    function nextLine() {
+    function nextLine(whitespacePreffix) {
         if (!more()) return
 
         const w = []
+        if (whitespacePreffix > 0) {
+            for (let i = whitespacePreffix - 1; i >= 0; i--) {
+                w.push(' ')
+            }
+        }
 
         let c = aheadc()
         while(c && !isLineFeed(c)) {
@@ -159,7 +164,7 @@ function parse(src, LW, dataResolver) {
         const whitespaces = skipWhitespaces()
         if (startedAt === 0 && whitespaces > 0) {
             // preformatted line
-            return nextLine()
+            return nextLine(whitespaces - 1)
         }
         if (!more()) return
 
@@ -189,20 +194,24 @@ function parse(src, LW, dataResolver) {
                     case '*':
                         if (w.length > 0) return currentWord()
 
-                        skipc()
-                        if (flag.strong) {
-                            flag.strong = false
-                            return {
-                                type: UNSTRONG,
-                                mod:  c,
-                                gap:   gap,
-                            }
-                        } else {
-                            flag.strong = true
-                            return {
-                                type: STRONG,
-                                mod:  c,
-                                gap:   gap,
+                        if (aheadc(2) === '*') {
+                            skipc()
+                            skipc()
+
+                            if (flag.strong) {
+                                flag.strong = false
+                                return {
+                                    type: UNSTRONG,
+                                    mod:  c,
+                                    gap:   gap,
+                                }
+                            } else {
+                                flag.strong = true
+                                return {
+                                    type: STRONG,
+                                    mod:  c,
+                                    gap:   gap,
+                                }
                             }
                         }
                         break
@@ -303,6 +312,7 @@ function parse(src, LW, dataResolver) {
 
             return nextWord()
         } else if (mode === PREFORMAT) {
+            // TODO never happens!
             return nextSpan()
         }
     }
