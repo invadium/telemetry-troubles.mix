@@ -2,10 +2,12 @@ const experiment = {
     title:     'Power High-Gain Dish',
     reward:     600,
     estimate:   2,      // estimate solution time in days
+    hold:       10,
 
     prerequisites: function(probe) {
         const eS = job.control.emailScheduler
-        eS.sendAfter('unlock-opow', 2)
+        eS.sendAfter('powerlines',  2)
+        eS.sendAfter('unlock-opow', 4)
     },
 
     // verify that we have achieved the desired effect/state

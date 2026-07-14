@@ -1,6 +1,7 @@
 const experiment = {
     title:     'Advanced Math Functions Test',
     reward:     850,
+    hold:       7,
 
     prerequisites: function(probe) {
         const eS = job.control.emailScheduler
