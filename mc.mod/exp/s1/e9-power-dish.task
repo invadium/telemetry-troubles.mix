@@ -1,0 +1,9 @@
+The scientific data requires much wider bandwitch than engineering channel can provide.
+
+We need to enable power to the high-gain antenna (line #4),
+so the probe can send scientific telemetry.
+
+-----------------------------------------------------------------------
+04
+OPOW
+

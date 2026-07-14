@@ -1,3 +1,12 @@
+const GYROSCOPE       = 0
+const RTG             = 1
+const BATTERY         = 2
+const CCS             = 3
+const ANTENNA         = 4
+const TAPE_RECORDER   = 5
+const WA_CAMERA       = 6
+const STACK_INSPECTOR = 7
+
 class Probe extends sys.LabFrame {
 
     constructor(st) {
@@ -25,6 +34,17 @@ class Probe extends sys.LabFrame {
             powerLines: [],
             dataLines:  [],
         }, st) )
+
+        extend(this, {
+            GYROSCOPE,       
+            RTG,
+            BATTERY,
+            CCS,
+            ANTENNA,
+            TAPE_RECORDER,
+            WA_CAMERA,
+            STACK_INSPECTOR,
+        })
     }
 
     init() {
