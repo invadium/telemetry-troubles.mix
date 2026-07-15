@@ -6,13 +6,27 @@ class TapeRecorder extends Pod {
         super( augment({
             name: 'tapeRecorder',
 
-            x:     76,
+            x:     72,
             y:     15,
             w:     40,
             h:     25,
 
             time:  0,
         }, st) )
+    }
+
+    init() {
+        const gauge = this.gauge = this.__.spawn(dna.ops.pod.VGauge, {
+            target: this,
+            x:      this.x + .5 * this.w + 2,
+            y:      this.y - .5 * this.h,
+            h:      this.h,
+            pdx:    1,
+            dir:   -1,
+        })
+        this.companions = [
+            gauge,
+        ]
     }
 
     evo(dt) {

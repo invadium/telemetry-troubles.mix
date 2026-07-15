@@ -22,13 +22,14 @@ V fix trailing underscore bug on the scrollbar
 V conditional jumps
 V simple loop tutorial
 V program walk sfx
+V power up a single device
 
 > more experiments
-    > power up a single device
     > power on more devices
     > power of a device
-    > comparisons
-    > more stack manipulation
+    > turn of a device telemetry
+    > comparison tutorial experiment
+    > more stack manipulation (swap, over?)
     > enable even more data lines with a hint
 
 > keyboard control
@@ -50,6 +51,7 @@ V program walk sfx
 > retro-style print-out email viewer #spice
 > upload special effects #spice
 > tag-driven memory banks
+> probe wireframe lines are not properly scaled for all resolutions
 
 > states transitions
 > title screen

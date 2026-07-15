@@ -13,6 +13,18 @@ class Antenna extends Pod {
         }, st) )
     }
 
+    init() {
+        const gauge = this.gauge = this.__.spawn(dna.ops.pod.VGauge, {
+            target: this,
+            x:      this.x - .5 * this.w - 8,
+            y:      this.y + .5 * this.h,
+            h:      this.h,
+        })
+        this.companions = [
+            gauge,
+        ]
+    }
+
     wave() {
         const SPEED = .5
         const TIME = (env.time - this.poweredAt)

@@ -4,11 +4,11 @@ function nextSpeed() {
     return .1 + .1 * rnd()
 }
 
-class CCS extends Pod {
+class Spaceframe extends Pod {
 
     constructor(st) {
         super( augment({
-            name: 'CCS',
+            name: 'spaceframe',
 
             x:     50,
             y:     85,

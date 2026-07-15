@@ -4,6 +4,7 @@ class HGauge extends Pod {
 
     constructor(st) {
         super( extend({
+            type:  'gauge',
             level:  0,
             psize:  2,
             pdy:    1,

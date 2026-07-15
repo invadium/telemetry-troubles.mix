@@ -1,7 +1,7 @@
 const GYROSCOPE       = 0
 const RTG             = 1
 const BATTERY         = 2
-const CCS             = 3
+const SPACEFRAME      = 3
 const ANTENNA         = 4
 const TAPE_RECORDER   = 5
 const WA_CAMERA       = 6
@@ -20,7 +20,7 @@ class Probe extends sys.LabFrame {
                 'Gyroscope',       // reflects the probe attitude
                 'RTG',
                 'Battery',
-                'CCS',             // dusty 12 representation
+                'Spaceframe',      // dusty 12 status panel
                 'Antenna',
                 'TapeRecorder',
                 'WideAngleCamera',
@@ -33,13 +33,14 @@ class Probe extends sys.LabFrame {
 
             powerLines: [],
             dataLines:  [],
+            ioLines:    [],
         }, st) )
 
         extend(this, {
             GYROSCOPE,       
             RTG,
             BATTERY,
-            CCS,
+            SPACEFRAME,
             ANTENNA,
             TAPE_RECORDER,
             WA_CAMERA,
@@ -51,6 +52,8 @@ class Probe extends sys.LabFrame {
         for (let pod of this._pods) {
             this.spawn(pod)
         }
+
+        /*
         this.spawn('VGauge', {
             name: 'powerGauge',
 
@@ -89,12 +92,13 @@ class Probe extends sys.LabFrame {
                 this.level = .5 * (sin(env.time * .45) + 1)
             },
         })
+        */
 
         /*
         this.enableTelemetry('RTG')
         this.enableTelemetry('antenna')
         this.enableTelemetry('tapeRecorder')
-        this.enableTelemetry('CCS')
+        this.enableTelemetry('spaceframe')
         this.enableTelemetry('wideAngleCamera')
         this.enableTelemetry('battery')
         this.enableTelemetry('powerGauge')
@@ -116,6 +120,13 @@ class Probe extends sys.LabFrame {
 
         this.blueprint.linkPod(pod)
         pod.startTelemetry()
+
+        if (pod.companions) {
+            for (let subPod of pod.companions) {
+                this.blueprint.linkPod(subPod)
+                subPod.startTelemetry()
+            }
+        }
     }
 
     // disable engineering telemetry - hide the pod on the blueprint
@@ -125,6 +136,13 @@ class Probe extends sys.LabFrame {
 
         this.blueprint.detachPod(pod)
         pod.stopTelemetry()
+
+        if (pod.companions) {
+            for (let subPod of pod.companions) {
+                this.blueprint.detachPod(subPod)
+                subPod.stopTelemetry()
+            }
+        }
     }
 
     openDataLine(n) {
@@ -174,13 +192,19 @@ class Probe extends sys.LabFrame {
     onAttach(pod) {
         if (pod.type !== 'pod') return
 
+        pod.powerLine = this.powerLines.length
+        this.powerLines.push(pod)
+
+        pod.dataLine = this.dataLines.length
+        this.dataLines.push(pod)
+
+        pod.ioLine = this.ioLines.length
+        this.ioLines.push(pod)
+        /*
         if (pod.isPowerControlled()) {
-            this.powerLines.push(pod)
-            pod.powerLine = this.powerLines.length
         }
         if (pod.isTelemetric()) {
-            this.dataLines.push(pod)
-            pod.dataLine = this.dataLines.length
         }
+        */
     }
 }

@@ -15,6 +15,19 @@ class Battery extends Pod {
             padding: 1,
         }, st) )
         this.powerOn()
+
+    }
+
+    init() {
+        const gauge = this.gauge = this.__.spawn(dna.ops.pod.HGauge, {
+            target: this,
+            x:      this.x - .5 * this.w,
+            y:      this.y - 4,
+            w:      this.w,
+        })
+        this.companions = [
+            gauge,
+        ]
     }
 
     evo(dt) {
@@ -44,6 +57,31 @@ class Battery extends Pod {
         rect( X2, Y2, W2, H2 )
 
         restore()
+    }
+
+    startTelemetry() {
+        this.telemetry = true
+    }
+
+    stopTelemetry() {
+        this.telemetry = false
+    }
+
+    isTelemetric() {
+        return true
+    }
+
+    powerOn() {
+        this.power = true
+        this.poweredAt = env.time
+    }
+
+    powerOff() {
+        // this.power = false
+    }
+
+    isPowerControlled() {
+        return false
     }
 
 }

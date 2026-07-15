@@ -4,9 +4,11 @@ class VGauge extends Pod {
 
     constructor(st) {
         super( extend({
+            type:  'gauge',
             level:  0,
             psize:  2,
             pdx:   -1,
+            dir:    1,
         }, st) )
     }
 
@@ -19,11 +21,12 @@ class VGauge extends Pod {
         line(0, 0, 0, h)
 
         const R  = this.psize,
+              R2 = R * this.dir,
               DX = this.pdx,
-              Y1 = level * h
+              Y1 = (1-level) * h
 
         fill(env.palette.main)
-        triangle( DX, Y1, DX-R, Y1-R, DX-R, Y1+R )
+        triangle( DX, Y1, DX-R2, Y1-R, DX-R2, Y1+R )
 
         restore()
     }
