@@ -8,7 +8,7 @@ class Pod {
             poweredAt: 0,
 
             stats: {
-                power:       5,
+                power:       1,
                 science:     1,
                 engineering: 2,
             },
@@ -46,4 +46,16 @@ class Pod {
         return true
     }
 
+    evoPower(dt) {
+        if (!this.power) return
+        const energy = this.__.battery.consume(this.stats.power, dt)
+        if (energy === 0) {
+            log(`[${this.name}] emergency turn off`)
+            this.powerOff()
+        }
+    }
+
+    evo(dt) {
+        this.evoPower(dt)
+    }
 }

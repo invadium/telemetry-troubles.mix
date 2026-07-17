@@ -6,6 +6,10 @@ class Antenna extends Pod {
         super( augment({
             name: 'antenna',
 
+            stats: {
+                power:  5,
+            },
+
             x: 25,
             y: -15,
             w: 30,

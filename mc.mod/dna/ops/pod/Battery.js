@@ -10,12 +10,19 @@ class Battery extends Pod {
             y:     100,
             w:     40,
             h:     4,
-            level: .25,
 
-            padding: 1,
+            level:    0,
+            output:   0,
+            readAt:   0,
+            recent:   0,
+
+            CAPACITY: 4000,
+
+            padding:  1,
         }, st) )
         this.powerOn()
 
+        this.CAPACITY_FACTOR = 1 / this.CAPACITY
     }
 
     init() {
@@ -28,10 +35,40 @@ class Battery extends Pod {
         this.companions = [
             gauge,
         ]
+
+        this.RTG = this.__.RTG
+    }
+
+    charge(dt) {
+        const energy = this.RTG.charge(this, dt)
+        this.level = min(this.level + energy * this.CAPACITY_FACTOR, 1)
+        // this.level = .5 * (sin( env.time * .4 ) + 1)
+
+
+    }
+
+    consume(power, dt) {
+        const energy = power * env.tune.hourFactor * dt
+        const deltaLevel = energy * this.CAPACITY_FACTOR
+
+        if (deltaLevel > this.level) return 0
+
+        this.level -= deltaLevel
+
+        if (env.time >= this.readAt + 1) {
+            this.output = this.recent
+            log(`output: ` + this.output)
+            this.gauge.level = clamp(this.output * .1, 0, 1)
+            this.recent = 0
+            this.readAt = env.time
+        }
+        this.recent += energy
+
+        return energy
     }
 
     evo(dt) {
-        this.level = .5 * (sin( env.time * .4 ) + 1)
+        this.charge(dt)
     }
 
     // TODO refactor out the level code into separate pods - HLevel and VLevel

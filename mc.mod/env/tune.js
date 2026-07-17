@@ -27,3 +27,6 @@ const tune = {
         experimentTimeoutDays: 5,
     },
 }
+tune.hourSeconds = tune.evoSpeed / tune.dayHours // real seconds in a game hour
+tune.hourFactor = 1 / tune.hourSeconds           // adjust any per-hour value to per-real-second
+

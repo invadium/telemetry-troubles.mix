@@ -18,12 +18,17 @@ class RTG extends Pod {
             speed:   10,
             ions:    [],
 
+            OUTPUT:  160 * env.tune.hourFactor,  // the output power in watts adjusted for real time
         }, st) )
         this.powerOn()
     }
 
     powerOff() {
         // can't be powered off - always on!
+    }
+
+    charge(target, dt) {
+        return this.OUTPUT * dt
     }
 
     emitIon() {
