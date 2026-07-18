@@ -8,6 +8,12 @@ class WideAngleCamera extends Pod {
             time:     0,
             aperture: 0,
 
+            stats: {
+                power:       4,
+                science:     0,
+                engineering: 0,
+            },
+
             x: 15,
             y: 85,
             w: 10,

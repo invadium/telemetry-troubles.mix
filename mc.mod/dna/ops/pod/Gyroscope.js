@@ -6,6 +6,12 @@ class Gyroscope extends Pod {
     constructor(st) {
         super( augment({
             name: 'gyroscope',
+
+            stats: {
+                power:       2,
+                science:     0,
+                engineering: 0,
+            },
         }, st) )
         this.powerOn()
     }

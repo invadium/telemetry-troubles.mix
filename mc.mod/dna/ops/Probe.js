@@ -31,6 +31,7 @@ class Probe extends sys.LabFrame {
                 'CosmicRayDetector',
             ],
 
+            lines:      [],
             powerLines: [],
             dataLines:  [],
             ioLines:    [],
@@ -52,7 +53,11 @@ class Probe extends sys.LabFrame {
         for (let pod of this._pods) {
             this.spawn(pod)
         }
-
+        for (let pod of this._ls) {
+            if (isFun(pod.uplink)) {
+                pod.uplink()
+            }
+        }
         /*
         this.spawn('VGauge', {
             name: 'powerGauge',
@@ -117,6 +122,7 @@ class Probe extends sys.LabFrame {
     enableTelemetry(pod) {
         if (isStr(pod)) pod = this.locate(pod)
         if (!pod) throw new Error('the pod is missing!')
+        if (pod.telemetry) return // already enabled
 
         this.blueprint.linkPod(pod)
         pod.startTelemetry()
@@ -133,6 +139,7 @@ class Probe extends sys.LabFrame {
     disableTelemetry(pod) {
         if (isStr(pod)) pod = this.locate(pod)
         if (!pod) throw new Error('the pod is missing!')
+        if (!pod.telemetry) return // already disabled
 
         this.blueprint.detachPod(pod)
         pod.stopTelemetry()
@@ -145,14 +152,20 @@ class Probe extends sys.LabFrame {
         }
     }
 
-    openDataLine(n) {
-        const pod = this.dataLines[n]
-        if (pod) this.enableTelemetry(pod)
+    locatePod(id) {
+        if ( isNumber(id) ) {
+            return this.lines[id]
+        } else if ( isObject(id) ) {
+            return id
+        }
     }
 
-    closeDataLine(n) {
-        const pod = this.dataLines[n]
-        if (pod) this.disableTelemetry(pod)
+    openDataLine(id) {
+        this.enableTelemetry( this.locatePod(id) )
+    }
+
+    closeDataLine(id) {
+        this.disableTelemetry( this.locatePod(id) )
     }
 
     lastDataLine() {
@@ -173,14 +186,12 @@ class Probe extends sys.LabFrame {
         pod.powerOff()
     }
 
-    openPowerLine(n) {
-        const pod = this.powerLines[n]
-        if (pod) this.powerOn(pod)
+    openPowerLine(id) {
+        this.powerOn( this.locatePod(id) )
     }
 
-    closePowerLine(n) {
-        const pod = this.powerLines[n]
-        if (pod) this.powerOff(pod)
+    closePowerLine(id) {
+        this.powerOff( this.locatePod(id) )
     }
 
     lastPowerLine() {
@@ -192,6 +203,9 @@ class Probe extends sys.LabFrame {
     onAttach(pod) {
         if (pod.type !== 'pod') return
 
+        pod.line = this.powerLines.length
+        this.lines.push(pod)
+
         pod.powerLine = this.powerLines.length
         this.powerLines.push(pod)
 
@@ -200,11 +214,5 @@ class Probe extends sys.LabFrame {
 
         pod.ioLine = this.ioLines.length
         this.ioLines.push(pod)
-        /*
-        if (pod.isPowerControlled()) {
-        }
-        if (pod.isTelemetric()) {
-        }
-        */
     }
 }

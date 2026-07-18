@@ -39,12 +39,21 @@ class Battery extends Pod {
         this.RTG = this.__.RTG
     }
 
+    uplink() {
+        let output = 0
+        for (let pod of this.__._ls) {
+            if (pod.type === 'pod' && pod.stats) {
+                output += pod.stats.power
+            }
+        }
+        this.MAX_OUTPUT = output || 1
+        this.OUTPUT_FACTOR = 1 / output
+    }
+
     charge(dt) {
         const energy = this.RTG.charge(this, dt)
         this.level = min(this.level + energy * this.CAPACITY_FACTOR, 1)
         // this.level = .5 * (sin( env.time * .4 ) + 1)
-
-
     }
 
     consume(power, dt) {
@@ -55,13 +64,6 @@ class Battery extends Pod {
 
         this.level -= deltaLevel
 
-        if (env.time >= this.readAt + 1) {
-            this.output = this.recent
-            log(`output: ` + this.output)
-            this.gauge.level = clamp(this.output * .1, 0, 1)
-            this.recent = 0
-            this.readAt = env.time
-        }
         this.recent += energy
 
         return energy
@@ -69,6 +71,14 @@ class Battery extends Pod {
 
     evo(dt) {
         this.charge(dt)
+
+        if (env.time >= this.readAt + 1) {
+            this.output = this.recent
+            log(`output: ` + this.output)
+            this.gauge.level = clamp(this.output * this.OUTPUT_FACTOR, 0, 1)
+            this.recent = 0
+            this.readAt = env.time
+        }
     }
 
     // TODO refactor out the level code into separate pods - HLevel and VLevel
