@@ -44,6 +44,8 @@ class Spaceframe extends Pod {
     }
 
     evo(dt) {
+        super.evo(dt)
+
         const cells = this.cells
         for (let i = cells.length - 1; i >= 0; i--) {
             const cell = cells[i]

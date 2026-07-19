@@ -6,12 +6,14 @@ class WideAngleCamera extends Pod {
         super( augment({
             name:    'wideAngleCamera',
             time:     0,
+            snapAt:   0,
             aperture: 0,
 
             stats: {
                 power:       4,
-                science:     0,
+                science:     4,
                 engineering: 0,
+                SNAP_TIME:   4,
             },
 
             x: 15,
@@ -28,9 +30,21 @@ class WideAngleCamera extends Pod {
     }
 
     evo(dt) {
+        super.evo(dt)
+
         if (this.power) {
             this.time += dt
             this.aperture = abs((sin(this.time * .25)))
+
+            if (this.time >= this.snapAt + this.stats.SNAP_TIME) {
+                log(`env:${floor(env.time)} -- ${floor(this.snapAt)} + ${floor(this.stats.SNAP_TIME)} <= ${floor(this.time)}`)
+                this.__.sendTelemetryPacket({
+                    type:  'wa-camera',
+                    source: this,
+                    size:   this.stats.science,
+                })
+                this.snapAt = this.time
+            }
         } else {
             if (this.aperture > 0) {
                 this.aperture -= dt

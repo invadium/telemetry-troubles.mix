@@ -70,11 +70,13 @@ class Battery extends Pod {
     }
 
     evo(dt) {
+        super.evo(dt)
+
         this.charge(dt)
 
         if (env.time >= this.readAt + 1) {
             this.output = this.recent
-            log(`output: ` + this.output)
+            // log(`output: ` + this.output)
             this.gauge.level = clamp(this.output * this.OUTPUT_FACTOR, 0, 1)
             this.recent = 0
             this.readAt = env.time

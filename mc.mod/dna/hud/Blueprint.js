@@ -134,6 +134,11 @@ class Blueprint extends sys.LabFrame {
         line(0, by, 20, by)
     }
 
+    evo(dt) {
+        // TODO we don't need to evo subnodes here
+        //      they are already evolved by the probe entity
+    }
+
     draw() {
         const { x, y, w, h } = this
 

@@ -42,7 +42,7 @@ function command(args) {
         }
     }
 }
-command.args = '<line-number> | all'
+command.args = '<line-number> | <device-name> | all'
 command.info = 'open a power line'
 
 module.exports = command

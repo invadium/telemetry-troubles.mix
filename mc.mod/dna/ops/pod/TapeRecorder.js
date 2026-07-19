@@ -30,6 +30,8 @@ class TapeRecorder extends Pod {
     }
 
     evo(dt) {
+        super.evo(dt)
+
         if (this.power) this.time += dt
     }
 

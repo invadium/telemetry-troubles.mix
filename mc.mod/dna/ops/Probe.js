@@ -198,6 +198,12 @@ class Probe extends sys.LabFrame {
         return this.powerLines.length - 1
     }
 
+    sendTelemetryPacket(pkt) {
+        pkt.at = env.time
+        log(`@${env.time} -- telemetry:`)
+        dir(pkt)
+    }
+
     draw() {}
 
     onAttach(pod) {

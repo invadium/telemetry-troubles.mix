@@ -86,6 +86,8 @@ class RTG extends Pod {
     }
 
     evo(dt) {
+        super.evo(dt)
+
         if (rnd() < this.fq * dt) this.emitIon()
 
         const ions = this.ions,
