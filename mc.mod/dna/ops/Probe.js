@@ -35,6 +35,9 @@ class Probe extends sys.LabFrame {
             powerLines: [],
             dataLines:  [],
             ioLines:    [],
+
+            telemetryId:   0,
+            telemetryFeed: null,
         }, st) )
 
         extend(this, {
@@ -58,6 +61,9 @@ class Probe extends sys.LabFrame {
                 pod.uplink()
             }
         }
+
+        this.antenna.registerFeed( this.tapeRecorder )
+        this.tapeRecorder.registerFeed( this.antenna )
         /*
         this.spawn('VGauge', {
             name: 'powerGauge',
@@ -116,6 +122,12 @@ class Probe extends sys.LabFrame {
         this.powerOn('tapeRecorder')
         this.powerOn('wideAngleCamera')
         */
+    }
+
+    registerFeed(pod) {
+        if ( !(pod instanceof dna.ops.pod.Pod) ) throw new Error('a pod is expected!')
+
+        this.telemetryFeed = pod
     }
 
     // enable engineering telemetry - show the pod on the blueprint
@@ -198,17 +210,18 @@ class Probe extends sys.LabFrame {
         return this.powerLines.length - 1
     }
 
-    sendTelemetryPacket(pkt) {
-        pkt.at = env.time
-        log(`@${env.time} -- telemetry:`)
-        dir(pkt)
+    sendTelemetry(packet) {
+        packet.at = env.time
+        packet.id = ++ this.telemetryId
+        packet.title = `#${packet.id}: ${packet.type}.${packet.size}`
+        this.telemetryFeed.transmitTelemetry(packet)
     }
 
     draw() {}
 
     onAttach(pod) {
         if (pod.type !== 'pod') return
-
+    
         pod.line = this.powerLines.length
         this.lines.push(pod)
 
@@ -221,4 +234,5 @@ class Probe extends sys.LabFrame {
         pod.ioLine = this.ioLines.length
         this.ioLines.push(pod)
     }
+
 }

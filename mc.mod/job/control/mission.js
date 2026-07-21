@@ -19,6 +19,7 @@ function launchProbe() {
 
     job.control.HQ.setProbe(probe)
     job.control.HQ.setupExperiments()
+
 }
 
 function start() {
@@ -27,6 +28,8 @@ function start() {
 
     this.experimentLog = []
     this.activeExperiments = []
+    this.blackBox = $.blackBox = lab.spawn('BlackBox')
+
     this.status = $.env.missionStatus = env.missionStatus = {
         time:        1,
         day:         1,
@@ -207,6 +210,11 @@ function loadSolution(solution, unlocked) {
     }
 }
 
+function receiveTelemetry( packet ) {
+    log(`[${packet.title}] -> [black-box]`)
+    this.blackBox.record( packet )
+}
+
 function reviewActiveExperiments() {
     if (this.activeExperiments.length >= env.tune.missionControl.maxActiveExperiments) return
     const mS = this.status
@@ -297,6 +305,6 @@ function slowDown() {
 }
 
 function setup() {
-    $.missionControl = this
+    $.MC = $.missionControl = this
     pub.link(this, 'missionControl')
 }

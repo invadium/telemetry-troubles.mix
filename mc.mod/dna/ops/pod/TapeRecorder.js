@@ -12,6 +12,9 @@ class TapeRecorder extends Pod {
             h:     25,
 
             time:  0,
+            tape:  [],
+
+            telemetryFeed: null,
         }, st) )
     }
 
@@ -27,6 +30,22 @@ class TapeRecorder extends Pod {
         this.companions = [
             gauge,
         ]
+    }
+
+    registerFeed(pod) {
+        this.telemetryFeed = pod
+    }
+
+    transmitTelemetry(packet) {
+        if (this.power) {
+            // TODO check if we are in recording mode
+            log(`tape-recording packet [${packet.title}]`)
+            this.tape.push(packet)
+            return true
+        } else {
+            log(`can't record - skipping [${packet.title}]`)
+            return false
+        }
     }
 
     evo(dt) {

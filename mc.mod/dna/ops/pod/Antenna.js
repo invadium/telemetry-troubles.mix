@@ -6,14 +6,19 @@ class Antenna extends Pod {
         super( augment({
             name: 'antenna',
 
+            buffer: 0,
+            packet: null,
             stats: {
-                power:  5,
+                power:     5,
+                bandwidth: 1,
             },
 
             x: 25,
             y: -15,
             w: 30,
             h: 20,
+
+            telemetryFeed: null,
         }, st) )
     }
 
@@ -27,6 +32,42 @@ class Antenna extends Pod {
         this.companions = [
             gauge,
         ]
+        this.__.registerFeed(this)
+    }
+
+    registerFeed(pod) {
+        this.telemetryFeed = pod
+    }
+
+    transmitTelemetry(packet) {
+        if (!this.power) {
+            // pass over - we are powered off and not accepting packets
+            return this.telemetryFeed.transmitTelemetry(packet)
+        } else if (this.packet) {
+            // buffer overflow - reject the packet
+            log(`antenna - rejecting packet [${packet.title}]`)
+            return this.telemetryFeed.transmitTelemetry(packet)
+        } else {
+            // accept and send the packet
+            this.packet = packet
+            this.buffer = packet.size
+            return true
+        }
+    }
+
+    evo(dt) {
+        super.evo(dt)
+
+        if (this.packet) {
+            this.buffer -= this.stats.bandwidth * dt
+            if (this.buffer <= 0) {
+                this.packet.sent = true
+                this.__.missionControl.receiveTelemetry(this.packet)
+
+                this.buffer = 0
+                this.packet = null
+            }
+        }
     }
 
     wave() {
