@@ -2,6 +2,7 @@ const HALT = 0
 const STEP = 1
 const WALK = 2
 const RUN  = 3
+const WAIT = 4
 
 class Dusty12 {
 
@@ -20,11 +21,13 @@ class Dusty12 {
             walkSpeed:  1,
             runSpeed:  .25,
             runBatch:   128,
+            waitTime:   0,
+            waitMode:   0,
 
             monitors:   [],
 
             // expose execution modes
-            HALT, STEP, WALK, RUN,
+            HALT, STEP, WALK, RUN, WAIT,
         }, st)
     }
 
@@ -407,7 +410,9 @@ class Dusty12 {
             {
                 name: 'WAIT',
                 fn: () => {
-                    // TODO implement wait state
+                    _.waitMode = MODE
+                    _.waitTime = pop()
+                    _.wait()
                 },
                 effect: 'n -- ',
                 info: 'wait for n seconds'
@@ -485,6 +490,11 @@ class Dusty12 {
             _.lastCycle = _.time
         }
 
+        _.wait = function() {
+            MODE = WAIT
+            _.lastCycle = _.time
+        }
+
         _.halt = function() {
             if (MODE === HALT) return
             MODE = HALT
@@ -492,6 +502,10 @@ class Dusty12 {
                 if (isFun(m.onHalt)) m.onHalt()
             })
             signal('halt')
+        }
+
+        _.mode = function(val) {
+            MODE = val
         }
 
         _.spy = {
@@ -607,6 +621,12 @@ class Dusty12 {
             case RUN:
                 if (this.time >= this.lastCycle + this.runSpeed) {
                     this.cycle(this.runBatch)
+                }
+                break
+            case WAIT:
+                if (this.time >= this.lastCycle + this.waitTime) {
+                    this.waitTime = 0
+                    this.mode(this.waitMode)
                 }
                 break
         }
