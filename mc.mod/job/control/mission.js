@@ -211,7 +211,7 @@ function loadSolution(solution, unlocked) {
 }
 
 function receiveTelemetry( packet ) {
-    log(`[${packet.title}] -> [black-box]`)
+    // log(`[${packet.title}] -> [black-box]`)
     this.blackBox.record( packet )
 }
 

@@ -64,64 +64,6 @@ class Probe extends sys.LabFrame {
 
         this.antenna.registerFeed( this.tapeRecorder )
         this.tapeRecorder.registerFeed( this.antenna )
-        /*
-        this.spawn('VGauge', {
-            name: 'powerGauge',
-
-            x:    5,
-            y:    10,
-            w:    1,
-            h:    100,
-
-            evo: function(dt) {
-                this.level = .5 * (sin(env.time * .25) + 1)
-            },
-        })
-        this.spawn('HGauge', {
-            name: 'thermalGauge',
-
-            x:    10,
-            y:    105,
-            w:    80,
-            h:    1,
-            dir:  1,
-
-            evo: function(dt) {
-                this.level = .5 * (sin(env.time * .29) + 1)
-            },
-        })
-        this.spawn('HGauge', {
-            name: 'bandwidthGauge',
-
-            x:    10,
-            y:    115,
-            w:    80,
-            h:    1,
-            dir: -1,
-
-            evo: function(dt) {
-                this.level = .5 * (sin(env.time * .45) + 1)
-            },
-        })
-        */
-
-        /*
-        this.enableTelemetry('RTG')
-        this.enableTelemetry('antenna')
-        this.enableTelemetry('tapeRecorder')
-        this.enableTelemetry('spaceframe')
-        this.enableTelemetry('wideAngleCamera')
-        this.enableTelemetry('battery')
-        this.enableTelemetry('powerGauge')
-        this.enableTelemetry('bandwidthGauge')
-        this.enableTelemetry('thermalGauge')
-
-        this.enableTelemetry('stackInspector')
-
-        this.powerOn('antenna')
-        this.powerOn('tapeRecorder')
-        this.powerOn('wideAngleCamera')
-        */
     }
 
     registerFeed(pod) {
@@ -208,6 +150,20 @@ class Probe extends sys.LabFrame {
 
     lastPowerLine() {
         return this.powerLines.length - 1
+    }
+
+    in(line) {
+        const pod = this.ioLines[line]
+        if (!pod) return // TODO send an error here?
+
+        return pod.in()
+    }
+
+    out(line, val) {
+        const pod = this.ioLines[line]
+        if (!pod) return // TODO send an error here?
+
+        return pod.out(val)
     }
 
     sendTelemetry(packet) {

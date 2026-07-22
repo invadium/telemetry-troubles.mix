@@ -46,6 +46,23 @@ class Pod {
         return true
     }
 
+    in() {
+        return 0
+    }
+
+    isReadable() {
+        return false
+    }
+
+    out(val) {
+        // TODO return an error here?
+        return false
+    }
+
+    isWritable() {
+        return false
+    }
+
     evoPower(dt) {
         if (!this.power || !this.stats.power) return
 

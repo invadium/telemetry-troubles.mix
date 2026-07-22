@@ -11,8 +11,10 @@ class TapeRecorder extends Pod {
             w:     40,
             h:     25,
 
-            time:  0,
-            tape:  [],
+            time:      0,
+            tape:      [],
+            skipped:   [],
+            recording: true,
 
             telemetryFeed: null,
         }, st) )
@@ -37,21 +39,62 @@ class TapeRecorder extends Pod {
     }
 
     transmitTelemetry(packet) {
-        if (this.power) {
-            // TODO check if we are in recording mode
-            log(`tape-recording packet [${packet.title}]`)
+        if (this.power && this.recording) {
+            // log(`tape-recording packet [${packet.title}]`)
+            packet.recordedAt = env.time
             this.tape.push(packet)
             return true
         } else {
-            log(`can't record - skipping [${packet.title}]`)
+            // log(`can't record - skipping [${packet.title}]`)
+            this.skipped.push(packet)
             return false
         }
+    }
+
+    record() {
+        this.recording = true
+    }
+
+    play() {
+        this.recording = false
+    }
+
+    in() {
+        return 0
+    }
+
+    isReadable() {
+        return false
+    }
+
+    out(val) {
+        if (val === 0) this.play()
+        else this.record()
+        log('recording: ' + this.recording)
+
+        return false
+    }
+
+    isWritable() {
+        return true
     }
 
     evo(dt) {
         super.evo(dt)
 
-        if (this.power) this.time += dt
+        if (this.power) {
+            if (this.recording) {
+                this.time += dt
+            } else {
+                this.time -= dt
+                if (this.tape.length > 0) {
+                    if (this.telemetryFeed.transmitTelemetry( this.tape[this.tape.length - 1] )) {
+                        const packet = this.tape.pop()
+                        log(`read and sent: ${packet.title}`)
+                    }
+                }
+            }
+        }
     }
 
     drawReel(x, y, r, a) {

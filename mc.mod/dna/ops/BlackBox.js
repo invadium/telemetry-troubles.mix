@@ -9,6 +9,7 @@ class BlackBox {
     }
 
     record(packet) {
+        packet.receivedAt = env.time
         this.tape.push(packet)
     }
 

@@ -246,6 +246,15 @@ class Dusty12 {
                 effect: 'x y -- [x%y]',
                 info: 'remainder from the division'
             },
+            {
+                name: 'NEG',
+                fn: () => {
+                    const x = pop()
+                    push( -x )
+                },
+                effect: 'x -- -x',
+                info: 'negate the top data stack value'
+            },
 
             // === COMPARISON ====
             {
@@ -378,6 +387,30 @@ class Dusty12 {
                 },
                 effect: 'x1 -- ',
                 info: 'close the powerline to the specified instrument'
+            },
+            {
+                name: 'IN',
+                fn: () => {
+                    probe.in( pop() )
+                },
+                effect: 'n -- ',
+                info: 'read the specified #n i/o line'
+            },
+            {
+                name: 'OUT',
+                fn: () => {
+                    probe.out( pop(), pop() )
+                },
+                effect: 'd n  -- ',
+                info: 'send the value d to #n i/o line'
+            },
+            {
+                name: 'WAIT',
+                fn: () => {
+                    // TODO implement wait state
+                },
+                effect: 'n -- ',
+                info: 'wait for n seconds'
             },
 
             {

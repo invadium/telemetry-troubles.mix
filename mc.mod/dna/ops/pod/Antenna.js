@@ -40,12 +40,14 @@ class Antenna extends Pod {
     }
 
     transmitTelemetry(packet) {
+        if (!isObject(packet)) throw new Error('packet is expected!')
+
         if (!this.power) {
             // pass over - we are powered off and not accepting packets
             return this.telemetryFeed.transmitTelemetry(packet)
         } else if (this.packet) {
             // buffer overflow - reject the packet
-            log(`antenna - rejecting packet [${packet.title}]`)
+            // log(`antenna - rejecting packet [${packet.title}]`)
             return this.telemetryFeed.transmitTelemetry(packet)
         } else {
             // accept and send the packet
