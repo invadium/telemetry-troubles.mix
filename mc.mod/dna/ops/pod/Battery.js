@@ -12,9 +12,8 @@ class Battery extends Pod {
             h:     4,
 
             level:    0,
-            output:   0,
-            readAt:   0,
-            recent:   0,
+            gain:     0,
+            syncAt:   0,
 
             CAPACITY: 4000,
 
@@ -47,7 +46,7 @@ class Battery extends Pod {
             }
         }
         this.MAX_OUTPUT = output || 1
-        this.OUTPUT_FACTOR = 1 / output
+        this.GAUGE_FACTOR = 1 / output
     }
 
     charge(dt) {
@@ -64,7 +63,7 @@ class Battery extends Pod {
 
         this.level -= deltaLevel
 
-        this.recent += energy
+        this.gain += energy
 
         return energy
     }
@@ -74,12 +73,11 @@ class Battery extends Pod {
 
         this.charge(dt)
 
-        if (env.time >= this.readAt + 1) {
-            this.output = this.recent
-            // log(`output: ` + this.output)
-            this.gauge.level = clamp(this.output * this.OUTPUT_FACTOR, 0, 1)
-            this.recent = 0
-            this.readAt = env.time
+        if (env.time >= this.syncAt + 1) {
+            // log(`gain: ` + this.gain)
+            this.gauge.level = clamp(this.gain * this.GAUGE_FACTOR, 0, 1)
+            this.gain = 0
+            this.syncAt = env.time
         }
     }
 

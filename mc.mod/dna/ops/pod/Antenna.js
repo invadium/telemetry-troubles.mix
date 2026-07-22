@@ -8,6 +8,9 @@ class Antenna extends Pod {
 
             buffer: 0,
             packet: null,
+            gain:   0,
+            syncAt: 0,
+
             stats: {
                 power:     5,
                 bandwidth: 1,
@@ -20,6 +23,8 @@ class Antenna extends Pod {
 
             telemetryFeed: null,
         }, st) )
+
+        this.GAUGE_FACTOR = 1 / this.stats.bandwidth
     }
 
     init() {
@@ -61,7 +66,10 @@ class Antenna extends Pod {
         super.evo(dt)
 
         if (this.packet) {
-            this.buffer -= this.stats.bandwidth * dt
+            const payload = this.stats.bandwidth * dt
+            this.buffer -= payload
+            this.gain += payload
+
             if (this.buffer <= 0) {
                 this.packet.sent = true
                 this.__.missionControl.receiveTelemetry(this.packet)
@@ -69,6 +77,13 @@ class Antenna extends Pod {
                 this.buffer = 0
                 this.packet = null
             }
+        }
+
+        if (env.time >= this.syncAt + 1) {
+            // log(`gain: ` + this.gain)
+            this.gauge.level = clamp(this.gain * this.GAUGE_FACTOR, 0, 1)
+            this.gain = 0
+            this.syncAt = env.time
         }
     }
 
