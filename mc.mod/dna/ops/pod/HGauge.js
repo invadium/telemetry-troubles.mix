@@ -1,14 +1,11 @@
-const Pod = require('/mod/mc/dna/ops/pod/Pod')
+const Gauge = require('/mod/mc/dna/ops/pod/Gauge')
 
-class HGauge extends Pod {
+class HGauge extends Gauge {
 
     constructor(st) {
         super( extend({
-            type:  'gauge',
-            level:  0,
-            psize:  2,
-            pdy:    1,
-            dir:   -1,
+            pdy:     1,
+            dir:    -1,
         }, st) )
     }
 

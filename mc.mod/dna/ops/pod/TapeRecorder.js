@@ -16,21 +16,42 @@ class TapeRecorder extends Pod {
             skipped:   [],
             recording: true,
 
+            lgain:     0,
+            rgain:     0,
+            syncAt:    0,
+
+            stats: {
+                input:  4,
+                output: 1,
+            },
+
             telemetryFeed: null,
         }, st) )
+        this.LGAUGE_FACTOR = 1 / this.stats.input
+        this.RGAUGE_FACTOR = 1 / this.stats.output
     }
 
     init() {
-        const gauge = this.gauge = this.__.spawn(dna.ops.pod.VGauge, {
+        const lgauge = this.lgauge = this.__.spawn(dna.ops.pod.VGauge, {
+            target: this,
+            x:      this.x - .5 * this.w - 2,
+            y:      this.y - .5 * this.h,
+            h:      this.h,
+            pdx:   -1,
+            dir:    1,
+        })
+        const rgauge = this.rgauge = this.__.spawn(dna.ops.pod.VGauge, {
             target: this,
             x:      this.x + .5 * this.w + 2,
             y:      this.y - .5 * this.h,
             h:      this.h,
             pdx:    1,
             dir:   -1,
+            speed: .5,
         })
         this.companions = [
-            gauge,
+            lgauge,
+            rgauge,
         ]
     }
 
@@ -43,6 +64,7 @@ class TapeRecorder extends Pod {
             // log(`tape-recording packet [${packet.title}]`)
             packet.recordedAt = env.time
             this.tape.push(packet)
+            this.lgain += packet.size
             return true
         } else {
             // log(`can't record - skipping [${packet.title}]`)
@@ -91,9 +113,19 @@ class TapeRecorder extends Pod {
                     if (this.telemetryFeed.transmitTelemetry( this.tape[this.tape.length - 1] )) {
                         const packet = this.tape.pop()
                         log(`read and sent: ${packet.title}`)
+                        this.rgain += packet.size
                     }
                 }
             }
+        }
+
+        if (env.time >= this.syncAt + 1) {
+            // log(`gain: ` + this.gain)
+            this.lgauge.target = clamp(this.lgain * this.LGAUGE_FACTOR, 0, 1)
+            this.lgain = 0
+            this.rgauge.target = clamp(this.rgain * this.RGAUGE_FACTOR, 0, 1)
+            this.rgain = 0
+            this.syncAt = env.time
         }
     }
 

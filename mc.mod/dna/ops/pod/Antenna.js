@@ -81,7 +81,7 @@ class Antenna extends Pod {
 
         if (env.time >= this.syncAt + 1) {
             // log(`gain: ` + this.gain)
-            this.gauge.level = clamp(this.gain * this.GAUGE_FACTOR, 0, 1)
+            this.gauge.target = clamp(this.gain * this.GAUGE_FACTOR, 0, 1)
             this.gain = 0
             this.syncAt = env.time
         }

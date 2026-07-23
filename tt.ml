@@ -23,6 +23,10 @@ V conditional jumps
 V simple loop tutorial
 V program walk sfx
 V power up a single device
+V antenna bandwidth gauge
+V tape recorder bandwidth gauge
+V x2 gauges for the tape recorder?
+V fix sfx volum jumps
 
 > more experiments
     > power on more devices
@@ -35,15 +39,17 @@ V power up a single device
 > keyboard control
 > instruction placement feedback
 
-
 # presentation
 > title screenshot
+> game intro description
+> game readme
 > gif of the gameplay
 > pdf manual with specs, instructions and backstory
+    > playbook section on postfix notation
+
 
 
 ### System III
-> fix sfx volum jumps
 > fix link out-of-bound selection effect seeing on S1E2
 > set execution pointer with right/middle(?) click when on pause
 > music player with cross-fades
@@ -52,6 +58,7 @@ V power up a single device
 > upload special effects #spice
 > tag-driven memory banks
 > probe wireframe lines are not properly scaled for all resolutions
+> smooth bandwidth tracking
 
 > states transitions
 > title screen
@@ -64,7 +71,9 @@ V power up a single device
 > gracefully handle errors like empty stack - the machine should just stop and wait
 
 
+
 ### Proto III
+> data bus to visualize packets flow
 > dusty 12 mode switch ops
 > telemetry layout instructions (adjust components)
 > dusty 12 I/O (sense, out...)???
