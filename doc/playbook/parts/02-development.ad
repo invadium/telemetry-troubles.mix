@@ -77,7 +77,7 @@ So one might ask, why are our deep-space exploration vehicles so low-powered and
 Partly, it is explained by timing - it takes a lot of time to design and build a space probe, and it takes many more years to reach the outer rim of the Solar System.
 So the probes are limited by the technology available at the time of design and construction.
 
-Also, we can't use stock components for the construction of such a probe. Strong magnetic fields, solar winds, flares, cosmic rays, and other high-energy phenomena are affecting the proper functions of electronic components. Therefore, all on-board computers are deliberately downgraded and made out of space-grade materials to harden them against such harsh conditions.
+Also, we can't use stock components for the construction of such a probe. Strong magnetic fields, solar winds, flares, cosmic rays, and other high-energy phenomena affect the proper functions of electronic components. Therefore, all on-board computers are deliberately downgraded and made out of space-grade materials to harden them against such harsh conditions.
 
 Indeed, DUSTY-12 looks peculiar, but there is a good reason for that weirdness.
 ****
@@ -97,14 +97,14 @@ OBUS
 
 First, we place a HEX value 0x04 on the data stack. Next, we call the OBUS command that picks the top of the data stack and opens the specified data line to receive the telemetry.
 
-The same way, the telemetry data line can be closed with CBUS:
+In the same way, the telemetry data line can be closed with CBUS:
 
 ```
 04
 CBUS
 ```
 
-Other I/O commands work in a similar way. For example, we can power on device #5 with OPOW:
+Other I/O commands work alike. For example, we can power on device #5 with OPOW:
 
 ```
 05

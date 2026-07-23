@@ -141,6 +141,9 @@ sidebar:
         style:  normal
         # color:  #4a6db2
         color: #70819d
+    emphasis_strong:
+        font-style: bold
+        font-color: #FF0000
     background_color: #f3f3f0
     border_width:     1
     border-color:     #70819d
@@ -152,6 +155,9 @@ sidebar_title:
         # color:  #4a6db2
         color: #70819d
     text_transform: uppercase
+role:
+  strong-red:
+    font-color: #d64502
 
 #header:
 #    height: 0.5in

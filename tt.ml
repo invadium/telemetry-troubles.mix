@@ -36,6 +36,7 @@ V fix sfx volum jumps
     > more stack manipulation (swap, over?)
     > enable even more data lines with a hint
 
+> shorten instruction status info
 > keyboard control
 > instruction placement feedback
 

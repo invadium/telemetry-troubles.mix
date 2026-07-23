@@ -55,6 +55,66 @@ Or when typed into the Core Monitor:
 
 image::shots/core-monitor-S1E1-solution.png[S1E1 Solution]
 
+.Postfix Notation
+****
+When we write an operation, let's say a plus, it can be expressed in multiple ways.
+
+The most familiar one is called [.strong-red]#*the infix notation*# that we all learn in school.
+It expresses an addition as two operands (numbers) and an operator
+between them:
+
+  3 + 4
+
+Clean and simple, unless we want to add more operators:
+
+  3 + 4 * 2
+
+We learned at school that multiplication should be done before addition,
+so that expression actually means:
+
+  3 + (4 * 2)
+
+But it is not obviously clear, unless we consider the priority of each operator in the expression and their relative positions. Or even use parentheses to define the priority explicitly, like in the example above.
+
+Another way to specify the same operations would be the prefix notation and its most prominent exemplar, LISP and its diverse family:
+
+  (+ 3 4)
+  (+ 3 (* 4 2))
+
+Now the operator is specified in front of the operands.
+This style is called [.strong-red]#*the prefix notation*#, since we are prefixing the operation before the operands.
+This particular style creates an elegant syntax that basically represents an abstract syntax tree with no ambiguities. But it can get very cumbersome when an expression reaches a certain depth, with countless parentheses closing it in the end.
+
+The last style is [.strong-red]#*the postfix notation*#, also known as [.strong-red]#*the reverse Polish notation*#, found in Forth, Postscript, various stack machines and programmable calculators.
+This one uses a stack for operands and places operators after the operands:
+
+  3 4 +
+  3 4 2 * +
+
+The concept of the stack is central to the postfix notation, since that is where operators take their operands and push their results.
+We can push any number of values on the stack and then apply any operations we need:
+
+  3 4 5 + +
+
+But the same also can be expressed in a more readable form like:
+
+  4 5 + 3 +
+
+Here, the operands operate on the smallest possible stack.
+Both forms are correct, since the operands are explicitly pushed on the stack and the "plus" operator simply takes the top two values in there, adds them, and pushes the result back on top of the stack.
+
+That snippet, executed on a stack-based machine, will result in the following stack effect for each step:
+
+  >> 4
+  >> 4 5
+  >> 9
+  >> 9 3
+  >> 12
+
+****
+
+=== Core Monitor Controls
+
 You can control Core Monitor with a row of control buttons:
 
 image::shots/debug-monitor-controls.png[Core Monitor Controls]
@@ -68,7 +128,7 @@ They are from left to right:
 * Walk the program (slow execution)
 * Run the program (fast execution)
 
-On this stage, we recommend running DUSTY-12 in the Walk mode, or even in the step-by-step mode, carefully examining the effect of each instruction.
+At this stage, we recommend running DUSTY-12 in the Walk mode, or even in the step-by-step mode, carefully examining the effect of each instruction.
 
 Press the "Walk Program" button and observe how the red cursor highlights an instruction to be executed. The program stops when it reaches an empty memory cell.
 

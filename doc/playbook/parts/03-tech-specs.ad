@@ -1,7 +1,7 @@
 
 == Instruction Set
 
-((DUSTY-12)) processing core provides 27 basic instructions. These cover things like math, basic stack manipulations, comparisons, conditional and unconditional jumps, memory access, data and power control.
+((DUSTY-12)) processing core provides 31 basic instructions. These cover things like math, basic stack manipulations, comparisons, conditional and unconditional jumps, memory access, data and power control.
 
 Initially, all instructions are locked in the Code Selector section of Core Monitor. Only number placement is available there.
 
@@ -15,13 +15,14 @@ DROP (x -- ) - drop the top value on the stack
 DUP (x -- x x) - duplicate the top value on the stack
 SWAP (x y -- y x) - swap top two values on stack
 ROT (x y z -- y z x) - rotate top three values on stack
-POKE (@ x -- (memory @ set to x)) - set the specified memory location with the value on top of the stack
+POKE (x @ -- ) - set the specified memory location with the value under address
 PEEK (@ -- x) - read the memory cell at the provided address and place it on top of the data stack
 ADD (x y -- [x+y]) - add two values at the top of the data stack
 SUB (x y -- [x-y]) - subtract the top number on the stack from the previous one
 MUL (x y -- [x*y]) - multiply two values at the top of the data stack
 DIV (x y -- [x/y]) - divide
 MOD (x y -- [x%y]) - remainder from the division
+NEG (x -- -x) - negate the top data stack value
 EQ (x y -- [1|0]) - compares the top two values on the data stack and places 1 if equal and 0 if not
 NEQ (x y -- [0|1]) - compares the top two values on the data stack and places 0 if equal and 1 if not
 LT (x y -- [1|0]) - compares the top two values on the data stack and places 1 if less than and 0 otherwise
@@ -35,8 +36,12 @@ OBUS (x1 -- ) - open data bus line to the specified instrument
 CBUS (x1 -- ) - close the data bus line to the specified instrument
 OPOW (x1 -- ) - open the powerline to the specified instrument
 CPOW (x1 -- ) - close the powerline to the specified instrument
+IN (n -- ) - read the specified #n i/o line
+OUT (d n  -- ) - send the value d to #n i/o line
+WAIT (n -- ) - wait for n seconds
 HALT ( -- ) - halt execution
 RST ((... -- empty memory and stacks, zeroed registers)) - reset the VM
+
 ```
 
 
