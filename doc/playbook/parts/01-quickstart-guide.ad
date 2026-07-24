@@ -42,7 +42,7 @@ You can select any of the memory cells. Click on the one at address 0x000. The C
 
 Click on any of the available options to set the memory cell. More experienced engineers prefer to use right-click to auto-advance the cursor to the next memory address.
 
-We've been requested to open telemetry data line #0. So let's place the dataline number on the stack first - select 0x00 as the first instruction. Next we need to tell DUSTY-12 to open the data line by providing the OBUS instruction. That instruction will pop the top value on the data stack (0x00) and open the telemetry dataline corresponding to that value.
+We've been requested to open telemetry data line #0. So let's place the dataline number on the stack first - select 0x00 as the first instruction. Next, we need to tell DUSTY-12 to open the data line by providing the OBUS instruction. That instruction will pop the top value on the data stack (0x00) and open the telemetry data line corresponding to that value.
 
 The whole program will look like this:
 

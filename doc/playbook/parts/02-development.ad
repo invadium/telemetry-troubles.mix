@@ -12,7 +12,7 @@ It means the implementation details of each type of unit may be different, but t
 
 The ((DUSTY-12)) family is the latest series of spaceframes by the famous StarDust Bureau. It controls major spacecraft operations and can be programmed in DUSTY-12 assembly language.
 
-Its architecture can be described as a multiple-stack-based Minimal Instruction Set Computer (or MSB-MISC).
+Its architecture can be described as #a multiple-stack-based Minimal Instruction Set Computer# (or MSB-MISC).
 
 
 .MISC

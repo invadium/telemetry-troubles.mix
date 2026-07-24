@@ -37,6 +37,7 @@ font:
         bold:     if.regular.ttf
     CodeFont:
         # normal:   dotty.regular.ttf
+        # normal:   dotrice.regular.ttf
         normal:   hydrogentype.regular.ttf
     FooterFont:
         normal:   dotty.regular.ttf
@@ -127,7 +128,7 @@ heading:
 code:
     font:
         family: CodeFont
-        size:   18
+        size:   17
         color:  #808492
         # color:  #808492
     # background_color: #e4e4d8

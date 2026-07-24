@@ -15,33 +15,72 @@ DROP (x -- ) - drop the top value on the stack
 DUP (x -- x x) - duplicate the top value on the stack
 SWAP (x y -- y x) - swap top two values on stack
 ROT (x y z -- y z x) - rotate top three values on stack
-POKE (x @ -- ) - set the specified memory location with the value under address
-PEEK (@ -- x) - read the memory cell at the provided address and place it on top of the data stack
+POKE (x @ -- ) - set the memory cell with the specified value
+PEEK (@ -- x) - push on stack the value at the provided address
 ADD (x y -- [x+y]) - add two values at the top of the data stack
-SUB (x y -- [x-y]) - subtract the top number on the stack from the previous one
-MUL (x y -- [x*y]) - multiply two values at the top of the data stack
-DIV (x y -- [x/y]) - divide
-MOD (x y -- [x%y]) - remainder from the division
+SUB (x y -- [x-y]) - subtract the top number from the previous one
+MUL (x y -- [x*y]) - multiply two values
+DIV (x y -- [x/y]) - divide by the top value
+MOD (x y -- [x%y]) - get the remainder from the division
 NEG (x -- -x) - negate the top data stack value
-EQ (x y -- [1|0]) - compares the top two values on the data stack and places 1 if equal and 0 if not
-NEQ (x y -- [0|1]) - compares the top two values on the data stack and places 0 if equal and 1 if not
-LT (x y -- [1|0]) - compares the top two values on the data stack and places 1 if less than and 0 otherwise
-LTE (x y -- [1|0]) - compares the top two values on the data stack and places 1 if less than or equal and 0 otherwise
-GT (x y -- [1/0]) - compares the top two values on the data stack and places 1 if greater than and 0 otherwise
-GTE (x y -- [1/0]) - compares the top two values on the data stack and places 1 if greater than or equal and 0 otherwise
-NOT (x -- [1/0]) - logical NOT for the top value on the data stack
-JMP (@ -- ) - unconditional jump to the address specified on the data stack
-JNZ (x @ -- ) - conditional jump to the address specified on the data stack only if the second value is not zero
-OBUS (x1 -- ) - open data bus line to the specified instrument
-CBUS (x1 -- ) - close the data bus line to the specified instrument
+EQ (x y -- 1/0) - compare if the top two values are equal
+NEQ (x y -- 0/1) - check if the top two values are not equal
+LT (x y -- 1/0) - check if the top value is less than the next
+LTE (x y -- 1/0) - check on less or equal
+GT (x y -- 1/0) - check if the top value is greater than the next
+GTE (x y -- 1/0) - check on greater or equal
+NOT (x -- 1/0) - logical NOT for the top value on the data stack
+JMP (@ -- ) - unconditional jump to the specified address
+JNZ (x @ -- ) - jump only if the second value is not zero
+OBUS (x1 -- ) - open data line to the specified instrument
+CBUS (x1 -- ) - close the data line to the specified instrument
 OPOW (x1 -- ) - open the power line to the specified instrument
 CPOW (x1 -- ) - close the power line to the specified instrument
 IN (n -- ) - read the specified #n i/o line
 OUT (d n  -- ) - send the value d to #n i/o line
 WAIT (n -- ) - wait for n seconds
 HALT ( -- ) - halt execution
-RST ((... -- empty memory and stacks, zeroed registers)) - reset the VM
+RST ((... -- clear memory, stacks and registers)) - reset the VM
 
 ```
 
+== Lines and Ports
+
+Lines and ports are numbered and associated with on-board instruments. Every DUSTY-12 data/power line and port has a number. Lines and ports with the same number are associated with the same device for convenience.
+
+For example, the tape recorder is connected to socket #5, so it can be controlled with engineering telemetry data line #5, power line #5, and the I/O port #5.
+
+The following block lists all the lines/ports available in the ANGEL-F5 probe with the associated on-board devices:
+
+```
+#0: gyroscope
+#1: RTG
+#2: battery
+#3: spaceframe
+#4: antenna
+#5: tapeRecorder
+#6: wideAngleCamera
+#7: stackInspector
+```
+
+
+
+
+
+Use this reference table to find the line number to use with OBUS/CBUS and OPOW/CPOW instructions as well as IN/OUT commands.
+
+For example, if I want to receive engineering telemetry from the high-gain antenna (#4), I can run:
+
+```
+04
+OBUS
+```
+I place the value 0x04 on the data stack as a parameter and execute the OBUS instruction.
+
+Or when I want to power on the same high-gain antenna, I would use a similar sequence, but with the OPOW instruction:
+
+```
+04
+OPOW
+```
 
