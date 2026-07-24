@@ -2,7 +2,7 @@
 
 This section gives a comprehensive introduction to ((DUSTY-12)).
 
-DUSTY-12 is an architecture, rather than a specific product. It is designed by the famous StartDust Bureau and licensed to several interplanetary corporations to use in their spacecraft.
+#DUSTY-12 is an architecture, rather than a specific product.# It is designed by the famous ((StarDust Bureau)) and licensed to several interplanetary corporations to use in their spacecraft.
 
 It means the implementation details of each type of unit may be different, but the general principles and characteristics stay the same across all these machines. That is why when we say "DUSTY-12" we usually mean the DUSTY-12 family of spaceframes and not a particular product, unless directly specified.
 
@@ -84,34 +84,43 @@ Indeed, DUSTY-12 looks peculiar, but there is a good reason for that weirdness.
 
 
 
-== Input/Output
+== Input and Output
 
-Command and Control Unit of a space probe is useful only when there is something to command and control. DUSTY-12 has input and output facilities to control data and power lines of the probe and manage data exchange with external devices and instruments.
+A spaceframe inside a space probe is useful only when there is something to command and control. DUSTY-12 has input and output facilities to control data and power lines of the probe and manage data exchange with external devices and instruments.
 
-For example, to enable telemetry from device #4, you need the following code:
+
+
+=== Engineering Telemetry Data Lines
+
+Engineering telemetry provides status data for on-board devices. Each line is connected to a particular instrument and can be individually controlled.
+
+For example, to enable telemetry from device #4, run the following snippet:
 
 ```
-04
-OBUS
+04    -- push 0x04 on the data stack
+OBUS  -- open the specified bus
 ```
 
-First, we place a HEX value 0x04 on the data stack. Next, we call the OBUS command that picks the top of the data stack and opens the specified data line to receive the telemetry.
+First, we place a HEX value 0x04 on the data stack. Next, we call the [.strong-blue]#*OBUS*# command that picks the top of the data stack and opens the specified data line to receive the telemetry.
 
-In the same way, the telemetry data line can be closed with CBUS:
+In the same way, the telemetry data line can be closed with [.strong-blue]#*CBUS*#:
 
 ```
 04
 CBUS
 ```
 
-Other I/O commands work alike. For example, we can power on device #5 with OPOW:
+=== Power Lines
+
+Other I/O commands work alike. For example, we can power on device \#5 with
+[.strong-blue]#*OPOW*#:
 
 ```
 05
 OPOW
 ```
 
-And then power it down with:
+And then power it down with [.strong-blue]#*CPOW*#:
 
 ```
 06
@@ -119,10 +128,51 @@ CPOW
 ```
 
 
+=== IO Ports
 
+DUSTY-12 implements 2 instructions to communicate with on-board instruments: [.strong-blue]#*IN*# for reading IO data and [.strong-blue]#*OUT*# for writing.
 
+To read a value from an IO port, specify the line number and call IN:
 
+```
+05
+IN
+```
 
+To write a value, you have to specify both the value and the IO port number:
 
+```
+07   -- push the value
+05   -- push the port number
+OUT  -- write specified value on the specified IO line
+```
 
+Each on-board instrument has a specific protocol that defines the rules of read/write sequences.
+
+Let's take a tape recorder for example. You can use the associated port #5 to set the tape recorder into record or play mode.
+
+To make it play, run:
+
+```
+00    -- 0x00 value means play
+05    -- 0x05 is the IO port bound to the tape recorder
+OUT   -- send 0x00 on the IO port 0x05
+```
+
+To set the tape recorder back into record mode, run:
+
+```
+01    -- 0x01 means record
+05
+OUT
+```
+
+.Instruments Communication
+****
+Spaceframes support two different modes of communication with on-board instrumentation - I/O ports and DMA.
+
+[.strong-blue]#*I/O*# ports represent the simplest method when we sequentially write or read words from a port associated with a target device.
+
+[.strong-blue]#*Direct Memory Access (DMA)*#, also known as [.strong-blue]#*block transfer*#, provides a way to write or read blocks of memory directly, without direct CCU control. CCU specifies necessary parameters, and then a device called the DMA Controller transfers data over the memory bus without direct CCU involvement.
+****
 

@@ -36,7 +36,8 @@ font:
         normal:   if.regular.ttf
         bold:     if.regular.ttf
     CodeFont:
-        normal:   dotty.regular.ttf
+        # normal:   dotty.regular.ttf
+        normal:   hydrogentype.regular.ttf
     FooterFont:
         normal:   dotty.regular.ttf
 
@@ -60,9 +61,9 @@ font:
 title-page:
   background-color: #EAEAEA
   font:
-      color: #56a6a0
+      color:  #56a6a0
       family: CodeFont
-      size: 26
+      size:   20
   title:
     font:
         color: #56a6a0
@@ -70,9 +71,9 @@ title-page:
         size: 70
   authors:
     font:
-        color: #56a6a0
+        color:  #56a6a0
         family: CoverFont
-        size: 30
+        size:   36
   subtitle:
     font:
         color: #56a6a0
@@ -81,9 +82,9 @@ title-page:
 
 base:
     font:
-        color: #222222
+        color:  #222222
         family: BaseFont
-        size: 14
+        size:   14
     align: justify
 
 heading:
@@ -126,8 +127,9 @@ heading:
 code:
     font:
         family: CodeFont
-        size: 24
-        color:  #606060
+        size:   18
+        color:  #808492
+        # color:  #808492
     # background_color: #e4e4d8
     # background_color: #f0dfbd
     background_color: #ffffff
@@ -147,6 +149,7 @@ sidebar:
     background_color: #f3f3f0
     border_width:     1
     border-color:     #70819d
+
 sidebar_title:
     font:
         family: SidebarHeaderFont
@@ -155,9 +158,6 @@ sidebar_title:
         # color:  #4a6db2
         color: #70819d
     text_transform: uppercase
-role:
-  strong-red:
-    font-color: #d64502
 
 #header:
 #    height: 0.5in
@@ -180,4 +180,10 @@ footer:
         size: 28
         style: normal
         color: #909095
+
+role:
+  strong-red:
+    font-color: #d64502
+  strong-blue:
+    font-color: #0680d1
 

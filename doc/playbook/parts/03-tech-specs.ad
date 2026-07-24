@@ -27,15 +27,15 @@ EQ (x y -- [1|0]) - compares the top two values on the data stack and places 1 i
 NEQ (x y -- [0|1]) - compares the top two values on the data stack and places 0 if equal and 1 if not
 LT (x y -- [1|0]) - compares the top two values on the data stack and places 1 if less than and 0 otherwise
 LTE (x y -- [1|0]) - compares the top two values on the data stack and places 1 if less than or equal and 0 otherwise
-GT (x y -- [1|0]) - compares the top two values on the data stack and places 1 if greater than and 0 otherwise
-GTE (x y -- [1|0]) - compares the top two values on the data stack and places 1 if greater than or equal and 0 otherwise
-NOT (x -- [1|0]) - logical NOT for the top value on the data stack
+GT (x y -- [1/0]) - compares the top two values on the data stack and places 1 if greater than and 0 otherwise
+GTE (x y -- [1/0]) - compares the top two values on the data stack and places 1 if greater than or equal and 0 otherwise
+NOT (x -- [1/0]) - logical NOT for the top value on the data stack
 JMP (@ -- ) - unconditional jump to the address specified on the data stack
 JNZ (x @ -- ) - conditional jump to the address specified on the data stack only if the second value is not zero
 OBUS (x1 -- ) - open data bus line to the specified instrument
 CBUS (x1 -- ) - close the data bus line to the specified instrument
-OPOW (x1 -- ) - open the powerline to the specified instrument
-CPOW (x1 -- ) - close the powerline to the specified instrument
+OPOW (x1 -- ) - open the power line to the specified instrument
+CPOW (x1 -- ) - close the power line to the specified instrument
 IN (n -- ) - read the specified #n i/o line
 OUT (d n  -- ) - send the value d to #n i/o line
 WAIT (n -- ) - wait for n seconds

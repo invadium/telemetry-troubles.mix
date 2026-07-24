@@ -19,11 +19,11 @@ There are also numerous smaller niche companies operating around them, sometimes
 
 On the other side of it are mining conglomerates ordering various scans, atmospheric probes, and geological surveys. They shape most of the interplanetary traffic, but not all of it. Around them are independent prospecting groups and companies doing their own exploration.
 
-All these companies are members of the Outer Rim League, an organization whose primary goal is to coordinate and promote outer system exploration and resource exploitation. It sponsors multiple educational programs to ensure a steady pipeline of engineers and technicians into the space industry. It preserves and spreads knowledge by publishing magazines, books, and manuals (including the one you're holding right now). It establishes and promotes technological standards\.\.\. The League is involved in so many things on outer planets, moons, and planetoids that it is impossible to list them all.
+All these companies are members of the ((Outer Rim League)), an organization whose primary goal is to coordinate and promote outer system exploration and resource exploitation. It sponsors multiple educational programs to ensure a steady pipeline of engineers and technicians into the space industry. It preserves and spreads knowledge by publishing magazines, books, and manuals (including the one you're holding right now). It establishes and promotes technological standards\.\.\. The League is involved in so many things on outer planets, moons, and planetoids that it is impossible to list them all.
 
 Let's look at the key players in the Outer Rim League along with a short introduction to the specifics of their business:
 
-* Orbital Equipment Corporation (OEC) - a big multiplanetary corporation owning research labs, manufacturing facilities, and fleets of vehicles around outer planets, moons, and planetoids. The owner of ANGEL-F5 probe.
+* ((Orbital Equipment Corporation)) (OEC) - a big multiplanetary corporation owning research labs, manufacturing facilities, and fleets of vehicles around outer planets, moons, and planetoids. The owner of ANGEL-F5 probe.
 
 * Space Structures Unlimited (SSU) - another of the Big Three, famous for its enormous orbital hubs and mining complexes.
 
@@ -33,11 +33,13 @@ Let's look at the key players in the Outer Rim League along with a short introdu
 
 * DeltaV Unlimited - owns orbital refueling facilities across our solar system. Think of them as a chain of gas stations in orbit around many planets and satellites.
 
-* Stardust Bureau - a major technology provider for spacefaring companies; designer and manufacturer of the DUSTY family of spaceframes.
+* ((StarDust Bureau)) - a major technology provider for spacefaring companies; designer and manufacturer of the DUSTY family of spaceframes.
 
 * Vacuum Toolworks - the lead tools and components manufacturer.
 
 * Intelligent Design Inc. - one of the best R&D laboratories in the deep space business.
+
+Other companies you could encounter are:
 
 * Apogee Tech Ltd.
 
@@ -48,17 +50,17 @@ Let's look at the key players in the Outer Rim League along with a short introdu
 
 .Stealing the Dust
 ****
-ANGEL-F5 probe is designed and built by the Orbital Equipment Corp (OEC). Yet, it is controlled by a spaceframe based at the core on the DUSTY-12 architecture of the famous Stardust Bureau.
+((ANGEL-F5)) probe is designed and built by the ((Orbital Equipment Corporation)) (OEC). Yet, it is controlled by a spaceframe based at the core on the DUSTY-12 architecture of the famous StarDust Bureau.
 
-One might wonder how OEC managed to build a Command and Control Unit on DUSTY-12 without buying a license from Stardust Bureau.
+One might wonder how OEC managed to build a DUSTY-12 spaceframe without buying a license from ((StarDust Bureau)).
 
 The following story is based totally on rumors and rare pieces of inside information collected throughout our industry. But the overall picture seems to be pretty clear.
 
 When Orbital Equipment Corp. won the Heliosphere Survey Group contract on a deep space mission, it didn't have a proven radiation-hardened chipset able to operate in outer space conditions. OEC, after all, was mostly a low-orbit operator and had no experience or know-how in operating in highly radioactive environments.
 
-Initially, they went into an agreement with Stardust Bureau to get the necessary engineering help and technologies. But the deal fell apart due to the licensing disagreements over who is going to control the resulting technology.
+Initially, they went into an agreement with StarDust Bureau to get the necessary engineering help and technologies. But the deal fell apart due to licensing disagreements over who was going to control the resulting technology.
 
-EOC, however, managed to preserve some essential blueprints during Stardust Bureau technology evaluation. That, some engineering chipsets obtained through third parties, plus a little of industrial espionage, and OEC managed to build a DUSTY-12 compatible chipset hardened enough to survive an encounter with any gas giant.
+OEC, however, managed to preserve some essential blueprints during StarDust Bureau's technology evaluation. That, with some engineering chipsets obtained through third parties, plus a little industrial espionage, allowed OEC to build a DUSTY-12 compatible chipset hardened enough to survive an encounter with any gas giant.
 ****
 
 
