@@ -27,6 +27,7 @@ V antenna bandwidth gauge
 V tape recorder bandwidth gauge
 V x2 gauges for the tape recorder?
 V fix sfx volum jumps
+V shorten instruction status info
 
 > more experiments
     > power on more devices
@@ -36,7 +37,6 @@ V fix sfx volum jumps
     > more stack manipulation (swap, over?)
     > enable even more data lines with a hint
 
-> shorten instruction status info
 > keyboard control
 > instruction placement feedback
 
@@ -82,6 +82,7 @@ V fix sfx volum jumps
 > delete the cell and shift up #core-monitor
 > insert a new cell and shift the content down
 > when paused (or walking/running?) set the command pointer (with right click? ctrl+click?)
+> OBUS and CBUS -> ODAT/CDAT
 
 > program run sfx
 > program step sfx?

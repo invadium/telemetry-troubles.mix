@@ -114,6 +114,10 @@ class Probe extends sys.LabFrame {
         }
     }
 
+    lastLine() {
+        return this.lines.length - 1
+    }
+
     openDataLine(id) {
         this.enableTelemetry( this.locatePod(id) )
     }

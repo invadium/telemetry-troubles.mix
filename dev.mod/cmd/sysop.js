@@ -11,3 +11,5 @@ function sysop(args) {
         codeSelector.unlock(ops.name)
     })
 }
+sysop.info = 'enable all data and power lines and unlock all instructions'
+

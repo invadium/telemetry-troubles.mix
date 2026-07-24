@@ -189,7 +189,7 @@ class Dusty12 {
                     capsule[at] = x
                 },
                 effect: 'x @ -- ',
-                info: 'set the specified memory location with the value under address'
+                info: 'set the memory cell with the specified value'
             },
             {
                 name: 'PEEK',
@@ -198,7 +198,7 @@ class Dusty12 {
                     push( capsule[ at ] )
                 },
                 effect: '@ -- x',
-                info: 'read the memory cell at the provided address and place it on top of the data stack'
+                info: 'push on stack the value at the provided address'
             },
 
 
@@ -219,7 +219,7 @@ class Dusty12 {
                     push( x - y )
                 },
                 effect: 'x y -- [x-y]',
-                info: 'subtract the top number on the stack from the previous one'
+                info: 'subtract the top number from the previous one'
             },
             {
                 name: 'MUL',
@@ -227,7 +227,7 @@ class Dusty12 {
                     push( pop() * pop() )
                 },
                 effect: 'x y -- [x*y]',
-                info: 'multiply two values at the top of the data stack'
+                info: 'multiply two values'
             },
             {
                 name: 'DIV',
@@ -237,7 +237,7 @@ class Dusty12 {
                     push( x/y )
                 },
                 effect: 'x y -- [x/y]',
-                info: 'divide'
+                info: 'divide by the top value'
             },
             {
                 name: 'MOD',
@@ -247,7 +247,7 @@ class Dusty12 {
                     push( x%y )
                 },
                 effect: 'x y -- [x%y]',
-                info: 'remainder from the division'
+                info: 'get the remainder from the division'
             },
             {
                 name: 'NEG',
@@ -268,8 +268,8 @@ class Dusty12 {
                     if ( x === y ) push( 1 )
                     else push( 0 )
                 },
-                effect: 'x y -- [1|0]',
-                info: 'compares the top two values on the data stack and places 1 if equal and 0 if not'
+                effect: 'x y -- 1/0',
+                info: 'compare if the top two values are equal'
             },
             {
                 name: 'NEQ',
@@ -279,8 +279,8 @@ class Dusty12 {
                     if ( x !== y ) push( 1 )
                     else push( 0 )
                 },
-                effect: 'x y -- [0|1]',
-                info: 'compares the top two values on the data stack and places 0 if equal and 1 if not'
+                effect: 'x y -- 0/1',
+                info: 'check if the top two values are not equal'
             },
             {
                 name: 'LT',
@@ -290,8 +290,8 @@ class Dusty12 {
                     if ( x < y ) push( 1 )
                     else push( 0 )
                 },
-                effect: 'x y -- [1|0]',
-                info: 'compares the top two values on the data stack and places 1 if less than and 0 otherwise'
+                effect: 'x y -- 1/0',
+                info: 'check if the top value is less than the next'
             },
             {
                 name: 'LTE',
@@ -301,8 +301,8 @@ class Dusty12 {
                     if ( x <= y ) push( 1 )
                     else push( 0 )
                 },
-                effect: 'x y -- [1|0]',
-                info: 'compares the top two values on the data stack and places 1 if less than or equal and 0 otherwise'
+                effect: 'x y -- 1/0',
+                info: 'check on less or equal'
             },
             {
                 name: 'GT',
@@ -312,8 +312,8 @@ class Dusty12 {
                     if ( x > y ) push( 1 )
                     else push( 0 )
                 },
-                effect: 'x y -- [1|0]',
-                info: 'compares the top two values on the data stack and places 1 if greater than and 0 otherwise'
+                effect: 'x y -- 1/0',
+                info: 'check if the top value is greater than the next'
             },
             {
                 name: 'GTE',
@@ -323,8 +323,8 @@ class Dusty12 {
                     if ( x >= y ) push( 1 )
                     else push( 0 )
                 },
-                effect: 'x y -- [1|0]',
-                info: 'compares the top two values on the data stack and places 1 if greater than or equal and 0 otherwise'
+                effect: 'x y -- 1/0',
+                info: 'check on greater or equal'
             },
 
             // === LOGICAL OPS ===
@@ -335,7 +335,7 @@ class Dusty12 {
                     if ( x === 0 ) push( 1 )
                     else push( 0 )
                 },
-                effect: 'x -- [1|0]',
+                effect: 'x -- 1/0',
                 info: 'logical NOT for the top value on the data stack'
             },
 
@@ -346,7 +346,7 @@ class Dusty12 {
                     PC = pop()
                 },
                 effect: '@ -- ',
-                info: 'unconditional jump to the address specified on the data stack'
+                info: 'unconditional jump to the specified address'
             },
             {
                 name: 'JNZ',
@@ -356,7 +356,7 @@ class Dusty12 {
                     if (x !== 0) PC = at
                 },
                 effect: 'x @ -- ',
-                info: 'conditional jump to the address specified on the data stack only if the second value is not zero'
+                info: 'jump only if the second value is not zero'
             },
 
             {
@@ -365,7 +365,7 @@ class Dusty12 {
                     probe.openDataLine( pop() )
                 },
                 effect: 'x1 -- ',
-                info: 'open data bus line to the specified instrument'
+                info: 'open data line to the specified instrument'
             },
             {
                 name: 'CBUS',
@@ -373,7 +373,7 @@ class Dusty12 {
                     probe.closeDataLine( pop() )
                 },
                 effect: 'x1 -- ',
-                info: 'close the data bus line to the specified instrument'
+                info: 'close the data line to the specified instrument'
             },
             {
                 name: 'OPOW',
@@ -381,7 +381,7 @@ class Dusty12 {
                     probe.openPowerLine( pop() )
                 },
                 effect: 'x1 -- ',
-                info: 'open the powerline to the specified instrument'
+                info: 'open the power line to the specified instrument'
             },
             {
                 name: 'CPOW',
@@ -389,7 +389,7 @@ class Dusty12 {
                     probe.closePowerLine( pop() )
                 },
                 effect: 'x1 -- ',
-                info: 'close the powerline to the specified instrument'
+                info: 'close the power line to the specified instrument'
             },
             {
                 name: 'IN',
@@ -429,7 +429,7 @@ class Dusty12 {
             {
                 name: 'RST',
                 fn: reset,
-                effect: '(... -- empty memory and stacks, zeroed registers)',
+                effect: '(... -- clear memory, stacks and registers)',
                 info: 'reset the VM',
             },
         ]
