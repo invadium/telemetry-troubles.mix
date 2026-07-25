@@ -1,15 +1,93 @@
-
 = Experiment Hints
+
+This part of the playbook provides hints on various experiments you might encounter in Telemetry Troubles.
 
 == Series 1 Experiments
 
+These are experiments designed to familiarize you with the DUSTY-12 spaceframe and perform ANGLE-F5 on-board systems diagnostics.
+
+A probe check-in and diagnostics are a common on-boarding practice of many ((Outer Rim League)) companies. Outer systems Mineral Rush caused a tremendous spike in launches of hastily built and poorly tested spacecraft. Everyone wanted to deploy their fleets and the edge of the solar system to show presence, conduct massive surveys, and claim mineral rights. This is why so many probes connected to ((Outer Rim Networks)) don't have any proper specs, tutorials, or simulators. 
+
+Sometimes companies are confused about the state of their deep-space fleets, the capabilities of their probes, or even the availability and state of on-board instruments.
+That is why these companies need spacecraft systems engineers like you. They need your skills to unlock and recover some of these probes, commence systems diagnostics, and modify the firmware to complete always-changing missions.
+
 === S1E1
-This one is a simple one.
+
+We've been asked to enable attitude telemetry to receive the probe's gyroscope data.
+
+To enable the telemetry, we can use the recently unlocked instruction [.strong-blue]#*OBUS*#.
+
+Also, we need to know the data line to enable.
+You can reference the tech spec section of this playbook to see the full list of the ANGEL-F5 probe on-board instruments. But the experiment request already fills us in on the data line number to enable - it is 0x00.
+
+So, we need to call the OBUS instruction on the data line 0x00.
+
+The only remaining question is how exactly to sequence these commands.
+
+DUSTY-12 is a stack-based computer, and all parameters MUST be placed on the data stack before running an instruction. It means that instead of expressing it in an infix form like ```3 + 4``` or a prefix form like ```+ 3 4```, we provide the operands first, like in ```3 4 +```, or expressed in the DUSTY-12 assembly:
+
+```
+03
+04
+ADD
+```
+
+As you can see, the operands go before the actual action (ADD) - hence [.strong-blue]#*the postfix notation*#.
+
+Given that, let's enable data line 0x00 with OBUS instruction:
+
+```
+00
+OBUS
+```
+
+Instructions MUST be placed starting from the address 0x000, otherwise, the execution will be stopped the moment it discovers an empty cell.
+
+Select the first cell and in the Code Selector pick the value 0x00. Use right-click when selecting to auto-advance to the next cell. Then pick OBUS from the list.
+
+Once the program is ready, you can launch it with the Walk or Run button. We recommend using the "walk" mode first to understand the execution flow and see the immediate effect of each instruction.
+
+Once the program is completed, you should see the wireframe model of the ANGEL-F5 probe.
+
+The experiment is completed, and an email informing you about the reward should be in your inbox shortly.
+
 
 === S1E2
-This one twice as hard.
 
+This one is exactly like S1E1, only with two datalines - 0x01 and 0x02.
 
+You can use the previous structure and fill a new program:
 
+```
+01
+OBUS
+02
+OBUS
+```
 
+That is a perfectly fine firmware that solves the problem.
+
+But the stack-based nature of DUSTY-12 allows an alternative way to express the same effect. Consider the following snippet:
+
+```
+01
+02
+OBUS
+OBUS
+```
+
+First, we push two values onto the data stack to define the data lines. Then we call OBUS two times to use these two values
+
+Note that even though the result is the same, the lines will be open in reverse order from the first example - e.g. the first OBUS instruction will pop the top stack value, which is 0x02. And only the second OBUS will use 0x01.
+
+So, to get the same result, we would have to use the following sequence:
+
+```
+02
+01
+OBUS
+OBUS
+```
+
+Since values on the stack are FILO (First-In Last-Out), we push 0x02 to be the first value on the stack, so it will match the last OBUS instruction.
 

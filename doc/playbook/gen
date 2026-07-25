@@ -9,5 +9,5 @@ docker run \
     --user $usr:$grp \
     --volume `pwd`:/documents \
     asciidoctor/docker-asciidoctor \
-    ./gen-doc
+    ./gen-doc --trace
 
