@@ -96,6 +96,7 @@ Available flags:
              -- provide optional limit of how many experiments to solve before stopping: [--autosolve 5]
              -- provide optional stopper experiment code: [--autosolve s1e4]
 --keepTiming - apply delays for email reading and experiment solving
+--check      - autosolve system checks instead of the regular mission
 ```
 
 Use it with ```jam``` command like so:

@@ -137,12 +137,12 @@ function completeExperiment(exp) {
         owner:  _,
         title: `[mission-control] send experiment complete email`,
         fn: () => {
-            _.earn(exp.reward)
+            if (exp.reward) _.earn(exp.reward)
             signal('email', {
                 from: 'HQ',
                 subject: `${exp.code} Complete`,
                 content: `${exp.code}: ${exp.title} is complete!\n\n`
-                         + `Reward: $${exp.reward}`, 
+                         + (exp.reward? `Reward: $${exp.reward}` : ``), 
             })
 
             job.control.HQ.reportCompleteExperiment(exp)
@@ -249,11 +249,28 @@ function registerTry(exp) {
 
 function verifyExperiments(tried) {
     const _     = this,
-          probe = this.probe
+          probe = this.probe,
+          dusty = probe.dusty
 
     let tryRegistered = false
     _.activeExperiments.forEach( exp => {
-        if (exp.verify(probe, _, tried)) _.completeExperiment(exp)
+        if (exp.stack) {
+            // we have stack effect
+            const state  = dusty.spy.state(),
+                  dstack = state.dstack,
+                  DSP     = state.DSP
+
+            let match = true
+            if (exp.stack.length !== DSP) match = false
+            exp.stack.forEach((e, i)=> {
+                if (e !== dstack[i]) match = false
+            })
+
+            if (match) _.completeExperiment(exp)
+        }
+        if (exp.verify) {
+            if (exp.verify(probe, _, tried)) _.completeExperiment(exp)
+        }
 
         if (tried && !tryRegistered && !exp.completed && !exp.followed) {
             this.registerTry( exp )

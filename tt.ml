@@ -36,10 +36,12 @@ V shorten instruction status info
     > comparison tutorial experiment
     > more stack manipulation (swap, over?)
     > enable even more data lines with a hint
+    > hints for all basic experiments
 
+> handle DUSTY-12 crashes
 > a section on HEX notation
-> keyboard control
 > instruction placement feedback
+> fix "Upload Button" mention in Get Started email
 
 # presentation
 > title screenshot
@@ -61,6 +63,7 @@ V shorten instruction status info
 > tag-driven memory banks
 > probe wireframe lines are not properly scaled for all resolutions
 > smooth bandwidth tracking
+> keyboard control
 
 > states transitions
 > title screen
