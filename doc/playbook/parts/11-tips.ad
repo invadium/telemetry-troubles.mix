@@ -1,6 +1,17 @@
-= Experiment Hints
+= Solutions
 
-This part of the playbook provides hints on various experiments you might encounter in Telemetry Troubles.
+WARNING!
+
+SPOILER ALERT!
+
+This part of the playbook provides hints and annotated solutions on various experiments you might encounter in Telemetry Troubles.
+
+It is highly recommended to address this section after you have solved the corresponding experiment, so you can confirm your thoughts and assumptions.
+
+Look for solutions to unresolved experiments only as a desperate measure when you struggle to figure out the answer and are running out of time.
+
+Remember that the future could hide experiments which are not in this book. And a good grasp of known problems is desired to face the problems unknown.
+
 
 == Series 1 Experiments
 
@@ -8,7 +19,7 @@ These are experiments designed to familiarize you with the DUSTY-12 spaceframe a
 
 A probe check-in and diagnostics are a common on-boarding practice of many ((Outer Rim League)) companies. Outer systems Mineral Rush caused a tremendous spike in launches of hastily built and poorly tested spacecraft. Everyone wanted to deploy their fleets and the edge of the solar system to show presence, conduct massive surveys, and claim mineral rights. This is why so many probes connected to ((Outer Rim Networks)) don't have any proper specs, tutorials, or simulators. 
 
-Sometimes companies are confused about the state of their deep-space fleets, the capabilities of their probes, or even the availability and state of on-board instruments.
+Sometimes companies are confused about the state of their deep-space fleets, the capabilities of their probes, o and especially r even the availability and state of on-board instruments.
 That is why these companies need spacecraft systems engineers like you. They need your skills to unlock and recover some of these probes, commence systems diagnostics, and modify the firmware to complete always-changing missions.
 
 === S1E1
@@ -90,4 +101,154 @@ OBUS
 ```
 
 Since values on the stack are FILO (First-In Last-Out), we push 0x02 to be the first value on the stack, so it will match the last OBUS instruction.
+
+
+
+
+=== S1E3
+
+This experiment is quite similar to the previous two, just with the data line #7:
+
+```
+07
+OBUS
+
+```
+
+This enables vital debugging telemetry, allowing inspection of the DUSTY-12 data stack.
+
+
+
+=== S1E4
+
+This is the first experiment that activates the DUSTY-12 compute unit. It gives you a real taste of stack-based math.
+
+Always keep in mind the first rule of postfix notation - first the operands, then the operator!
+
+Push and rearrange values on the data stack first. Then apply operations. Always be aware of the stack state after each step - use Core Monitor step mode to slowly walk over the code and consider the stack effect of each value or instruction.
+
+To evaluate ADD and SUB instructions, you can push two values first, and apply ADD for addition. Now, for SUB, you also need two values, but there is only one value left after addition. So push another one to subtract from it and then place the SUB instruction.
+
+For example, like this:
+
+```
+05
+06
+ADD
+08
+SUB
+```
+
+
+=== S1E5
+
+Advanced math request is quite similar to the basic math. We also need a pair of values on the stack to apply those instructions.
+Make sure you always have enough values on the stack and then apply the required instructions.
+
+Let's try to express the following expression: ((4 * 5) / 2) % 4.
+
+In postfix notation, it is going to look like:
+
+```
+04
+05
+MUL
+02
+DIV
+04
+MOD
+```
+
+
+
+=== S1E6
+
+With a stack-based model, you are regularly required to rearrange the stack, and most often you copy the top value for use by multiple instructions (since most instructions will "eat" the values you provide).
+
+The usage of DUP is pretty straightforward - just make sure you have the value to duplicate on top of the data stack and then run DUP:
+
+```
+05
+DUP
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+There will be two 0x05 on top of the data stack after that.
+
+
+=== S1E7
+
+This might be the most complex and daunting example so far. DUSTY-12 loops are mind-bending if you never programmed assembly before.
+
+Consider the structure of a typical loop:
+
+* Setup initial conditions
+* Perform looped main action
+* Modify the loop counter
+* Check the exit condition and continue if not met.
+
+The initial setup for our request is straightforward - simply push 0x07 on the stack. That is going to be our loop counter.
+
+Our main action is to leave a loop counter train in the stack. For that, we DUP the current top stack value. The deeper copy will be left on the stack (consider that to be our main loop action), while the top one is going to be used as our loop counter.
+
+We loop down. Therefore, we need to decrement our loop counter (currently on the top of the stack). So we place 0x01 and subtract, turning [0x07 0x01 -- SUB -- 0x06].
+
+```
+07    -- initial loop counter
+
+DUP   -- save a copy on the stack
+
+01
+SUB   -- decrement the loop counter
+
+DUP   -- copy the loop counter for JNZ consumption
+01    -- the address to jump -> the first DUP instruction
+JNZ   -- jump if our loop counter is not zero
+
+```
+
+We wrap the loop with another DUP to have a copy of our current loop counter, to be eaten by JNZ. Another thing JNZ needs is a jump address. In our case, we need to jump to the first DUP instruction to continue with the loop, so we put 0x01.
+
+JNZ will jump ONLY when the second value on the stack (our loop counter) is not zero. First, it will be 6, then 5, and so on. At some point, it will get to 0, and we will leave the loop body.
+
+
+=== S1E8
+
+We have an opportunity to do more useful stuff in this experiment.
+
+```
+-- the initial data line to start
+-- we're going to move down from here
+06
+-- enable the current dataline
+DUP
+OBUS
+-- loop over
+01
+SUB
+DUP
+02
+SUB    -- we want to stop when the loop counter is 0x002
+01
+JNZ
+
+```
+
+The loop is a little bit different from the previous one.
+
+The start and the end are the same. We setup the loop counter to be 0x07 and we loop with JNZ.
+
+Just before JNZ we add an extra step to subtract 2 from the loop counter, so we will stop at 0x02 and not 0x00. Technically, it is not required, since we continue down to 0x00, re-enabling lines 0, 1, and 2. But since we need only lines 3-7 we can exit when the loop counter reaches 0x02.
+
 

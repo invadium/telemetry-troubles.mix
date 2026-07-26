@@ -34,7 +34,7 @@ There is one company (or rather, a one-man company) that is famous for programmi
 
 This chapter explores my unexpected journey into the world of programming games.
 
-I was always fascinated by programming games.
+I have always been fascinated by programming games.
 
 Ever since I started my programming odyssey on the ZX Spectrum in the early 90s, I have been fascinated by the idea of automation. Sure thing, I played a lot of games back then. And subconsciously, I split the games not by genres, but by the level of abstraction.
 
@@ -42,7 +42,7 @@ On level 1, there are games where you directly control the hero. These were arca
 
 The third level is the most abstract one - you automate units or processes by defining sequences or rules.
 
-My first encounter with that level was even earlier than I discovered the programming - probably when I was 4 or 5. And not with computer games, but with toys - I had a Lunokhod toy, which in turn was a Soviet clone of the American BigTrak programmable six-wheel Sci-Fi tank (ironic that the country that landed an actual Lunokhod robotic rover on the Moon never managed to come up with a viable kids' toy and resorted to cloning one from the ideological enemy). But regarding its shady origin, Lunokhod was an awesome toy. You can program a sequence of actions - move, turn, shoot the laser gun - and see it play out right in your room.
+My first encounter with that abstraction level was even earlier than I discovered programming - probably when I was 4 or 5. And not with computer games, but with toys - I had a Lunokhod toy, which in turn was a Soviet clone of the American BigTrak programmable six-wheel Sci-Fi tank (ironic that the country that landed an actual Lunokhod robotic rover on the Moon never managed to come up with a viable kids' toy and resorted to cloning one from the ideological enemy). But despite its questionable origin, Lunokhod was an awesome toy. You can program a sequence of actions - move 4 steps forward, turn right, move 2 steps, shoot the laser gun - and see it play out right in front of you.
 
 Then, there were computer games with hints of automation. ZX-Spectrum has strategy games like Nether Earth and Carrier Command. And even though the proper automation was not possible there and you have to give direct orders to your robots and vehicles, I entertained the idea "wouldn't it be cool" if only one could set a sequence of steps, preferebly with some sensor-based conditions.
 

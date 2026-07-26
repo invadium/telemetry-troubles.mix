@@ -38,7 +38,6 @@ Finally, place the loop entry address and jump if the loop counter is not 0
       -- if the counter is > 0
 -----------------------------------------------------------------------
 07
-
 DUP
 01
 SUB

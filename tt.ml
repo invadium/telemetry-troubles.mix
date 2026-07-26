@@ -37,6 +37,7 @@ V shorten instruction status info
     > more stack manipulation (swap, over?)
     > enable even more data lines with a hint
 
+> a section on HEX notation
 > keyboard control
 > instruction placement feedback
 

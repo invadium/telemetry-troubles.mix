@@ -1,4 +1,3 @@
-
 = Background
 
 This part of the playbook covers the current political and business environment. It highlights the major players and prevailing trends.
@@ -23,13 +22,13 @@ All these companies are members of #the ((Outer Rim League))#, an organization w
 
 Let's look at the key players in the Outer Rim League along with a short introduction to the specifics of their business:
 
-* ((Orbital Equipment Corporation)) (OEC) - a big multiplanetary corporation owning research labs, manufacturing facilities, and fleets of vehicles around outer planets, moons, and planetoids. The owner of ANGEL-F5 probe.
+* ((Orbital Equipment Corporation)) (OEC) - a big multiplanetary corporation owning research labs, manufacturing facilities, and fleets of vehicles around outer planets, moons, and planetoids. The owner of the ANGEL-F5 probe.
 
 * Space Structures Unlimited (SSU) - another of the Big Three, famous for its enormous orbital hubs and mining complexes.
 
 * StarBurst Inc. (SBI) - the smallest, but the most nimble, of the Big Three. In its struggle against OEC and SSU, StarBurst Inc. relies on a bigger fleet of smaller and more technologically advanced spacecraft. "Outsmart, not outlaunch your competition" is their motto.
 
-* ((Outer Rim Networks)) - a corporation providing communication with deep-space probes across our solar system. It owns a set of land-based high-gain antennas and orbital relay nodes capable of establishing data uplinks even with the deepest regions in the outer rim.
+* ((Outer Rim Networks)) - a corporation providing communication with deep-space probes across our solar system. It owns a set of land-based high-gain antennas and orbital relay nodes capable of establishing data uplinks even with the deepest regions in the Outer Rim.
 
 * DeltaV Unlimited - owns orbital refueling facilities across our solar system. Think of them as a chain of gas stations in orbit around many planets and satellites.
 
@@ -50,9 +49,9 @@ Other companies you could encounter are:
 
 .Stealing the Dust
 ****
-((ANGEL-F5)) probe is designed and built by the ((Orbital Equipment Corporation)) (OEC). Yet, it is controlled by a spaceframe based at the core on the DUSTY-12 architecture of the famous StarDust Bureau.
+The ((ANGEL-F5)) probe is designed and built by the ((Orbital Equipment Corporation)) (OEC). Yet, it is controlled by a spaceframe based on the core of the ((DUSTY-12)) architecture of the famous ((StarDust Bureau)).
 
-One might wonder how OEC managed to build a DUSTY-12 spaceframe without buying a license from ((StarDust Bureau)).
+One might wonder how OEC managed to build a DUSTY-12 spaceframe without buying a license from StarDust Bureau.
 
 The following story is based totally on rumors and rare pieces of inside information collected throughout our industry. But the overall picture seems to be pretty clear.
 
@@ -60,17 +59,10 @@ When Orbital Equipment Corp. won the Heliosphere Survey Group contract on a deep
 
 Initially, they went into an agreement with StarDust Bureau to get the necessary engineering help and technologies. But the deal fell apart due to licensing disagreements over who was going to control the resulting technology.
 
+
 OEC, however, managed to preserve some essential blueprints during StarDust Bureau's technology evaluation. That, with some engineering chipsets obtained through third parties, plus a little industrial espionage, allowed OEC to build a DUSTY-12 compatible chipset hardened enough to survive an encounter with any gas giant.
+
 ****
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,6 +1,6 @@
 The HQ wants to receive telemetry from multiple on-board devices.
 
-Open data telemetry on lines 2 through 7.
+Open data telemetry on lines 3 through 6.
 
 You can do it sequentially:
     03
@@ -18,7 +18,7 @@ But the most efficient way to do that is a loop with JNZ instruction.
 -----------------------------------------------------------------------
 -- the initial data line to start
 -- we're going to move down from here
-07
+06
 -- enable the current dataline
 DUP
 OBUS
