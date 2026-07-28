@@ -28,6 +28,7 @@ V tape recorder bandwidth gauge
 V x2 gauges for the tape recorder?
 V fix sfx volum jumps
 V shorten instruction status info
+V fix "Upload Button" mention in Get Started email
 
 > more experiments
     > power on more devices
@@ -41,7 +42,7 @@ V shorten instruction status info
 > handle DUSTY-12 crashes
 > a section on HEX notation
 > instruction placement feedback
-> fix "Upload Button" mention in Get Started email
+
 
 # presentation
 > title screenshot
@@ -78,15 +79,16 @@ V shorten instruction status info
 
 
 ### Proto III
+> test-drive email system with messages on TT design, roadmap etc... (an Easter Egg?)
 > data bus to visualize packets flow
 > dusty 12 mode switch ops
 > telemetry layout instructions (adjust components)
 > dusty 12 I/O (sense, out...)???
-> test-drive email system with messages on TT design, roadmap etc... (an Easter Egg?)
 > delete the cell and shift up #core-monitor
 > insert a new cell and shift the content down
 > when paused (or walking/running?) set the command pointer (with right click? ctrl+click?)
 > OBUS and CBUS -> ODAT/CDAT
+> auto-unlock instructions based on the currently-issued experiment solution
 
 > program run sfx
 > program step sfx?

@@ -3,14 +3,20 @@ from:    Tech Sup
 subject: Get Started
 ----------------------------
 
-ANGEL-F5 is the latest in the series of our deep space probes.
+**ANGEL-F5** is the latest in the series of our deep space probes.
 
-The probe is controlled by the main computer - Command & Control Subsystem. You can see its memory snapshot in the Core Monitor panel.
+The probe is controlled by a spaceframe - its central and most powerful computer.
+**ANGEL-F5 spaceframe** is built on **DUSTY-12 architecture**, which defines its core characteristics and the list of available commands.
+
+Core Monitor shows instructions defined by the firmware. You can modify these instructions to change the probe behavior.
 
 Programs are executed from the address 0x0000 and up. You can change the content of any memory cell by clicking on it and selecting the desired code in the code list to the right.
 
-Once the program is ready, upload it to the probe through our Deep Space Network by pressing the "Upload" button. The probe will start to execute the program immediately upon receiving the last byte.
+These codes are split into two major categories: number instructions that push values onto the data stack and commands to perform various actions (often using numbers previously pushed onto the stack as input parameters).
 
-For security reasons, we will unlock only a single instruction. But more will be unlocked once you get yourself familiar with the probe's internal systems.
+You can select the desired way to execute the program by pressing the Step/Walk/Run button. Once pressed, the firmware will be uploaded over our **Deep Space Network**, flushed, and executed on the probe.
+
+For security reasons, we will unlock only a single instruction right now. But more will be unlocked once you get familiar with the probe's internal systems.
 
 Good luck!
+

@@ -4,11 +4,11 @@ subject: Welcome!
 ----------------------------
 Welcome to the Deep Space Exploration Program!
 
-On your first day, we enabled the access
+On your first day, we enabled access
 to our email system.
 
 Our department is responsible for the probe
-designated ANGEL-F5, which is one of the latest
+designated **ANGEL-F5**, which is one of the latest
 exploration vehicles at the edge
 of our solar system.
 
@@ -21,7 +21,7 @@ the specs.
 
 Meanwhile, we have already connected your Core Monitor to the uplink interface
 of our Deep Space Network.
-So you can already update the probe's software.
+So you can already update the probe's firmware.
 
 We realize that you just started and don't have any experience in remote deep-space debugging.
 But what can go wrong?

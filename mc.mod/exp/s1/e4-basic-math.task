@@ -4,7 +4,7 @@ Orbital insertions, gravity assist, station keeping, docking procedures, attitud
 
 Precise math is the foundation of space flight.
 
-That is why DUSTY-12 has a solid core of arithmetic operands capable of performing additions, subtractions, multiplications, among other things.
+That is why DUSTY-12 has a solid core of arithmetic operators capable to add, subtract, multiply, among other things.
 
 The ground control wants to evaluate DUSTY-12 arithmetic functions.
 
