@@ -29,18 +29,18 @@ V x2 gauges for the tape recorder?
 V fix sfx volum jumps
 V shorten instruction status info
 V fix "Upload Button" mention in Get Started email
+V handle DUSTY-12 crashes
 
 > more experiments
+    > hints for all basic experiments
     > power on more devices
     > power of a device
     > turn of a device telemetry
     > comparison tutorial experiment
     > more stack manipulation (swap, over?)
-    > enable even more data lines with a hint
-    > hints for all basic experiments
 
-> handle DUSTY-12 crashes
 > a section on HEX notation
+> a section on DUSTY-12 errors
 > instruction placement feedback
 
 

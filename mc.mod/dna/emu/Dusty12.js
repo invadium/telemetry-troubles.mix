@@ -443,22 +443,35 @@ class Dusty12 {
         })
 
         _.cycle = function cycle(steps) {
-            while(steps) {
-                const code = capsule[PC++]
-                if (code == null) {
-                    break
-                } else if (isNum(code)) {
-                    push(code)
-                } else {
-                    const op = actions[code]
-                    if (!op) throw new Error(`Unknown operation: [${code}]`)
-                    op()
+            const CUR_PC = PC
+            try {
+                while(steps) {
+                    const code = capsule[PC++]
+                    if (code == null) {
+                        break
+                    } else if (isNum(code)) {
+                        push(code)
+                    } else {
+                        const op = actions[code]
+                        if (!op) throw new Error(`Unknown operation: [${code}]`)
+                        op()
+                    }
+                    steps--
                 }
-                steps--
-            }
-            _.lastCycle = _.time
-            if (steps) {
-                // we still have steps, but no ops to run - HALT the system
+                _.lastCycle = _.time
+                if (steps) {
+                    // we still have steps, but no ops to run - HALT the system
+                    _.halt()
+                }
+
+            } catch(e) {
+                dir(e)
+                signal('email', {
+                    from: 'DUSTY-12',
+                    subject: 'Error',
+                    content: ` @${CUR_PC}: ${e.message}`
+                        + `\n DSP: ${DSP}`,
+                })
                 _.halt()
             }
         }
