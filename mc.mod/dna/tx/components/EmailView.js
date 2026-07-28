@@ -170,6 +170,8 @@ class EmailView extends ScrollablePanel {
         const { x, y, w, h, stackPointer, spans, message } = this
         const txt = this.tx
 
+        txt.unsetFlag('strong')
+        txt.unsetFlag('underscore')
         this.background()
         if (!spans) return
 
@@ -181,20 +183,6 @@ class EmailView extends ScrollablePanel {
             ww   =  0,
             back =  cidx.base,
             face =  cidx.alert
-        /*
-        txt.back(cidx.base)
-           .face(cidx.alert)
-        // subject
-        this.clipText(message.subject, x1, by, w1)
-
-        // content separator
-        by++
-        this.hseparator(x1, by, w1)
-        by++
-        */
-        txt.unsetFlag('strong')
-        txt.unsetFlag('underscore')
-        txt.clear()
 
         for (let i = 0; i < spans.length && cy < h; i++) {
             const span = spans[i]
