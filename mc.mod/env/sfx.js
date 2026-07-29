@@ -47,6 +47,10 @@ module.exports = {
         res: 'joseegn--ui-sound-submit1',
         vol: .25,
     },
+    'tab-denied': {
+        res: 'nfrae__cdtray2',
+        vol: .25,
+    },
 
 
     'email-received': {

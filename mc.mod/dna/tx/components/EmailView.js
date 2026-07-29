@@ -72,6 +72,7 @@ class EmailView extends ScrollablePanel {
             // TODO ignore open request until we'll find an acceptable solution for many tabs
             // TODO make a negative feedback effect (shake?, blink red?)
             // TODO play 'deny' sfx
+            sfx('tab-denied')
             return
         }
 

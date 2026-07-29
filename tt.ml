@@ -30,18 +30,18 @@ V fix sfx volum jumps
 V shorten instruction status info
 V fix "Upload Button" mention in Get Started email
 V handle DUSTY-12 crashes
+V "unable to open a tab" sfx feedback
 
 > more experiments
     > hints for all basic experiments
-    > power on more devices
-    > power of a device
-    > turn of a device telemetry
-    > comparison tutorial experiment
-    > more stack manipulation (swap, over?)
+    > power on magnetometer, collect some telemetry
+    > power off magnetometer
+    > complex telemetry - power on tape recorder & the camera, wait for 30 seconds,
+      power off camera, switch tape recorder to play, wait till everyting is played out through antenna
 
+> instruction placement feedback
 > a section on HEX notation
 > a section on DUSTY-12 errors
-> instruction placement feedback
 
 
 # presentation
@@ -95,6 +95,11 @@ V handle DUSTY-12 crashes
 > randomized ambient noises
 
 > [-] fix mouse coordinates shift when the page zooms - prevent zooming or compensate according to the zoom
+
+> more complex experiments
+    > comparison tutorial experiment
+    > more stack manipulation (swap, over?)
+    > complex scientific sequences - turn on tape recorder, enable devs 1,2,3, wait, disable 2, enable 5, wait, turn off, send telemetry back
 
 
 
