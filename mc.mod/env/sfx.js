@@ -71,7 +71,8 @@ module.exports = {
     },
 
     'cell-pick': {
-        res: 'suntemple--sfx-ui-button-click',
+        // res: 'suntemple--sfx-ui-button-click',
+        res: 'sokworks__paper-rustle',
         vol: .3,
     },
     'code-pick': {

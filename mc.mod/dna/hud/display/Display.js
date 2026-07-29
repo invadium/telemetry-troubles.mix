@@ -14,7 +14,7 @@ class Display extends $.dna.hud.Container {
             w: 0,
             h: 0,
 
-            stretch: 1, // 0..1 display extension value
+            stretch: 0, // 0..1 display extension value
             // bevel:   7,
         }, st) )
         const holder = this.attach( new Holder() )
