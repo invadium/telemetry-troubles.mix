@@ -6,8 +6,8 @@ class RTG extends Pod {
         super( augment({
             name: 'RTG',
 
-            x:     30,
-            y:     98,
+            x:     80,
+            y:     95,
             w:     40,
             h:     10,
 

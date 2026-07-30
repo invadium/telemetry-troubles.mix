@@ -3,7 +3,7 @@ module.exports = {
         day: 'Day',
         burnRate: 'Burn Rate',
         burnRateUnit: 'day',
-        balance: 'Balance',
+        budget: 'Budget',
     },
 
     email: {

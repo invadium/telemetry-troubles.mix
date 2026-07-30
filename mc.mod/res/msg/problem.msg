@@ -6,9 +6,9 @@ We have a problem.
 
 The specs for the **Angel-F5** probe were designed in metric units, but the RTG manufacturer interpreted them as imperial. As a result, the probe doesn't have enough power to function properly.
 
-Now the probe firmware MUST be reprogrammed remotely in native assembly.
+Now the probe firmware MUST be debugged and reprogrammed remotely in native assembly.
 
-The horror!
+Oh, the horror!
 
 And our star developers... They were React developers... They are no longer with us...
 

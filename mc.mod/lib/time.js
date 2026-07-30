@@ -3,7 +3,7 @@ function toString(time) {
           hour = floor((time % 1) * env.tune.dayHours),
           HOUR = (hour < 10)? '0' + hour : '' + hour
 
-    return `${day}.${HOUR}`
+    return `${day}:${HOUR}`
 }
 
 function toFixedString(time, len) {
@@ -11,5 +11,5 @@ function toFixedString(time, len) {
           hour = floor((time % 1) * env.tune.dayHours),
           HOUR = (hour < 10)? '0' + hour : '' + hour
 
-    return lib.format.padLeft(`${day}.${HOUR}`, len, '0')
+    return lib.format.padLeft(`${day}:${HOUR}`, len, '0')
 }

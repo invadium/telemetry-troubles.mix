@@ -298,7 +298,7 @@ function getHourString() {
 }
 
 function getTimeString() {
-    return lib.time.toString(this.status.time)
+    return lib.time.toString( this.status.time )
 }
 
 function slow() {

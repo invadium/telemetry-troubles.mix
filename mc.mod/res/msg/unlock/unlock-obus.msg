@@ -19,10 +19,17 @@ OBUS will take the top value from the data stack (05) and connect
 the data line with that number to telemetry.
 
 Notice the so-called "stack effect" in the parentheses.
-DUSTY-12 is a stack-based machine and all operands and results are placed
+DUSTY-12 is a stack-based machine, and all operands and results are placed
 on the data stack.
-The stack effect for OBUS tells us that OBUS expects the data line number
-to be at the top of the stack. The line on the right of "--" shows that
-OBUS will consume that number and place nothing back.
-So the stack is going to loose one number.
+
+Each instruction could take parameters from the stack and then place the results back.
+
+There is a "stack effect" notation after the instruction name in the parentheses.
+It specifies which values go in and what gets out.
+
+The stack effect for OBUS tells us that OBUS expects one value,
+the data line number, to be at the top of the stack.
+That value MUST be already on the data stack, or an "empty stack" error will be raised.
+
+The OBUS instruction will consume the number and return nothing. The stack will lose one number as a result.
 

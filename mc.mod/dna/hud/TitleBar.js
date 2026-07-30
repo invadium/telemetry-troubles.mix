@@ -91,10 +91,10 @@ class TitleBar extends $.dna.hud.Container {
             },
 
             sync: function() {
-                const balance = env.missionStatus.balance
-                if (this.balance !== balance) {
-                    this.balance = balance
-                    this.msg = `${env.text.title.balance}: $${balance}`
+                const budget = env.missionStatus.balance
+                if (this.budget !== budget) {
+                    this.budget = budget
+                    this.msg = `${env.text.title.budget}: $${budget}`
                 }
             },
             /*

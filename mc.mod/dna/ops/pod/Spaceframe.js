@@ -10,9 +10,9 @@ class Spaceframe extends Pod {
         super( augment({
             name: 'spaceframe',
 
-            x:     50,
-            y:     85,
-            w:     55,
+            x:     30,
+            y:     95,
+            w:     40,
             h:     10,
 
             padding: 1,

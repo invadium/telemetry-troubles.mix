@@ -16,8 +16,8 @@ class WideAngleCamera extends Pod {
                 SNAP_TIME:   4,
             },
 
-            x: 15,
-            y: 85,
+            x: 95,
+            y: 70,
             w: 10,
             h: 10,
 

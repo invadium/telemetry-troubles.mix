@@ -13,7 +13,7 @@ const tune = {
     selectorNumbers:  48,
 
     opt: {
-        startBalance: 1000,
+        startBalance: 2500,
         burnRate:     100,
     },
 

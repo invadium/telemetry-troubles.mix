@@ -52,7 +52,7 @@ class Dusty12 {
 
         // hard-wired limits
         const CAPSULES = 4,
-              CAPACITY = 128,
+              CAPACITY = 16,
               DSCAP = 64,
               XSCAP = 64
 

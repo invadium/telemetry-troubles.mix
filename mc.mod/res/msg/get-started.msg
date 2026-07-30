@@ -3,9 +3,9 @@ from:    Tech Sup
 subject: Get Started
 ----------------------------
 
-**ANGEL-F5** is the latest in the series of our deep space probes.
+**ANGEL-F5** is the latest in our series of deep-space probes.
 
-The probe is controlled by a spaceframe - its central and most powerful computer.
+A spaceframe controls the probe - its central and most powerful computer.
 **ANGEL-F5 spaceframe** is built on **DUSTY-12 architecture**, which defines its core characteristics and the list of available commands.
 
 Core Monitor shows instructions defined by the firmware. You can modify these instructions to change the probe behavior.
@@ -16,7 +16,7 @@ These codes are split into two major categories: number instructions that push v
 
 You can select the desired way to execute the program by pressing the Step/Walk/Run button. Once pressed, the firmware will be uploaded over our **Deep Space Network**, flushed, and executed on the probe.
 
-For security reasons, we will unlock only a single instruction right now. But more will be unlocked once you get familiar with the probe's internal systems.
+For security reasons, we will unlock only a single instruction. But more will be unlocked once you get familiar with the probe's internal systems.
 
 Good luck!
 

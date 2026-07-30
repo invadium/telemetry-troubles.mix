@@ -63,6 +63,7 @@ class CodeSelector extends ScrollablePanel {
         } else {
             sfx('code-pick')
         }
+
         coreMonitor.syncEditInView()
     }
 

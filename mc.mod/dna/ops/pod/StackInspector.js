@@ -6,10 +6,10 @@ class StackInspector extends Pod {
         super( augment({
             name: 'stackInspector',
 
-            x:     90,
-            y:     65,
+            x:     0,
+            y:     85,
             w:     12,
-            h:     50,
+            h:     30,
 
             dusty:   null,
             stack:   null,
