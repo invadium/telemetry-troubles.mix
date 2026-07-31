@@ -471,6 +471,7 @@ class Dusty12 {
                     subject: 'Error',
                     content: ` @${CUR_PC}: ${e.message}`
                         + `\n DSP: ${DSP}`,
+                    sfx: 'error',
                 })
                 _.halt()
             }

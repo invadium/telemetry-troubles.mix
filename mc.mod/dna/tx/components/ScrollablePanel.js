@@ -121,18 +121,26 @@ class ScrollablePanel extends Panel {
         throw new Error('not implemented')
     }
 
+    scrollHome() {
+        this.stackPointer = 0
+    }
+
     scrollUp() {
         if (this.stackPointer > 0) this.stackPointer --
         // sfx('email-selected')
     }
 
     scrollDown() {
-        const __ = this,
+        const _ = this,
               stackPointer = this.stackPointer
-        if (stackPointer < __.contentLength() - __.selectionCapacity() - 1) {
-            __.stackPointer ++
+        if (stackPointer < _.contentLength() - _.selectionCapacity() - 1) {
+            _.stackPointer ++
             // sfx('email-selected')
         }
+    }
+
+    scrollEnd() {
+        this.stackPointer = __.contentLength() - __.selectionCapacity()
     }
 
     onMouseDown(tx, ty, b, e) {

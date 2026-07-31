@@ -8,7 +8,8 @@ class Tab extends $.dna.hud.Container {
             h:  0,
             tw: 0,
 
-            title: '',
+            title:  '',
+            target: null,
 
             padding: {
                 E: 10,
@@ -152,6 +153,7 @@ class Tab extends $.dna.hud.Container {
             this._toggled = true
 
             if (this._displayed) {
+                this.onTap(e)
                 sfx('tab-touch')
             }
         } 
@@ -170,8 +172,14 @@ class Tab extends $.dna.hud.Container {
 
     onConceal() {}
 
+    onTap(e) {}
+
     isDisplayed() {
         return this._displayed
+    }
+
+    setTarget(target) {
+        this.target = target
     }
 }
 

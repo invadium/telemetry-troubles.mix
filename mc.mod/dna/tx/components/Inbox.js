@@ -66,7 +66,9 @@ class Inbox extends ScrollablePanel {
     accept( message ) {
         this.imap.messages.push( message )
         this.syncMainTab()
-        sfx('email-received')
+
+        if (message.sfx) sfx( message.sfx )
+        else sfx('email-received')
     }
 
     contentLength() {

@@ -183,7 +183,12 @@ function hud() {
                 const inbox = $.PD.locate('&inbox')
                 inbox.hide()
             },
-        }
+        },
+
+        onTap: function(e) {
+            if (e.buttons & 1) this.target.scrollHome()
+            else if (e.buttons & 2) this.target.scrollEnd()
+        },
     })
     inbox.mainTab = tab0P
     inbox.syncMainTab()
@@ -249,15 +254,19 @@ function hud() {
         displayState: {
             __: tab0S,
             activate: function() {
-                log('TODO: show all inbox components here!')
+                log('TODO: show all capsule components here!')
                 // this.__.__.spawnTab({
                 //     title: 'next' + this.__.__.tabs,
                 // })
             },
             deactivate: function() {
-                log('TODO: hide all inbox components here!')
+                log('TODO: hide all capsule components here!')
             },
-        }
+        },
+        onTap: function(e) {
+            if (e.buttons & 1) this.target.editHome()
+            else if (e.buttons & 2) this.target.editEnd()
+        },
     })
 
     const textBuffer2 = $.textBuffer2 = secondaryDisplay.content.spawn('TextMode', {
@@ -286,6 +295,7 @@ function hud() {
 
     // === core monitor ===
     const coreMonitor = textBuffer2.spawn('CoreMonitor')
+    tab0S.setTarget(coreMonitor)
     const cmScrollBar = textBuffer2.spawn('ScrollBar', {
         sync: function() {
             this.cur = coreMonitor.relativePos()

@@ -75,6 +75,11 @@ module.exports = {
         res: 'sokworks__paper-rustle',
         vol: .3,
     },
+    'cell-clear': {
+        // res: 'techgeekmusic--glitch-thump-e',
+        res: 'raclure--damage-sound-effect',
+        vol: .3,
+    },
     'code-pick': {
         // res: 'code-select',
         // res: 'beezlefm--item-sound',
@@ -85,7 +90,6 @@ module.exports = {
         res: 'thesuprememuffinpooter--woody-swoosh',
         vol: .3,
     },
-
 
     // dusty-12
     'dusty-step': {
@@ -100,6 +104,10 @@ module.exports = {
     'experiment-complete': {
         res: 'optronteamfilms--vintage-computer-error-report',
         vol: .3,
+    },
+    'error': {
+        res: 'melissapons--sci-fi_short_error',
+        vol: .4,
     },
 
     // autosolver

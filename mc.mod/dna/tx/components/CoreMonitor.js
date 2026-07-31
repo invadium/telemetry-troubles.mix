@@ -59,6 +59,12 @@ class CoreMonitor extends ScrollablePanel {
         trap('edit')
     }
 
+    clear(at) {
+        this.editPointer = at
+        this.setCode(null)
+        trap('edit')
+    }
+
     editPoint() {
         if (this.mode !== EDIT_MODE) return -1
         return this.editPointer
@@ -71,6 +77,8 @@ class CoreMonitor extends ScrollablePanel {
 
     resetCapsule() {
         this.dusty.spy.formatCapsule()
+        this.editHome()
+        this.scrollHome()
     }
 
     flush(src) {
@@ -84,20 +92,26 @@ class CoreMonitor extends ScrollablePanel {
         }
     }
 
-    open(at, e) {
+    open(at, tx, ty, e) {
         const capsule = this.capsule
 
         switch(this.mode) {
             case VIEW_MODE:
                 this.mode = EDIT_MODE
                 this.edit(at)
+                sfx('cell-pick')
                 break
             case EDIT_MODE:
-                this.edit(at)
+                if (e.buttons & 1) {
+                    this.edit(at)
+                    sfx('cell-pick')
+                } else if (e.buttons & 2) {
+                    this.clear(at)
+                    sfx('cell-clear')
+                }
                 break
         }
         // log('#' + lib.format.toHexString(at, 3) + ': ' + lib.format.toCodeString(capsule[at], 4))
-        sfx('cell-pick')
     }
 
     exit() {
@@ -153,6 +167,16 @@ class CoreMonitor extends ScrollablePanel {
             this.stackPointer = editPointer - 1
             if (this.stackPointer < 0) this.stackPointer = 0
         }
+    }
+
+    editHome() {
+        this.editPointer = 0
+        this.syncEditInView()
+    }
+
+    editEnd() {
+        this.editPointer = this.contentLength() - 1
+        this.syncEditInView()
     }
 
     evo() {}
