@@ -18,4 +18,3 @@ One of them told us to (quote) "debug this hexadecimal deep space horror yoursel
 Now we don't have anyone willing or capable to save the probe, but you.
 
 You are the only hope of this space program! And who knows... Maybe of all humanity!
-

@@ -25,3 +25,4 @@ Power lines are connected in the same order as data telemetry lines:
 
 However, some datalines are wired in and always connected, so they just ignore OPOW and CPOW instructions.
 They are marked with (*) in the manifest. For example, there is no reason to enable the power line to the battery or the gyroscope - they are always connected to power.
+

@@ -489,5 +489,7 @@ function formatSegments(segments, w) {
     spans.LINK       = LINK
     spans.UNLINK     = UNLINK
 
+    spans.lines = line
+
     return spans
 }

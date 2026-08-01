@@ -12,3 +12,4 @@ The mission lasted $[day] days; we completed $[experiments] experiments and burn
 Now is the time to say goodbye to our faraway mechanical colleague. You've been a good friend! Now, fly away into the coldness of outer space!
 
 Turn off all Angel-F5 onboard devices and telemetry, and let it rest!
+

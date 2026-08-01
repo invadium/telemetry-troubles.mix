@@ -37,7 +37,7 @@ class EmailView extends ScrollablePanel {
     }
 
     contentLength() {
-        return this.spans.length
+        return this.spans.lines
     }
 
     setText(text) {
@@ -99,8 +99,13 @@ class EmailView extends ScrollablePanel {
                 deactivate: function() {
                     _.hide()
                 },
-            }
+            },
+            onTap: function(e) {
+                if (e.buttons & 1) this.target.scrollHome()
+                else if (e.buttons & 2) this.target.scrollEnd()
+            },
         })
+        nextTab.setTarget(this)
         nextTab.display()
         // this.inbox.hide()
         // this.show()

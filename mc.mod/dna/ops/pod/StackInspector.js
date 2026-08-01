@@ -7,9 +7,9 @@ class StackInspector extends Pod {
             name: 'stackInspector',
 
             x:     0,
-            y:     85,
+            y:     81,
             w:     12,
-            h:     30,
+            h:     34,
 
             dusty:   null,
             stack:   null,

@@ -140,7 +140,7 @@ class ScrollablePanel extends Panel {
     }
 
     scrollEnd() {
-        this.stackPointer = __.contentLength() - __.selectionCapacity()
+        this.stackPointer = this.contentLength() - this.selectionCapacity()
     }
 
     onMouseDown(tx, ty, b, e) {
