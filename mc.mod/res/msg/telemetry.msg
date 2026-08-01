@@ -4,7 +4,7 @@ subject: Telemetry
 
 ANGEL-F5 engineering telemetry is controlled by the data lines.
 Each line is responsible for a particular on-board device or instrument.
-You can use the OBUS command to open a particular data line.
+You can use the ODAT command to open a particular data line.
 
 Data line manifest:
 

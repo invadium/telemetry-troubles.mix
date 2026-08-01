@@ -98,16 +98,16 @@ For example, to enable telemetry from device #4, run the following snippet:
 
 ```
 04    -- push 0x04 on the data stack
-OBUS  -- open the specified bus
+ODAT  -- open the specified bus
 ```
 
-First, we place a HEX value 0x04 on the data stack. Next, we call the [.strong-blue]#*OBUS*# command that picks the top of the data stack and opens the specified data line to receive the telemetry.
+First, we place a HEX value 0x04 on the data stack. Next, we call the [.strong-blue]#*ODAT*# command that picks the top of the data stack and opens the specified data line to receive the telemetry.
 
-In the same way, the telemetry data line can be closed with [.strong-blue]#*CBUS*#:
+In the same way, the telemetry data line can be closed with [.strong-blue]#*CDAT*#:
 
 ```
 04
-CBUS
+CDAT
 ```
 
 === Power Lines

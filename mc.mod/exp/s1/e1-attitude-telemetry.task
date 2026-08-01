@@ -2,10 +2,10 @@ The ANGEL-F5 probe has gyroscope sensors showing us its attitude.
 
 Enable the telemetry data line 0 to see the attitude telemetry.
 
-Hint: to open the data line, use the recently unlocked OBUS instruction.
+Hint: to open the data line, use the recently unlocked ODAT instruction.
 Do not forget to place 0 on the stack before that to indicate the number
 of the data line to enable.
 ------------------------------------------------------------------------
 00
-OBUS    -- enable data line 0
+ODAT    -- enable data line 0
 

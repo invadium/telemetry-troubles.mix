@@ -26,12 +26,12 @@ That is why these companies need spacecraft systems engineers like you. They nee
 
 We've been asked to enable attitude telemetry to receive the probe's gyroscope data.
 
-To enable the telemetry, we can use the recently unlocked instruction [.strong-blue]#*OBUS*#.
+To enable the telemetry, we can use the recently unlocked instruction [.strong-blue]#*ODAT*#.
 
 Also, we need to know the data line to enable.
 You can reference the tech spec section of this playbook to see the full list of the ANGEL-F5 probe on-board instruments. But the experiment request already fills us in on the data line number to enable - it is 0x00.
 
-So, we need to call the OBUS instruction on the data line 0x00.
+So, we need to call the ODAT instruction on the data line 0x00.
 
 The only remaining question is how exactly to sequence these commands.
 
@@ -45,16 +45,16 @@ ADD
 
 As you can see, the operands go before the actual action (ADD) - hence [.strong-blue]#*the postfix notation*#.
 
-Given that, let's enable data line 0x00 with OBUS instruction:
+Given that, let's enable data line 0x00 with ODAT instruction:
 
 ```
 00
-OBUS
+ODAT
 ```
 
 Instructions MUST be placed starting from the address 0x000, otherwise, the execution will be stopped the moment it discovers an empty cell.
 
-Select the first cell and in the Code Selector pick the value 0x00. Use right-click when selecting to auto-advance to the next cell. Then pick OBUS from the list.
+Select the first cell and in the Code Selector pick the value 0x00. Use right-click when selecting to auto-advance to the next cell. Then pick ODAT from the list.
 
 Once the program is ready, you can launch it with the Walk or Run button. We recommend using the "walk" mode first to understand the execution flow and see the immediate effect of each instruction.
 
@@ -71,9 +71,9 @@ You can use the previous structure and fill a new program:
 
 ```
 01
-OBUS
+ODAT
 02
-OBUS
+ODAT
 ```
 
 That is a perfectly fine firmware that solves the problem.
@@ -83,24 +83,24 @@ But the stack-based nature of DUSTY-12 allows an alternative way to express the 
 ```
 01
 02
-OBUS
-OBUS
+ODAT
+ODAT
 ```
 
-First, we push two values onto the data stack to define the data lines. Then we call OBUS two times to use these two values
+First, we push two values onto the data stack to define the data lines. Then we call ODAT two times to use these two values
 
-Note that even though the result is the same, the lines will be open in reverse order from the first example - e.g. the first OBUS instruction will pop the top stack value, which is 0x02. And only the second OBUS will use 0x01.
+Note that even though the result is the same, the lines will be open in reverse order from the first example - e.g. the first ODAT instruction will pop the top stack value, which is 0x02. And only the second ODAT will use 0x01.
 
 So, to get the same result, we would have to use the following sequence:
 
 ```
 02
 01
-OBUS
-OBUS
+ODAT
+ODAT
 ```
 
-Since values on the stack are FILO (First-In Last-Out), we push 0x02 to be the first value on the stack, so it will match the last OBUS instruction.
+Since values on the stack are FILO (First-In Last-Out), we push 0x02 to be the first value on the stack, so it will match the last ODAT instruction.
 
 
 
@@ -111,7 +111,7 @@ This experiment is quite similar to the previous two, just with the data line #7
 
 ```
 07
-OBUS
+ODAT
 
 ```
 
@@ -233,7 +233,7 @@ We have an opportunity to do more useful stuff in this experiment.
 06
 -- enable the current dataline
 DUP
-OBUS
+ODAT
 -- loop over
 01
 SUB

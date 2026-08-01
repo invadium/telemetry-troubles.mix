@@ -4,11 +4,11 @@ Open data telemetry on lines 3 through 6.
 
 You can do it sequentially:
     03
-    OBUS
+    ODAT
     04
-    OBUS
+    ODAT
     05
-    OBUS
+    ODAT
     ...
 
 But the most efficient way to do that is a loop with JNZ instruction.
@@ -21,7 +21,7 @@ But the most efficient way to do that is a loop with JNZ instruction.
 06
 -- enable the current dataline
 DUP
-OBUS
+ODAT
 -- loop over
 01
 SUB

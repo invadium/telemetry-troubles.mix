@@ -360,7 +360,7 @@ class Dusty12 {
             },
 
             {
-                name: 'OBUS',
+                name: 'ODAT',
                 fn: () => {
                     probe.openDataLine( pop() )
                 },
@@ -368,7 +368,7 @@ class Dusty12 {
                 info: 'open data line to the specified instrument'
             },
             {
-                name: 'CBUS',
+                name: 'CDAT',
                 fn: () => {
                     probe.closeDataLine( pop() )
                 },

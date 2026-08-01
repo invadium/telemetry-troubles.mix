@@ -15,11 +15,11 @@ experiments, so HQ is requesting to set it up.
 Enable telemetry on dataline 7 to be able to inspect the data stack
 values.
 -----------------------------------------------------------------------
-Use OBUS instruction to open data lines,
+Use ODAT instruction to open data lines,
 place a line number on stack first:
     07
-    OBUS
+    ODAT
 -----------------------------------------------------------------------
 07
-OBUS -- enable the data stack telemetry
+ODAT -- enable the data stack telemetry
 

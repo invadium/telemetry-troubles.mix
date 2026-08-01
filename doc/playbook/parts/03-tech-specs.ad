@@ -32,8 +32,8 @@ GTE (x y -- 1/0) - check on greater or equal
 NOT (x -- 1/0) - logical NOT for the top value on the data stack
 JMP (@ -- ) - unconditional jump to the specified address
 JNZ (x @ -- ) - jump only if the second value is not zero
-OBUS (x1 -- ) - open data line to the specified instrument
-CBUS (x1 -- ) - close the data line to the specified instrument
+ODAT (x1 -- ) - open data line to the specified instrument
+CDAT (x1 -- ) - close the data line to the specified instrument
 OPOW (x1 -- ) - open the power line to the specified instrument
 CPOW (x1 -- ) - close the power line to the specified instrument
 IN (n -- ) - read the specified #n i/o line
@@ -67,15 +67,15 @@ The following block lists all the lines/ports available in the ANGEL-F5 probe wi
 
 
 
-Use this reference table to find the line number to use with OBUS/CBUS and OPOW/CPOW instructions as well as IN/OUT commands.
+Use this reference table to find the line number to use with ODAT/CDAT and OPOW/CPOW instructions as well as IN/OUT commands.
 
 For example, if I want to receive engineering telemetry from the high-gain antenna (#4), I can run:
 
 ```
 04
-OBUS
+ODAT
 ```
-I place the value 0x04 on the data stack as a parameter and execute the OBUS instruction.
+I place the value 0x04 on the data stack as a parameter and execute the ODAT instruction.
 
 Or when I want to power on the same high-gain antenna, I would use a similar sequence, but with the OPOW instruction:
 

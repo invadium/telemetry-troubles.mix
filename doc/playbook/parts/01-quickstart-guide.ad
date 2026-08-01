@@ -30,7 +30,7 @@ The experiment will be encoded as S1E1 (Series 1 Experiment 1) and will require 
 
 image::shots/email-first-request.png[First Request Email]
 
-It is a very simple task. You already have a DUSTY-12 instruction OBUS (stands for Open data BUS) unlocked - the details should already be in your InBox.
+It is a very simple task. You already have a DUSTY-12 instruction ODAT (stands for Open data BUS) unlocked - the details should already be in your InBox.
 
 Now is the time for programming.
 
@@ -42,13 +42,13 @@ You can select any of the memory cells. Click on the one at address 0x000. The C
 
 Click on any of the available options to set the memory cell. More experienced engineers prefer to use right-click to auto-advance the cursor to the next memory address.
 
-We've been requested to open telemetry data line #0. So let's place the dataline number on the stack first - select 0x00 as the first instruction. Next, we need to tell DUSTY-12 to open the data line by providing the OBUS instruction. That instruction will pop the top value on the data stack (0x00) and open the telemetry data line corresponding to that value.
+We've been requested to open telemetry data line #0. So let's place the dataline number on the stack first - select 0x00 as the first instruction. Next, we need to tell DUSTY-12 to open the data line by providing the ODAT instruction. That instruction will pop the top value on the data stack (0x00) and open the telemetry data line corresponding to that value.
 
 The whole program will look like this:
 
 ```
 00
-OBUS
+ODAT
 ```
 
 Or when typed into the Core Monitor:
@@ -154,15 +154,15 @@ To illustrate more complex features of DUSTY-12 and demonstrate the creation of 
 
 The section covers some advanced instructions not available in early experiments. So don't try to repeat this at the beginning of your career. Down the line, You'll encounter similar experiments. This example here is only to show what can be achieved when more advanced DUSTY-12 instructions are unlocked.
 
-Given that we already know about opening datalines with OBUS and there is a similar instruction OPOW to open a powerline, it should be easy to open and power them all:
+Given that we already know about opening datalines with ODAT and there is a similar instruction OPOW to open a powerline, it should be easy to open and power them all:
 
 ```
 00
-OBUS
+ODAT
 00
 OPOW
 01
-OBUS
+ODAT
 01
 OPOW
 ...
@@ -173,11 +173,11 @@ Or a little more sophisticated way that includes the usage of the DUP operation 
 ```
 00
 DUP
-OBUS
+ODAT
 OPOW
 01
 DUP
-OBUS
+ODAT
 OPOW
 ...
 ```
@@ -217,7 +217,7 @@ That is why we do DUP before each open instruction:
 
 ```
 DUP
-OBUS
+ODAT
 DUP
 OPOW
 ```
