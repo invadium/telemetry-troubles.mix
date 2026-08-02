@@ -19,10 +19,27 @@ class ScrollBar extends Panel {
 
     scrollUp() {
         this.cur = max(this.cur - .1, 0)
+        this.sync()
     }
 
     scrollDown() {
         this.cur = min(this.cur + .1, 1 - this.fill)
+        this.sync()
+    }
+
+    scrollTo(relativePos) {
+        this.cur = clamp(relativePos, 0, 1)
+        this.sync()
+    }
+
+    pageUp() {
+        this.cur = max(this.cur - this.fill, 0)
+        this.sync()
+    }
+
+    pageDown() {
+        this.cur = min(this.cur + this.fill, 1 - this.fill)
+        this.sync()
     }
 
     sync() {}
@@ -54,12 +71,16 @@ class ScrollBar extends Panel {
     onMouseDown(tx, ty, b, e) {
         const { x, y, w, h, cur, fill } = this
 
-        const y1 = floor(cur * h)
-        const h1 = ceil(fill * h)
-        const y2 = min(y1 + h1, h)
+        if (e.buttons & 1) {
+            this.scrollTo( ty / h )
+        } else if (e.buttons & 2) {
+            const y1 = floor(cur * h)
+            const h1 = ceil(fill * h)
+            const y2 = min(y1 + h1, h)
 
-        if (ty <= y1) this.scrollUp()
-        else if (ty >= y2) this.scrollDown()
+            if (ty <= y1) this.pageUp()
+            else if (ty >= y2) this.pageDown()
+        }
     }
 
     onMouseWheel(delta, tx, ty, e) {

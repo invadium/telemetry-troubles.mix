@@ -139,6 +139,25 @@ class ScrollablePanel extends Panel {
         }
     }
 
+    scrollTo(relativePos) {
+        const _     = this,
+              clen  = _.contentLength(),
+              limit = max(clen - _.selectionCapacity() - 1, 0)
+
+        this.stackPointer = clamp(floor(clen * relativePos), 0, limit)
+    }
+
+    pageUp() {
+        this.stackPointer = max(this.stackPointer - this.h, 0)
+    }
+
+    pageDown() {
+        const _     = this,
+              limit = max(_.contentLength() - _.selectionCapacity() - 1, 0)
+
+        this.stackPointer = min(this.stackPointer + this.h, limit)
+    }
+
     scrollEnd() {
         this.stackPointer = this.contentLength() - this.selectionCapacity()
     }

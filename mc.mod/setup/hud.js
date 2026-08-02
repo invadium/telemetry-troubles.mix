@@ -107,6 +107,18 @@ function hud() {
             inbox.scrollDown()
         },
 
+        scrollTo: function(relativePos) {
+            inbox.scrollTo(relativePos)
+        },
+        
+        pageUp: function() {
+            inbox.pageUp()
+        },
+
+        pageDown: function() {
+            inbox.pageDown()
+        },
+
         adjust: function() {
             const txt = this.tx
 
@@ -138,6 +150,18 @@ function hud() {
 
         scrollDown: function() {
             emailView.scrollDown()
+        },
+
+        scrollTo: function(relativePos) {
+            emailView.scrollTo(relativePos)
+        },
+        
+        pageUp: function() {
+            emailView.pageUp()
+        },
+
+        pageDown: function() {
+            emailView.pageDown()
         },
 
         adjust: function() {
@@ -311,6 +335,18 @@ function hud() {
             coreMonitor.scrollDown()
         },
 
+        scrollTo: function(relativePos) {
+            coreMonitor.scrollTo(relativePos)
+        },
+        
+        pageUp: function() {
+            coreMonitor.pageUp()
+        },
+
+        pageDown: function() {
+            coreMonitor.pageDown()
+        },
+
         adjust: function() {
             const txt = this.tx
 
@@ -347,6 +383,18 @@ function hud() {
 
         scrollDown: function() {
             codeSelector.scrollDown()
+        },
+
+        scrollTo: function(relativePos) {
+            codeSelector.scrollTo(relativePos)
+        },
+        
+        pageUp: function() {
+            codeSelector.pageUp()
+        },
+
+        pageDown: function() {
+            codeSelector.pageDown()
         },
 
         adjust: function() {

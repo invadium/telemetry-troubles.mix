@@ -18,6 +18,14 @@ class Panel {
         this.h = txt.th
     }
 
+    lx(ux) {
+        return ux - this.x
+    }
+
+    ly(uy) {
+        return uy - this.y
+    }
+
     hide() {
         this.hidden = true
         this.__.adjust()
